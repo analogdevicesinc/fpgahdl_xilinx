@@ -1,0 +1,228 @@
+
+NET RESET LOC = "AB7"  |  IOSTANDARD = "LVCMOS15" | TIG;
+
+NET CLK_N LOC = "AD11"  |  IOSTANDARD = "DIFF_SSTL15";
+NET CLK_P LOC = "AD12"  |  IOSTANDARD = "DIFF_SSTL15";
+NET Ethernet_Lite_COL LOC = "W19"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_CRS LOC = "R30"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_MDC LOC = "R23"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_MDIO LOC = "J21"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_PHY_RST_N LOC = "L20"  |  IOSTANDARD = "LVCMOS25"  |  TIG;
+NET Ethernet_Lite_RXD[0] LOC = "U30"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[1] LOC = "U25"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[2] LOC = "T25"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[3] LOC = "U28"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_CLK LOC = "U27"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_DV LOC = "R28"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_ER LOC = "V26"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[0] LOC = "N27"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[1] LOC = "N25"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[2] LOC = "M29"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[3] LOC = "L28"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TX_CLK LOC = "M28"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TX_EN LOC = "M27"  |  IOSTANDARD = "LVCMOS25";
+NET RS232_Uart_1_sin LOC = "M19"  |  IOSTANDARD = "LVCMOS25";
+NET RS232_Uart_1_sout LOC = "K24"  |  IOSTANDARD = "LVCMOS25";
+NET sm_fan_pwm_net_vcc LOC = "L26"  |  IOSTANDARD = "LVCMOS25";
+
+NET ref0_clk_out_p            LOC = "AB27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET ref0_clk_out_n            LOC = "AC27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET dac0_clk_in_p             LOC = "AF22"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac0_clk_in_n             LOC = "AG23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac0_clk_out_p            LOC = "AG27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_clk_out_n            LOC = "AG28"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_frame_out_p          LOC = "AE25"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_frame_out_n          LOC = "AF25"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[0]        LOC = "Y30"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[0]        LOC = "AA30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[1]        LOC = "AC29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[1]        LOC = "AC30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[2]        LOC = "AB29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[2]        LOC = "AB30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[3]        LOC = "AE30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[3]        LOC = "AF30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[4]        LOC = "AD29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[4]        LOC = "AE29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[5]        LOC = "AE28"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[5]        LOC = "AF28"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[6]        LOC = "AG30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[6]        LOC = "AH30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[7]        LOC = "AC26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[7]        LOC = "AD26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[8]        LOC = "AJ27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[8]        LOC = "AK28"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[9]        LOC = "AJ28"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[9]        LOC = "AJ29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[10]       LOC = "AK29"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[10]       LOC = "AK30"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[11]       LOC = "AH26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[11]       LOC = "AH27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[12]       LOC = "AJ26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[12]       LOC = "AK26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[13]       LOC = "AF26"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[13]       LOC = "AF27"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[14]       LOC = "AC24"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[14]       LOC = "AD24"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_p[15]       LOC = "AC22"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac0_data_out_n[15]       LOC = "AD22"  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET adc0_clk_in_p             LOC = "AG29"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_clk_in_n             LOC = "AH29"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_or_p            LOC = "AD23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_or_n            LOC = "AE24"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[0]         LOC = "AD27"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[0]         LOC = "AD28"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[1]         LOC = "AD21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[1]         LOC = "AE21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[2]         LOC = "AB24"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[2]         LOC = "AC25"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[3]         LOC = "AG20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[3]         LOC = "AH20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[4]         LOC = "AG22"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[4]         LOC = "AH22"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[5]         LOC = "AJ24"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[5]         LOC = "AK25"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[6]         LOC = "AA20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[6]         LOC = "AB20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[7]         LOC = "AG25"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[7]         LOC = "AH25"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[8]         LOC = "AF20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[8]         LOC = "AF21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[9]         LOC = "AH21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[9]         LOC = "AJ21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[10]        LOC = "AK23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[10]        LOC = "AK24"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[11]        LOC = "AJ22"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[11]        LOC = "AJ23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[12]        LOC = "AK20"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[12]        LOC = "AK21"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[13]        LOC = "AE23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[13]        LOC = "AF23"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+
+NET ref1_clk_out_p            LOC = "F20"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET ref1_clk_out_n            LOC = "E20"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET dac1_clk_in_p             LOC = "D27"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac1_clk_in_n             LOC = "C27"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac1_clk_out_p            LOC = "A20"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_clk_out_n            LOC = "A21"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_frame_out_p          LOC = "G27"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_frame_out_n          LOC = "F27"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[0]        LOC = "D21"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[0]        LOC = "C21"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[1]        LOC = "H21"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[1]        LOC = "H22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[2]        LOC = "D22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[2]        LOC = "C22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[3]        LOC = "D16"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[3]        LOC = "C16"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[4]        LOC = "G22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[4]        LOC = "F22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[5]        LOC = "C17"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[5]        LOC = "B17"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[6]        LOC = "A16"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[6]        LOC = "A17"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[7]        LOC = "G17"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[7]        LOC = "F17"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[8]        LOC = "C20"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[8]        LOC = "B20"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[9]        LOC = "C19"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[9]        LOC = "B19"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[10]       LOC = "B18"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[10]       LOC = "A18"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[11]       LOC = "B22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[11]       LOC = "A22"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[12]       LOC = "G18"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[12]       LOC = "F18"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[13]       LOC = "E19"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[13]       LOC = "D19"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[14]       LOC = "C24"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[14]       LOC = "B24"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_p[15]       LOC = "B27"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac1_data_out_n[15]       LOC = "A27"   | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET adc1_clk_in_p             LOC = "D17"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_clk_in_n             LOC = "D18"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_or_p            LOC = "C25"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_or_n            LOC = "B25"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[0]         LOC = "F21"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[0]         LOC = "E21"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[1]         LOC = "B28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[1]         LOC = "A28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[2]         LOC = "A25"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[2]         LOC = "A26"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[3]         LOC = "H26"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[3]         LOC = "H27"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[4]         LOC = "G29"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[4]         LOC = "F30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[5]         LOC = "D29"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[5]         LOC = "C30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[6]         LOC = "C29"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[6]         LOC = "B29"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[7]         LOC = "E28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[7]         LOC = "D28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[8]         LOC = "H24"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[8]         LOC = "H25"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[9]         LOC = "G28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[9]         LOC = "F28"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[10]        LOC = "B30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[10]        LOC = "A30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[11]        LOC = "E29"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[11]        LOC = "E30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[12]        LOC = "H30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[12]        LOC = "G30"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_p[13]        LOC = "D26"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_data_in_n[13]        LOC = "C26"   | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+
+NET iic_rstn  LOC = "P23"  | IOSTANDARD = "LVCMOS25";
+NET iic_scl   LOC = "K21"  | DRIVE = "8"  |  IOSTANDARD = "LVCMOS25"  |  SLEW = "SLOW";
+NET iic_sda   LOC = "L21"  | DRIVE = "8"  |  IOSTANDARD = "LVCMOS25"  |  SLEW = "SLOW";
+
+NET lcd[6] LOC = "AB10" | IOSTANDARD = "LVCMOS15"; ## lcd_e    
+NET lcd[5] LOC = "Y11"  | IOSTANDARD = "LVCMOS15"; ## lcd_rs   
+NET lcd[4] LOC = "AB13" | IOSTANDARD = "LVCMOS15"; ## lcd_rw   
+NET lcd[3] LOC = "Y10"  | IOSTANDARD = "LVCMOS15"; ## lcd_db[7]
+NET lcd[2] LOC = "AA11" | IOSTANDARD = "LVCMOS15"; ## lcd_db[6]
+NET lcd[1] LOC = "AA10" | IOSTANDARD = "LVCMOS15"; ## lcd_db[5]
+NET lcd[0] LOC = "AA13" | IOSTANDARD = "LVCMOS15"; ## lcd_db[4]
+
+NET "CLK_P" TNM_NET = "CLK_P";
+TIMESPEC "TS_CLK_P" = PERIOD "CLK_P" 200 MHz;
+NET "CLK_N" TNM_NET = "CLK_N";
+TIMESPEC "TS_CLK_N" = PERIOD "CLK_N" 200 MHz;
+
+NET "dac0_clk_in_p" TNM_NET = "dac0_clk_in_p";
+TIMESPEC "TS_dac0_clk_in_p" = PERIOD "dac0_clk_in_p" 650 MHz;
+NET "dac0_clk_in_n" TNM_NET = "dac0_clk_in_n";
+TIMESPEC "TS_dac0_clk_in_n" = PERIOD "dac0_clk_in_n" 650 MHz;
+
+NET "dac1_clk_in_p" TNM_NET = "dac1_clk_in_p";
+TIMESPEC "TS_dac1_clk_in_p" = PERIOD "dac1_clk_in_p" 650 MHz;
+NET "dac1_clk_in_n" TNM_NET = "dac1_clk_in_n";
+TIMESPEC "TS_dac1_clk_in_n" = PERIOD "dac1_clk_in_n" 650 MHz;
+
+NET "adc0_clk_in_p" TNM_NET = "adc0_clk_in_p";
+TIMESPEC "TS_adc0_clk_in_p" = PERIOD "adc0_clk_in_p" 300 MHz;
+NET "adc0_clk_in_n" TNM_NET = "adc0_clk_in_n";
+TIMESPEC "TS_adc0_clk_in_n" = PERIOD "adc0_clk_in_n" 300 MHz;
+
+NET "adc1_clk_in_p" TNM_NET = "adc1_clk_in_p";
+TIMESPEC "TS_adc1_clk_in_p" = PERIOD "adc1_clk_in_p" 300 MHz;
+NET "adc1_clk_in_n" TNM_NET = "adc1_clk_in_n";
+TIMESPEC "TS_adc1_clk_in_n" = PERIOD "adc1_clk_in_n" 300 MHz;
+
+# can't use real numbers as bufg alone exceeds 4ns
+OFFSET = IN BEFORE "adc0_clk_in_p" RISING;
+OFFSET = IN BEFORE "adc0_clk_in_p" FALLING;
+OFFSET = IN BEFORE "adc1_clk_in_p" RISING;
+OFFSET = IN BEFORE "adc1_clk_in_p" FALLING;
+
+OFFSET = OUT AFTER "dac0_clk_in_p" REFERENCE_PIN "dac0_clk_out_p" RISING;
+OFFSET = OUT AFTER "dac0_clk_in_p" REFERENCE_PIN "dac0_clk_out_p" FALLING;
+OFFSET = OUT AFTER "dac1_clk_in_p" REFERENCE_PIN "dac1_clk_out_p" RISING;
+OFFSET = OUT AFTER "dac1_clk_in_p" REFERENCE_PIN "dac1_clk_out_p" FALLING;
+
+# Added for RevC board
+CONFIG DCI_CASCADE = "33 32 34";
+

@@ -1,0 +1,121 @@
+
+NET hdmi_clk            LOC = W18  | IOSTANDARD = LVCMOS25;
+NET hdmi_vsync          LOC = W17  | IOSTANDARD = LVCMOS25;
+NET hdmi_hsync          LOC = V17  | IOSTANDARD = LVCMOS25;
+NET hdmi_data_e         LOC = U16  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[0]        LOC = Y13  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[1]        LOC = AA13 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[2]        LOC = AA14 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[3]        LOC = Y14  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[4]        LOC = AB15 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[5]        LOC = AB16 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[6]        LOC = AA16 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[7]        LOC = AB17 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[8]        LOC = AA17 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[9]        LOC = Y15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[10]       LOC = W13  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[11]       LOC = W15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[12]       LOC = V15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[13]       LOC = U17  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[14]       LOC = V14  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[15]       LOC = V13  | IOSTANDARD = LVCMOS25;
+NET hdmi_spdif          LOC = U15  | IOSTANDARD = LVCMOS25;
+NET hdmi_int            LOC = W16  | IOSTANDARD = LVCMOS25;
+
+NET hdmi_iic_scl        LOC = AA18 | IOSTANDARD="LVCMOS25";
+NET hdmi_iic_sda        LOC = Y16  | IOSTANDARD="LVCMOS25";
+
+NET ref_clk_out_p       LOC = B19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET ref_clk_out_n       LOC = B20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET dac_clk_in_p        LOC = L18  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac_clk_in_n        LOC = L19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET dac_clk_out_p       LOC = E19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_clk_out_n       LOC = E20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_frame_out_p     LOC = N17  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_frame_out_n     LOC = N18  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[0]   LOC = A21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[0]   LOC = A22  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[1]   LOC = B21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[1]   LOC = B22  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[2]   LOC = C15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[2]   LOC = B15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[3]   LOC = A16  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[3]   LOC = A17  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[4]   LOC = B16  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[4]   LOC = B17  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[5]   LOC = C17  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[5]   LOC = C18  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[6]   LOC = A18  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[6]   LOC = A19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[7]   LOC = D22  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[7]   LOC = C22  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[8]   LOC = G19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[8]   LOC = F19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[9]   LOC = E21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[9]   LOC = D21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[10]  LOC = F18  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[10]  LOC = E18  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[11]  LOC = E15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[11]  LOC = D15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[12]  LOC = G15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[12]  LOC = G16  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[13]  LOC = G20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[13]  LOC = G21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[14]  LOC = J16  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[14]  LOC = J17  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_p[15]  LOC = J20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+NET dac_data_out_n[15]  LOC = K21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
+
+NET adc_clk_in_p        LOC = D18  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"; 
+NET adc_clk_in_n        LOC = C19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_or_p       LOC = M19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_or_n       LOC = M20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[0]    LOC = D20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[0]    LOC = C20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[1]    LOC = K19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[1]    LOC = K20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[2]    LOC = L17  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[2]    LOC = M17  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[3]    LOC = N22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[3]    LOC = P22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[4]    LOC = J18  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[4]    LOC = K18  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[5]    LOC = R19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[5]    LOC = T19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[6]    LOC = P20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[6]    LOC = P21  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[7]    LOC = T16  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[7]    LOC = T17  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[8]    LOC = P17  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[8]    LOC = P18  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[9]    LOC = M21  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[9]    LOC = M22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[10]   LOC = R20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[10]   LOC = R21  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[11]   LOC = J21  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[11]   LOC = J22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[12]   LOC = L21  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[12]   LOC = L22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_p[13]   LOC = N19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_data_in_n[13]   LOC = N20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+
+NET xcomm_iic_scl       LOC = R7   | IOSTANDARD="LVCMOS25";
+NET xcomm_iic_sda       LOC = U7   | IOSTANDARD="LVCMOS25";
+
+#BUFG is capable of running only upto 464MHz
+NET "dac_clk_in_p" TNM_NET = "dac_clk_in_p";
+TIMESPEC "TS_dac_clk_in_p" = PERIOD "dac_clk_in_p" 464 MHz;
+NET "dac_clk_in_n" TNM_NET = "dac_clk_in_n";
+TIMESPEC "TS_dac_clk_in_n" = PERIOD "dac_clk_in_n" 464 MHz;
+
+NET "adc_clk_in_p" TNM_NET = "adc_clk_in_p";
+TIMESPEC "TS_adc_clk_in_p" = PERIOD "adc_clk_in_p" 260 MHz;
+NET "adc_clk_in_n" TNM_NET = "adc_clk_in_n";
+TIMESPEC "TS_adc_clk_in_n" = PERIOD "adc_clk_in_n" 260 MHz;
+
+NET otg_reset         LOC = G17  | IOSTANDARD="LVCMOS25";
+#NET otg_vbusoc         LOC = L16  | IOSTANDARD="LVCMOS25";
+
+#NET pmod_ja1       LOC = Y11  | IOSTANDARD="LVCMOS25";
+#NET pmod_ja2       LOC = AA11 | IOSTANDARD="LVCMOS25";

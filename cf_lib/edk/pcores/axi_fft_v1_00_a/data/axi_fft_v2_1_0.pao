@@ -1,0 +1,31 @@
+##############################################################################
+## Filename:          pcores/axi_fft_v1_00_a/data/axi_fft_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a proc_common_pkg vhdl
+lib proc_common_v3_00_a ipif_pkg vhdl
+lib proc_common_v3_00_a or_muxcy vhdl
+lib proc_common_v3_00_a or_gate128 vhdl
+lib proc_common_v3_00_a family_support vhdl
+lib proc_common_v3_00_a pselect_f vhdl
+lib proc_common_v3_00_a counter_f vhdl
+lib axi_lite_ipif_v1_01_a address_decoder vhdl
+lib axi_lite_ipif_v1_01_a slave_attachment vhdl
+lib axi_lite_ipif_v1_01_a axi_lite_ipif vhdl
+lib axi_fft_v1_00_a cf_fftx_1 verilog
+lib axi_fft_v1_00_a cf_fftx_4k_1 verilog
+lib axi_fft_v1_00_a cf_float2fixx_1 verilog
+lib axi_fft_v1_00_a cf_floatmulx_1 verilog
+lib axi_fft_v1_00_a cf_floataddx_1 verilog
+lib axi_fft_v1_00_a cf_floatsqrtx_1 verilog
+lib axi_fft_v1_00_a cf_fix2floatx_1 verilog
+lib axi_fft_v1_00_a cf_mem.v verilog
+lib axi_fft_v1_00_a cf_mul.v verilog
+lib axi_fft_v1_00_a cf_sine.v verilog
+lib axi_fft_v1_00_a cf_hannwin.v verilog
+lib axi_fft_v1_00_a cf_fftfloat verilog
+lib axi_fft_v1_00_a cf_fft verilog
+lib axi_fft_v1_00_a user_logic verilog
+lib axi_fft_v1_00_a axi_fft vhdl

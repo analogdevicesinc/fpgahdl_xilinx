@@ -1,0 +1,25 @@
+##############################################################################
+## Filename:          pcores/axi_adc_2c_v1_00_a/data/axi_adc_2c_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a proc_common_pkg vhdl
+lib proc_common_v3_00_a ipif_pkg vhdl
+lib proc_common_v3_00_a or_muxcy vhdl
+lib proc_common_v3_00_a or_gate128 vhdl
+lib proc_common_v3_00_a family_support vhdl
+lib proc_common_v3_00_a pselect_f vhdl
+lib proc_common_v3_00_a counter_f vhdl
+lib axi_lite_ipif_v1_01_a address_decoder vhdl
+lib axi_lite_ipif_v1_01_a slave_attachment vhdl
+lib axi_lite_ipif_v1_01_a axi_lite_ipif vhdl
+lib axi_adc_2c_v1_00_a cf_mem verilog
+lib axi_adc_2c_v1_00_a cf_muladd verilog
+lib axi_adc_2c_v1_00_a cf_pnmon verilog
+lib axi_adc_2c_v1_00_a cf_adc_if verilog
+lib axi_adc_2c_v1_00_a cf_dma_wr verilog
+lib axi_adc_2c_v1_00_a cf_adc_wr verilog
+lib axi_adc_2c_v1_00_a cf_adc_2c verilog
+lib axi_adc_2c_v1_00_a user_logic verilog
+lib axi_adc_2c_v1_00_a axi_adc_2c vhdl

@@ -1,0 +1,108 @@
+// ***************************************************************************
+// ***************************************************************************
+// Copyright 2011(c) Analog Devices, Inc.
+// 
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without modification,
+// are permitted provided that the following conditions are met:
+//     - Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     - Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in
+//       the documentation and/or other materials provided with the
+//       distribution.
+//     - Neither the name of Analog Devices, Inc. nor the names of its
+//       contributors may be used to endorse or promote products derived
+//       from this software without specific prior written permission.
+//     - The use of this software may or may not infringe the patent rights
+//       of one or more patent holders.  This license does not release you
+//       from the requirement that you obtain separate licenses from these
+//       patent holders to use this software.
+//     - Use of the software either in source or binary form, must be run
+//       on or directly connected to an Analog Devices Inc. component.
+//    
+// THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+// INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE ARE DISCLAIMED.
+//
+// IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
+// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+// BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// REGISTER MAP
+// ***************************************************************************
+// ***************************************************************************
+// ---------------------------------------------------------------------------
+// Address
+// QW     Byte   Bits     Description
+// ---------------------------------------------------------------------------
+// 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
+// ---------------------------------------------------------------------------
+// 0x02   0x08   [ 1: 0]  ch_sel                Channel select
+//
+// This register allows data capture on one or more channels. If disabled,
+// capture completes successfully, but data may be 0x00.
+// ---------------------------------------------------------------------------
+// 0x03   0x0c   [16:16]  capture               Capture start (0->1)
+//               [15: 0]  capture_count[15:0]   Capute count (number of quad words - 1)
+//
+// This register controls the capture of ADC data. A 0 to 1 transistion in the capture bit
+// starts the capture. The capture count is the number of quad words minus one. To capture
+// 16 quad words (64bit), sw must write 0x0_0000 followed by 0x1_000f. 
+// ---------------------------------------------------------------------------
+// 0x04   0x10   [ 2: 2]  dma_underflow         Underflow (W1C)
+//               [ 1: 1]  dma_overflow          Overflow (W1C)
+//               [ 0: 0]  dma_status            Idle (0x0) or busy (0x1) (RO)
+//
+// This register indicates the status of an ADC data capture. Software must clear all the
+// bits before starting a data capture.
+// ---------------------------------------------------------------------------
+// 0x05   0x14   [ 5: 4]  adc_pnerr             PN Error (W1C)
+//               [ 3: 2]  adc_pnoos             PN Out Of Sync (W1C)
+//               [ 1: 0]  adc_or                Over Range (W1C)
+//
+// This register indicates the status of ADC data monitoring (regardless of data capture).
+// These bits are set whenever a corresponding error is detected. Software must clear
+// these bits and read them back to monitor the status. Bit 0 corresponds to channel 0.
+// ---------------------------------------------------------------------------
+// 0x09   0x24   [ 1: 0]  adc_pntype            PN9 (0x0) or PN23 (0x1)
+//
+// Bit 0 corresponds to channel 0.
+// ---------------------------------------------------------------------------
+// 0x0b   0x2c   [ 3: 3]  adc_muladdoffbin      Input format: Offset Binary (0x1) or 2's Complement (0x0)
+//               [ 2: 2]  adc_muladdenb         Scale and Offset Enable (0x1) or Disable (0x0)
+//               [ 1: 1]  adc_signextenb        Sign Extension Enable (0x1) or Disable (0x0)
+//               [ 0: 0]  adc_statusenb         Status Enable (0x1) or Disable (0x0)
+//
+// This register controls the scale and offset global parameters, both offset binary and
+// 2's complement input formats are supported. Software must enable (set adc_muladdenb)
+// scale and offset only after programming offbin, scale and offset registers.
+// This register controls the sign extension enable. If the ADC data is 2's complement,
+// it can be sign extended to 16 bit, by enabling this register bit.
+// Sign extension is applicable only if scale and offset is disabled.
+// The status enable bit lets hardware output the internal status on one of it's output ports.
+// ---------------------------------------------------------------------------
+// 0x0c   0x30   [ 7: 0]  pcore_id              PCore Identifier (RO)
+//
+// The pcore_id is 0 for a master device.
+// ---------------------------------------------------------------------------
+// 0x10   0x40   [30:16]  offset_a[14:0]        Offset value (Channel-A)
+//               [15: 0]  scale_a[15:0]         Scale value (Channel-A)
+// ---------------------------------------------------------------------------
+// 0x11   0x44   [30:16]  offset_b[14:0]        Offset value (Channel-B)
+//               [15: 0]  scale_b[15:0]         Scale value (Channel-B)
+//
+// If enabled, samples are scaled and offset as per these parameters.
+//    samples = (samples * scale) + offset
+//
+// The scale factor is 1.15 (unsigned fixed point format)  
+// The offset factor is 14bit integer (negative offset must be in 2's complement)  
+// ***************************************************************************
+// ***************************************************************************

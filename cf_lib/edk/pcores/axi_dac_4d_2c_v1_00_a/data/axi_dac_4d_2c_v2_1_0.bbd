@@ -1,0 +1,9 @@
+##############################################################################
+## Filename:          pcores/axi_dac_4d_2c_v1_00_a/data/axi_dac_4d_2c_v2_1_0.bbd
+## Description:       Black Box Definition
+## Date:              Sat Oct 29 14:01:52 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+Files
+################################################################################
+cf_ddsx_1.ngc, cf_ddsv_intp4x_1.ngc

@@ -1,0 +1,113 @@
+// ***************************************************************************
+// ***************************************************************************
+// Copyright 2011(c) Analog Devices, Inc.
+// 
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without modification,
+// are permitted provided that the following conditions are met:
+//     - Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     - Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in
+//       the documentation and/or other materials provided with the
+//       distribution.
+//     - Neither the name of Analog Devices, Inc. nor the names of its
+//       contributors may be used to endorse or promote products derived
+//       from this software without specific prior written permission.
+//     - The use of this software may or may not infringe the patent rights
+//       of one or more patent holders.  This license does not release you
+//       from the requirement that you obtain separate licenses from these
+//       patent holders to use this software.
+//     - Use of the software either in source or binary form, must be run
+//       on or directly connected to an Analog Devices Inc. component.
+//    
+// THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+// INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE ARE DISCLAIMED.
+//
+// IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
+// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+// BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// REGISTER MAP
+// ***************************************************************************
+// ***************************************************************************
+// ---------------------------------------------------------------------------
+// Address
+// QW     Byte   Bits     Description
+// ---------------------------------------------------------------------------
+// 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
+// ---------------------------------------------------------------------------
+// 0x01   0x04   [ 4: 4]  dds_patternsel        DDS Pattern enable (0x1) or disable (0x0).
+//               [ 3: 3]  dds_interpolate       DDS DDR interpolation enable (0x1) or disable (0x0).
+//               [ 2: 2]  dds_select            DDS DDR (0x1) or Xilinx (0x0) select.
+//               [ 1: 1]  dds_enable            DDS Data Enable (0->1)
+//               [ 0: 0]  dds_clk_enable        DDS Clock Enable (0->1)
+//
+// This register controls the dds outputs. The clock enable allows separate control over
+// the serdes that drives the clock (data may be disabled, while clock is running).
+// If pattern is enabled, samples are set to the data registers below.
+// ---------------------------------------------------------------------------
+// 0x02   0x08   [31:16]  dds_init_1a           Channel 1 DDS-A phase offset (2pi = 0xffff)
+//               [15: 0]  dds_incr_1a           Channel 1 DDS-A phase increment (2pi = 0xffff)
+// ---------------------------------------------------------------------------
+// 0x03   0x0c   [31:16]  dds_init_1b           Channel 1 DDS-B phase offset (2pi = 0xffff)
+//               [15: 0]  dds_incr_1b           Channel 1 DDS-B phase increment (2pi = 0xffff)
+// ---------------------------------------------------------------------------
+// 0x04   0x10   [31:16]  dds_init_2a           Channel 2 DDS-A phase offset (2pi = 0xffff)
+//               [15: 0]  dds_incr_2a           Channel 2 DDS-A phase increment (2pi = 0xffff)
+// ---------------------------------------------------------------------------
+// 0x05   0x14   [31:16]  dds_init_2b           Channel 2 DDS-B phase offset (2pi = 0xffff)
+//               [15: 0]  dds_incr_2b           Channel 2 DDS-B phase increment (2pi = 0xffff)
+// ---------------------------------------------------------------------------
+// 0x07   0x1c   [ 0: 0]  status_enable         Enable (0x1) or disable (0x0) status monitoring through ports
+// ---------------------------------------------------------------------------
+// 0x08   0x20   [15:12]  dds_scale_2b          Channel 2 DDS-B scale factor
+//               [11: 8]  dds_scale_2a          Channel 2 DDS-A scale factor
+//               [ 7: 4]  dds_scale_1b          Channel 1 DDS-B scale factor
+//               [ 3: 0]  dds_scale_1a          Channel 1 DDS-A scale factor
+//
+// This register controls the scaling factor of individual DDS.
+// The final DDS output follows this equations-
+//    dds_channel_1 = (dds_channel_1_a>>dds_scale_1a) + (dds_channel_1_b>>dds_scale_1b);
+//    dds_channel_2 = (dds_channel_2_a>>dds_scale_2a) + (dds_channel_2_b>>dds_scale_2b);
+//
+// The scale factor is used to shift data right, so division is always a power of 2.
+// ---------------------------------------------------------------------------
+// 0x09   0x24   [ 0: 0]  dds_frame_int         Internal frame data (0->1).
+//
+// The internal frame data is used to generate the synchronization pulse on the DAC frame ports.
+// A 0 to 1 transition generates a frame pulse for 1 full dac clock cycle.
+// ---------------------------------------------------------------------------
+// 0x0a   0x28   [ 1: 1]  vdma_underflow        VDMA Underflow (W1C)
+//               [ 0: 0]  vdma_overflow         VDMA Overflow (W1C)
+//
+// This register indicates the status of DDR-DDS and are applicable only if dds select is
+// set to 0x1. In DDR DDS mode, sw must pack the data for the two channels.
+// ---------------------------------------------------------------------------
+// 0x10   0x40   [11:16]  dds_data_1b[15:0]     Channel 1 DDS-B data (I1)
+//               [15: 0]  dds_data_1a[15:0]     Channel 1 DDS-A data (I0)
+// ---------------------------------------------------------------------------
+// 0x11   0x44   [11:16]  dds_data_2b[15:0]     Channel 2 DDS-B data (Q1)
+//               [15: 0]  dds_data_2a[15:0]     Channel 2 DDS-A data (Q0)
+//
+// If pattern is enabled, the dds samples are set to these register values.
+// The frame output is driven aligned to I0/Q0 data.
+// ---------------------------------------------------------------------------
+// 0x12   0x30   [ 7: 0]  pid                   Pcore Identifier (RO).
+//
+// This register identifies the pcore in a master/slave configuration. If pid is zero, this is a
+// master core. If pid is not zero, this is a slave core and the dds enable and frame writes
+// has no effect, they will be synchronized with the master on the system. However software must
+// still program the init, increment and scale factors separately for all pcores (including
+// master and slaves).
+// ---------------------------------------------------------------------------
+// ***************************************************************************
+// ***************************************************************************

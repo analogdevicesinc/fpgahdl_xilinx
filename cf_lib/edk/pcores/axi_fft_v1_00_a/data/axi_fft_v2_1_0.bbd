@@ -1,0 +1,9 @@
+##############################################################################
+## Filename:          pcores/axi_fft_v1_00_a/data/axi_fft_v2_1_0.bbd
+## Description:       Black Box Definition
+## Date:              Sat Oct 29 14:01:52 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+Files
+################################################################################
+cf_fftx_1.ngc, cf_fftx_4k_1.ngc, cf_float2fixx_1.ngc, cf_floatmulx_1.ngc, cf_floataddx_1.ngc, cf_floatsqrtx_1.ngc, cf_fix2floatx_1.ngc

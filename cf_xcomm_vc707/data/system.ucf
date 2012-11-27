@@ -1,0 +1,121 @@
+
+NET RESET LOC = "AV40"  |  IOSTANDARD = "LVCMOS18"  |  TIG;
+
+NET CLK_N LOC = "E18"  |  IOSTANDARD = "LVDS";
+NET CLK_P LOC = "E19"  |  IOSTANDARD = "LVDS";
+
+NET RS232_Uart_1_sin LOC = "AU33"  |  IOSTANDARD = "LVCMOS18";
+NET RS232_Uart_1_sout LOC = "AU36"  |  IOSTANDARD = "LVCMOS18";
+
+NET sm_fan_pwm_net_vcc LOC = "BA37" | IOSTANDARD = "LVCMOS18";
+
+NET ref0_clk_out_p            LOC = "U37"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET ref0_clk_out_n            LOC = "U38"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+
+NET dac0_clk_in_p             LOC = "AF39"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET dac0_clk_in_n             LOC = "AF40"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET dac0_clk_out_p            LOC = "P35"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_clk_out_n            LOC = "P36"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_frame_out_p          LOC = "Y42"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_frame_out_n          LOC = "AA42"  | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[0]        LOC = "P37"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[0]        LOC = "P38"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[1]        LOC = "T36"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[1]        LOC = "R37"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[2]        LOC = "T32"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[2]        LOC = "R32"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[3]        LOC = "V35"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[3]        LOC = "V36"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[4]        LOC = "V39"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[4]        LOC = "V40"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[5]        LOC = "W36"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[5]        LOC = "W37"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[6]        LOC = "U34"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[6]        LOC = "T35"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[7]        LOC = "R33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[7]        LOC = "R34"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[8]        LOC = "W32"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[8]        LOC = "W33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[9]        LOC = "P32"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[9]        LOC = "P33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[10]       LOC = "N33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[10]       LOC = "N34"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[11]       LOC = "R38"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[11]       LOC = "R39"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[12]       LOC = "U32"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[12]       LOC = "U33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[13]       LOC = "V33"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[13]       LOC = "V34"   | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[14]       LOC = "AC38"  | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[14]       LOC = "AC39"  | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_p[15]       LOC = "AJ40"  | IOSTANDARD = "LVDS" | SLEW = "FAST";
+NET dac0_data_out_n[15]       LOC = "AJ41"  | IOSTANDARD = "LVDS" | SLEW = "FAST";
+
+NET adc0_clk_in_p             LOC = "U39"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_clk_in_n             LOC = "T39"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_or_p            LOC = "AD40"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_or_n            LOC = "AD41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[0]         LOC = "U36"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[0]         LOC = "T37"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[1]         LOC = "AB38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[1]         LOC = "AB39"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[2]         LOC = "W40"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[2]         LOC = "Y40"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[3]         LOC = "AJ42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[3]         LOC = "AK42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[4]         LOC = "AF42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[4]         LOC = "AG42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[5]         LOC = "AB41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[5]         LOC = "AB42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[6]         LOC = "Y39"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[6]         LOC = "AA39"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[7]         LOC = "AC40"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[7]         LOC = "AC41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[8]         LOC = "AK39"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[8]         LOC = "AL39"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[9]         LOC = "AL41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[9]         LOC = "AL42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[10]        LOC = "AJ38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[10]        LOC = "AK38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[11]        LOC = "AD42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[11]        LOC = "AE42"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[12]        LOC = "AD38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[12]        LOC = "AE38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_p[13]        LOC = "AF41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_data_in_n[13]        LOC = "AG41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+
+NET iic_rstn  LOC = "AY42"  | IOSTANDARD = "LVCMOS18";
+NET iic_scl   LOC = "AT35"  |  DRIVE = "8"  |  IOSTANDARD = "LVCMOS18"  |  SLEW = "SLOW";
+NET iic_sda   LOC = "AU32"  |  DRIVE = "8"  |  IOSTANDARD = "LVCMOS18"  |  SLEW = "SLOW";
+
+NET lcd[6] LOC = "AT40" | IOSTANDARD = "LVCMOS18"; ## lcd_e    
+NET lcd[5] LOC = "AN41" | IOSTANDARD = "LVCMOS18"; ## lcd_rs   
+NET lcd[4] LOC = "AR42" | IOSTANDARD = "LVCMOS18"; ## lcd_rw   
+NET lcd[3] LOC = "AN40" | IOSTANDARD = "LVCMOS18"; ## lcd_db[7]
+NET lcd[2] LOC = "AR39" | IOSTANDARD = "LVCMOS18"; ## lcd_db[6]
+NET lcd[1] LOC = "AR38" | IOSTANDARD = "LVCMOS18"; ## lcd_db[5]
+NET lcd[0] LOC = "AT42" | IOSTANDARD = "LVCMOS18"; ## lcd_db[4]
+
+NET "CLK_P" TNM_NET = "CLK_P";
+TIMESPEC "TS_CLK_P" = PERIOD "CLK_P" 200 MHz;
+NET "CLK_N" TNM_NET = "CLK_N";
+TIMESPEC "TS_CLK_N" = PERIOD "CLK_N" 200 MHz;
+
+NET "dac0_clk_in_p" TNM_NET = "dac0_clk_in_p";
+TIMESPEC "TS_dac0_clk_in_p" = PERIOD "dac0_clk_in_p" 650 MHz;
+NET "dac0_clk_in_n" TNM_NET = "dac0_clk_in_n";
+TIMESPEC "TS_dac0_clk_in_n" = PERIOD "dac0_clk_in_n" 650 MHz;
+
+NET "adc0_clk_in_p" TNM_NET = "adc0_clk_in_p";
+TIMESPEC "TS_adc0_clk_in_p" = PERIOD "adc0_clk_in_p" 300 MHz;
+NET "adc0_clk_in_n" TNM_NET = "adc0_clk_in_n";
+TIMESPEC "TS_adc0_clk_in_n" = PERIOD "adc0_clk_in_n" 300 MHz;
+
+# can't use real numbers as bufg alone exceeds 4ns
+OFFSET = IN BEFORE "adc0_clk_in_p" RISING;
+OFFSET = IN BEFORE "adc0_clk_in_p" FALLING;
+
+OFFSET = OUT AFTER "dac0_clk_in_p" REFERENCE_PIN "dac0_clk_out_p" RISING;
+OFFSET = OUT AFTER "dac0_clk_in_p" REFERENCE_PIN "dac0_clk_out_p" FALLING;
+
+

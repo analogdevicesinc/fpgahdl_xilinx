@@ -1,0 +1,102 @@
+##############################################################
+#
+# Xilinx Core Generator version 14.1
+# Date: Thu Aug 30 15:29:31 2012
+#
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:fir_compiler:5.0
+#
+##############################################################
+#
+# BEGIN Project Options
+SET addpads = false
+SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = false
+SET designentry = Verilog
+SET device = xc6vlx240t
+SET devicefamily = virtex6
+SET flowvendor = Other
+SET formalverification = false
+SET foundationsym = false
+SET implementationfiletype = Ngc
+SET package = ff1156
+SET removerpms = false
+SET simulationfiles = Behavioral
+SET speedgrade = -1
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT FIR_Compiler family Xilinx,_Inc. 5.0
+# END Select
+# BEGIN Parameters
+CSET allow_rounding_approximation=false
+CSET bestprecision=false
+CSET chan_in_adv=0
+CSET clock_frequency=550.0
+CSET coefficient_buffer_type=Automatic
+CSET coefficient_file=no_coe_file_loaded
+CSET coefficient_fractional_bits=0
+CSET coefficient_reload=false
+CSET coefficient_sets=1
+CSET coefficient_sign=Signed
+CSET coefficient_structure=Symmetric
+CSET coefficient_width=16
+CSET coefficientsource=Vector
+CSET coefficientvector=6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6
+CSET columnconfig=5
+CSET component_name=cf_ddsv_intp4x_1
+CSET data_buffer_type=Automatic
+CSET data_fractional_bits=0
+CSET data_sign=Unsigned
+CSET data_width=16
+CSET decimation_rate=1
+CSET displayreloadorder=false
+CSET filter_architecture=Systolic_Multiply_Accumulate
+CSET filter_selection=1
+CSET filter_type=Interpolation
+CSET gui_behaviour=Coregen
+CSET hardwareoversamplingrate=1
+CSET has_ce=false
+CSET has_data_valid=false
+CSET has_nd=true
+CSET has_sclr=false
+CSET input_buffer_type=Automatic
+CSET inter_column_pipe_length=4
+CSET interpolation_rate=4
+CSET multi_column_support=Disabled
+CSET number_channels=1
+CSET number_paths=1
+CSET optimization_goal=Speed
+CSET output_buffer_type=Automatic
+CSET output_rounding_mode=Convergent_Rounding_to_Odd
+CSET output_width=16
+CSET passband_max=0.5
+CSET passband_min=0.0
+CSET preference_for_other_storage=Automatic
+CSET quantization=Integer_Coefficients
+CSET rate_change_type=Integer
+CSET ratespecification=Frequency_Specification
+CSET registered_output=true
+CSET sample_frequency=137.5
+CSET sampleperiod=1
+CSET sclr_deterministic=false
+CSET stopband_max=1.0
+CSET stopband_min=0.5
+CSET usechan_in_adv=false
+CSET zero_pack_factor=1
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2012-04-24T06:33:33Z
+# END Extra information
+GENERATE
+# CRC: bc3b91a9
