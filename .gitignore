@@ -1,0 +1,11 @@
+*.log
+*.bak
+*.make
+*.opt
+__xps
+etc
+SDK
+synthesis
+implementation
+revup
+XpsGuiSessionLock
