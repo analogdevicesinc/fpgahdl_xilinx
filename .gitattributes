@@ -1,0 +1,18 @@
+* text=auto
+
+*.bbd text
+*.c text
+*.h text
+*.mhs text
+*.mpd text
+*.prj text
+*.pao text
+*.tcl text
+*.txt text
+*.v text
+*.vhd text
+*.ucf text
+*.xco text
+*.xdc text
+*.xml text
+*.xmp text
