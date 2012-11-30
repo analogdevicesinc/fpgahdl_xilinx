@@ -1,0 +1,45 @@
+
+NET hdmi_clk        LOC = W18  | IOSTANDARD = LVCMOS25;
+NET hdmi_vsync      LOC = W17  | IOSTANDARD = LVCMOS25;
+NET hdmi_hsync      LOC = V17  | IOSTANDARD = LVCMOS25;
+NET hdmi_data_e     LOC = U16  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[0]    LOC = Y13  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[1]    LOC = AA13 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[2]    LOC = AA14 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[3]    LOC = Y14  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[4]    LOC = AB15 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[5]    LOC = AB16 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[6]    LOC = AA16 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[7]    LOC = AB17 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[8]    LOC = AA17 | IOSTANDARD = LVCMOS25;
+NET hdmi_data[9]    LOC = Y15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[10]   LOC = W13  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[11]   LOC = W15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[12]   LOC = V15  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[13]   LOC = U17  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[14]   LOC = V14  | IOSTANDARD = LVCMOS25;
+NET hdmi_data[15]   LOC = V13  | IOSTANDARD = LVCMOS25;
+NET hdmi_spdif      LOC = U15  | IOSTANDARD = LVCMOS25;
+NET hdmi_int        LOC = W16  | IOSTANDARD = LVCMOS25;
+
+NET util_i2c_mixer_0_downstream_scl_pin[0] LOC = AA18 | IOSTANDARD="LVCMOS25";
+NET util_i2c_mixer_0_downstream_sda_pin[0] LOC = Y16  | IOSTANDARD="LVCMOS25";
+NET util_i2c_mixer_0_downstream_scl_pin[1] LOC = "AB4" | IOSTANDARD = "LVCMOS25"; # AC-SCK
+NET util_i2c_mixer_0_downstream_sda_pin[1] LOC = "AB5" | IOSTANDARD = "LVCMOS25"; # AC-SDA
+
+NET otg_reset         LOC = G17  | IOSTANDARD="LVCMOS25";
+NET otg_vbusoc         LOC = L16  | IOSTANDARD="LVCMOS25";
+NET axi_i2s_adi_0_BCLK_O_pin LOC = "AA6" | IOSTANDARD = "LVCMOS25"; # AC-GPIO2
+NET axi_i2s_adi_0_LRCLK_O_pin LOC = "Y6" | IOSTANDARD = "LVCMOS25"; # AC-GPIO3
+NET axi_i2s_adi_0_SDATA_I_pin LOC = "AA7" | IOSTANDARD = "LVCMOS25"; # AC-GPIO1 AA7
+NET axi_i2s_adi_0_SDATA_O_pin LOC = "Y8" | IOSTANDARD = "LVCMOS25"; # AC-GPIO0 Y8
+NET axi_i2s_adi_0_MCLK_pin LOC = "AB2" | IOSTANDARD = "LVCMOS25"; # AC-MCLK
+
+#NET pmod_ja1       LOC = Y11  | IOSTANDARD="LVCMOS25";
+#NET pmod_ja2       LOC = AA11 | IOSTANDARD="LVCMOS25";
+#NET pmod_ja3       LOC = Y10  | IOSTANDARD="LVCMOS25";
+#NET pmod_ja4       LOC = AA9  | IOSTANDARD="LVCMOS25";
+#NET pmod_ja7       LOC = AB11 | IOSTANDARD="LVCMOS25";
+#NET pmod_ja8       LOC = AB10 | IOSTANDARD="LVCMOS25";
+#NET pmod_ja9       LOC = AB9  | IOSTANDARD="LVCMOS25";
+#NET pmod_ja10      LOC = AA8  | IOSTANDARD="LVCMOS25";
