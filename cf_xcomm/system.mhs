@@ -93,7 +93,6 @@ BEGIN proc_sys_reset
  PORT Interconnect_aresetn = proc_sys_reset_0_Interconnect_aresetn
  PORT Ext_Reset_In = RESET
  PORT BUS_STRUCT_RESET = proc_sys_reset_0_BUS_STRUCT_RESET
- PORT Peripheral_Reset = proc_sys_reset_0_Peripheral_Reset
 END
 
 BEGIN lmb_v10
@@ -344,7 +343,6 @@ BEGIN axi_dac_4d_2c
  BUS_INTERFACE S_AXI = axi4lite_0
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
  PORT S_AXI_ACLK = clk_100_0000MHzMMCM0
- PORT rst = proc_sys_reset_0_Peripheral_Reset
  PORT pid = 0x00
  PORT dac_clk_in_p = axi_dac_4d_2c_0_dac_clk_in_p
  PORT dac_clk_in_n = axi_dac_4d_2c_0_dac_clk_in_n
@@ -369,7 +367,6 @@ BEGIN axi_dac_4d_2c
  BUS_INTERFACE S_AXI = axi4lite_0
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_1_M_AXIS_MM2S
  PORT S_AXI_ACLK = clk_100_0000MHzMMCM0
- PORT rst = proc_sys_reset_0_Peripheral_Reset
  PORT pid = 0x01
  PORT dac_clk_in_p = axi_dac_4d_2c_1_dac_clk_in_p
  PORT dac_clk_in_n = axi_dac_4d_2c_1_dac_clk_in_n
@@ -388,6 +385,7 @@ BEGIN axi_adc_2c
  PARAMETER INSTANCE = axi_adc_2c_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_CF_BUFTYPE = 1
+ PARAMETER C_IODELAY_GROUP = adc_if_delay_group_0
  PARAMETER C_BASEADDR = 0x7c820000
  PARAMETER C_HIGHADDR = 0x7c82ffff
  BUS_INTERFACE S_AXI = axi4lite_0
@@ -401,7 +399,6 @@ BEGIN axi_adc_2c
  PORT adc_data_in_n = axi_adc_2c_0_adc_data_in_n
  PORT adc_data_or_p = axi_adc_2c_0_adc_data_or_p
  PORT adc_data_or_n = axi_adc_2c_0_adc_data_or_n
- PORT delay_rst = proc_sys_reset_0_Peripheral_Reset
  PORT delay_clk = clk_200_0000MHzMMCM0
  PORT up_adc_capture_int = up_adc_master_capture
  PORT up_adc_capture_ext = 0b0
@@ -414,6 +411,7 @@ BEGIN axi_adc_2c
  PARAMETER INSTANCE = axi_adc_2c_1
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_CF_BUFTYPE = 1
+ PARAMETER C_IODELAY_GROUP = adc_if_delay_group_1
  PARAMETER C_BASEADDR = 0x7c800000
  PARAMETER C_HIGHADDR = 0x7c80ffff
  BUS_INTERFACE S_AXI = axi4lite_0
@@ -427,7 +425,6 @@ BEGIN axi_adc_2c
  PORT adc_data_in_n = axi_adc_2c_1_adc_data_in_n
  PORT adc_data_or_p = axi_adc_2c_1_adc_data_or_p
  PORT adc_data_or_n = axi_adc_2c_1_adc_data_or_n
- PORT delay_rst = proc_sys_reset_0_Peripheral_Reset
  PORT delay_clk = clk_200_0000MHzMMCM0
  PORT up_adc_capture_ext = up_adc_master_capture
 END
@@ -482,6 +479,11 @@ BEGIN axi_dma
  PARAMETER C_SG_LENGTH_WIDTH = 23
  PARAMETER C_BASEADDR = 0x41e40000
  PARAMETER C_HIGHADDR = 0x41e4ffff
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_B_REGISTER = 7
  BUS_INTERFACE S_AXI_LITE = axi4lite_0
  BUS_INTERFACE M_AXI_S2MM = axi4_0
  BUS_INTERFACE S_AXIS_S2MM = axi_dma_0_S_AXIS_S2MM
@@ -502,6 +504,11 @@ BEGIN axi_dma
  PARAMETER C_SG_LENGTH_WIDTH = 23
  PARAMETER C_BASEADDR = 0x41e20000
  PARAMETER C_HIGHADDR = 0x41e2ffff
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AW_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_AR_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_W_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_R_REGISTER = 7
+ PARAMETER C_INTERCONNECT_M_AXI_S2MM_B_REGISTER = 7
  BUS_INTERFACE S_AXI_LITE = axi4lite_0
  BUS_INTERFACE M_AXI_S2MM = axi4_0
  BUS_INTERFACE S_AXIS_S2MM = axi_dma_1_S_AXIS_S2MM

@@ -67,6 +67,19 @@
 // 0x05   0x14   [31:16]  dds_init_2b           Channel 2 DDS-B phase offset (2pi = 0xffff)
 //               [15: 0]  dds_incr_2b           Channel 2 DDS-B phase increment (2pi = 0xffff)
 // ---------------------------------------------------------------------------
+// 0x06   0x18   [31:16]  intp_scale_b          Interpolator scale b
+//               [15: 0]  intp_scale_a          Interpolator scale a
+//
+// The interpolation is 3x (this is to match the OSERDES 3:1 ratio). The interpolator takes
+// a sample S[n] and the previous sample S[n-1] to generate the following three samples.
+//
+// Si_0 = S[n]
+// Si_1 = (S[n]*intp_scale_a) + (S[n-1]*intp_scale_b)
+// Si_2 = (S[n]*intp_scale_b) + (S[n-1]*intp_scale_a)
+//
+// As an example, to make a linear interpolation, the scales can be set to 2/3 and 1/3.
+// If S[n] = 9 and S[n-1] = 6, Si_0 = 6, Si_1 = 7, Si_2 = 8
+// ---------------------------------------------------------------------------
 // 0x07   0x1c   [ 0: 0]  status_enable         Enable (0x1) or disable (0x0) status monitoring through ports
 // ---------------------------------------------------------------------------
 // 0x08   0x20   [15:12]  dds_scale_2b          Channel 2 DDS-B scale factor

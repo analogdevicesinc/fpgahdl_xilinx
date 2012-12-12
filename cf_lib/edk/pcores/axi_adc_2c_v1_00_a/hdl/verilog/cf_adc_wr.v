@@ -71,7 +71,6 @@ module cf_adc_wr (
   up_delay_addr,
   up_delay_wdata,
 
-  delay_rst,
   delay_clk,
   delay_ack,
   delay_rdata,
@@ -84,6 +83,7 @@ module cf_adc_wr (
   adc_mon_data);
 
   parameter C_CF_BUFTYPE = 0;
+  parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   input           adc_clk_in_p;
   input           adc_clk_in_n;
@@ -114,7 +114,6 @@ module cf_adc_wr (
   input   [ 3:0]  up_delay_addr;
   input   [ 4:0]  up_delay_wdata;
 
-  input           delay_rst;
   input           delay_clk;
   output          delay_ack;
   output  [ 4:0]  delay_rdata;
@@ -198,7 +197,7 @@ module cf_adc_wr (
     .up_muladd_scale (up_muladd_scale_b),
     .up_muladd_offset (up_muladd_offset_b));
 
-  cf_adc_if #(.C_CF_BUFTYPE (C_CF_BUFTYPE)) i_adc_if (
+  cf_adc_if #(.C_CF_BUFTYPE (C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p (adc_data_in_p),
@@ -214,7 +213,6 @@ module cf_adc_wr (
     .up_delay_rwn (up_delay_rwn),
     .up_delay_addr (up_delay_addr),
     .up_delay_wdata (up_delay_wdata),
-    .delay_rst (delay_rst),
     .delay_clk (delay_clk),
     .delay_ack (delay_ack),
     .delay_rdata (delay_rdata),

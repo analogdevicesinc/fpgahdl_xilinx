@@ -31,7 +31,8 @@ entity axi_adc_2c is
     C_NUM_MEM             : integer := 1;
     C_SLV_AWIDTH          : integer := 32;
     C_SLV_DWIDTH          : integer := 32;
-    C_CF_BUFTYPE          : integer := 0
+    C_CF_BUFTYPE          : integer := 0;
+    C_IODELAY_GROUP       : string := "adc_if_delay_group"
   );
   port
   (
@@ -47,7 +48,6 @@ entity axi_adc_2c is
     spi_clk               : out std_logic;
     spi_sdo               : out std_logic;
     spi_sdi               : in  std_logic;
-    delay_rst             : in  std_logic;
     delay_clk             : in  std_logic;
     up_status             : out std_logic_vector(7 downto 0);
     up_adc_capture_int    : out std_logic;
@@ -137,7 +137,8 @@ architecture IMP of axi_adc_2c is
     (
       C_NUM_REG         : integer := 32;
       C_SLV_DWIDTH      : integer := 32;
-      C_CF_BUFTYPE      : integer := 0
+      C_CF_BUFTYPE      : integer := 0;
+      C_IODELAY_GROUP   : string := "adc_if_delay_group"
     );
     port
     (
@@ -159,7 +160,6 @@ architecture IMP of axi_adc_2c is
       dma_be                : out std_logic_vector(7 downto 0);
       dma_last              : out std_logic;
       dma_ready             : in  std_logic;
-      delay_rst             : in  std_logic;
       delay_clk             : in  std_logic;
       up_status             : out std_logic_vector(7 downto 0);
       up_adc_capture_int    : out std_logic;
@@ -239,7 +239,8 @@ begin
     (
       C_NUM_REG           => USER_NUM_REG,
       C_SLV_DWIDTH        => USER_SLV_DWIDTH,
-      C_CF_BUFTYPE        => C_CF_BUFTYPE
+      C_CF_BUFTYPE        => C_CF_BUFTYPE,
+      C_IODELAY_GROUP     => C_IODELAY_GROUP
     )
     port map
     (
@@ -261,7 +262,6 @@ begin
       dma_be              => S_AXIS_S2MM_TKEEP,
       dma_last            => S_AXIS_S2MM_TLAST,
       dma_ready           => S_AXIS_S2MM_TREADY,
-      delay_rst           => delay_rst,
       delay_clk           => delay_clk,
       up_status           => up_status,
       up_adc_capture_int  => up_adc_capture_int,

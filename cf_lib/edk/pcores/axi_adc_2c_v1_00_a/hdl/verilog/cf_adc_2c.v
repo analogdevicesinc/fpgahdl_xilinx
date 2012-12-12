@@ -70,7 +70,6 @@ module cf_adc_2c (
   up_adc_capture_int,
   up_adc_capture_ext,
 
-  delay_rst,
   delay_clk,
 
   dma_dbg_data,
@@ -84,6 +83,7 @@ module cf_adc_2c (
   adc_mon_data);
 
   parameter C_CF_BUFTYPE = 0;
+  parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   input   [ 7:0]  pid;
 
@@ -114,7 +114,6 @@ module cf_adc_2c (
   output          up_adc_capture_int;
   input           up_adc_capture_ext;
 
-  input           delay_rst;
   input           delay_clk;
 
   output  [63:0]  dma_dbg_data;
@@ -441,7 +440,7 @@ module cf_adc_2c (
     .adc_dbg_data (adc_dbg_data),
     .adc_dbg_trigger (adc_dbg_trigger));
 
-  cf_adc_wr #(.C_CF_BUFTYPE(C_CF_BUFTYPE)) i_adc_wr (
+  cf_adc_wr #(.C_CF_BUFTYPE(C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_wr (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p (adc_data_in_p),
@@ -468,7 +467,6 @@ module cf_adc_2c (
     .up_delay_rwn (up_delay_rwn),
     .up_delay_addr (up_delay_addr),
     .up_delay_wdata (up_delay_wdata),
-    .delay_rst (delay_rst),
     .delay_clk (delay_clk),
     .delay_ack (delay_ack_s),
     .delay_rdata (delay_rdata_s),

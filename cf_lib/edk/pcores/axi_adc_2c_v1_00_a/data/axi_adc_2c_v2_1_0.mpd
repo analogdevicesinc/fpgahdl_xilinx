@@ -37,6 +37,7 @@ PARAMETER C_SLV_DWIDTH = 32, DT = INTEGER
 PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
 PARAMETER C_S_AXIS_S2MM_PROTOCOL = XIL_AXI_STREAM_ETH_DATA, DT = STRING, BUS = S_AXIS_S2MM, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
 PARAMETER C_CF_BUFTYPE = 0, DT = INTEGER
+PARAMETER C_IODELAY_GROUP = adc_if_delay_group, DT = STRING
 
 ## Ports
 PORT pid = "", DIR = I, VEC = [7:0]
@@ -51,7 +52,6 @@ PORT spi_cs1n = "", DIR = O
 PORT spi_clk = "", DIR = O
 PORT spi_sdo = "", DIR = O
 PORT spi_sdi = "", DIR = I
-PORT delay_rst = "", DIR = I
 PORT delay_clk = "", DIR = I, SIGIS = CLK
 PORT up_status = "", DIR = O, VEC = [7:0]
 PORT up_adc_capture_int = "", DIR = O

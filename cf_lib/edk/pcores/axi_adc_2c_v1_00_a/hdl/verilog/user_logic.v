@@ -61,7 +61,6 @@ module user_logic (
   dma_last,
   dma_ready,
 
-  delay_rst,
   delay_clk,
 
   up_status,
@@ -93,6 +92,7 @@ module user_logic (
   parameter C_NUM_REG = 32;
   parameter C_SLV_DWIDTH = 32;
   parameter C_CF_BUFTYPE = 0;
+  parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   input   [ 7:0]  pid;
 
@@ -116,7 +116,6 @@ module user_logic (
   output          dma_last;
   input           dma_ready;
 
-  input           delay_rst;
   input           delay_clk;
 
   output  [ 7:0]  up_status;
@@ -227,7 +226,7 @@ module user_logic (
   assign spi_clk = 1'b0;
   assign spi_sd_o = 1'b0;
 
-  cf_adc_2c #(.C_CF_BUFTYPE(C_CF_BUFTYPE)) i_adc_2c (
+  cf_adc_2c #(.C_CF_BUFTYPE(C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_2c (
     .pid (pid),
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
@@ -252,7 +251,6 @@ module user_logic (
     .up_status (up_status),
     .up_adc_capture_int (up_adc_capture_int),
     .up_adc_capture_ext (up_adc_capture_ext),
-    .delay_rst (delay_rst),
     .delay_clk (delay_clk),
     .dma_dbg_data (dma_dbg_data),
     .dma_dbg_trigger (dma_dbg_trigger),

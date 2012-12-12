@@ -41,7 +41,6 @@
 
 module cf_dac_if (
 
-  rst,
   up_dds_clk_enable,
 
   dac_clk_in_p,
@@ -73,7 +72,6 @@ module cf_dac_if (
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
 
-  input           rst;
   input           up_dds_clk_enable;
 
   input           dac_clk_in_p;
@@ -159,7 +157,7 @@ module cf_dac_if (
       dds_frame_0[1], dds_frame_1[0], dds_frame_0[0]};
   end
 
-  assign serdes_preset_s = rst | ~dac_mmcm_locked_s | ~dds_master_enable;
+  assign serdes_preset_s = ~dac_mmcm_locked_s | ~dds_master_enable;
 
   FDPE #(.INIT(1'b1)) i_serdes_rst_reg (
     .CE (1'b1),
@@ -168,7 +166,7 @@ module cf_dac_if (
     .C (dac_div3_clk),
     .Q (serdes_rst_s));
 
-  assign serdes_clk_preset_s = rst | ~dac_mmcm_locked_s | ~up_dds_clk_enable;
+  assign serdes_clk_preset_s = ~dac_mmcm_locked_s | ~up_dds_clk_enable;
 
   FDPE #(.INIT(1'b1)) i_serdes_clk_rst_reg (
     .CE (1'b1),
@@ -384,7 +382,7 @@ module cf_dac_if (
     .CLKINSTOPPED (),
     .CLKFBSTOPPED (),
     .PWRDWN (1'b0),
-    .RST (rst));
+    .RST (1'b0));
   end else begin
   MMCME2_ADV #(
     .BANDWIDTH ("OPTIMIZED"),
@@ -406,39 +404,39 @@ module cf_dac_if (
     .CLKIN1_PERIOD (2.000),
     .REF_JITTER1 (0.010))
   i_dac_clk_mmcm (
-    .CLKFBOUT            (dac_mmcm_fb_clk_s),
-    .CLKFBOUTB           (),
-    .CLKOUT0             (dac_mmcm_clk_s),
-    .CLKOUT0B            (),
-    .CLKOUT1             (dac_mmcm_div3_clk_s),
-    .CLKOUT1B            (),
-    .CLKOUT2             (),
-    .CLKOUT2B            (),
-    .CLKOUT3             (),
-    .CLKOUT3B            (),
-    .CLKOUT4             (),
-    .CLKOUT5             (),
-    .CLKOUT6             (),
-    .CLKFBIN             (dac_fb_clk_s),
-    .CLKIN1              (dac_clk_in_s),
-    .CLKIN2              (1'b0),
-    .CLKINSEL            (1'b1),
-    .DADDR               (7'h0),
-    .DCLK                (1'b0),
-    .DEN                 (1'b0),
-    .DI                  (16'h0),
-    .DO                  (),
-    .DRDY                (),
-    .DWE                 (1'b0),
-    .PSCLK               (1'b0),
-    .PSEN                (1'b0),
-    .PSINCDEC            (1'b0),
-    .PSDONE              (),
-    .LOCKED              (dac_mmcm_locked_s),
-    .CLKINSTOPPED        (),
-    .CLKFBSTOPPED        (),
-    .PWRDWN              (1'b0),
-    .RST                 (rst));
+    .CLKFBOUT (dac_mmcm_fb_clk_s),
+    .CLKFBOUTB (),
+    .CLKOUT0 (dac_mmcm_clk_s),
+    .CLKOUT0B (),
+    .CLKOUT1 (dac_mmcm_div3_clk_s),
+    .CLKOUT1B (),
+    .CLKOUT2 (),
+    .CLKOUT2B (),
+    .CLKOUT3 (),
+    .CLKOUT3B (),
+    .CLKOUT4 (),
+    .CLKOUT5 (),
+    .CLKOUT6 (),
+    .CLKFBIN (dac_fb_clk_s),
+    .CLKIN1 (dac_clk_in_s),
+    .CLKIN2 (1'b0),
+    .CLKINSEL (1'b1),
+    .DADDR (7'h0),
+    .DCLK (1'b0),
+    .DEN (1'b0),
+    .DI (16'h0),
+    .DO (),
+    .DRDY (),
+    .DWE (1'b0),
+    .PSCLK (1'b0),
+    .PSEN (1'b0),
+    .PSINCDEC (1'b0),
+    .PSDONE (),
+    .LOCKED (dac_mmcm_locked_s),
+    .CLKINSTOPPED (),
+    .CLKFBSTOPPED (),
+    .PWRDWN (1'b0),
+    .RST (1'b0));
   end
   endgenerate
 
