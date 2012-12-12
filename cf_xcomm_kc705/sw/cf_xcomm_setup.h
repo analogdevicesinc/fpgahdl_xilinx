@@ -1,6 +1,6 @@
 // ***************************************************************************
 // ***************************************************************************
-// XCOMM Setup routines directly parsed from bitflipper files
+// XCOMM Setup routines
 // ***************************************************************************
 // ***************************************************************************
 // AD9122 1x No PLL with SYNC.txt
@@ -746,7 +746,6 @@ u32 adc_delay_1(u32 delay) {
     rdata = Xil_In32(cf_xcomm_adc_baseaddr + 0x020);
     if (rdata != (0x100 | delay)) {
       xil_printf("adc_delay_1: sel(%2d), data(%04x)\n\r", i, rdata);
-      return(1);
     }
   }
   return(0);
@@ -795,6 +794,9 @@ u32 adc_delay() {
 
 void adc_setup() {
   u32 dco_inv;
+  Xil_Out32((cf_xcomm_adc_baseaddr + 0x01c), 0x00000);
+  Xil_Out32((cf_xcomm_adc_baseaddr + 0x01c), 0x2ff00);
+  Xil_Out32((cf_xcomm_adc_baseaddr + 0x01c), 0x2ff00);
   iic_xcomm_write(IICSEL_AD9643, 0x0d, 0x5);
   iic_xcomm_write(IICSEL_AD9643, 0x14, 0x0);
   iic_xcomm_write(IICSEL_AD9643, 0xff, 0x1);
