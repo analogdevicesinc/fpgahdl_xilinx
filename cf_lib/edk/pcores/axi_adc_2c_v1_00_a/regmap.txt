@@ -45,8 +45,12 @@
 // ---------------------------------------------------------------------------
 // 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
 // ---------------------------------------------------------------------------
-// 0x02   0x08   [ 1: 0]  ch_sel                Channel select
+// 0x02   0x08   [ 2: 2]  usr_sel               User logic select
+//               [ 1: 0]  ch_sel                Channel select
 //
+// The usr_sel allows a user logic to be placed at the output of ADC,
+// allowing signal processing before data is being written to memory (or another
+// destination).
 // This register allows data capture on one or more channels. If disabled,
 // capture completes successfully, but data may be 0x00.
 // ---------------------------------------------------------------------------
@@ -104,5 +108,15 @@
 //
 // The scale factor is 1.15 (unsigned fixed point format)  
 // The offset factor is 14bit integer (negative offset must be in 2's complement)  
+// ---------------------------------------------------------------------------
+// 0x12   0x48   [30:16]  usr_decimation_M      User logic decimation numerator
+//               [15: 0]  usr_decimation_N      User logic decimation denominator
+//
+// If a user logic is present, and uses decimation (M/N), this register reads
+// the decimation factors (read-only)
+// ---------------------------------------------------------------------------
+// 0x13   0x4c   [ 0: 0]  usr_data_type         User logic data type complex(0x0) or normal(0x1)
+//
+// If a user logic is present, this bit indicates the output data type (read-only)
 // ***************************************************************************
 // ***************************************************************************
