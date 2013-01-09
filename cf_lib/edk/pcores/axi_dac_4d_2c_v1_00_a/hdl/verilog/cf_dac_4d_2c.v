@@ -41,7 +41,6 @@
 
 module cf_dac_4d_2c (
 
-  rst,
   pid,
 
   dac_clk_in_p,
@@ -84,7 +83,6 @@ module cf_dac_4d_2c (
 
   parameter C_CF_BUFTYPE = 0;
 
-  input           rst;
   input   [ 7:0]  pid;
 
   input           dac_clk_in_p;
@@ -387,7 +385,6 @@ module cf_dac_4d_2c (
     .dac_dbg_trigger (dac_dbg_trigger));
 
   cf_dac_if #(.C_CF_BUFTYPE(C_CF_BUFTYPE)) i_dac_if (
-    .rst (rst),
     .up_dds_clk_enable (up_dds_clk_enable),
     .dac_clk_in_p (dac_clk_in_p),
     .dac_clk_in_n (dac_clk_in_n),

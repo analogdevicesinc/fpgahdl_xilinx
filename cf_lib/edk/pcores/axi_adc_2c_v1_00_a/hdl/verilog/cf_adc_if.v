@@ -62,7 +62,6 @@ module cf_adc_if (
   up_delay_addr,
   up_delay_wdata,
 
-  delay_rst,
   delay_clk,
   delay_ack,
   delay_rdata,
@@ -71,6 +70,7 @@ module cf_adc_if (
   parameter C_CF_BUFTYPE = 0;
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
+  parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   input           adc_clk_in_p;
   input           adc_clk_in_n;
@@ -90,7 +90,6 @@ module cf_adc_if (
   input   [ 3:0]  up_delay_addr;
   input   [ 4:0]  up_delay_wdata;
 
-  input           delay_rst;
   input           delay_clk;
   output          delay_ack;
   output  [ 4:0]  delay_rdata;
@@ -110,7 +109,7 @@ module cf_adc_if (
   reg     [ 4:0]  adc_or_count_p = 'd0;
   reg     [ 4:0]  adc_or_count_n = 'd0;
   reg     [ 1:0]  adc_or = 'd0;
-
+  reg     [ 7:0]  delay_rst_cnt = 'd0;
   reg             delay_sel_m1 = 'd0;
   reg             delay_sel_m2 = 'd0;
   reg             delay_sel_m3 = 'd0;
@@ -126,6 +125,8 @@ module cf_adc_if (
   reg     [ 4:0]  delay_rdata = 'd0;
   reg             delay_locked = 'd0;
 
+  wire            delay_preset_s;
+  wire            delay_rst_s;
   wire    [ 4:0]  delay_rdata_s[14:0];
   wire            delay_locked_s;
   wire    [13:0]  adc_data_ibuf_s;
@@ -192,6 +193,11 @@ module cf_adc_if (
   end
 
   always @(posedge delay_clk) begin
+    if ((delay_sel == 1'b1) && (delay_rwn == 1'b0) && (delay_addr == 4'hf)) begin
+      delay_rst_cnt <= 'd0;
+    end else if (delay_rst_cnt[7] == 1'b0) begin
+      delay_rst_cnt <= delay_rst_cnt + 1'b1;
+    end
     delay_sel_m1 <= up_delay_sel;
     delay_sel_m2 <= delay_sel_m1;
     delay_sel_m3 <= delay_sel_m2;
@@ -250,6 +256,15 @@ module cf_adc_if (
     delay_locked <= delay_locked_s;
   end
 
+  assign delay_preset_s = ~delay_rst_cnt[7];
+
+  FDPE #(.INIT(1'b1)) i_delayctrl_rst_reg (
+    .CE (1'b1),
+    .D (1'b0),
+    .PRE (delay_preset_s),
+    .C (delay_clk),
+    .Q (delay_rst_s));
+
   generate
   for (l_inst = 0; l_inst <= 13; l_inst = l_inst + 1) begin : g_adc_if
 
@@ -259,7 +274,7 @@ module cf_adc_if (
     .O (adc_data_ibuf_s[l_inst]));
 
   if (C_CF_BUFTYPE == C_CF_VIRTEX6) begin
-  (* IODELAY_GROUP = "adc_if_delay_group" *)
+  (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IODELAYE1 #(
     .CINVCTRL_SEL ("FALSE"),
     .DELAY_SRC ("I"),
@@ -285,7 +300,7 @@ module cf_adc_if (
     .CNTVALUEIN (delay_wdata),
     .CNTVALUEOUT (delay_rdata_s[l_inst]));
   end else begin
-  (* IODELAY_GROUP = "adc_if_delay_group" *)
+  (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IDELAYE2 #(
     .CINVCTRL_SEL ("FALSE"),
     .DELAY_SRC ("IDATAIN"),
@@ -301,7 +316,7 @@ module cf_adc_if (
     .DATAIN (1'b0),
     .LDPIPEEN (1'b0),
     .CINVCTRL (1'b0),
-    .REGRST (delay_rst),
+    .REGRST (1'b0),
     .C (delay_clk),
     .IDATAIN (adc_data_ibuf_s[l_inst]),
     .DATAOUT (adc_data_idelay_s[l_inst]),
@@ -334,7 +349,7 @@ module cf_adc_if (
 
   generate
   if (C_CF_BUFTYPE == C_CF_VIRTEX6) begin
-  (* IODELAY_GROUP = "adc_if_delay_group" *)
+  (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IODELAYE1 #(
     .CINVCTRL_SEL ("FALSE"),
     .DELAY_SRC ("I"),
@@ -360,7 +375,7 @@ module cf_adc_if (
     .CNTVALUEIN (delay_wdata),
     .CNTVALUEOUT (delay_rdata_s[14]));
   end else begin
-  (* IODELAY_GROUP = "adc_if_delay_group" *)
+  (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IDELAYE2 #(
     .CINVCTRL_SEL ("FALSE"),
     .DELAY_SRC ("IDATAIN"),
@@ -376,7 +391,7 @@ module cf_adc_if (
     .DATAIN (1'b0),
     .LDPIPEEN (1'b0),
     .CINVCTRL (1'b0),
-    .REGRST (delay_rst),
+    .REGRST (1'b0),
     .C (delay_clk),
     .IDATAIN (adc_or_ibuf_s),
     .DATAOUT (adc_or_idelay_s),
@@ -419,9 +434,9 @@ module cf_adc_if (
   end
   endgenerate
 
-  (* IODELAY_GROUP = "adc_if_delay_group" *)
+  (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IDELAYCTRL i_delay_ctrl (
-    .RST (delay_rst),
+    .RST (delay_rst_s),
     .REFCLK (delay_clk),
     .RDY (delay_locked_s));
 

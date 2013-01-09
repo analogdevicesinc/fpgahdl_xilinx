@@ -66,12 +66,16 @@ module cf_adc_wr (
   up_pn_type,
   up_dmode,
   up_ch_sel,
+  up_usr_sel,
   up_delay_sel,
   up_delay_rwn,
   up_delay_addr,
   up_delay_wdata,
 
-  delay_rst,
+  usr_decimation_m_s,
+  usr_decimation_n_s,
+  usr_data_type_s,
+
   delay_clk,
   delay_ack,
   delay_rdata,
@@ -84,6 +88,7 @@ module cf_adc_wr (
   adc_mon_data);
 
   parameter C_CF_BUFTYPE = 0;
+  parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   input           adc_clk_in_p;
   input           adc_clk_in_n;
@@ -109,12 +114,16 @@ module cf_adc_wr (
   input   [ 1:0]  up_pn_type;
   input   [ 1:0]  up_dmode;
   input   [ 1:0]  up_ch_sel;
+  input           up_usr_sel;
   input           up_delay_sel;
   input           up_delay_rwn;
   input   [ 3:0]  up_delay_addr;
   input   [ 4:0]  up_delay_wdata;
 
-  input           delay_rst;
+  output  [15:0]  usr_decimation_m_s;
+  output  [15:0]  usr_decimation_n_s;
+  output          usr_data_type_s;
+
   input           delay_clk;
   output          delay_ack;
   output  [ 4:0]  delay_rdata;
@@ -126,40 +135,62 @@ module cf_adc_wr (
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
 
-  reg     [ 1:0]  adc_ch_sel_m1 = 'd0;
-  reg     [ 1:0]  adc_ch_sel = 'd0;
+  reg     [ 2:0]  adc_ch_sel_m1 = 'd0;
+  reg     [ 2:0]  adc_ch_sel = 'd0;
   reg     [ 1:0]  adc_cnt = 'd0;
   reg             adc_valid = 'd0;
   reg     [63:0]  adc_data = 'd0;
 
-  wire    [15:0]  adc_data_a_s;
-  wire    [15:0]  adc_data_b_s;
-  wire    [13:0]  adc_data_a_if_s;
-  wire    [13:0]  adc_data_b_if_s;
+  wire            usr_data_valid;       // user logic data valid
+  wire    [63:0]  usr_data;             // user logic data
+  wire    [15:0]  adc_data_a_s;         // offset & scaled data 
+  wire    [15:0]  adc_data_b_s;         // offset & scaled data
+  wire    [13:0]  adc_data_a_if_s;      // raw adc data
+  wire    [13:0]  adc_data_b_if_s;      // raw adc data
+
+  // Users may add a custom logic here (or a separate module), the data inputs for the
+  // user logic may be raw or offset-&-scaled data (see wire definitions above).
+  // The user must correctly specify the following parameters so that the drivers
+  // would know the decimation factor and the output data type (I/Q).
+  // The driver must also enable the up_usr_sel to select user logic output.
+  // THIS IS NOT A COMPLETE SOLUTION and individual needs may vary.
+  // Also note that the data bitwidths may require padding or truncation to match the
+  // external DMA bus width. This design as it is, uses 64bits.
+
+  assign usr_decimation_m_s = 1'b1; // user logic decimation numerator
+  assign usr_decimation_n_s = 1'b1; // user logic decimation denominator
+  assign usr_data_type_s = 1'b0; // user logic output type (0 - complex, 1- normal)
+
+  assign usr_data_valid = 1'd1; // user data valid (replace with user logic)
+  assign usr_data = {4{16'hdead}}; // user data (replace with user logic)
 
   assign adc_mon_valid = 1'b1;
   assign adc_mon_data = {adc_data_b_s, adc_data_a_s};
 
   always @(posedge adc_clk) begin
-    adc_ch_sel_m1 <= up_ch_sel;
+    adc_ch_sel_m1 <= {up_usr_sel, up_ch_sel};
     adc_ch_sel <= adc_ch_sel_m1;
     adc_cnt <= adc_cnt + 1'b1;
     case (adc_ch_sel)
-      2'b11: begin
+      3'b011: begin
         adc_valid <= adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data_b_s, adc_data[63:32]};
       end
-      2'b10: begin
+      3'b010: begin
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_b_s, adc_data[63:16]};
       end
-      2'b01: begin
+      3'b001: begin
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data[63:16]};
       end
-      default: begin
+      3'b000: begin
         adc_valid <= adc_cnt[0];
         adc_data <= 64'd0;
+      end
+      default: begin
+        adc_valid <= usr_data_valid;
+        adc_data <= usr_data;
       end
     endcase
   end
@@ -198,7 +229,7 @@ module cf_adc_wr (
     .up_muladd_scale (up_muladd_scale_b),
     .up_muladd_offset (up_muladd_offset_b));
 
-  cf_adc_if #(.C_CF_BUFTYPE (C_CF_BUFTYPE)) i_adc_if (
+  cf_adc_if #(.C_CF_BUFTYPE (C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p (adc_data_in_p),
@@ -214,7 +245,6 @@ module cf_adc_wr (
     .up_delay_rwn (up_delay_rwn),
     .up_delay_addr (up_delay_addr),
     .up_delay_wdata (up_delay_wdata),
-    .delay_rst (delay_rst),
     .delay_clk (delay_clk),
     .delay_ack (delay_ack),
     .delay_rdata (delay_rdata),

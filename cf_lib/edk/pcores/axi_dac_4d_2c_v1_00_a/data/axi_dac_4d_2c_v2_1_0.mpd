@@ -41,7 +41,6 @@ PARAMETER C_M_AXIS_MM2S_PROTOCOL = XIL_AXI_STREAM_VID_DATA, DT = STRING, BUS = M
 PARAMETER C_CF_BUFTYPE = 0, DT = INTEGER
 
 ## Ports
-PORT rst = "", DIR = I
 PORT pid = "", DIR = I, VEC = [7:0]
 PORT dac_clk_in_p = "", DIR = I
 PORT dac_clk_in_n = "", DIR = I

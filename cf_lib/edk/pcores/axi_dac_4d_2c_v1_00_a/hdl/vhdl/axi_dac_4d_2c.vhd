@@ -35,7 +35,6 @@ entity axi_dac_4d_2c is
   );
   port
   (
-    rst                   : in  std_logic;
     pid                   : in  std_logic_vector(7 downto 0);
     dac_clk_in_p          : in  std_logic;
     dac_clk_in_n          : in  std_logic;
@@ -138,7 +137,6 @@ architecture IMP of axi_dac_4d_2c is
     );
     port
     (
-      rst               : in  std_logic;
       pid               : in  std_logic_vector(7 downto 0);
       dac_clk_in_p      : in  std_logic;
       dac_clk_in_n      : in  std_logic;
@@ -235,7 +233,6 @@ begin
     )
     port map
     (
-      rst               => rst,
       pid               => pid,
       dac_clk_in_p      => dac_clk_in_p,    
       dac_clk_in_n      => dac_clk_in_n,    

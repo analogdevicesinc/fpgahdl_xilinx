@@ -39,7 +39,6 @@
 
 module user_logic (
 
-  rst,
   pid,
 
   dac_clk_in_p,
@@ -86,7 +85,6 @@ module user_logic (
   parameter C_SLV_DWIDTH = 32;
   parameter C_CF_BUFTYPE = 0;
 
-  input           rst;
   input   [ 7:0]  pid;
 
   input           dac_clk_in_p;
@@ -208,7 +206,6 @@ module user_logic (
   end
 
   cf_dac_4d_2c #(.C_CF_BUFTYPE(C_CF_BUFTYPE)) i_dac_4d_2c (
-    .rst (rst),
     .pid (pid),
     .dac_clk_in_p (dac_clk_in_p),
     .dac_clk_in_n (dac_clk_in_n),
