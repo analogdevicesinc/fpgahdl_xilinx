@@ -2,9 +2,10 @@
 *.bak
 *.make
 *.opt
+*.bit
+*.elf
 __xps
 etc
-SDK
 synthesis
 implementation
 revup
