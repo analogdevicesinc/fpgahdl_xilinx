@@ -1,6 +1,6 @@
 #Please do not modify this file by hand
-XmpVersion: 14.1
-VerMgmt: 14.1
+XmpVersion: 14.4
+VerMgmt: 14.4
 IntStyle: default
 Flow: ise
 ModuleSearchPath: ../cf_lib/
@@ -24,6 +24,7 @@ ExternalMemSim: 0
 UcfFile: data/system.ucf
 EnableParTimingError: 1
 ShowLicenseDialog: 1
+BInfo: 
 ICacheAddr: DDR3_SDRAM,C_S_AXI_BASEADDR
 DCacheAddr: DDR3_SDRAM,C_S_AXI_BASEADDR
 Processor: microblaze_0

@@ -40,6 +40,8 @@
 
 module cf_ddsv_vdma (
 
+  // vdma interface
+
   vdma_clk,
   vdma_valid,
   vdma_data,
@@ -47,16 +49,24 @@ module cf_ddsv_vdma (
   vdma_ovf,
   vdma_unf,
 
+  // dac side (interpolator default) interface
+
   dac_div3_clk,
   dds_master_enable,
   dds_rd,
   dds_rdata,
 
+  // debug data (chipscope)
+
   vdma_dbg_data,
   vdma_dbg_trigger,
 
+  // debug data (chipscope)
+
   dac_dbg_data,
   dac_dbg_trigger);
+
+  // vdma interface
 
   input           vdma_clk;
   input           vdma_valid;
@@ -65,13 +75,19 @@ module cf_ddsv_vdma (
   output          vdma_ovf;
   output          vdma_unf;
 
+  // dac side (interpolator default) interface
+
   input           dac_div3_clk;
   input           dds_master_enable;
   input           dds_rd;
   output  [95:0]  dds_rdata;
 
+  // debug data (chipscope)
+
   output  [198:0] vdma_dbg_data;
   output  [ 7:0]  vdma_dbg_trigger;
+
+  // debug data (chipscope)
 
   output  [107:0] dac_dbg_data;
   output  [ 7:0]  dac_dbg_trigger;
@@ -143,6 +159,8 @@ module cf_ddsv_vdma (
     end
   endfunction
 
+  // debug signals
+
   assign vdma_dbg_trigger[7:7] = vdma_valid;
   assign vdma_dbg_trigger[6:6] = vdma_ready;
   assign vdma_dbg_trigger[5:5] = vdma_master_enable;
@@ -185,7 +203,7 @@ module cf_ddsv_vdma (
   assign dac_dbg_data[103: 96] = dds_raddr;
   assign dac_dbg_data[ 95:  0] = dds_rdata;
 
-  // dds read
+  // dds read and data output (nothing special)
 
   always @(posedge dac_div3_clk) begin
     dds_start_m1 <= vdma_start;
@@ -199,7 +217,9 @@ module cf_ddsv_vdma (
     dds_rdata <= dds_rdata_s;
   end
 
-  // vdma write
+  // vdma write, the incoming data is 4 samples (64bits), in order to interface seamlessly to the
+  // OSERDES 3:1 ratio, the dac is set to read 3 (or 6) samples. So data is written to the
+  // memory as 6 samples (96bits).
 
   assign vdma_we_s = vdma_valid & vdma_ready;
 

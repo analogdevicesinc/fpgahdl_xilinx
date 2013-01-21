@@ -43,46 +43,68 @@ module cf_fftfloat (
 
   clk,
 
+  // input (after applying window function)
+
   hwin_valid,
   hwin_data,
   hwin_last,
   hwin_ready,
+
+  // fft output (raw)
 
   fft_valid,
   fft_data,
   fft_last,
   fft_ready,
 
+  // fft output (magnitude only sqrt(re*re+im*im))
+
   fft_mag_valid,
   fft_mag_data,
   fft_mag_last,
 
+  // fft status (see Xilinx doc for details)
+
   fft_status_toggle,
   fft_status_data,
+
+  // fft configuration (see Xilinx doc for details)
 
   up_cfg_valid,
   up_cfg_data);
 
+  // fft size select (as per the generated ip)
+
   parameter C_CF_SIZE_SEL = 0;
 
   input           clk;
+
+  // input (after applying window function)
 
   input           hwin_valid;
   input   [15:0]  hwin_data;
   input           hwin_last;
   output          hwin_ready;
 
+  // fft output (raw)
+
   output          fft_valid;
   output  [63:0]  fft_data;
   output          fft_last;
   input           fft_ready;
 
+  // fft output (magnitude only sqrt(re*re+im*im))
+
   output          fft_mag_valid;
   output  [31:0]  fft_mag_data;
   output          fft_mag_last;
 
+  // fft status (see Xilinx doc for details)
+
   output          fft_status_toggle;
   output  [19:0]  fft_status_data;
+
+  // fft configuration (see Xilinx doc for details)
 
   input           up_cfg_valid;
   input   [31:0]  up_cfg_data;
@@ -123,9 +145,15 @@ module cf_fftfloat (
   wire    [31:0]  floatsqrtx_data_s;
   wire            floatsqrtx_last_s;
   wire            floatsqrtx_ready_s;
+
+  // generate status (floating point units & fft)
   
   assign fft_valid_s = fft_valid & fft_ready;
   assign fft_status_s = {fftp_status_s, ~fftr_status_s, fftx_status_s};
+
+  // status is accumulative for a single FFT run. The software must reset the
+  // registers (signals) at the begining of each run. Here, status is 
+  // held for a few clock cycles (32) so that processor has enough time to get it.
 
   always @(posedge clk) begin
     fft_status_count <= fft_status_count + 1'b1;
@@ -153,6 +181,8 @@ module cf_fftfloat (
     end
   end
 
+  // convert input to floating points
+
   cf_fix2floatx_1 i_fix2floatx (
     .aclk (clk),
     .s_axis_a_tvalid (hwin_valid),
@@ -163,6 +193,8 @@ module cf_fftfloat (
     .m_axis_result_tdata (fix2floatx_data_s),
     .m_axis_result_tlast (fix2floatx_last_s),
     .m_axis_result_tready (fix2floatx_ready_s));
+
+  // compute fft
 
   generate
   if (C_CF_SIZE_SEL == 1) begin
@@ -218,6 +250,8 @@ module cf_fftfloat (
   end
   endgenerate
 
+  // calculate sq(real part)
+
   cf_floatmulx_1 i_floatmulx_a (
     .aclk (clk),
     .s_axis_a_tvalid (fft_valid_s),
@@ -233,6 +267,8 @@ module cf_fftfloat (
     .m_axis_result_tlast (floatmulx_a_last_s),
     .m_axis_result_tready (floatmulx_a_ready_s),
     .m_axis_result_tuser (fftp_status_s[2:0]));
+
+  // calculate sq(imaginary part)
 
   cf_floatmulx_1 i_floatmulx_b (
     .aclk (clk),
@@ -250,6 +286,8 @@ module cf_fftfloat (
     .m_axis_result_tready (floatmulx_b_ready_s),
     .m_axis_result_tuser (fftp_status_s[5:3]));
 
+  // calculate the sum of the squares of real and imaginary parts
+
   cf_floataddx_1 i_floataddx (
     .aclk (clk),
     .s_axis_a_tvalid (floatmulx_a_valid_s),
@@ -266,6 +304,8 @@ module cf_fftfloat (
     .m_axis_result_tready (floataddx_ready_s),
     .m_axis_result_tuser (fftp_status_s[8:6]));
 
+  // calculate the square root of the sum of squares of the real/imaginary parts
+
   cf_floatsqrtx_1 i_floatsqrtx (
     .aclk (clk),
     .s_axis_a_tvalid (floataddx_valid_s),
@@ -277,6 +317,8 @@ module cf_fftfloat (
     .m_axis_result_tlast (floatsqrtx_last_s),
     .m_axis_result_tready (floatsqrtx_ready_s),
     .m_axis_result_tuser (fftp_status_s[9]));
+
+  // back to fixed point (this is the magnitude of FFT)
 
   cf_float2fixx_1 i_float2fixx (
     .aclk (clk),

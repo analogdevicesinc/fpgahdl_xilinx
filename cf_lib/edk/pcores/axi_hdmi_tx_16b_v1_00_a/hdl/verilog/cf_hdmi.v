@@ -36,8 +36,11 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// Transmit HDMI, video dma data in, hdmi separate syncs data out.
 
 module cf_hdmi (
+
+  // hdmi interface
 
   hdmi_clk,
   hdmi_vsync,
@@ -48,12 +51,16 @@ module cf_hdmi (
   hdmi_raddr_g,
   hdmi_tpm_oos,
 
+  // vdma interface
+
   vdma_clk,
   vdma_wr,
   vdma_waddr,
   vdma_wdata,
   vdma_fs_ret_toggle,
   vdma_fs_waddr,
+
+  // processor interface
 
   up_enable,
   up_tpg_enable,
@@ -69,8 +76,12 @@ module cf_hdmi (
   up_cp_en,
   up_cp,
 
+  // debug interface (chipscope)
+
   debug_data,
   debug_trigger);
+
+  // hdmi interface
 
   input           hdmi_clk;
   output          hdmi_vsync;
@@ -81,12 +92,16 @@ module cf_hdmi (
   output  [ 8:0]  hdmi_raddr_g;
   output          hdmi_tpm_oos;
 
+  // vdma interface
+
   input           vdma_clk;
   input           vdma_wr;
   input   [ 8:0]  vdma_waddr;
   input   [47:0]  vdma_wdata;
   input           vdma_fs_ret_toggle;
   input   [ 8:0]  vdma_fs_waddr;
+
+  // processor interface
 
   input           up_enable;
   input           up_tpg_enable;
@@ -101,6 +116,8 @@ module cf_hdmi (
   input   [15:0]  up_vs_de_max;
   input           up_cp_en;
   input   [23:0]  up_cp;
+
+  // debug interface (chipscope)
 
   output  [63:0]  debug_data;
   output  [ 7:0]  debug_trigger;
@@ -202,6 +219,8 @@ module cf_hdmi (
     end
   endfunction
 
+  // debug ports
+
   assign debug_data[63:61] = 'd0;
   assign debug_data[60:60] = hdmi_fs_s;
   assign debug_data[59:59] = hdmi_fs_ret_s;
@@ -229,7 +248,8 @@ module cf_hdmi (
   assign debug_trigger[1] = hdmi_tpm_mismatch_s;
   assign debug_trigger[0] = hdmi_data_e;
 
-  // hdmi parameters
+  // get useful values from the programmed counters, these registers control the
+  // video frame size, the timing signals (sync/enable)
 
   assign hdmi_up_hs_count_s = hdmi_up_hs_count - 1'b1;
   assign hdmi_up_vs_count_s = hdmi_up_vs_count - 1'b1;
@@ -259,6 +279,8 @@ module cf_hdmi (
       hdmi_up_cp <= up_cp;
     end
   end
+
+  // hdmi start of frame, this triggers vdma to reading the frame buffers
 
   assign hdmi_fs_s = ((hdmi_hs_count == 1) && (hdmi_vs_count == hdmi_up_vs_width)) ?
     hdmi_up_enable : 1'b0;
@@ -387,7 +409,7 @@ module cf_hdmi (
     .addrb (hdmi_raddr[9:1]),
     .doutb (hdmi_rdata_s));
 
-  // color space coversion RGB to CrYCb
+  // color space coversion, RGB to CrYCb
 
   cf_csc_RGB2CrYCb i_csc (
     .clk (hdmi_clk),
@@ -400,7 +422,7 @@ module cf_hdmi (
     .CrYCb_de (csc_de_s),
     .CrYCb_data (csc_data_s));
 
-  // sub sampling, 444 to 422.
+  // sub sampling, 444 to 422
 
   cf_ss_444to422 i_ss (
     .clk (hdmi_clk),

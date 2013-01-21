@@ -36,12 +36,20 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// This is the dac physical interface (drives samples from the low speed clock to the
+// DAC clock domain.
 
 `timescale 1ns/100ps
 
 module cf_dac_if (
 
+  // The clock is controlled separately from the data. This ensures that the data (samples)
+  // changes are hitless (clock is always present).  The DACs usually use DCI (this clock) at
+  // the write side of a FIFO. This would keep the FIFOs running while data is being changed.
+
   up_dds_clk_enable,
+
+  // DAC interface
 
   dac_clk_in_p,
   dac_clk_in_n,
@@ -52,27 +60,45 @@ module cf_dac_if (
   dac_data_out_p,
   dac_data_out_n,
 
+  // internal interface, a low speed dac clock is used by the internal logic
+
   dac_div3_clk,
   dds_master_enable,
+
+  // I frame/data (sample 0 is transmitted first)
+
   dds_frame_0,
   dds_data_00,
   dds_data_01,
   dds_data_02,
+
+  // Q frame/data (sample 0 is transmitted first)
+
   dds_frame_1,
   dds_data_10,
   dds_data_11,
   dds_data_12,
+
+  // delay controls
 
   delay_clk,
   delay_enable,
   delay_incdecn,
   delay_locked);
 
+  // This parameter controls the buffer type based on the target device.
+
   parameter C_CF_BUFTYPE = 0;
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
 
+  // The clock is controlled separately from the data. This ensures that the data (samples)
+  // changes are hitless (clock is always present).  The DACs usually use DCI (this clock) at
+  // the write side of a FIFO. This would keep the FIFOs running while data is being changed.
+
   input           up_dds_clk_enable;
+
+  // DAC interface
 
   input           dac_clk_in_p;
   input           dac_clk_in_n;
@@ -83,16 +109,26 @@ module cf_dac_if (
   output  [15:0]  dac_data_out_p;
   output  [15:0]  dac_data_out_n;
 
+  // internal interface, a low speed dac clock is used by the internal logic
+
   output          dac_div3_clk;
   input           dds_master_enable;
+
+  // I frame/data (sample 0 is transmitted first)
+
   input   [ 2:0]  dds_frame_0;
   input   [15:0]  dds_data_00;
   input   [15:0]  dds_data_01;
   input   [15:0]  dds_data_02;
+
+  // Q frame/data (sample 0 is transmitted first)
+
   input   [ 2:0]  dds_frame_1;
   input   [15:0]  dds_data_10;
   input   [15:0]  dds_data_11;
   input   [15:0]  dds_data_12;
+
+  // delay controls
 
   input           delay_clk;
   input           delay_enable;
@@ -119,6 +155,9 @@ module cf_dac_if (
   wire            dac_fb_clk_s;
 
   assign delay_locked = 'd0;
+
+  // The OSERDES modules drive data bit-wise. That is, samples are first need to be
+  // bit selected, then passed to the OSERDES. The same for frame.
 
   always @(posedge dac_div3_clk) begin
     dds_data[15] <= {dds_data_12[15], dds_data_02[15], dds_data_11[15],
@@ -157,6 +196,9 @@ module cf_dac_if (
       dds_frame_0[1], dds_frame_1[0], dds_frame_0[0]};
   end
 
+  // The resets for SERDES data/clock are separately controlled.
+  // They are held in reset until MMCM is locked and software enabled.
+
   assign serdes_preset_s = ~dac_mmcm_locked_s | ~dds_master_enable;
 
   FDPE #(.INIT(1'b1)) i_serdes_rst_reg (
@@ -176,6 +218,13 @@ module cf_dac_if (
     .Q (serdes_clk_rst_s));
 
   // dac data output serdes(s) & buffers
+  // The SERDES is used here to get the lowest clock possible for the internal logic.
+  // Since Xilinx SERDES is 3:1 DDR, this clock is DAC-CLK/3. This may seem a bit
+  // challenging (being an odd number as divider) to generate samples. It is possible
+  // to lower the DAC clock and reduce the OSERDES to be 2:1 or even 1:1. If further
+  // reductions are required, it is recommended NOT to use master/slave OSERDES
+  // configuration (as this combination is very sensitive to the output and divided
+  // clocks). You can lower the clocks at the single OSERDES's divided clock.
   
   genvar l_inst;
   generate
@@ -320,7 +369,9 @@ module cf_dac_if (
     .O (dac_clk_out_p),
     .OB (dac_clk_out_n));
 
-  // dac clock input buffers
+  // dac clock input buffers, an MMCM is used here, note that some DACs are sensitive
+  // to it's input clocks and may not have input FIFOs to absorb clock jitters. You
+  // can NOT use this clocking method on such DACs.
 
   IBUFGDS i_dac_clk_in_ibuf (
     .I (dac_clk_in_p),

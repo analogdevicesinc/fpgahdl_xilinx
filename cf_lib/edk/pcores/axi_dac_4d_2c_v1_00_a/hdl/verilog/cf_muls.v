@@ -41,13 +41,17 @@
 
 module cf_muls (
 
+  // data_p = data_a (signed) * data_b (signed) (fractions only)
   clk,
   data_a,
   data_b,
   data_p,
+
+  // ddata_out is internal pipe-line matched for ddata_in
   ddata_in,
   ddata_out);
 
+  // delayed data bus width
   parameter DELAY_DATA_WIDTH = 16;
   parameter DW = DELAY_DATA_WIDTH - 1;
 
@@ -99,6 +103,8 @@ module cf_muls (
   wire    [15:0]  p6_data_p_0_s;
   wire    [15:0]  p6_data_p_1_s;
 
+  // pipe line stage 1, get the two's complement versions
+
   assign p1_data_a_s = ~data_a + 1'b1;
   assign p1_data_b_s = ~data_b + 1'b1;
 
@@ -108,6 +114,8 @@ module cf_muls (
     p1_data_a <= (data_a[15] == 1'b1) ? p1_data_a_s[14:0] : data_a[14:0];
     p1_data_b <= (data_b[15] == 1'b1) ? p1_data_b_s[14:0] : data_b[14:0];
   end
+
+  // pipe line stage 2, get the partial products
 
   assign p2_data_a_1p_16_s = {1'b0, p1_data_a};
   assign p2_data_a_1n_16_s = ~p2_data_a_1p_16_s + 1'b1;
@@ -188,6 +196,8 @@ module cf_muls (
     endcase
   end
 
+  // pipe line stage 3, get the sum of partial products - 8->4
+
   always @(posedge clk) begin
     p3_ddata <= p2_ddata;
     p3_sign <= p2_sign;
@@ -197,6 +207,8 @@ module cf_muls (
     p3_data_p_3 <= p2_data_p_3 + p2_data_p_7;
   end
 
+  // pipe line stage 4, get the sum of partial products - 4->2
+
   always @(posedge clk) begin
     p4_ddata <= p3_ddata;
     p4_sign <= p3_sign;
@@ -204,11 +216,15 @@ module cf_muls (
     p4_data_p_1 <= p3_data_p_1 + p3_data_p_3;
   end
 
+  // pipe line stage 5, get the sum of partial products - 2->1
+
   always @(posedge clk) begin
     p5_ddata <= p4_ddata;
     p5_sign <= p4_sign;
     p5_data_p <= p4_data_p_0 + p4_data_p_1;
   end
+
+  // output registers (data is rounded to 16bits)
 
   assign p6_data_p_0_s = {1'd0, p5_data_p[29:15]};
   assign p6_data_p_1_s = ~p6_data_p_0_s + 1'b1;

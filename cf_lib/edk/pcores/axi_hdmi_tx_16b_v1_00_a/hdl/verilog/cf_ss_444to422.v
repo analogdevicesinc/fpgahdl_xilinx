@@ -40,11 +40,15 @@
 
 module cf_ss_444to422 (
 
+  // 444 inputs
+
   clk,
   s444_vs,
   s444_hs,
   s444_de,
   s444_data,
+
+  // 422 outputs
 
   s422_vs,
   s422_hs,
@@ -86,6 +90,8 @@ module cf_ss_444to422 (
   wire    [ 9:0]  Cr_s;
   wire    [ 9:0]  Cb_s;
 
+  // Fill the data pipe lines
+
   assign s444_data_s = (s444_de == 1'b1) ? s444_data : 24'd0;
 
   always @(posedge clk) begin
@@ -103,6 +109,8 @@ module cf_ss_444to422 (
     s444_data_3d <= s444_data_2d;
   end
 
+  // Get the average 0.4*S(n-1) + 0.2*S(n) + 0.2*S(n+1)
+
   assign Cr_s = {2'd0, s444_data_d[23:16]} + {2'd0, s444_data_3d[23:16]} +
     {1'd0, s444_data_2d[23:16], 1'd0};
 
@@ -118,6 +126,8 @@ module cf_ss_444to422 (
       Cr_Cb_sel <= 'd0;
     end
   end
+
+  // 422 outputs
 
   always @(posedge clk) begin
     s422_vs <= s444_vs_3d;

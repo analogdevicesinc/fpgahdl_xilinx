@@ -36,14 +36,16 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// this is a sine function (approximate), the basic idea is to approximate sine as a
+// polynomial function (there are a lot of stuff about this on the web)
 
 `timescale 1ns/100ps
 
 module cf_sine (
 
   clk,
-  angle,
-  sine,
+  angle,  // angle
+  sine,   // sine(angle)
   ddata_in,
   ddata_out);
 
@@ -88,6 +90,8 @@ module cf_sine (
   wire            data_msb_s3_s;
   wire    [31:0]  data_sine_s3_s;
 
+  // level 1 (intermediate) A*x;
+
   cf_mul #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH+1)) i_mul_s1 (
     .clk (clk),
     .data_a ({1'b0, angle[14:0]}),
@@ -95,6 +99,8 @@ module cf_sine (
     .data_p (data_sine_s1_s),
     .ddata_in ({ddata_in, angle[15]}),
     .ddata_out ({ddata_s1_s, data_msb_s1_s}));
+
+  // level 1, (final) B*x;
 
   cf_mul #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH+17)) i_mul_s2_i (
     .clk (clk),
@@ -104,12 +110,16 @@ module cf_sine (
     .ddata_in ({ddata_s1_s, data_msb_s1_s, data_sine_s1_s[30:15]}),
     .ddata_out ({ddata_s2_i_s, data_msb_s2_i_s, data_delay_s2_i_s}));
 
+  // level 2 inputs, B*x and (1-A*x)
+
   always @(posedge clk) begin
     ddata_s2_i <= ddata_s2_i_s;
     data_msb_s2_i <= data_msb_s2_i_s;
     data_delay_s2_i <= data_delay_s2_i_s;
     data_sine_s2_i <= 16'ha2f9 - data_sine_s2_i_s[28:13];
   end
+
+  // level 2, second order (A*x2 + B*x)
 
   cf_mul #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH+1)) i_mul_s2 (
     .clk (clk),
@@ -129,6 +139,8 @@ module cf_sine (
     end
   end
 
+  // level 2, intermediate (B*y)
+
   cf_mul #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH+17)) i_mul_s3_i (
     .clk (clk),
     .data_a (data_sine_s2),
@@ -143,6 +155,8 @@ module cf_sine (
     data_delay_s3_i <= data_delay_s3_i_s;
     data_sine_s3_i <= 16'hc666 + data_sine_s3_i_s[31:16];
   end
+
+  // level 2, second order (A*y2 + B*y)
 
   cf_mul #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH+1)) i_mul_s3 (
     .clk (clk),

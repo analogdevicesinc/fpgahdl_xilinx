@@ -45,22 +45,30 @@
 
 module cf_csc_RGB2CrYCb (
 
+  // R-G-B inputs
+
   clk,
   RGB_vs,
   RGB_hs,
   RGB_de,
   RGB_data,
 
+  // Cr-Y-Cb outputs
+
   CrYCb_vs,
   CrYCb_hs,
   CrYCb_de,
   CrYCb_data);
+
+  // R-G-B inputs
 
   input           clk;
   input           RGB_vs;
   input           RGB_hs;
   input           RGB_de;
   input   [23:0]  RGB_data;
+
+  // Cr-Y-Cb outputs
 
   output          CrYCb_vs;
   output          CrYCb_hs;
@@ -85,12 +93,16 @@ module cf_csc_RGB2CrYCb (
   wire            Cb_de_s;
   wire    [ 7:0]  Cb_data_s;
 
+  // output registers (the control signals are gated together)
+
   always @(posedge clk) begin
     CrYCb_vs <= Cr_vs_s & Y_vs_s & Cb_vs_s;
     CrYCb_hs <= Cr_hs_s & Y_hs_s & Cb_hs_s;
     CrYCb_de <= Cr_de_s & Y_de_s & Cb_de_s;
     CrYCb_data <= {Cr_data_s, Y_data_s, Cb_data_s};
   end
+
+  // Cr (red-diff)
 
   cf_csc_1 i_csc_Cr (
     .clk (clk),
@@ -107,6 +119,8 @@ module cf_csc_RGB2CrYCb (
     .csc_de (Cr_de_s),
     .csc_data_1 (Cr_data_s));
 
+  // Y (luma)
+
   cf_csc_1 i_csc_Y (
     .clk (clk),
     .vs (RGB_vs),
@@ -121,6 +135,8 @@ module cf_csc_RGB2CrYCb (
     .csc_hs (Y_hs_s),
     .csc_de (Y_de_s),
     .csc_data_1 (Y_data_s));
+
+  // Cb (blue-diff)
 
   cf_csc_1 i_csc_Cb (
     .clk (clk),

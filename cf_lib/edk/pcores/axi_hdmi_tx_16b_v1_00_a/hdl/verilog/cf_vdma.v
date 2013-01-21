@@ -36,12 +36,16 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
-// Transmit HDMI, video dma data in
+// Transmit HDMI, video dma data in, hdmi separate syncs data out.
 
 module cf_vdma (
 
+  // hdmi interface
+
   hdmi_fs_toggle,
   hdmi_raddr_g,
+
+  // vdma interface
 
   vdma_clk,
   vdma_fs,
@@ -54,18 +58,24 @@ module cf_vdma (
   vdma_wr,
   vdma_waddr,
   vdma_wdata,
-  vdma_fs_ret_toggle,
+  vdma_fs_ret_toggle,   // start of frame write address toggle and data
   vdma_fs_waddr,
   vdma_tpm_oos,
   vdma_be_error,
   vdma_ovf,
   vdma_unf,
 
+  // debug signals (chipscope)
+
   debug_data,
   debug_trigger);
 
+  // hdmi interface
+
   input           hdmi_fs_toggle;
   input   [ 8:0]  hdmi_raddr_g;
+
+  // vdma interface
 
   input           vdma_clk;
   output          vdma_fs;
@@ -84,6 +94,8 @@ module cf_vdma (
   output          vdma_be_error;
   output          vdma_ovf;
   output          vdma_unf;
+
+  // debug signals (chipscope)
 
   output  [63:0]  debug_data;
   output  [ 7:0]  debug_trigger;

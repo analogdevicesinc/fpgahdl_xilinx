@@ -42,30 +42,43 @@
 module cf_hannwin (
 
   clk,
+
+  // adc data input
+
   adc_valid,
   adc_data,
   adc_last,
   adc_ready,
+
+  // windowed output
 
   hwin_valid,
   hwin_data,
   hwin_last,
   hwin_ready,
 
+  // window phase increment
+
   up_hwin_incr,
   up_hwin_enb);
 
   input           clk;
+
+  // adc data input
 
   input           adc_valid;
   input   [15:0]  adc_data;
   input           adc_last;
   output          adc_ready;
 
+  // windowed output
+
   output          hwin_valid;
   output  [15:0]  hwin_data;
   output          hwin_last;
   input           hwin_ready;
+
+  // window phase increment
 
   input   [15:0]  up_hwin_incr;
   input           up_hwin_enb;
@@ -127,6 +140,8 @@ module cf_hannwin (
   wire            mxfer_s;
   wire    [16:0]  mrdata_s;
 
+  // the window is generated from a sine function, to get the cos you need to add 90deg == (pi)/4
+
   always @(posedge clk) begin
     hwin_enable_m1 <= up_hwin_enb;
     hwin_enable_m2 <= hwin_enable_m1;
@@ -142,12 +157,16 @@ module cf_hannwin (
     end
   end
 
+  // the sine function actually generates cosine (because of the pi/4 addition above)
+
   cf_sine #(.DELAY_DATA_WIDTH(18)) i_cos (
     .clk (clk),
     .angle (hwin_angle),
     .sine (hwin_cos_s1_s),
     .ddata_in ({adc_valid, adc_last, adc_data}),
     .ddata_out ({hwin_valid_s1_s, hwin_last_s1_s, hwin_data_s1_s}));
+
+  // get 0.5*(1 - cos(a)), the output is +ve (because mag(cos(a)) is less than 1.
 
   always @(posedge clk) begin
     hwin_valid_s1 <= hwin_valid_s1_s;
@@ -172,6 +191,8 @@ module cf_hannwin (
     end
   end
 
+  // apply the window function
+
   cf_mul #(.DELAY_DATA_WIDTH(3)) i_mul (
     .clk (clk),
     .data_a ({1'b0, hwin_data_s2}),
@@ -179,6 +200,8 @@ module cf_hannwin (
     .data_p (hwin_data_s3_s),
     .ddata_in ({hwin_data_sign_s2, hwin_valid_s2, hwin_last_s2}),
     .ddata_out ({hwin_sign_s3_s, hwin_valid_s3_s, hwin_last_s3_s}));
+
+  // get the 2's compl and pass the data to memory 
 
   always @(posedge clk) begin
     hwin_valid_s3 <= hwin_valid_s3_s;
@@ -189,6 +212,8 @@ module cf_hannwin (
       hwin_data_s3 <= hwin_data_s3_s[30:15];
     end
   end
+
+  // the memory is used to account for the "back pressure" from the fft module
 
   always @(posedge clk) begin
     if (hwin_enable == 1'b1) begin
@@ -212,6 +237,8 @@ module cf_hannwin (
     .addrb (mraddr),
     .doutb (mrdata_s));
 
+  // read from meory and pass it to the FFT module
+
   assign mrd_s = (mwaddr == mraddr) ? 1'b0 : hwin_ready;
   assign maddrdiff_s = {1'b1, mwaddr} - mraddr;
   assign mxfer_s = hwin_ready | ~hwin_valid;
@@ -225,6 +252,8 @@ module cf_hannwin (
     end
   end
 
+  // read and address update
+
   always @(posedge clk) begin
     if (mrd_s == 1'b1) begin
       mraddr <= mraddr + 1'b1;
@@ -233,6 +262,8 @@ module cf_hannwin (
     mrvalid <= mrd;
     mrdata <= mrdata_s;
   end
+
+  // hold data during sudden death (ready de-asserted!)
 
   always @(posedge clk) begin
     if (mrvalid == 1'b1) begin

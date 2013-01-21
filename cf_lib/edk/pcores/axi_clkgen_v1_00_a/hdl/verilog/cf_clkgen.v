@@ -36,11 +36,19 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// Software programmable clock generator (still needs a reference input!)
 
 module cf_clkgen (
 
+  // reference clock input (default 200MHz)
+
   ref_clk,
+
+  // output clock M/N*f_in for any M/N supported by MMCM.
+
   clk,
+
+  // processor interface
 
   up_rstn,
   up_clk,
@@ -51,6 +59,8 @@ module cf_clkgen (
   up_rdata,
   up_ack);
 
+  // MMCM state machine parameters
+
   parameter MMCM_TYPE   = 'd0;
   parameter MMCM_IDLE   = 'h0;
   parameter MMCM_READ   = 'h1;
@@ -58,8 +68,15 @@ module cf_clkgen (
   parameter MMCM_WRITE  = 'h3;
   parameter MMCM_WRRDY  = 'h4;
 
+  // reference clock input (default 200MHz)
+
   input           ref_clk;
+
+  // output clock M/N*f_in for any M/N supported by MMCM.
+
   output          clk;
+
+  // processor interface
 
   input           up_rstn;
   input           up_clk;
@@ -97,7 +114,6 @@ module cf_clkgen (
   reg     [ 2:0]  mmcm_state;
 
   wire            up_wr_s;
-  wire            up_rd_s;
   wire            up_ack_s;
   wire            mmcm_start_s;
   wire    [15:0]  mmcm_wdata_s;
@@ -109,8 +125,10 @@ module cf_clkgen (
   wire            mmcm_fb_clk_s;
   wire            buf_fb_clk_s;
 
+  // Processor write interface, most of these registers are defined by Xilinx for MMCM.
+  // See regmap.txt for details, the processor write is directly transferred to DRP.
+
   assign up_wr_s = up_sel & ~up_rwn;
-  assign up_rd_s = up_sel & up_rwn;
   assign up_ack_s = up_sel_d & ~up_sel_2d;
   assign mmcm_start_s = mmcm_start & ~mmcm_start_d;
   assign mmcm_wdata_s = ~mmcm_data_s[31:16] & mmcm_data_s[15:0];
@@ -188,6 +206,8 @@ module cf_clkgen (
     end
   end
 
+  // processor read interface
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_rdata <= 'd0;
@@ -216,6 +236,9 @@ module cf_clkgen (
       up_ack <= up_ack_s;
     end
   end
+
+  // DRP state machine and control signals, write/read and then wait for ready
+  // The DRP is written always in order with a continous read-modify-writes.
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
@@ -264,7 +287,7 @@ module cf_clkgen (
       case (mmcm_state)
         MMCM_IDLE: begin
           if ((mmcm_locked_s == 1'b1) && (mmcm_start_s == 1'b1)) begin
-            mmcm_state <= MMCM_READ;
+            mmcm_state <= MMCM_READ;  // if read back data first
           end else begin
             mmcm_state <= MMCM_IDLE;
           end
@@ -274,7 +297,7 @@ module cf_clkgen (
         end
         MMCM_RDRDY: begin
           if (mmcm_ready_s == 1'b1) begin
-            mmcm_state <= MMCM_WRITE;
+            mmcm_state <= MMCM_WRITE; // modify data and write back
           end else begin
             mmcm_state <= MMCM_RDRDY;
           end
@@ -297,6 +320,8 @@ module cf_clkgen (
       endcase
     end
   end
+
+  // MMCM instantiations
 
   generate
   if (MMCM_TYPE == 1) begin

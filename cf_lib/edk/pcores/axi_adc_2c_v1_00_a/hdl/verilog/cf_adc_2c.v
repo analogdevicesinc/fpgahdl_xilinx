@@ -41,8 +41,11 @@
 
 module cf_adc_2c (
 
+  // pcore identifier (master(0)/slave(>0) control for multiple instances)
+
   pid,
 
+  // adc interface (clk, data, over-range)
   adc_clk_in_p,
   adc_clk_in_n,
   adc_data_in_p,
@@ -50,6 +53,7 @@ module cf_adc_2c (
   adc_data_or_p,
   adc_data_or_n,
 
+  // dma interface (refer to xilinx AXI_DMA doc. for details)
   dma_clk,
   dma_valid,
   dma_data,
@@ -57,6 +61,7 @@ module cf_adc_2c (
   dma_last,
   dma_ready,
 
+  // processor (control) interface
   up_rstn,
   up_clk,
   up_sel,
@@ -67,26 +72,48 @@ module cf_adc_2c (
   up_ack,
   up_status,
 
+  // processor master/slave controls
+  // master capture enable, if the pid of a instance is 0x0, these ports
+  // should be connected to all slaves
+
   up_adc_capture_int,
+
+  // processor master/slave controls
+  // if the pid of a instance is greater than 0x0, these ports
+  // should be connected to the *_int signals from a master
+
   up_adc_capture_ext,
 
+  // delay elements clock (200MHz for most devices)
   delay_clk,
 
+  // dma debug and monitor signals (for chipscope)
   dma_dbg_data,
   dma_dbg_trigger,
 
+  // adc debug and monitor signals (for chipscope)
   adc_clk,
   adc_dbg_data,
   adc_dbg_trigger,
-
-  adc_mon_valid,  
+  adc_mon_valid,
   adc_mon_data);
 
+  // This parameter controls the buffer type based on the target device.
+  // Refer to the adc interface, where IOBUF*s are instantiated for details.
+  // The default (0x0) is 7 series and covers Zynq also.
+
   parameter C_CF_BUFTYPE = 0;
+
+  // The io delay group must be an unique string in the system, to group the
+  // delay control with the delay elements. If a system doesn't have enough
+  // control units, you could use an external common delay control
+
   parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
+  // pcore identifier (master(0)/slave(>0) control for multiple instances)
   input   [ 7:0]  pid;
 
+  // adc interface (clk, data, over-range)
   input           adc_clk_in_p;
   input           adc_clk_in_n;
   input   [13:0]  adc_data_in_p;
@@ -94,6 +121,7 @@ module cf_adc_2c (
   input           adc_data_or_p;
   input           adc_data_or_n;
 
+  // dma interface (refer to xilinx AXI_DMA doc. for details)
   input           dma_clk;
   output          dma_valid;
   output  [63:0]  dma_data;
@@ -101,6 +129,7 @@ module cf_adc_2c (
   output          dma_last;
   input           dma_ready;
 
+  // processor (control) interface
   input           up_rstn;
   input           up_clk;
   input           up_sel;
@@ -111,18 +140,21 @@ module cf_adc_2c (
   output          up_ack;
   output  [ 7:0]  up_status;
 
+  // processor master/slave controls
   output          up_adc_capture_int;
   input           up_adc_capture_ext;
 
+  // delay elements clock (200MHz for most devices)
   input           delay_clk;
 
+  // dma debug and monitor signals (for chipscope)
   output  [63:0]  dma_dbg_data;
   output  [ 7:0]  dma_dbg_trigger;
 
+  // adc debug and monitor signals (for chipscope)
   output          adc_clk;
   output  [63:0]  adc_dbg_data;
   output  [ 7:0]  adc_dbg_trigger;
-
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
 
@@ -202,6 +234,9 @@ module cf_adc_2c (
 
   assign up_wr_s = up_sel & ~up_rwn;
   assign up_ack_s = up_sel_d & ~up_sel_2d;
+
+  // Processor write interface (see regmap.txt file in the pcore root directory
+  // for address map and details of register functions).
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
@@ -324,6 +359,8 @@ module cf_adc_2c (
     end
   end
 
+  // Processor read interface
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_rdata <= 'd0;
@@ -356,6 +393,9 @@ module cf_adc_2c (
       up_ack <= up_ack_s;
     end
   end
+
+  // Status signals from ADC are transferred to the processor clock,
+  // all signals are strectched to multiple processor clocks from the adc.
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
@@ -421,12 +461,18 @@ module cf_adc_2c (
     end
   end
 
+  // transfer the master capture to the adc clock domain.
+  // this is a asynchronous clear register
+
   FDCE #(.INIT(1'b0)) i_m_capture (
     .CE (1'b1),
     .D (1'b1),
     .CLR (up_adc_master_capture_n),
     .C (adc_clk),
     .Q (adc_master_capture_s));
+
+  // dma interface, this module transfers data from adc clock domain to
+  // dma clock domain.
 
   cf_dma_wr i_dma_wr (
     .adc_clk (adc_clk),
@@ -447,6 +493,9 @@ module cf_adc_2c (
     .dma_dbg_trigger (dma_dbg_trigger),
     .adc_dbg_data (adc_dbg_data),
     .adc_dbg_trigger (adc_dbg_trigger));
+
+  // adc interface, this module captures data from the adc interface,
+  // and transfers it to the dma interface module above.
 
   cf_adc_wr #(.C_CF_BUFTYPE(C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_wr (
     .adc_clk_in_p (adc_clk_in_p),

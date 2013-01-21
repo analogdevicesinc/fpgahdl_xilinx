@@ -41,7 +41,11 @@
 
 module cf_dac_4d_2c (
 
+  // pcore identifier (master(0)/slave(>0) control for multiple instances)
+
   pid,
+
+  // dac interface
 
   dac_clk_in_p,
   dac_clk_in_n,
@@ -52,10 +56,14 @@ module cf_dac_4d_2c (
   dac_data_out_p,
   dac_data_out_n,
 
+  // vdma interface (for ddr-dds)
+
   vdma_clk,
   vdma_valid,
   vdma_data,
   vdma_ready,
+
+  // processor interface
 
   up_rstn,
   up_clk,
@@ -67,23 +75,46 @@ module cf_dac_4d_2c (
   up_ack,
   up_status,
 
+  // processor master/slave controls
+  // master output (enable and frame), if the pid of a instance is 0x0, these ports
+  // should be connected to all slaves
+
   up_dds_enable_int,
   up_dds_frame_int,
+
+  // processor master/slave controls
+  // master input (enable and frame), if the pid of a instance is greater than 0x0,
+  // these ports should be connected to the *_int signals from a master
+
   up_dds_enable_ext,
   up_dds_frame_ext,
 
+  // debug signals (vdma) for chipscope
+
   vdma_dbg_data,
   vdma_dbg_trigger,
+
+  // debug signals (dac) for chipscope
 
   dac_div3_clk,
   dac_dbg_data,
   dac_dbg_trigger,
 
+  // delay clock (usually 200MHz)
+
   delay_clk);
+
+  // This parameter controls the buffer type based on the target device.
+  // Refer to the dac interface, where IOBUF*s are instantiated for details.
+  // The default (0x0) is 7 series and covers Zynq also.
 
   parameter C_CF_BUFTYPE = 0;
 
+  // pcore identifier (master(0)/slave(>0) control for multiple instances)
+
   input   [ 7:0]  pid;
+
+  // dac interface
 
   input           dac_clk_in_p;
   input           dac_clk_in_n;
@@ -94,10 +125,14 @@ module cf_dac_4d_2c (
   output  [15:0]  dac_data_out_p;
   output  [15:0]  dac_data_out_n;
 
+  // vdma interface (for ddr-dds)
+
   input           vdma_clk;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
+
+  // processor interface
 
   input           up_rstn;
   input           up_clk;
@@ -109,17 +144,32 @@ module cf_dac_4d_2c (
   output          up_ack;
   output  [ 7:0]  up_status;
 
+  // processor master/slave controls
+  // master output (enable and frame), if the pid of a instance is 0x0, these ports
+  // should be connected to all slaves
+
   output          up_dds_enable_int;
   output          up_dds_frame_int;
+
+  // processor master/slave controls
+  // master input (enable and frame), if the pid of a instance is greater than 0x0,
+  // these ports should be connected to the *_int signals from a master
+
   input           up_dds_enable_ext;
   input           up_dds_frame_ext;
+
+  // debug signals (vdma) for chipscope
 
   output  [198:0] vdma_dbg_data;
   output  [ 7:0]  vdma_dbg_trigger;
 
+  // debug signals (dac) for chipscope
+
   output          dac_div3_clk;
   output  [195:0] dac_dbg_data;
   output  [ 7:0]  dac_dbg_trigger;
+
+  // delay clock (usually 200MHz)
 
   input           delay_clk;
 
@@ -176,6 +226,8 @@ module cf_dac_4d_2c (
   wire    [15:0]  dds_data_10_s;
   wire    [15:0]  dds_data_11_s;
   wire    [15:0]  dds_data_12_s;
+
+  // processor write interface (see regmap.txt file for details of address definitions)
 
   assign up_wr_s = up_sel & ~up_rwn;
   assign up_ack_s = up_sel_d & ~up_sel_2d;
@@ -294,6 +346,8 @@ module cf_dac_4d_2c (
     end
   end
 
+  // process read interface
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_rdata <= 'd0;
@@ -326,6 +380,9 @@ module cf_dac_4d_2c (
     end
   end
 
+  // dac enable and frame signals (asynchronus clear/preset registers are used to
+  // transfer these signals from the processor clock domain to the dac clock domain).
+
   FDCE #(.INIT(1'b0)) i_m_enable (
     .CE (1'b1),
     .D (1'b1),
@@ -339,6 +396,8 @@ module cf_dac_4d_2c (
     .PRE (up_dds_master_frame),
     .C (dac_div3_clk),
     .Q (dds_master_frame_s));
+
+  // DDS top, includes both DDR-DDS and Xilinx-DDS.
 
   cf_dds_top i_dds_top (
     .vdma_clk (vdma_clk),
@@ -383,6 +442,8 @@ module cf_dac_4d_2c (
     .vdma_dbg_trigger (vdma_dbg_trigger),
     .dac_dbg_data (dac_dbg_data),
     .dac_dbg_trigger (dac_dbg_trigger));
+
+  // DAC interface, (transfer samples from low speed clock to the dac clock)
 
   cf_dac_if #(.C_CF_BUFTYPE(C_CF_BUFTYPE)) i_dac_if (
     .up_dds_clk_enable (up_dds_clk_enable),

@@ -42,6 +42,7 @@
 
 module cf_adc_wr (
 
+  // adc interface (clk, data, over-range)
   adc_clk_in_p,
   adc_clk_in_n,
   adc_data_in_p,
@@ -49,6 +50,7 @@ module cf_adc_wr (
   adc_data_or_p,
   adc_data_or_n,
 
+  // interface outputs
   adc_clk,
   adc_valid,
   adc_data,
@@ -56,40 +58,44 @@ module cf_adc_wr (
   adc_pn_oos,
   adc_pn_err,
 
-  up_signext_enable,
-  up_muladd_enable,
-  up_muladd_offbin,
-  up_muladd_scale_a,
-  up_muladd_offset_a,
-  up_muladd_scale_b,
-  up_muladd_offset_b,
-  up_pn_type,
-  up_dmode,
-  up_ch_sel,
-  up_usr_sel,
-  up_delay_sel,
+  // processor control signals
+  up_signext_enable,  // sign extension enable
+  up_muladd_enable,   // offset & scale enable
+  up_muladd_offbin,   // offset & scale in offset binary mode
+  up_muladd_scale_a,  // scale factor for I
+  up_muladd_offset_a, // offset factor for I
+  up_muladd_scale_b,  // scale factor for I
+  up_muladd_offset_b, // offset factor for I
+  up_pn_type,         // PN9 (0x0) or PN23 (0x1)
+  up_dmode,           // data capture modes (see adc_if)
+  up_ch_sel,          // channel select
+  up_usr_sel,         // user controls
+  up_delay_sel,       // delay controls
   up_delay_rwn,
   up_delay_addr,
   up_delay_wdata,
 
-  usr_decimation_m_s,
+  usr_decimation_m_s, // user decimation controls
   usr_decimation_n_s,
   usr_data_type_s,
 
+  // delay control signals
   delay_clk,
   delay_ack,
   delay_rdata,
   delay_locked,
 
+  // adc debug and monitor signals (for chipscope)
   debug_data,
   debug_trigger,
-
   adc_mon_valid,
   adc_mon_data);
 
+  // This parameter controls the buffer type based on the target device.
   parameter C_CF_BUFTYPE = 0;
   parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
+  // adc interface (clk, data, over-range)
   input           adc_clk_in_p;
   input           adc_clk_in_n;
   input   [13:0]  adc_data_in_p;
@@ -97,6 +103,7 @@ module cf_adc_wr (
   input           adc_data_or_p;
   input           adc_data_or_n;
 
+  // interface outputs
   output          adc_clk;
   output          adc_valid;
   output  [63:0]  adc_data;
@@ -104,6 +111,7 @@ module cf_adc_wr (
   output  [ 1:0]  adc_pn_oos;
   output  [ 1:0]  adc_pn_err;
 
+  // processor control signals
   input           up_signext_enable;
   input           up_muladd_enable;
   input           up_muladd_offbin;
@@ -124,14 +132,15 @@ module cf_adc_wr (
   output  [15:0]  usr_decimation_n_s;
   output          usr_data_type_s;
 
+  // delay control signals
   input           delay_clk;
   output          delay_ack;
   output  [ 4:0]  delay_rdata;
   output          delay_locked;
 
+  // adc debug and monitor signals (for chipscope)
   output  [63:0]  debug_data;
   output  [ 7:0]  debug_trigger;
-
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
 
@@ -167,34 +176,37 @@ module cf_adc_wr (
   assign adc_mon_valid = 1'b1;
   assign adc_mon_data = {adc_data_b_s, adc_data_a_s};
 
+  // the adc channel select let you pick a particular channel -
+
   always @(posedge adc_clk) begin
     adc_ch_sel_m1 <= {up_usr_sel, up_ch_sel};
     adc_ch_sel <= adc_ch_sel_m1;
     adc_cnt <= adc_cnt + 1'b1;
     case (adc_ch_sel)
-      3'b011: begin
+      3'b011: begin // both I and Q
         adc_valid <= adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data_b_s, adc_data[63:32]};
       end
-      3'b010: begin
+      3'b010: begin // Q only
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_b_s, adc_data[63:16]};
       end
-      3'b001: begin
+      3'b001: begin // I only
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data[63:16]};
       end
-      3'b000: begin
+      3'b000: begin // None
         adc_valid <= adc_cnt[0];
         adc_data <= 64'd0;
       end
-      default: begin
+      default: begin  // user data
         adc_valid <= usr_data_valid;
         adc_data <= usr_data;
       end
     endcase
   end
 
+  // PN sequence monitor
   cf_pnmon i_pnmon_a (
     .adc_clk (adc_clk),
     .adc_data (adc_data_a_if_s),
@@ -202,6 +214,7 @@ module cf_adc_wr (
     .adc_pn_err (adc_pn_err[0]),
     .up_pn_type (up_pn_type[0]));
 
+  // Offset & scale
   cf_muladd i_muladd_a (
     .adc_clk (adc_clk),
     .data_in (adc_data_a_if_s),
@@ -212,6 +225,7 @@ module cf_adc_wr (
     .up_muladd_scale (up_muladd_scale_a),
     .up_muladd_offset (up_muladd_offset_a));
 
+  // PN sequence monitor
   cf_pnmon i_pnmon_b (
     .adc_clk (adc_clk),
     .adc_data (adc_data_b_if_s),
@@ -219,6 +233,7 @@ module cf_adc_wr (
     .adc_pn_err (adc_pn_err[1]),
     .up_pn_type (up_pn_type[1]));
 
+  // Offset & scale
   cf_muladd i_muladd_b (
     .adc_clk (adc_clk),
     .data_in (adc_data_b_if_s),
@@ -229,6 +244,7 @@ module cf_adc_wr (
     .up_muladd_scale (up_muladd_scale_b),
     .up_muladd_offset (up_muladd_offset_b));
 
+  // ADC data interface
   cf_adc_if #(.C_CF_BUFTYPE (C_CF_BUFTYPE), .C_IODELAY_GROUP(C_IODELAY_GROUP)) i_adc_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),

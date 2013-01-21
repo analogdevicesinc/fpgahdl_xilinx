@@ -40,6 +40,8 @@
 
 module cf_ddsv (
 
+  // vdma interface
+
   vdma_clk,
   vdma_valid,
   vdma_data,
@@ -47,24 +49,40 @@ module cf_ddsv (
   vdma_ovf,
   vdma_unf,
 
+  // dac interface 
+
   dac_div3_clk,
   dds_master_enable,
+
+  // I data (0 is transmitted first)
+
   dds_data_00,
   dds_data_01,
   dds_data_02,
+
+  // Q data (0 is transmitted first)
+
   dds_data_10,
   dds_data_11,
   dds_data_12,
+
+  // interpolation controls
 
   up_intp_enable,
   up_intp_scale_a,
   up_intp_scale_b,
 
+  // debug data (chipscope)
+
   vdma_dbg_data,
   vdma_dbg_trigger,
 
+  // debug data (chipscope)
+
   dac_dbg_data,
   dac_dbg_trigger);
+
+  // vdma interface
 
   input           vdma_clk;
   input           vdma_valid;
@@ -73,27 +91,43 @@ module cf_ddsv (
   output          vdma_ovf;
   output          vdma_unf;
 
+  // dac interface 
+
   input           dac_div3_clk;
   input           dds_master_enable;
+
+  // I data (0 is transmitted first)
+
   output  [15:0]  dds_data_00;
   output  [15:0]  dds_data_01;
   output  [15:0]  dds_data_02;
+
+  // Q data (0 is transmitted first)
+
   output  [15:0]  dds_data_10;
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
+
+  // interpolation controls
 
   input           up_intp_enable;
   input   [15:0]  up_intp_scale_a;
   input   [15:0]  up_intp_scale_b;
 
+  // debug data (chipscope)
+
   output  [198:0] vdma_dbg_data;
   output  [ 7:0]  vdma_dbg_trigger;
+
+  // debug data (chipscope)
 
   output  [195:0] dac_dbg_data;
   output  [ 7:0]  dac_dbg_trigger;
 
   wire            dds_rd_s;
   wire    [95:0]  dds_rdata_s;
+
+  // interpolator
 
   cf_ddsv_intp i_ddsv_intp (
     .dac_div3_clk (dac_div3_clk),
@@ -110,6 +144,8 @@ module cf_ddsv (
     .up_intp_scale_b (up_intp_scale_b),
     .dac_dbg_data (dac_dbg_data),
     .dac_dbg_trigger (dac_dbg_trigger));
+
+  // vdma read interface
 
   cf_ddsv_vdma i_ddsv_vdma (
     .vdma_clk (vdma_clk),

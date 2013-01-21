@@ -36,20 +36,31 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// This module computes FFT based on Xilinx's IP core. This is NOT a streaming
+// interface, back pressure is allowed (ready can be deasserted). It is likely
+// that it is used as an off-line module (DMA data from a storage).
 
 `timescale 1ns/100ps
 
 module cf_fft (
 
   clk,
+
+  // adc interface (usually from a DMA engine)
+
   adc_valid,
   adc_data,
   adc_last,
   adc_ready,
+
+  // fft output (usually to a DMA engine)
+
   fft_valid,
   fft_data,
   fft_last,
   fft_ready,
+
+  // processor interface
 
   up_rstn,
   up_clk,
@@ -60,20 +71,34 @@ module cf_fft (
   up_rdata,
   up_ack,
 
+  // monitor outputs for chipscope
+
   mon_sync,
   mon_data);
+
+  // This parameter allows size select for FFT. The maximum supported sample
+  // length is 64k. If it doesn't fit on a device, you can lower the size.
+  // You will still have to generate the IP core to use here.
 
   parameter C_CF_SIZE_SEL = 0;
 
   input           clk;
+
+  // adc interface (usually from a DMA engine)
+
   input           adc_valid;
   input   [15:0]  adc_data;
   input           adc_last;
   output          adc_ready;
+
+  // fft output (usually to a DMA engine)
+
   output          fft_valid;
   output  [63:0]  fft_data;
   output          fft_last;
   input           fft_ready;
+
+  // processor interface
 
   input           up_rstn;
   input           up_clk;
@@ -83,6 +108,8 @@ module cf_fft (
   input   [31:0]  up_wdata;
   output  [31:0]  up_rdata;
   output          up_ack;
+
+  // monitor outputs for chipscope
 
   output          mon_sync;
   output  [63:0]  mon_data;
@@ -133,6 +160,8 @@ module cf_fft (
   assign mon_sync = mrsync;
   assign mon_data = mrdata;
 
+  // processor write interface (see regmap.txt)
+
   assign up_wr_s = up_sel & ~up_rwn;
   assign up_ack_s = up_sel_d & ~up_sel_2d;
 
@@ -160,6 +189,8 @@ module cf_fft (
     end
   end
 
+  // processor read interface
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_rdata <= 'd0;
@@ -180,6 +211,8 @@ module cf_fft (
     end
   end
 
+  // transfer status signals to the processor side
+
   assign up_status_toggle_s = up_status_toggle_m3 ^ up_status_toggle_m2;
 
   always @(negedge up_rstn or posedge up_clk) begin
@@ -198,6 +231,9 @@ module cf_fft (
     end
   end
 
+  // adc write interface, the clear is used to reset the write address so that
+  // each FFT starts at the same position.
+
   always @(posedge clk) begin
     if (adc_last == 1'b1) begin
       adc_clrn <= 1'b0;
@@ -211,6 +247,11 @@ module cf_fft (
       adc_waddr <= 'd0;
     end
     adc_wdata <= adc_data;
+  end
+
+  // windowing controls. again, clear is used to reset the write address
+
+  always @(posedge clk) begin
     if (hwin_last_s == 1'b1) begin
       hwin_clrn <= 1'b0;
     end else if ((hwin_valid_s == 1'b1) && (hwin_ready_s == 1'b1)) begin
@@ -223,6 +264,11 @@ module cf_fft (
       hwin_waddr <= 'd0;
     end
     hwin_wdata <= hwin_data_s;
+  end
+
+  // FFT data. once again, clear is used to reset the write address
+
+  always @(posedge clk) begin
     if (fft_mag_last_s == 1'b1) begin
       fft_mag_clrn <= 1'b0;
     end else if (fft_mag_valid_s == 1'b1) begin
@@ -235,10 +281,18 @@ module cf_fft (
       fft_mag_waddr <= 'd0;
     end
     fft_mag_wdata <= fft_mag_data_s;
+  end
+
+  // monitor read interface, the resets of write addresses above guarantees that
+  // sync is always at address 0 (0x1 here to make it trigger out of reset)
+
+  always @(posedge clk) begin
     mrsync <= (mraddr == 10'd1) ? 1'b1 : 1'b0;
     mraddr <= mraddr + 1'b1;
     mrdata <= mrdata_s;
   end
+
+  // windowing
 
   cf_hannwin i_hannwin (
     .clk (clk),
@@ -252,6 +306,8 @@ module cf_fft (
     .hwin_ready (hwin_ready_s),
     .up_hwin_incr (up_hwin_incr),
     .up_hwin_enb (up_hwin_enb));
+
+  // floating point fft
 
   cf_fftfloat #(.C_CF_SIZE_SEL(C_CF_SIZE_SEL)) i_fftfloat (
     .clk (clk),
@@ -271,6 +327,8 @@ module cf_fft (
     .up_cfg_valid (up_cfg_valid),
     .up_cfg_data (up_cfg_data));
 
+  // memory for samples
+
   cf_mem #(.AW(10), .DW(16)) i_mem_adc (
     .clka (clk),
     .wea (adc_wr),
@@ -280,6 +338,8 @@ module cf_fft (
     .addrb (mraddr),
     .doutb (mrdata_s[15:0]));
 
+  // memory for window
+
   cf_mem #(.AW(10), .DW(16)) i_mem_hwin (
     .clka (clk),
     .wea (hwin_wr),
@@ -288,6 +348,8 @@ module cf_fft (
     .clkb (clk),
     .addrb (mraddr),
     .doutb (mrdata_s[31:16]));
+
+  // memory for fft
 
   cf_mem #(.AW(10), .DW(32)) i_mem_fft_mag (
     .clka (clk),

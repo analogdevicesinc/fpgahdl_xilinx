@@ -36,24 +36,33 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// Scale & Offset Module
 
 `timescale 1ps/1ps
 
 module cf_muladd (
 
+  // data_out = (up_muladd_scale * data_in) + up_muladd_offset;
+
   adc_clk,
   data_in,
   data_out,
 
-  up_signext_enable,
-  up_muladd_enable,
-  up_muladd_offbin,
-  up_muladd_scale,
-  up_muladd_offset);
+  // processor interface
+
+  up_signext_enable,  // sign extension enable
+  up_muladd_enable,   // enable offset & scale
+  up_muladd_offbin,   // input is offset binary format
+  up_muladd_scale,    // scale factor
+  up_muladd_offset);  // offset factor
+
+  // data_out = (up_muladd_scale * data_in) + up_muladd_offset;
 
   input           adc_clk;
   input   [13:0]  data_in;
   output  [15:0]  data_out;
+
+  // processor interface
 
   input           up_signext_enable;
   input           up_muladd_enable;
@@ -114,6 +123,8 @@ module cf_muladd (
   wire    [15:0]  p6_data_p_s;
   wire    [15:0]  p6_data_n_s;
 
+  // transfer processor signals to the adc clock domain
+
   always @(posedge adc_clk) begin
     muladd_enable_m1 <= up_muladd_enable;
     muladd_enable_m2 <= muladd_enable_m1;
@@ -146,10 +157,14 @@ module cf_muladd (
     data_a_n <= ~data_a_s + 1'b1;
   end
 
+  // get the partial product inputs
+
   assign p1_data_a_1p_s = {{15{data_a_p[13]}}, data_a_p};
   assign p1_data_a_1n_s = {{15{data_a_n[13]}}, data_a_n};
   assign p1_data_a_2p_s = {{14{data_a_p[13]}}, data_a_p, 1'b0};
   assign p1_data_a_2n_s = {{14{data_a_n[13]}}, data_a_n, 1'b0};
+
+  // pipe line 1, get the partial products
 
   always @(posedge adc_clk) begin
     p1_ddata <= sign_a_d;
@@ -228,6 +243,8 @@ module cf_muladd (
     endcase
   end
 
+  // pipe line 2, sum of the partial products (9 -> 5)
+
   always @(posedge adc_clk) begin
     p2_ddata <= p1_ddata;
     p2_data_p_0 <= p1_data_p_0 + p1_data_p_5;
@@ -237,6 +254,8 @@ module cf_muladd (
     p2_data_p_4 <= p1_data_p_4;
   end
 
+  // pipe line 3, sum of the partial products (5 -> 3)
+
   always @(posedge adc_clk) begin
     p3_ddata <= p2_ddata;
     p3_data_p_0 <= p2_data_p_0 + p2_data_p_3;
@@ -244,16 +263,22 @@ module cf_muladd (
     p3_data_p_2 <= p2_data_p_2;
   end
 
+  // pipe line 4, sum of the partial products (3 -> 2)
+
   always @(posedge adc_clk) begin
     p4_ddata <= p3_ddata;
     p4_data_p_0 <= p3_data_p_0 + p3_data_p_2;
     p4_data_p_1 <= p3_data_p_1;
   end
 
+  // pipe line 5, sum of the partial products (2 -> 1)
+
   always @(posedge adc_clk) begin
     p5_ddata <= p4_ddata;
     p5_data_p <= p4_data_p_0 + p4_data_p_1;
   end
+
+  // pipe line 6, convert back to 2's compl
 
   assign p6_data_p_s = {2'b00, p5_data_p[28:15]};
   assign p6_data_n_s = ~p6_data_p_s + 1'b1;
@@ -269,6 +294,8 @@ module cf_muladd (
   always @(posedge adc_clk) begin
     p7_data_p <= p6_data_p + c_offset;
   end
+
+  // output registers 
 
   always @(posedge adc_clk) begin
     if (muladd_enable == 1'b1) begin

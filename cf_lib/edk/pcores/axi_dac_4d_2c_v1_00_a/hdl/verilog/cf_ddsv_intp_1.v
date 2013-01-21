@@ -36,8 +36,12 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// This is a single sample interpolator.
 
 module cf_ddsv_intp_1 (
+
+  // data_s0 = delayed(data_a);
+  // data_s1 = scale_a * data_a + scale_b * data_b;
 
   clk,
   data_a,
@@ -46,6 +50,9 @@ module cf_ddsv_intp_1 (
   scale_b,
   data_s0,
   data_s1);
+
+  // data_s0 = delayed(data_a);
+  // data_s1 = scale_a * data_a + scale_b * data_b;
 
   input           clk;
   input   [15:0]  data_a;
@@ -64,12 +71,16 @@ module cf_ddsv_intp_1 (
   wire    [15:0]  data_b_p_s;
   wire    [15:0]  data_a_delay_s;
 
+  // output registers (sum of products)
+
   always @(posedge clk) begin
     data_a_delay <= data_a_delay_s;
     data_p <= data_a_p_s + data_b_p_s;
     data_s0 <= data_a_delay;
     data_s1 <= data_p;
   end
+
+  // product term 1, scale_a * data_a;
 
   cf_muls #(.DELAY_DATA_WIDTH(16)) i_mul_a (
     .clk (clk),
@@ -78,6 +89,8 @@ module cf_ddsv_intp_1 (
     .data_p (data_a_p_s),
     .ddata_in (data_a),
     .ddata_out (data_a_delay_s));
+
+  // product term 2, scale_b * data_b;
 
   cf_muls #(.DELAY_DATA_WIDTH(1)) i_mul_b (
     .clk (clk),

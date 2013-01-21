@@ -44,6 +44,7 @@
 
 module cf_adc_if (
 
+  // adc interface (clk, data, over-range)
   adc_clk_in_p,
   adc_clk_in_n,
   adc_data_in_p,
@@ -51,27 +52,32 @@ module cf_adc_if (
   adc_data_or_p,
   adc_data_or_n,
 
+  // interface outputs
   adc_clk,
   adc_data_a,
   adc_data_b,
   adc_or,
 
+  // processor control signals
   up_dmode,
   up_delay_sel,
   up_delay_rwn,
   up_delay_addr,
   up_delay_wdata,
 
+  // delay control signals
   delay_clk,
   delay_ack,
   delay_rdata,
   delay_locked);
 
+  // This parameter controls the buffer type based on the target device.
   parameter C_CF_BUFTYPE = 0;
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
   parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
+  // adc interface (clk, data, over-range)
   input           adc_clk_in_p;
   input           adc_clk_in_n;
   input   [13:0]  adc_data_in_p;
@@ -79,17 +85,20 @@ module cf_adc_if (
   input           adc_data_or_p;
   input           adc_data_or_n;
 
+  // interface outputs
   output          adc_clk;
   output  [13:0]  adc_data_a;
   output  [13:0]  adc_data_b;
   output  [ 1:0]  adc_or;
 
+  // processor control signals
   input   [ 1:0]  up_dmode;
   input           up_delay_sel;
   input           up_delay_rwn;
   input   [ 3:0]  up_delay_addr;
   input   [ 4:0]  up_delay_wdata;
 
+  // delay control signals
   input           delay_clk;
   output          delay_ack;
   output  [ 4:0]  delay_rdata;
@@ -141,6 +150,11 @@ module cf_adc_if (
 
   genvar          l_inst;
 
+  // The adc data is 14bits ddr, and here it is demuxed to 16bits.
+  // The samples may be selected to be either positive first, or negative first.
+  // Two data pin modes are supported- data can either be clock edge muxed (rising or falling edges),
+  // or within a clock edge, pin muxed (lower 7 bits and upper 7 bits)
+
   always @(posedge adc_clk) begin
     adc_dmode_m1 <= up_dmode;
     adc_dmode <= adc_dmode_m1;
@@ -191,6 +205,9 @@ module cf_adc_if (
     end
     adc_or <= {adc_or_count_n[4], adc_or_count_p[4]};
   end
+
+  // The delay control interface, each delay element can be individually
+  // addressed, and a delay value can be directly loaded (no INC/DEC stuff)
 
   always @(posedge delay_clk) begin
     if ((delay_sel == 1'b1) && (delay_rwn == 1'b0) && (delay_addr == 4'hf)) begin
@@ -256,6 +273,9 @@ module cf_adc_if (
     delay_locked <= delay_locked_s;
   end
 
+  // The delay elements need calibration from a delay controller and it needs a
+  // reset (it also asserts locked after the controller is up and running).
+
   assign delay_preset_s = ~delay_rst_cnt[7];
 
   FDPE #(.INIT(1'b1)) i_delayctrl_rst_reg (
@@ -264,6 +284,9 @@ module cf_adc_if (
     .PRE (delay_preset_s),
     .C (delay_clk),
     .Q (delay_rst_s));
+
+  // The data interface, data signals goes through a LVDS input buffer, then
+  // a delay element (1/32th of a 200MHz clock) and finally an input DDR demux.
 
   generate
   for (l_inst = 0; l_inst <= 13; l_inst = l_inst + 1) begin : g_adc_if
@@ -342,6 +365,8 @@ module cf_adc_if (
   end
   endgenerate
 
+  // The over-range interface, it follows a similar path as the data signals.
+
   IBUFDS i_or_ibuf (
     .I (adc_data_or_p),
     .IB (adc_data_or_n),
@@ -415,6 +440,12 @@ module cf_adc_if (
     .Q1 (adc_or_p_s),
     .Q2 (adc_or_n_s));
 
+  // The clock path is a simple clock buffer after a LVDS input buffer.
+  // It is possible for this logic to be replaced with a OSERDES based data capture.
+  // The reason for such a simple interface here is because this reference design
+  // is used for various boards (native fmc and/or evaluation boards). The pinouts
+  // of the FPGA - ADC interface is probably do not allow a OSERDES placement.
+
   IBUFGDS i_clk_ibuf (
     .I (adc_clk_in_p),
     .IB (adc_clk_in_n),
@@ -433,6 +464,9 @@ module cf_adc_if (
     .O (adc_clk));
   end
   endgenerate
+
+  // The delay controller. Refer to Xilinx doc. for details.
+  // The GROUP directive controls which delay elements this is associated with.
 
   (* IODELAY_GROUP = C_IODELAY_GROUP *)
   IDELAYCTRL i_delay_ctrl (

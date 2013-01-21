@@ -36,20 +36,27 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// Color Space Conversion, adder. This is a simple adder, but had to be
+// pipe-lined for faster clock rates. The delay input is delay-matched to
+// the sum pipe-line stages
 
 `timescale 1ps/1ps
 
 module cf_add (
 
+  // data_p = data_1 + data_2 + data_3 + data_4 (all the inputs are signed)
   clk,
   data_1,
   data_2,
   data_3,
   data_4,
   data_p,
+
+  // ddata_out is internal pipe-line matched for ddata_in
   ddata_in,
   ddata_out);
 
+  // delayed data bus width
   parameter DELAY_DATA_WIDTH = 16;
   parameter DW = DELAY_DATA_WIDTH - 1;
 
@@ -88,6 +95,8 @@ module cf_add (
   wire    [24:0]  p1_data_4_n_s;
   wire    [24:0]  p1_data_4_s;
 
+  // pipe line stage 1, get the two's complement versions
+
   assign p1_data_1_p_s = {1'b0, data_1[23:0]};
   assign p1_data_1_n_s = ~p1_data_1_p_s + 1'b1;
   assign p1_data_1_s = (data_1[24] == 1'b1) ? p1_data_1_n_s : p1_data_1_p_s;
@@ -112,16 +121,23 @@ module cf_add (
     p1_data_4 <= p1_data_4_s;
   end
 
+  // pipe line stage 2, get the sum (intermediate, 4->2)
+
   always @(posedge clk) begin
     p2_ddata <= p1_ddata;
     p2_data_0 <= p1_data_1 + p1_data_2;
     p2_data_1 <= p1_data_3 + p1_data_4;
   end
 
+  // pipe line stage 3, get the sum (final, 2->1)
+
   always @(posedge clk) begin
     p3_ddata <= p2_ddata;
     p3_data <= p2_data_0 + p2_data_1;
   end
+
+  // output registers, output is unsigned (0 if sum is < 0) and saturated.
+  // the inputs are expected to be 1.4.20 format (output is 8bits).
 
   always @(posedge clk) begin
     ddata_out <= p3_ddata;

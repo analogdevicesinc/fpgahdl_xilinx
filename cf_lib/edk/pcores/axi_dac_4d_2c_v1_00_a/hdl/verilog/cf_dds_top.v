@@ -36,10 +36,14 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// The DDS top includes samples generations for SED (see DAC data sheet if supported),
+// DDR based DDS (through VDMA) and/or Xilinx's DDS.
 
 `timescale 1ns/100ps
 
 module cf_dds_top (
+
+  // VDMA interface and status signals
 
   vdma_clk,
   vdma_valid,
@@ -48,45 +52,61 @@ module cf_dds_top (
   vdma_ovf,
   vdma_unf,
 
+  // DAC interface (to the physical interface)
+
   dac_div3_clk,
   dds_master_enable,
   dds_master_frame,
+
+  // I frame/data (sample 0 is transmitted first)
+
   dds_frame_0,
   dds_data_00,
   dds_data_01,
   dds_data_02,
+
+  // Q frame/data (sample 0 is transmitted first)
+
   dds_frame_1,
   dds_data_10,
   dds_data_11,
   dds_data_12,
 
-  up_dds_psel,
-  up_dds_sel,
-  up_dds_init_1a,
-  up_dds_incr_1a,
-  up_dds_scale_1a,
-  up_dds_init_1b,
-  up_dds_incr_1b,
-  up_dds_scale_1b,
-  up_dds_init_2a,
-  up_dds_incr_2a,
-  up_dds_scale_2a,
-  up_dds_init_2b,
-  up_dds_incr_2b,
-  up_dds_scale_2b,
-  up_dds_data_1a,
-  up_dds_data_1b,
-  up_dds_data_2a,
-  up_dds_data_2b,
-  up_intp_enable,
-  up_intp_scale_a,
-  up_intp_scale_b,
+  // processor signals
+
+  up_dds_psel,        // Pattern (SED) select
+  up_dds_sel,         // DDS select, DDR (0x1) or DMA (0x0)
+  up_dds_init_1a,     // Initial phase value (for DDSX only)
+  up_dds_incr_1a,     // Increment phase value (for DDSX only)
+  up_dds_scale_1a,    // Samples scale value (for DDSX only)
+  up_dds_init_1b,     // Initial phase value (for DDSX only)
+  up_dds_incr_1b,     // Increment phase value (for DDSX only)
+  up_dds_scale_1b,    // Samples scale value (for DDSX only)
+  up_dds_init_2a,     // Initial phase value (for DDSX only)
+  up_dds_incr_2a,     // Increment phase value (for DDSX only)
+  up_dds_scale_2a,    // Samples scale value (for DDSX only)
+  up_dds_init_2b,     // Initial phase value (for DDSX only)
+  up_dds_incr_2b,     // Increment phase value (for DDSX only)
+  up_dds_scale_2b,    // Samples scale value (for DDSX only)
+  up_dds_data_1a,     // Pattern Data (for SED only)
+  up_dds_data_1b,     // Pattern Data (for SED only)
+  up_dds_data_2a,     // Pattern Data (for SED only)
+  up_dds_data_2b,     // Pattern Data (for SED only)
+  up_intp_enable,     // Interpolate Enable (for DDR only)
+  up_intp_scale_a,    // Interpolate scale value (for DDR only)
+  up_intp_scale_b,    // Interpolate scale value (for DDR only)
+
+  // debug signals (for chipscope)
 
   vdma_dbg_data,
   vdma_dbg_trigger,
 
+  // debug signals (for chipscope)
+
   dac_dbg_data,
   dac_dbg_trigger);
+
+  // VDMA interface and status signals
 
   input           vdma_clk;
   input           vdma_valid;
@@ -95,42 +115,56 @@ module cf_dds_top (
   output          vdma_ovf;
   output          vdma_unf;
 
+  // DAC interface (to the physical interface)
+
   input           dac_div3_clk;
   input           dds_master_enable;
   input           dds_master_frame;
+
+  // I frame/data (sample 0 is transmitted first)
+
   output  [ 2:0]  dds_frame_0;
   output  [15:0]  dds_data_00;
   output  [15:0]  dds_data_01;
   output  [15:0]  dds_data_02;
+
+  // Q frame/data (sample 0 is transmitted first)
+
   output  [ 2:0]  dds_frame_1;
   output  [15:0]  dds_data_10;
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
 
-  input           up_dds_psel;
-  input           up_dds_sel;
-  input   [15:0]  up_dds_init_1a;
-  input   [15:0]  up_dds_incr_1a;
-  input   [ 3:0]  up_dds_scale_1a;
-  input   [15:0]  up_dds_init_1b;
-  input   [15:0]  up_dds_incr_1b;
-  input   [ 3:0]  up_dds_scale_1b;
-  input   [15:0]  up_dds_init_2a;
-  input   [15:0]  up_dds_incr_2a;
-  input   [ 3:0]  up_dds_scale_2a;
-  input   [15:0]  up_dds_init_2b;
-  input   [15:0]  up_dds_incr_2b;
-  input   [ 3:0]  up_dds_scale_2b;
-  input   [15:0]  up_dds_data_1a;
-  input   [15:0]  up_dds_data_1b;
-  input   [15:0]  up_dds_data_2a;
-  input   [15:0]  up_dds_data_2b;
-  input           up_intp_enable;
-  input   [15:0]  up_intp_scale_a;
-  input   [15:0]  up_intp_scale_b;
+  // processor signals
+
+  input           up_dds_psel;        // Pattern (SED) select
+  input           up_dds_sel;         // DDS select, DDR (0x1) or DMA (0x0)
+  input   [15:0]  up_dds_init_1a;     // Initial phase value (for DDSX only)
+  input   [15:0]  up_dds_incr_1a;     // Increment phase value (for DDSX only)
+  input   [ 3:0]  up_dds_scale_1a;    // Samples scale value (for DDSX only)
+  input   [15:0]  up_dds_init_1b;     // Initial phase value (for DDSX only)
+  input   [15:0]  up_dds_incr_1b;     // Increment phase value (for DDSX only)
+  input   [ 3:0]  up_dds_scale_1b;    // Samples scale value (for DDSX only)
+  input   [15:0]  up_dds_init_2a;     // Initial phase value (for DDSX only)
+  input   [15:0]  up_dds_incr_2a;     // Increment phase value (for DDSX only)
+  input   [ 3:0]  up_dds_scale_2a;    // Samples scale value (for DDSX only)
+  input   [15:0]  up_dds_init_2b;     // Initial phase value (for DDSX only)
+  input   [15:0]  up_dds_incr_2b;     // Increment phase value (for DDSX only)
+  input   [ 3:0]  up_dds_scale_2b;    // Samples scale value (for DDSX only)
+  input   [15:0]  up_dds_data_1a;     // Pattern Data (for SED only)
+  input   [15:0]  up_dds_data_1b;     // Pattern Data (for SED only)
+  input   [15:0]  up_dds_data_2a;     // Pattern Data (for SED only)
+  input   [15:0]  up_dds_data_2b;     // Pattern Data (for SED only)
+  input           up_intp_enable;     // Interpolate Enable (for DDR only)
+  input   [15:0]  up_intp_scale_a;    // Interpolate scale value (for DDR only)
+  input   [15:0]  up_intp_scale_b;    // Interpolate scale value (for DDR only)
+
+  // debug signals (for chipscope)
 
   output  [198:0] vdma_dbg_data;
   output  [ 7:0]  vdma_dbg_trigger;
+
+  // debug signals (for chipscope)
 
   output  [195:0] dac_dbg_data;
   output  [ 7:0]  dac_dbg_trigger;
@@ -179,6 +213,9 @@ module cf_dds_top (
   wire    [15:0]  ddsv_data_11_s;
   wire    [15:0]  ddsv_data_12_s;
 
+  // Master frame pulse and enables and transfer processor signals to
+  // the dac clock.
+
   assign dds_master_frame_s = dds_master_frame & ~dds_master_frame_d;
 
   always @(posedge dac_div3_clk) begin
@@ -196,6 +233,9 @@ module cf_dds_top (
       ddsp_data_2b <= up_dds_data_2b;
     end
   end
+
+  // DDS pattern generator for SED. Since OSERDES expects 6 samples, the I/Q samples
+  // are muxed out on two clock cycles (I0-I1-I0 followed by I1-I0-I1)
 
   always @(posedge dac_div3_clk) begin
     dds_enable <= dds_enable_m4;
@@ -230,9 +270,11 @@ module cf_dds_top (
     end
   end
 
+  // DDS data out, SED, DDR and Xilinx IP
+
   always @(posedge dac_div3_clk) begin
     case (dds_sel)
-      2'b10: begin
+      2'b10: begin  // SED (pattern)
         dds_frame_0 <= ddsp_frame_0;
         dds_data_00 <= ddsp_data_00;
         dds_data_01 <= ddsp_data_01;
@@ -242,7 +284,7 @@ module cf_dds_top (
         dds_data_11 <= ddsp_data_11;
         dds_data_12 <= ddsp_data_12;
       end
-      2'b01: begin
+      2'b01: begin // VDMA (DDR)
         dds_frame_0 <= {2'd0, dds_master_frame_s};
         dds_data_00 <= ddsv_data_00_s;
         dds_data_01 <= ddsv_data_01_s;
@@ -252,7 +294,7 @@ module cf_dds_top (
         dds_data_11 <= ddsv_data_11_s;
         dds_data_12 <= ddsv_data_12_s;
       end
-      default: begin
+      default: begin // Xilinx (DDSX)
         dds_frame_0 <= {2'd0, dds_master_frame_s};
         dds_data_00 <= ddsx_data_00_s;
         dds_data_01 <= ddsx_data_01_s;
@@ -264,6 +306,8 @@ module cf_dds_top (
       end
     endcase
   end
+
+  // Xilinx's DDS cores
 
   cf_ddsx i_ddsx (
     .dac_div3_clk (dac_div3_clk),
@@ -288,6 +332,8 @@ module cf_dds_top (
     .up_dds_scale_2b (up_dds_scale_2b),
     .debug_data (),
     .debug_trigger ());
+
+  // VDMA DDR based samples
 
   cf_ddsv i_ddsv (
     .vdma_clk (vdma_clk),

@@ -36,18 +36,24 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
+// Color Space Conversion, multiplier. This is a simple partial product adder
+// that generates the product of the two inputs.
 
 `timescale 1ps/1ps
 
 module cf_mul (
 
+  // data_p = data_a (signed) * data_b (unsigned)
   clk,
   data_a,
   data_b,
   data_p,
+
+  // ddata_out is internal pipe-line matched for ddata_in
   ddata_in,
   ddata_out);
 
+  // delayed data bus width
   parameter DELAY_DATA_WIDTH = 16;
   parameter DW = DELAY_DATA_WIDTH - 1;
 
@@ -82,6 +88,8 @@ module cf_mul (
   wire    [23:0]  p1_data_a_2p_s;
   wire    [23:0]  p1_data_a_2n_s;
 
+  // pipe line stage 1, get the two's complement versions
+
   assign p1_data_a_1p_17_s = {1'b0, data_a[15:0]};
   assign p1_data_a_1n_17_s = ~p1_data_a_1p_17_s + 1'b1;
 
@@ -89,6 +97,8 @@ module cf_mul (
   assign p1_data_a_1n_s = {{7{p1_data_a_1n_17_s[16]}}, p1_data_a_1n_17_s};
   assign p1_data_a_2p_s = {{6{p1_data_a_1p_17_s[16]}}, p1_data_a_1p_17_s, 1'b0};
   assign p1_data_a_2n_s = {{6{p1_data_a_1n_17_s[16]}}, p1_data_a_1n_17_s, 1'b0};
+
+  // pipe line stage 1, get the partial products
 
   always @(posedge clk) begin
     p1_sign <= data_a[16];
@@ -132,6 +142,8 @@ module cf_mul (
     endcase
   end
 
+  // pipe line stage 2, get the sum (intermediate 5 -> 2)
+
   always @(posedge clk) begin
     p2_sign <= p1_sign;
     p2_ddata <= p1_ddata;
@@ -139,11 +151,15 @@ module cf_mul (
     p2_data_p_1 <= p1_data_p_2 + p1_data_p_3;
   end
 
+  // pipe line stage 2, get the sum (final 2 -> 1)
+
   always @(posedge clk) begin
     p3_sign <= p2_sign;
     p3_ddata <= p2_ddata;
     p3_data_p_0 <= p2_data_p_0 + p2_data_p_1;
   end
+
+  // output registers (truncation occurs after addition, see cf_add.v)
 
   always @(posedge clk) begin
     ddata_out <= p3_ddata;

@@ -41,36 +41,54 @@
 
 module cf_ddsx (
 
+  // dac interface
+
   dac_div3_clk,
   dds_master_enable,
+
+  // I frame/data (sample 0 is transmitted first)
+
   dds_data_00,
   dds_data_01,
   dds_data_02,
+
+  // Q frame/data (sample 0 is transmitted first)
+
   dds_data_10,
   dds_data_11,
   dds_data_12,
 
-  up_dds_init_1a,
-  up_dds_incr_1a,
-  up_dds_scale_1a,
-  up_dds_init_1b,
-  up_dds_incr_1b,
-  up_dds_scale_1b,
-  up_dds_init_2a,
-  up_dds_incr_2a,
-  up_dds_scale_2a,
-  up_dds_init_2b,
-  up_dds_incr_2b,
-  up_dds_scale_2b,
+  up_dds_init_1a,     // Initial phase value (for DDSX only)
+  up_dds_incr_1a,     // Increment phase value (for DDSX only)
+  up_dds_scale_1a,    // Samples scale value (for DDSX only)
+  up_dds_init_1b,     // Initial phase value (for DDSX only)
+  up_dds_incr_1b,     // Increment phase value (for DDSX only)
+  up_dds_scale_1b,    // Samples scale value (for DDSX only)
+  up_dds_init_2a,     // Initial phase value (for DDSX only)
+  up_dds_incr_2a,     // Increment phase value (for DDSX only)
+  up_dds_scale_2a,    // Samples scale value (for DDSX only)
+  up_dds_init_2b,     // Initial phase value (for DDSX only)
+  up_dds_incr_2b,     // Increment phase value (for DDSX only)
+  up_dds_scale_2b,    // Samples scale value (for DDSX only)
+
+  // debug signals (chipscope)
 
   debug_data,
   debug_trigger);
 
+  // dac interface
+
   input           dac_div3_clk;
   input           dds_master_enable;
+
+  // I frame/data (sample 0 is transmitted first)
+
   output  [15:0]  dds_data_00;
   output  [15:0]  dds_data_01;
   output  [15:0]  dds_data_02;
+
+  // Q frame/data (sample 0 is transmitted first)
+
   output  [15:0]  dds_data_10;
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
@@ -87,6 +105,8 @@ module cf_ddsx (
   input   [15:0]  up_dds_init_2b;
   input   [15:0]  up_dds_incr_2b;
   input   [ 3:0]  up_dds_scale_2b;
+
+  // debug signals (chipscope)
 
   output  [79:0]  debug_data;
   output  [ 7:0]  debug_trigger;
@@ -175,6 +195,8 @@ module cf_ddsx (
   wire    [15:0]  dds_data_out_2b_1_s;
   wire    [15:0]  dds_data_out_2b_2_s;
 
+  // The DDS outputs are scaled and added together.
+
   function [15:0] offset_and_scale;
     input [15:0]  data;
     input [ 3:0]  scale;
@@ -204,6 +226,8 @@ module cf_ddsx (
     end
   endfunction
 
+  // debug ports
+
   assign debug_trigger = {7'd0, dds_master_enable};
   assign debug_data[79:79] = dds_master_enable;
   assign debug_data[78:78] = dds_enable_m1;
@@ -221,6 +245,10 @@ module cf_ddsx (
   assign debug_data[31:16] = dds_data_in_1a_2;
   assign debug_data[15: 0] = dds_data_in_1a_0;
 
+  // The DDS cores need a reset when tones are changed, this is a synchronous clear
+  // for the DDS cores. If disabled, the DDS cores are held on rest for about 32
+  // clocks. After which processor control takes over.
+
   always @(posedge dac_div3_clk) begin
     if (dds_master_enable == 1'b0) begin
       dds_enable_cnt <= 6'h20;
@@ -230,6 +258,10 @@ module cf_ddsx (
     dds_enable_clr <= dds_enable_cnt[5];
     dds_enable_int <= ~dds_enable_cnt[5];
   end
+
+  // Transfer processor signals to the dac clock. A very long chain is created for
+  // enable. This allows the individual phase counters to stabilize before the
+  // actual increment happens.
 
   always @(posedge dac_div3_clk) begin
     dds_enable_m1 <= dds_enable_int;
@@ -257,6 +289,10 @@ module cf_ddsx (
     end
   end
 
+  // The initial phase values of the DDS cores are updated according to the increment
+  // value. Note from the above chain, that by the time enable comes out of that
+  // pipe, these values will be stable.
+
   always @(posedge dac_div3_clk) begin
     dds_enable <= dds_enable_m7;
     dds_incr_1a <= dds_incr_m_1a + {dds_incr_m_1a[14:0], 1'd0};
@@ -276,6 +312,8 @@ module cf_ddsx (
     dds_init_2b_1 <= dds_init_m_2b + dds_incr_m_2b;
     dds_init_2b_2 <= dds_init_m_2b + {dds_incr_m_2b[14:0], 1'd0};
   end
+
+  // This is the running DDS phase counters
 
   always @(posedge dac_div3_clk) begin
     dds_enable_d <= dds_enable;
@@ -321,6 +359,8 @@ module cf_ddsx (
     end
   end
 
+  // THe DDS outputs are scaled and added together (scaling avoids range overflow).
+
   always @(posedge dac_div3_clk) begin
     dds_data_out_1a_0 <= offset_and_scale(dds_data_out_1a_0_s, dds_scale_1a);
     dds_data_out_1a_1 <= offset_and_scale(dds_data_out_1a_1_s, dds_scale_1a);
@@ -342,11 +382,15 @@ module cf_ddsx (
     dds_data_12 <= dds_data_out_2a_2 + dds_data_out_2b_2;
   end
 
+  // Xilinx's DDS core, I sample 0
+
   cf_ddsx_1 i_ddsx_1a_0 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_1a_0),
     .sine (dds_data_out_1a_0_s));
+
+  // Xilinx's DDS core, I sample 1
 
   cf_ddsx_1 i_ddsx_1a_1 (
     .clk (dac_div3_clk),
@@ -354,11 +398,15 @@ module cf_ddsx (
     .phase_in (dds_data_in_1a_1),
     .sine (dds_data_out_1a_1_s));
 
+  // Xilinx's DDS core, I sample 2
+
   cf_ddsx_1 i_ddsx_1a_2 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_1a_2),
     .sine (dds_data_out_1a_2_s));
+
+  // Xilinx's DDS core, I sample 0
 
   cf_ddsx_1 i_ddsx_1b_0 (
     .clk (dac_div3_clk),
@@ -366,11 +414,15 @@ module cf_ddsx (
     .phase_in (dds_data_in_1b_0),
     .sine (dds_data_out_1b_0_s));
 
+  // Xilinx's DDS core, I sample 1
+
   cf_ddsx_1 i_ddsx_1b_1 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_1b_1),
     .sine (dds_data_out_1b_1_s));
+
+  // Xilinx's DDS core, I sample 2
 
   cf_ddsx_1 i_ddsx_1b_2 (
     .clk (dac_div3_clk),
@@ -378,11 +430,15 @@ module cf_ddsx (
     .phase_in (dds_data_in_1b_2),
     .sine (dds_data_out_1b_2_s));
 
+  // Xilinx's DDS core, Q sample 0
+
   cf_ddsx_1 i_ddsx_2a_0 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_2a_0),
     .sine (dds_data_out_2a_0_s));
+
+  // Xilinx's DDS core, Q sample 1
 
   cf_ddsx_1 i_ddsx_2a_1 (
     .clk (dac_div3_clk),
@@ -390,11 +446,15 @@ module cf_ddsx (
     .phase_in (dds_data_in_2a_1),
     .sine (dds_data_out_2a_1_s));
 
+  // Xilinx's DDS core, Q sample 2
+
   cf_ddsx_1 i_ddsx_2a_2 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_2a_2),
     .sine (dds_data_out_2a_2_s));
+
+  // Xilinx's DDS core, Q sample 0
 
   cf_ddsx_1 i_ddsx_2b_0 (
     .clk (dac_div3_clk),
@@ -402,11 +462,15 @@ module cf_ddsx (
     .phase_in (dds_data_in_2b_0),
     .sine (dds_data_out_2b_0_s));
 
+  // Xilinx's DDS core, Q sample 1
+
   cf_ddsx_1 i_ddsx_2b_1 (
     .clk (dac_div3_clk),
     .sclr (dds_enable_clr),
     .phase_in (dds_data_in_2b_1),
     .sine (dds_data_out_2b_1_s));
+
+  // Xilinx's DDS core, Q sample 2
 
   cf_ddsx_1 i_ddsx_2b_2 (
     .clk (dac_div3_clk),

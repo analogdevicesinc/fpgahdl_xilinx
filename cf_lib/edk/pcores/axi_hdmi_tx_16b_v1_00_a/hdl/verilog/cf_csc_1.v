@@ -36,9 +36,11 @@
 // ***************************************************************************
 // ***************************************************************************
 // ***************************************************************************
-// csc <= c1*d[23:16] + c2*d[15:8] + c3*d[7:0] + c4;
 
 module cf_csc_1 (
+
+  // csc inputs
+  // csc <= c1*d[23:16] + c2*d[15:8] + c3*d[7:0] + c4;
 
   clk,
   vs,
@@ -51,10 +53,15 @@ module cf_csc_1 (
   C3,
   C4,
 
+  // these are the delay matched versions of the inputs
+
   csc_vs,
   csc_hs,
   csc_de,
   csc_data_1);
+
+  // csc inputs
+  // csc <= c1*d[23:16] + c2*d[15:8] + c3*d[7:0] + c4;
 
   input           clk;
   input           vs;
@@ -66,6 +73,8 @@ module cf_csc_1 (
   input   [16:0]  C2;
   input   [16:0]  C3;
   input   [24:0]  C4;
+
+  // these are the delay matched versions of the inputs
 
   output          csc_vs;
   output          csc_hs;
@@ -82,6 +91,8 @@ module cf_csc_1 (
 
   assign ddata_m_s = ddata_1_m_s & ddata_2_m_s & ddata_3_m_s;
 
+  // c1*R
+
   cf_mul #(.DELAY_DATA_WIDTH(3)) i_mul_c1 (
     .clk (clk),
     .data_a (C1),
@@ -89,6 +100,8 @@ module cf_csc_1 (
     .data_p (data_1_m_s),
     .ddata_in ({vs, hs, de}),
     .ddata_out (ddata_1_m_s));
+
+  // c2*G
 
   cf_mul #(.DELAY_DATA_WIDTH(3)) i_mul_c2 (
     .clk (clk),
@@ -98,6 +111,8 @@ module cf_csc_1 (
     .ddata_in ({vs, hs, de}),
     .ddata_out (ddata_2_m_s));
 
+  // c3*B
+
   cf_mul #(.DELAY_DATA_WIDTH(3)) i_mul_c3 (
     .clk (clk),
     .data_a (C3),
@@ -105,6 +120,8 @@ module cf_csc_1 (
     .data_p (data_3_m_s),
     .ddata_in ({vs, hs, de}),
     .ddata_out (ddata_3_m_s));
+
+  // last stage addition
 
   cf_add #(.DELAY_DATA_WIDTH(3)) i_add_c4 (
     .clk (clk),

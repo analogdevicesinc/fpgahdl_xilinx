@@ -42,20 +42,26 @@
 
 module cf_pnmon (
 
+  // adc interface
   adc_clk,
   adc_data,
 
+  // pn out of sync and error
   adc_pn_oos,
   adc_pn_err,
 
+  // processor interface PN9 (0x0), PN23 (0x1)
   up_pn_type);
 
+  // adc interface
   input           adc_clk;
   input   [13:0]  adc_data;
 
+  // pn out of sync and error
   output          adc_pn_oos;
   output          adc_pn_err;
 
+  // processor interface PN9 (0x0), PN23 (0x1)
   input           up_pn_type;
 
   reg             adc_pn_type_m1 = 'd0;
@@ -81,6 +87,8 @@ module cf_pnmon (
   wire            adc_pn_match_s;
   wire    [29:0]  adc_pn_data_s;
   wire            adc_pn_err_s;
+
+  // PN23 function
 
   function [29:0] pn23;
     input [29:0] din;
@@ -120,6 +128,8 @@ module cf_pnmon (
     end
   endfunction
 
+  // PN9 function
+
   function [29:0] pn9;
     input [29:0] din;
     reg   [29:0] dout;
@@ -158,6 +168,17 @@ module cf_pnmon (
     end
   endfunction
 
+  // This PN sequence checking algorithm is commonly used is most applications.
+  // It is a simple function generated based on the OOS status.
+  // If OOS is asserted (PN is OUT of sync):
+  //    The next sequence is generated from the incoming data.
+  //    If 16 sequences match CONSECUTIVELY, OOS is cleared (de-asserted).
+  // If OOS is de-asserted (PN is IN sync)
+  //    The next sequence is generated from the current sequence.
+  //    If 64 sequences mismatch CONSECUTIVELY, OOS is set (asserted).
+  // If OOS is de-asserted, any spurious mismatches sets the ERROR register.
+  // Ideally, processor should make sure both OOS == 0x0 AND ERR == 0x0.
+
   assign adc_pn_data_in_s[29:15] = {adc_pn_data[29], adc_data_d};
   assign adc_pn_data_in_s[14:0] = {adc_pn_data[14], adc_data_in};
   assign adc_pn_match0_s = (adc_pn_data_in_s[28:15] == adc_pn_data[28:15]) ? 1'b1 : 1'b0;
@@ -166,6 +187,8 @@ module cf_pnmon (
   assign adc_pn_match_s = adc_pn_match0 & adc_pn_match1 & adc_pn_match2;
   assign adc_pn_data_s = (adc_pn_oos == 1'b1) ? adc_pn_data_in_s : adc_pn_data;
   assign adc_pn_err_s = ~(adc_pn_oos | adc_pn_match_s);
+
+  // PN running sequence
 
   always @(posedge adc_clk) begin
     adc_pn_type_m1 <= up_pn_type;
@@ -182,6 +205,9 @@ module cf_pnmon (
       end
     end
   end
+
+  // PN OOS and counters (16 to clear, 64 to set). These numbers are actually determined
+  // based on BER parameters set by the system (usually in network applications).
 
   always @(posedge adc_clk) begin
     adc_pn_en_d <= adc_pn_en;
@@ -218,6 +244,9 @@ module cf_pnmon (
       end
     end
   end
+
+  // The error state is streched to multiple adc clocks such that processor
+  // has enough time to sample the error condition.
     
   always @(posedge adc_clk) begin
     if (adc_pn_en_d == 1'b1) begin

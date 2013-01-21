@@ -39,11 +39,15 @@
 
 module cf_hdmi_tx_16b (
 
+  // hdmi interface
+
   hdmi_clk,
   hdmi_vsync,
   hdmi_hsync,
   hdmi_data_e,
   hdmi_data,
+
+  // vdma interface
 
   vdma_clk,
   vdma_fs,
@@ -53,6 +57,8 @@ module cf_hdmi_tx_16b (
   vdma_data,
   vdma_last,
   vdma_ready,
+
+  // processor interface
 
   up_rstn,
   up_clk,
@@ -64,14 +70,20 @@ module cf_hdmi_tx_16b (
   up_ack,
   up_status,
 
+  // debug interface (chipscope)
+
   debug_data,
   debug_trigger);
+
+  // hdmi interface
 
   input           hdmi_clk;
   output          hdmi_vsync;
   output          hdmi_hsync;
   output          hdmi_data_e;
   output  [15:0]  hdmi_data;
+
+  // vdma interface
 
   input           vdma_clk;
   output          vdma_fs;
@@ -82,6 +94,8 @@ module cf_hdmi_tx_16b (
   input           vdma_last;
   output          vdma_ready;
 
+  // processor interface
+
   input           up_rstn;
   input           up_clk;
   input           up_sel;
@@ -91,6 +105,8 @@ module cf_hdmi_tx_16b (
   output  [31:0]  up_rdata;
   output          up_ack;
   output  [ 7:0]  up_status;
+
+  // debug interface (chipscope)
 
   output  [63:0]  debug_data;
   output  [ 7:0]  debug_trigger;
@@ -151,6 +167,8 @@ module cf_hdmi_tx_16b (
 
   assign debug_data = vdma_debug_data_s;
   assign debug_trigger = vdma_debug_trigger_s;
+
+  // processor write interface (see regmap.txt for details)
 
   assign up_wr_s = up_sel & ~up_rwn;
   assign up_rd_s = up_sel & up_rwn;
@@ -233,6 +251,8 @@ module cf_hdmi_tx_16b (
     end
   end
 
+  // processor read interface
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_rdata <= 'd0;
@@ -257,6 +277,8 @@ module cf_hdmi_tx_16b (
       up_ack <= up_ack_s;
     end
   end
+
+  // the hdmi status signals transferred to the processor clock domain
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
@@ -284,6 +306,8 @@ module cf_hdmi_tx_16b (
     end
   end
 
+  // vdma interface
+
   cf_vdma i_vdma (
     .hdmi_fs_toggle (hdmi_fs_toggle_s),
     .hdmi_raddr_g (hdmi_raddr_g_s),
@@ -306,6 +330,8 @@ module cf_hdmi_tx_16b (
     .vdma_unf (vdma_unf_s),
     .debug_data (vdma_debug_data_s),
     .debug_trigger (vdma_debug_trigger_s));
+
+  // hdmi interface
 
   cf_hdmi i_hdmi (
     .hdmi_clk (hdmi_clk),

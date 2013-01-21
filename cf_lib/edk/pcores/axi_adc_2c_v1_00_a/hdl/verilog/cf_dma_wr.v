@@ -41,11 +41,13 @@
 
 module cf_dma_wr (
 
+  // adc interface, data is 64bits with valid as the qualifier
   adc_clk,
   adc_valid,
   adc_data,
   adc_master_capture,
 
+  // dma interface and status signals
   dma_clk,
   dma_valid,
   dma_data,
@@ -56,19 +58,24 @@ module cf_dma_wr (
   dma_unf,
   dma_complete,
 
+  // processot interface
   up_capture_count,
 
+  // dma debug data (for chipscope)
   dma_dbg_data,
   dma_dbg_trigger,
 
+  // adc debug data (for chipscope)
   adc_dbg_data,
   adc_dbg_trigger);
 
+  // adc interface, data is 64bits with valid as the qualifier
   input           adc_clk;
   input           adc_valid;
   input   [63:0]  adc_data;
   input           adc_master_capture;
 
+  // dma interface and status signals
   input           dma_clk;
   output          dma_valid;
   output  [63:0]  dma_data;
@@ -79,11 +86,14 @@ module cf_dma_wr (
   output          dma_unf;
   output          dma_complete;
 
+  // processot interface
   input   [15:0]  up_capture_count;
 
+  // dma debug data (for chipscope)
   output  [63:0]  dma_dbg_data;
   output  [ 7:0]  dma_dbg_trigger;
 
+  // adc debug data (for chipscope)
   output  [63:0]  adc_dbg_data;
   output  [ 7:0]  adc_dbg_trigger;
 
@@ -188,6 +198,8 @@ module cf_dma_wr (
     end
   endfunction
 
+  // debug signals (for chipscope)
+
   assign dma_dbg_trigger[7] = dma_unf;
   assign dma_dbg_trigger[6] = dma_ovf;
   assign dma_dbg_trigger[5] = dma_rel_toggle_s;
@@ -252,6 +264,12 @@ module cf_dma_wr (
   assign dma_rel_toggle_s = dma_rel_toggle_m3 ^ dma_rel_toggle_m2;
   assign dma_addr_diff_s = {1'b1, dma_waddr} - dma_raddr;
 
+  // capture is done in "frames". The maximum size is limited by the processor
+  // register width (see regmap.txt for details). The dma side generates a frame
+  // start toggle. The adc then releases the write address in regular time
+  // intervals or at the end of the frame. The dma side then reads upto the
+  // write address "released" by the adc side.
+
   always @(posedge dma_clk) begin
     dma_fs_toggle_m1 <= adc_fs_toggle;
     dma_fs_toggle_m2 <= dma_fs_toggle_m1;
@@ -274,6 +292,8 @@ module cf_dma_wr (
 
   assign dma_xfer_en_s = dma_ready | ~dma_valid;
   assign dma_rd_s = (dma_rel_waddr == dma_raddr) ? 1'b0 : dma_ready;
+
+  // dma read and pipe line delays (memory latency)
 
   always @(posedge dma_clk) begin
     if (dma_fs_toggle == 1'b1) begin
@@ -385,7 +405,7 @@ module cf_dma_wr (
     end
   end
 
-  // adc write interface
+  // adc write interface (generates the release addresses)
 
   assign adc_capture_start_s = adc_capture_count[16] & ~adc_capture_enb;
   assign adc_capture_end_s = adc_capture_enb_d & ~adc_capture_enb;
@@ -430,7 +450,7 @@ module cf_dma_wr (
     adc_wdata <= {adc_capture_last_s, adc_data};
   end
 
-  // a small buffer is used to hold the captured data
+  // a small buffer is used to hold the captured data for clock domain transfer
 
   cf_mem #(.DW(65), .AW(6)) i_mem (
     .clka (adc_clk),
