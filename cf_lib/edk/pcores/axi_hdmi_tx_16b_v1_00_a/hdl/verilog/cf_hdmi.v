@@ -63,6 +63,7 @@ module cf_hdmi (
   // processor interface
 
   up_enable,
+  up_crcb_init,
   up_tpg_enable,
   up_csc_bypass,
   up_hs_width,
@@ -104,6 +105,7 @@ module cf_hdmi (
   // processor interface
 
   input           up_enable;
+  input           up_crcb_init;
   input           up_tpg_enable;
   input           up_csc_bypass;
   input   [15:0]  up_hs_width;
@@ -126,6 +128,7 @@ module cf_hdmi (
   reg             hdmi_up_enable_m2 = 'd0;
   reg             hdmi_up_enable_m3 = 'd0;
   reg             hdmi_up_enable = 'd0;
+  reg             hdmi_up_crcb_init = 'd0;
   reg             hdmi_up_tpg_enable = 'd0;
   reg             hdmi_up_csc_bypass = 'd0;
   reg     [15:0]  hdmi_up_hs_width = 'd0;
@@ -260,6 +263,7 @@ module cf_hdmi (
     hdmi_up_enable_m3 <= hdmi_up_enable_m2;
     hdmi_up_enable <= hdmi_up_enable_m3;
     if ((hdmi_up_enable_m2 == 1'b1) && (hdmi_up_enable_m3 == 1'b0)) begin
+      hdmi_up_crcb_init <= up_crcb_init;
       hdmi_up_tpg_enable <= up_tpg_enable;
       hdmi_up_csc_bypass <= up_csc_bypass;
       hdmi_up_hs_width <= up_hs_width;
@@ -433,7 +437,8 @@ module cf_hdmi (
     .s422_vs (hdmi_vs_422_s),
     .s422_hs (hdmi_hs_422_s),
     .s422_de (hdmi_de_422_s),
-    .s422_data (hdmi_data_422_s));
+    .s422_data (hdmi_data_422_s),
+    .Cr_Cb_sel_init (hdmi_up_crcb_init));
 
 endmodule
 

@@ -45,7 +45,8 @@
 // ---------------------------------------------------------------------------
 // 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
 // ---------------------------------------------------------------------------
-// 0x01   0x04   [ 2: 2]  tpg_enable            Enable (0x1) test pattern video
+// 0x01   0x04   [ 3: 3]  crcb_init             Enable (0x1) Cb first for sub/super sampling
+//               [ 2: 2]  tpg_enable            Enable (0x1) test pattern video
 //               [ 1: 1]  csc_bypass            Bypass the CSC
 //               [ 0: 0]  enable                Video output enable (0->1).
 // ---------------------------------------------------------------------------

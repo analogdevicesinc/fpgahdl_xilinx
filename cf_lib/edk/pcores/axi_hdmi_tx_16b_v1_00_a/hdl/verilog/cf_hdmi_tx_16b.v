@@ -111,39 +111,40 @@ module cf_hdmi_tx_16b (
   output  [63:0]  debug_data;
   output  [ 7:0]  debug_trigger;
 
-  reg             up_tpg_enable;
-  reg             up_csc_bypass;
-  reg             up_enable;
-  reg     [15:0]  up_hs_width;
-  reg     [15:0]  up_hs_count;
-  reg     [15:0]  up_hs_de_min;
-  reg     [15:0]  up_hs_de_max;
-  reg     [15:0]  up_vs_width;
-  reg     [15:0]  up_vs_count;
-  reg     [15:0]  up_vs_de_min;
-  reg     [15:0]  up_vs_de_max;
-  reg             up_hdmi_tpm_oos_hold;
-  reg             up_vdma_tpm_oos_hold;
-  reg             up_vdma_be_error_hold;
-  reg             up_vdma_ovf_hold;
-  reg             up_vdma_unf_hold;
-  reg             up_cp_en;
-  reg     [23:0]  up_cp;
-  reg     [ 7:0]  up_status;
-  reg     [31:0]  up_rdata;
-  reg             up_sel_d;
-  reg             up_sel_2d;
-  reg             up_ack;
-  reg             up_hdmi_tpm_oos_m1;
-  reg             up_vdma_tpm_oos_m1;
-  reg             up_vdma_be_error_m1;
-  reg             up_vdma_ovf_m1;
-  reg             up_vdma_unf_m1;
-  reg             up_hdmi_tpm_oos;
-  reg             up_vdma_tpm_oos;
-  reg             up_vdma_be_error;
-  reg             up_vdma_ovf;
-  reg             up_vdma_unf;
+  reg             up_crcb_init = 'd0;
+  reg             up_tpg_enable = 'd0;
+  reg             up_csc_bypass = 'd0;
+  reg             up_enable = 'd0;
+  reg     [15:0]  up_hs_width = 'd0;
+  reg     [15:0]  up_hs_count = 'd0;
+  reg     [15:0]  up_hs_de_min = 'd0;
+  reg     [15:0]  up_hs_de_max = 'd0;
+  reg     [15:0]  up_vs_width = 'd0;
+  reg     [15:0]  up_vs_count = 'd0;
+  reg     [15:0]  up_vs_de_min = 'd0;
+  reg     [15:0]  up_vs_de_max = 'd0;
+  reg             up_hdmi_tpm_oos_hold = 'd0;
+  reg             up_vdma_tpm_oos_hold = 'd0;
+  reg             up_vdma_be_error_hold = 'd0;
+  reg             up_vdma_ovf_hold = 'd0;
+  reg             up_vdma_unf_hold = 'd0;
+  reg             up_cp_en = 'd0;
+  reg     [23:0]  up_cp = 'd0;
+  reg     [ 7:0]  up_status = 'd0;
+  reg     [31:0]  up_rdata = 'd0;
+  reg             up_sel_d = 'd0;
+  reg             up_sel_2d = 'd0;
+  reg             up_ack = 'd0;
+  reg             up_hdmi_tpm_oos_m1 = 'd0;
+  reg             up_vdma_tpm_oos_m1 = 'd0;
+  reg             up_vdma_be_error_m1 = 'd0;
+  reg             up_vdma_ovf_m1 = 'd0;
+  reg             up_vdma_unf_m1 = 'd0;
+  reg             up_hdmi_tpm_oos = 'd0;
+  reg             up_vdma_tpm_oos = 'd0;
+  reg             up_vdma_be_error = 'd0;
+  reg             up_vdma_ovf = 'd0;
+  reg             up_vdma_unf = 'd0;
 
   wire            up_wr_s;
   wire            up_rd_s;
@@ -176,6 +177,7 @@ module cf_hdmi_tx_16b (
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
+      up_crcb_init <= 'd0;
       up_tpg_enable <= 'd0;
       up_csc_bypass <= 'd0;
       up_enable <= 'd0;
@@ -197,6 +199,7 @@ module cf_hdmi_tx_16b (
       up_status <= 'd0;
     end else begin
       if ((up_addr == 5'h01) && (up_wr_s == 1'b1)) begin
+        up_crcb_init <= up_wdata[3];
         up_tpg_enable <= up_wdata[2];
         up_csc_bypass <= up_wdata[1];
         up_enable <= up_wdata[0];
@@ -262,7 +265,7 @@ module cf_hdmi_tx_16b (
     end else begin
       case (up_addr)
         5'h00: up_rdata <= 32'h00010061;
-        5'h01: up_rdata <= {29'd0, up_tpg_enable, up_csc_bypass, up_enable};
+        5'h01: up_rdata <= {28'd0, up_crcb_init, up_tpg_enable, up_csc_bypass, up_enable};
         5'h02: up_rdata <= {up_hs_width, up_hs_count};
         5'h03: up_rdata <= {up_hs_de_min, up_hs_de_max};
         5'h04: up_rdata <= {up_vs_width, up_vs_count};
@@ -349,6 +352,7 @@ module cf_hdmi_tx_16b (
     .vdma_fs_ret_toggle (vdma_fs_ret_toggle_s),
     .vdma_fs_waddr (vdma_fs_waddr_s),
     .up_enable (up_enable),
+    .up_crcb_init (up_crcb_init),
     .up_tpg_enable (up_tpg_enable),
     .up_csc_bypass (up_csc_bypass),
     .up_hs_width (up_hs_width),

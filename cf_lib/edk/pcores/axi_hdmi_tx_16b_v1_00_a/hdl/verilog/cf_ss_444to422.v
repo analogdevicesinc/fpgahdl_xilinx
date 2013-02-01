@@ -53,7 +53,11 @@ module cf_ss_444to422 (
   s422_vs,
   s422_hs,
   s422_de,
-  s422_data);
+  s422_data,
+
+  // change to switch Cr/Cb sel (0-> Cb first, 1-> Cr first)
+
+  Cr_Cb_sel_init);
 
   input           clk;
   input           s444_vs;
@@ -65,6 +69,8 @@ module cf_ss_444to422 (
   output          s422_hs;
   output          s422_de;
   output  [15:0]  s422_data;
+
+  input           Cr_Cb_sel_init;
 
   reg             s444_vs_d = 'd0;
   reg             s444_hs_d = 'd0;
@@ -87,12 +93,16 @@ module cf_ss_444to422 (
   reg     [15:0]  s422_data = 'd0;
 
   wire    [23:0]  s444_data_s;
+  wire    [23:0]  s444_data_d_s;
+  wire    [23:0]  s444_data_2d_s;
   wire    [ 9:0]  Cr_s;
   wire    [ 9:0]  Cb_s;
 
-  // Fill the data pipe lines
+  // Fill the data pipe lines, hold the last data on edges 
 
-  assign s444_data_s = (s444_de == 1'b1) ? s444_data : 24'd0;
+  assign s444_data_s = (s444_de == 1'b1) ? s444_data : s444_data_d;
+  assign s444_data_d_s = (s444_de_d == 1'b1) ? s444_data_d : s444_data_2d;
+  assign s444_data_2d_s = (s444_de_2d == 1'b1) ? s444_data_2d : s444_data_3d;
 
   always @(posedge clk) begin
     s444_vs_d <= s444_vs;
@@ -102,11 +112,11 @@ module cf_ss_444to422 (
     s444_vs_2d <= s444_vs_d;
     s444_hs_2d <= s444_hs_d;
     s444_de_2d <= s444_de_d;
-    s444_data_2d <= s444_data_d;
+    s444_data_2d <= s444_data_d_s;
     s444_vs_3d <= s444_vs_2d;
     s444_hs_3d <= s444_hs_2d;
     s444_de_3d <= s444_de_2d;
-    s444_data_3d <= s444_data_2d;
+    s444_data_3d <= s444_data_2d_s;
   end
 
   // Get the average 0.4*S(n-1) + 0.2*S(n) + 0.2*S(n+1)
@@ -123,7 +133,7 @@ module cf_ss_444to422 (
     if (s444_de_3d == 1'b1) begin
       Cr_Cb_sel <= ~Cr_Cb_sel;
     end else begin
-      Cr_Cb_sel <= 'd0;
+      Cr_Cb_sel <= Cr_Cb_sel_init;
     end
   end
 
