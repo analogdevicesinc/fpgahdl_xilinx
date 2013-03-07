@@ -45,7 +45,8 @@
 // ---------------------------------------------------------------------------
 // 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
 // ---------------------------------------------------------------------------
-// 0x01   0x04   [ 4: 4]  dds_patternsel        DDS Pattern enable (0x1) or disable (0x0).
+// 0x01   0x04   [ 5: 5]  dds_format            DDS 2's compl (0x1) or offset-binary (0x0).
+//               [ 4: 4]  dds_patternsel        DDS Pattern enable (0x1) or disable (0x0).
 //               [ 3: 3]  dds_interpolate       DDS DDR interpolation enable (0x1) or disable (0x0).
 //               [ 2: 2]  dds_select            DDS DDR (0x1) or Xilinx (0x0) select.
 //               [ 1: 1]  dds_enable            DDS Data Enable (0->1)
@@ -104,6 +105,10 @@
 //
 // This register indicates the status of DDR-DDS and are applicable only if dds select is
 // set to 0x1. In DDR DDS mode, sw must pack the data for the two channels.
+// ---------------------------------------------------------------------------
+// 0x0b   0x2c   [15: 0]  vdma_framecnt         VDMA frame count (quad words)
+//
+// This register is used just as a counter to generate frame sync to keep vdma happy.
 // ---------------------------------------------------------------------------
 // 0x10   0x40   [11:16]  dds_data_1b[15:0]     Channel 1 DDS-B data (I1)
 //               [15: 0]  dds_data_1a[15:0]     Channel 1 DDS-A data (I0)

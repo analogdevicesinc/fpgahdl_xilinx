@@ -58,6 +58,10 @@ module cf_ddsv_intp (
   dds_data_11,
   dds_data_12,
 
+  // 2's compl (0x0) or offset-bin (0x1)
+
+  dds_format_n,
+
   // interpolation controls
 
   up_intp_enable,
@@ -86,6 +90,10 @@ module cf_ddsv_intp (
   output  [15:0]  dds_data_10;
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
+
+  // 2's compl (0x0) or offset-bin (0x1)
+
+  input           dds_format_n;
 
   // interpolation controls
 
@@ -213,12 +221,12 @@ module cf_ddsv_intp (
 
   always @(posedge dac_div3_clk) begin
     if (dds_intp_enable == 1'b1) begin
-      dds_data_00 <= {~dds_idata_00_s[15], dds_idata_00_s[14:0]};
-      dds_data_01 <= {~dds_idata_01_s[15], dds_idata_01_s[14:0]};
-      dds_data_02 <= {~dds_idata_02_s[15], dds_idata_02_s[14:0]};
-      dds_data_10 <= {~dds_idata_10_s[15], dds_idata_10_s[14:0]};
-      dds_data_11 <= {~dds_idata_11_s[15], dds_idata_11_s[14:0]};
-      dds_data_12 <= {~dds_idata_12_s[15], dds_idata_12_s[14:0]};
+      dds_data_00 <= {(dds_format_n ^ dds_idata_00_s[15]), dds_idata_00_s[14:0]};
+      dds_data_01 <= {(dds_format_n ^ dds_idata_01_s[15]), dds_idata_01_s[14:0]};
+      dds_data_02 <= {(dds_format_n ^ dds_idata_02_s[15]), dds_idata_02_s[14:0]};
+      dds_data_10 <= {(dds_format_n ^ dds_idata_10_s[15]), dds_idata_10_s[14:0]};
+      dds_data_11 <= {(dds_format_n ^ dds_idata_11_s[15]), dds_idata_11_s[14:0]};
+      dds_data_12 <= {(dds_format_n ^ dds_idata_12_s[15]), dds_idata_12_s[14:0]};
     end else begin
       dds_data_00 <= dds_rdata[95:80];
       dds_data_01 <= dds_rdata[63:48];

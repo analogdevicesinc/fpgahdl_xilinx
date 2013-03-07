@@ -79,6 +79,16 @@ module cf_dac_if (
   dds_data_11,
   dds_data_12,
 
+  // the following interface is provided for any user logic that requires dac-clk,
+  // and do not wish to run the interface at higher speeds. You must set the
+  // C_CF_BUFTYPE parameter to 'h1X to enable ODDR interface instead of an OSERDES.
+  // You may use either dac_clk or dac_div3_clk in this case.
+
+  dac_clk,
+  usr_frame,
+  usr_data_I,
+  usr_data_Q,
+
   // delay controls
 
   delay_clk,
@@ -91,6 +101,9 @@ module cf_dac_if (
   parameter C_CF_BUFTYPE = 0;
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
+
+  parameter C_DEVICE_SEL = C_CF_BUFTYPE & 'hf;
+  parameter C_ODDR_SEL = (C_CF_BUFTYPE >> 4) & 'hf;
 
   // The clock is controlled separately from the data. This ensures that the data (samples)
   // changes are hitless (clock is always present).  The DACs usually use DCI (this clock) at
@@ -127,6 +140,16 @@ module cf_dac_if (
   input   [15:0]  dds_data_10;
   input   [15:0]  dds_data_11;
   input   [15:0]  dds_data_12;
+
+  // the following interface is provided for any user logic that requires dac-clk,
+  // and do not wish to run the interface at higher speeds. You must set the
+  // C_CF_BUFTYPE parameter to 'h1X to enable ODDR interface instead of an OSERDES.
+  // You may use either dac_clk or dac_div3_clk in this case.
+
+  output          dac_clk;
+  input           usr_frame;
+  input   [15:0]  usr_data_I;
+  input   [15:0]  usr_data_Q;
 
   // delay controls
 
@@ -230,6 +253,20 @@ module cf_dac_if (
   generate
   for (l_inst = 0; l_inst <= 15; l_inst = l_inst + 1) begin: g_dac_data
 
+  if (C_ODDR_SEL == 1) begin
+  ODDR #(
+    .DDR_CLK_EDGE ("SAME_EDGE"),
+    .INIT (1'b0),
+    .SRTYPE ("ASYNC"))
+  i_dac_data_out_oddr (
+    .S (1'b0),
+    .CE (1'b1),
+    .R (serdes_rst_s),
+    .C (dac_clk),
+    .D1 (usr_data_I[l_inst]),
+    .D2 (usr_data_Q[l_inst]),
+    .Q (dac_data_out_s[l_inst]));
+  end else begin
   OSERDESE1 #(
     .DATA_RATE_OQ ("DDR"),
     .DATA_RATE_TQ ("SDR"),
@@ -266,6 +303,7 @@ module cf_dac_if (
     .TFB (),
     .TCE (1'b0),
     .RST (serdes_rst_s));
+  end
 
   OBUFDS #(
     .IOSTANDARD ("LVDS_25"))
@@ -279,6 +317,21 @@ module cf_dac_if (
 
   // dac frame output serdes & buffer
   
+  generate
+  if (C_ODDR_SEL == 1) begin
+  ODDR #(
+    .DDR_CLK_EDGE ("SAME_EDGE"),
+    .INIT (1'b0),
+    .SRTYPE ("ASYNC"))
+  i_dac_frame_out_oddr (
+    .S (1'b0),
+    .CE (1'b1),
+    .R (serdes_clk_rst_s),
+    .C (dac_clk),
+    .D1 (usr_frame),
+    .D2 (usr_frame),
+    .Q (dac_frame_out_s));
+  end else begin
   OSERDESE1 #(
     .DATA_RATE_OQ ("DDR"),
     .DATA_RATE_TQ ("SDR"),
@@ -315,6 +368,8 @@ module cf_dac_if (
     .TFB (),
     .TCE (1'b0),
     .RST (serdes_clk_rst_s));
+  end
+  endgenerate
 
   OBUFDS #(
     .IOSTANDARD ("LVDS_25"))
@@ -325,6 +380,21 @@ module cf_dac_if (
 
   // dac clock output serdes & buffer
   
+  generate
+  if (C_ODDR_SEL == C_CF_VIRTEX6) begin
+  ODDR #(
+    .DDR_CLK_EDGE ("SAME_EDGE"),
+    .INIT (1'b0),
+    .SRTYPE ("ASYNC"))
+  i_dac_clk_out_oddr (
+    .S (1'b0),
+    .CE (1'b1),
+    .R (serdes_clk_rst_s),
+    .C (dac_clk),
+    .D1 (1'b1),
+    .D2 (1'b0),
+    .Q (dac_clk_out_s));
+  end else begin
   OSERDESE1 #(
     .DATA_RATE_OQ ("DDR"),
     .DATA_RATE_TQ ("SDR"),
@@ -361,6 +431,8 @@ module cf_dac_if (
     .TFB (),
     .TCE (1'b0),
     .RST (serdes_clk_rst_s));
+  end
+  endgenerate
 
   OBUFDS #(
     .IOSTANDARD ("LVDS_25"))
@@ -379,7 +451,7 @@ module cf_dac_if (
     .O (dac_clk_in_s));
 
   generate
-  if (C_CF_BUFTYPE == C_CF_VIRTEX6) begin
+  if (C_DEVICE_SEL == C_CF_VIRTEX6) begin
   MMCM_ADV #(
     .BANDWIDTH ("OPTIMIZED"),
     .CLKOUT4_CASCADE ("FALSE"),
@@ -495,13 +567,21 @@ module cf_dac_if (
     .I (dac_mmcm_fb_clk_s),
     .O (dac_fb_clk_s));
 
+  generate
+  if (C_ODDR_SEL == 1) begin
   BUFG i_dac_clk_bufg (
     .I (dac_mmcm_clk_s),
     .O (dac_clk));
-
+  assign dac_div3_clk = dac_clk;
+  end else begin
+  BUFG i_dac_clk_bufg (
+    .I (dac_mmcm_clk_s),
+    .O (dac_clk));
   BUFG i_dac_div3_clk_bufg (
     .I (dac_mmcm_div3_clk_s),
     .O (dac_div3_clk));
+  end
+  endgenerate
 
 endmodule
 

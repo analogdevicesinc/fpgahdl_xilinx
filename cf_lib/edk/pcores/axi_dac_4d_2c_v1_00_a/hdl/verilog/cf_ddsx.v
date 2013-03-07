@@ -58,6 +58,12 @@ module cf_ddsx (
   dds_data_11,
   dds_data_12,
 
+  // 2's compl (0x1) or offset-bin (0x0)
+
+  dds_format_n,
+
+  // processor signals
+
   up_dds_init_1a,     // Initial phase value (for DDSX only)
   up_dds_incr_1a,     // Increment phase value (for DDSX only)
   up_dds_scale_1a,    // Samples scale value (for DDSX only)
@@ -92,6 +98,12 @@ module cf_ddsx (
   output  [15:0]  dds_data_10;
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
+
+  // 2's compl (0x1) or offset-bin (0x0)
+
+  input           dds_format_n;
+
+  // processor signals
 
   input   [15:0]  up_dds_init_1a;
   input   [15:0]  up_dds_incr_1a;
@@ -175,6 +187,12 @@ module cf_ddsx (
   reg     [15:0]  dds_data_out_2b_0 = 'd0;
   reg     [15:0]  dds_data_out_2b_1 = 'd0;
   reg     [15:0]  dds_data_out_2b_2 = 'd0;
+  reg     [15:0]  dds_data_out_00 = 'd0;
+  reg     [15:0]  dds_data_out_01 = 'd0;
+  reg     [15:0]  dds_data_out_02 = 'd0;
+  reg     [15:0]  dds_data_out_10 = 'd0;
+  reg     [15:0]  dds_data_out_11 = 'd0;
+  reg     [15:0]  dds_data_out_12 = 'd0;
   reg     [15:0]  dds_data_00 = 'd0;
   reg     [15:0]  dds_data_01 = 'd0;
   reg     [15:0]  dds_data_02 = 'd0;
@@ -197,32 +215,30 @@ module cf_ddsx (
 
   // The DDS outputs are scaled and added together.
 
-  function [15:0] offset_and_scale;
+  function [15:0] data_scale;
     input [15:0]  data;
     input [ 3:0]  scale;
-    reg   [15:0]  data_offset;
-    reg   [15:0]  data_scale;
+    reg   [15:0]  data_out;
     begin
-      data_offset = data + 16'h8000;
       case (scale)
-        4'b1111: data_scale = {15'd0, data_offset[15:15]};
-        4'b1110: data_scale = {14'd0, data_offset[15:14]};
-        4'b1101: data_scale = {13'd0, data_offset[15:13]};
-        4'b1100: data_scale = {12'd0, data_offset[15:12]};
-        4'b1011: data_scale = {11'd0, data_offset[15:11]};
-        4'b1010: data_scale = {10'd0, data_offset[15:10]};
-        4'b1001: data_scale = { 9'd0, data_offset[15: 9]};
-        4'b1000: data_scale = { 8'd0, data_offset[15: 8]};
-        4'b0111: data_scale = { 7'd0, data_offset[15: 7]};
-        4'b0110: data_scale = { 6'd0, data_offset[15: 6]};
-        4'b0101: data_scale = { 5'd0, data_offset[15: 5]};
-        4'b0100: data_scale = { 4'd0, data_offset[15: 4]};
-        4'b0011: data_scale = { 3'd0, data_offset[15: 3]};
-        4'b0010: data_scale = { 2'd0, data_offset[15: 2]};
-        4'b0001: data_scale = { 1'd0, data_offset[15: 1]};
-        default: data_scale = data_offset;
+        4'b1111: data_out = {{15{data[15]}}, data[15:15]};
+        4'b1110: data_out = {{14{data[15]}}, data[15:14]};
+        4'b1101: data_out = {{13{data[15]}}, data[15:13]};
+        4'b1100: data_out = {{12{data[15]}}, data[15:12]};
+        4'b1011: data_out = {{11{data[15]}}, data[15:11]};
+        4'b1010: data_out = {{10{data[15]}}, data[15:10]};
+        4'b1001: data_out = {{ 9{data[15]}}, data[15: 9]};
+        4'b1000: data_out = {{ 8{data[15]}}, data[15: 8]};
+        4'b0111: data_out = {{ 7{data[15]}}, data[15: 7]};
+        4'b0110: data_out = {{ 6{data[15]}}, data[15: 6]};
+        4'b0101: data_out = {{ 5{data[15]}}, data[15: 5]};
+        4'b0100: data_out = {{ 4{data[15]}}, data[15: 4]};
+        4'b0011: data_out = {{ 3{data[15]}}, data[15: 3]};
+        4'b0010: data_out = {{ 2{data[15]}}, data[15: 2]};
+        4'b0001: data_out = {{ 1{data[15]}}, data[15: 1]};
+        default: data_out = data;
       endcase
-      offset_and_scale = data_scale;
+      data_scale = data_out;
     end
   endfunction
 
@@ -362,24 +378,30 @@ module cf_ddsx (
   // THe DDS outputs are scaled and added together (scaling avoids range overflow).
 
   always @(posedge dac_div3_clk) begin
-    dds_data_out_1a_0 <= offset_and_scale(dds_data_out_1a_0_s, dds_scale_1a);
-    dds_data_out_1a_1 <= offset_and_scale(dds_data_out_1a_1_s, dds_scale_1a);
-    dds_data_out_1a_2 <= offset_and_scale(dds_data_out_1a_2_s, dds_scale_1a);
-    dds_data_out_1b_0 <= offset_and_scale(dds_data_out_1b_0_s, dds_scale_1b);
-    dds_data_out_1b_1 <= offset_and_scale(dds_data_out_1b_1_s, dds_scale_1b);
-    dds_data_out_1b_2 <= offset_and_scale(dds_data_out_1b_2_s, dds_scale_1b);
-    dds_data_out_2a_0 <= offset_and_scale(dds_data_out_2a_0_s, dds_scale_2a);
-    dds_data_out_2a_1 <= offset_and_scale(dds_data_out_2a_1_s, dds_scale_2a);
-    dds_data_out_2a_2 <= offset_and_scale(dds_data_out_2a_2_s, dds_scale_2a);
-    dds_data_out_2b_0 <= offset_and_scale(dds_data_out_2b_0_s, dds_scale_2b);
-    dds_data_out_2b_1 <= offset_and_scale(dds_data_out_2b_1_s, dds_scale_2b);
-    dds_data_out_2b_2 <= offset_and_scale(dds_data_out_2b_2_s, dds_scale_2b);
-    dds_data_00 <= dds_data_out_1a_0 + dds_data_out_1b_0;
-    dds_data_01 <= dds_data_out_1a_1 + dds_data_out_1b_1;
-    dds_data_02 <= dds_data_out_1a_2 + dds_data_out_1b_2;
-    dds_data_10 <= dds_data_out_2a_0 + dds_data_out_2b_0;
-    dds_data_11 <= dds_data_out_2a_1 + dds_data_out_2b_1;
-    dds_data_12 <= dds_data_out_2a_2 + dds_data_out_2b_2;
+    dds_data_out_1a_0 <= data_scale(dds_data_out_1a_0_s, dds_scale_1a);
+    dds_data_out_1a_1 <= data_scale(dds_data_out_1a_1_s, dds_scale_1a);
+    dds_data_out_1a_2 <= data_scale(dds_data_out_1a_2_s, dds_scale_1a);
+    dds_data_out_1b_0 <= data_scale(dds_data_out_1b_0_s, dds_scale_1b);
+    dds_data_out_1b_1 <= data_scale(dds_data_out_1b_1_s, dds_scale_1b);
+    dds_data_out_1b_2 <= data_scale(dds_data_out_1b_2_s, dds_scale_1b);
+    dds_data_out_2a_0 <= data_scale(dds_data_out_2a_0_s, dds_scale_2a);
+    dds_data_out_2a_1 <= data_scale(dds_data_out_2a_1_s, dds_scale_2a);
+    dds_data_out_2a_2 <= data_scale(dds_data_out_2a_2_s, dds_scale_2a);
+    dds_data_out_2b_0 <= data_scale(dds_data_out_2b_0_s, dds_scale_2b);
+    dds_data_out_2b_1 <= data_scale(dds_data_out_2b_1_s, dds_scale_2b);
+    dds_data_out_2b_2 <= data_scale(dds_data_out_2b_2_s, dds_scale_2b);
+    dds_data_out_00 <= dds_data_out_1a_0 + dds_data_out_1b_0;
+    dds_data_out_01 <= dds_data_out_1a_1 + dds_data_out_1b_1;
+    dds_data_out_02 <= dds_data_out_1a_2 + dds_data_out_1b_2;
+    dds_data_out_10 <= dds_data_out_2a_0 + dds_data_out_2b_0;
+    dds_data_out_11 <= dds_data_out_2a_1 + dds_data_out_2b_1;
+    dds_data_out_12 <= dds_data_out_2a_2 + dds_data_out_2b_2;
+    dds_data_00 <= {(dds_format_n ^ dds_data_out_00[15]), dds_data_out_00[14:0]};
+    dds_data_01 <= {(dds_format_n ^ dds_data_out_01[15]), dds_data_out_01[14:0]};
+    dds_data_02 <= {(dds_format_n ^ dds_data_out_02[15]), dds_data_out_02[14:0]};
+    dds_data_10 <= {(dds_format_n ^ dds_data_out_10[15]), dds_data_out_10[14:0]};
+    dds_data_11 <= {(dds_format_n ^ dds_data_out_11[15]), dds_data_out_11[14:0]};
+    dds_data_12 <= {(dds_format_n ^ dds_data_out_12[15]), dds_data_out_12[14:0]};
   end
 
   // Xilinx's DDS core, I sample 0

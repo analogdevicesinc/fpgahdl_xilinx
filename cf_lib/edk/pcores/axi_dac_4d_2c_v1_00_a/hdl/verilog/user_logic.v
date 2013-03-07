@@ -51,6 +51,7 @@ module user_logic (
   dac_data_out_n,
 
   vdma_clk,
+  vdma_fs,
   vdma_valid,
   vdma_data,
   vdma_ready,
@@ -97,6 +98,7 @@ module user_logic (
   output  [15:0]  dac_data_out_n;
 
   input           vdma_clk;
+  output          vdma_fs;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
@@ -216,6 +218,7 @@ module user_logic (
     .dac_data_out_p (dac_data_out_p),
     .dac_data_out_n (dac_data_out_n),
     .vdma_clk (vdma_clk),
+    .vdma_fs (vdma_fs),
     .vdma_valid (vdma_valid),
     .vdma_data (vdma_data),
     .vdma_ready (vdma_ready),

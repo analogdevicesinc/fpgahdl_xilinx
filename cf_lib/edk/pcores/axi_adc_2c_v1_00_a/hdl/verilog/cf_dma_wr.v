@@ -59,6 +59,7 @@ module cf_dma_wr (
   dma_complete,
 
   // processot interface
+  up_capture_stream,
   up_capture_count,
 
   // dma debug data (for chipscope)
@@ -87,7 +88,8 @@ module cf_dma_wr (
   output          dma_complete;
 
   // processot interface
-  input   [15:0]  up_capture_count;
+  input           up_capture_stream;
+  input   [29:0]  up_capture_count;
 
   // dma debug data (for chipscope)
   output  [63:0]  dma_dbg_data;
@@ -138,11 +140,11 @@ module cf_dma_wr (
   reg             adc_capture_m1 = 'd0;
   reg             adc_capture_m2 = 'd0;
   reg             adc_capture_m3 = 'd0;
-  reg             adc_capture = 'd0;
-  reg     [16:0]  adc_capture_count = 'd0;
+  reg             adc_capture_p = 'd0;
+  reg             adc_capture_stream = 'd0;
+  reg     [30:0]  adc_capture_count = 'd0;
+  reg     [30:0]  adc_valid_count = 'd0;
   reg     [ 3:0]  adc_rel_count = 'd0;
-  reg             adc_capture_enb = 'd0;
-  reg             adc_capture_enb_d = 'd0;
   reg             adc_fs_toggle = 'd0;
   reg     [ 5:0]  adc_fs_waddr = 'd0;
   reg             adc_rel_toggle = 'd0;
@@ -161,10 +163,9 @@ module cf_dma_wr (
   wire            dma_unf_s;
   wire            dma_last_s;
   wire    [64:0]  dma_rdata_s;
-  wire            adc_capture_start_s;
-  wire            adc_capture_end_s;
-  wire            adc_capture_rel_s;
   wire            adc_capture_last_s;
+  wire            adc_capture_rel_s;
+  wire            adc_capture_s;
 
   // binary to grey conversion
 
@@ -235,19 +236,19 @@ module cf_dma_wr (
   assign dma_dbg_data[ 1: 1] = dma_last;
   assign dma_dbg_data[ 0: 0] = dma_valid;
 
-  assign adc_dbg_trigger[7] = adc_capture;
+  assign adc_dbg_trigger[7] = adc_capture_s;
   assign adc_dbg_trigger[6] = adc_wr;
   assign adc_dbg_trigger[5] = adc_fs_toggle;
   assign adc_dbg_trigger[4] = adc_rel_toggle;
   assign adc_dbg_trigger[3] = adc_capture_rel_s;
   assign adc_dbg_trigger[2] = adc_capture_last_s;
-  assign adc_dbg_trigger[1] = adc_capture_end_s;
-  assign adc_dbg_trigger[0] = adc_capture_start_s;
+  assign adc_dbg_trigger[1] = adc_capture_last_s;
+  assign adc_dbg_trigger[0] = adc_capture_last_s;
   
-  assign adc_dbg_data[63:63] = adc_capture_enb;
+  assign adc_dbg_data[63:63] = adc_capture_rel_s;
   assign adc_dbg_data[62:62] = adc_capture_rel_s;
-  assign adc_dbg_data[61:61] = adc_capture_end_s;
-  assign adc_dbg_data[60:60] = adc_capture_start_s;
+  assign adc_dbg_data[61:61] = adc_capture_rel_s;
+  assign adc_dbg_data[60:60] = adc_capture_last_s;
   assign adc_dbg_data[59:59] = adc_capture_last_s;
   assign adc_dbg_data[58:58] = adc_rel_toggle;
   assign adc_dbg_data[57:57] = adc_rel_toggle;
@@ -407,42 +408,50 @@ module cf_dma_wr (
 
   // adc write interface (generates the release addresses)
 
-  assign adc_capture_start_s = adc_capture_count[16] & ~adc_capture_enb;
-  assign adc_capture_end_s = adc_capture_enb_d & ~adc_capture_enb;
-  assign adc_capture_rel_s = ((adc_rel_count == 4'hf) && (adc_capture_count[15:0] > 4'hf)) ? adc_wr : 1'b0;
-  assign adc_capture_last_s = (adc_capture_count[15:0] == 'd0) ? adc_capture_count[16] : 1'b0;
+  assign adc_capture_last_s = (adc_valid_count[29:0] == 'd0) ? adc_valid_count[30] : 1'b0;
+  assign adc_capture_rel_s = (adc_rel_count == 4'hf) ? adc_valid : 1'b0;
+  assign adc_capture_s = adc_capture_m2 & ~adc_capture_m3;
 
   always @(posedge adc_clk) begin
     adc_capture_m1 <= adc_master_capture;
     adc_capture_m2 <= adc_capture_m1;
     adc_capture_m3 <= adc_capture_m2;
-    adc_capture <= adc_capture_m2 & ~adc_capture_m3;
-    if ((adc_capture_count[16] == 1'b1) && (adc_valid == 1'b1)) begin
-      adc_capture_count <= adc_capture_count - 1'b1;
-      adc_rel_count <= adc_rel_count + 1'b1;
-    end else if (adc_capture == 1'b1) begin
+    adc_capture_p <= adc_capture_s;
+    if (adc_capture_s == 1'b1) begin
+      adc_capture_stream <= up_capture_stream;
       adc_capture_count <= {1'd1, up_capture_count};
+    end
+    if ((adc_valid_count[30] == 1'b1) && (adc_valid == 1'b1)) begin
+      if ((adc_capture_last_s == 1'b1) && (adc_capture_stream == 1'b1)) begin
+        adc_valid_count <= adc_capture_count;
+      end else begin
+        adc_valid_count <= adc_valid_count - 1'b1;
+      end
+    end else if (adc_capture_p == 1'b1) begin
+      adc_valid_count <= adc_capture_count;
+    end
+    if (adc_valid == 1'b1) begin
+      adc_rel_count <= adc_rel_count + 1'b1;
+    end else if (adc_capture_p == 1'b1) begin
       adc_rel_count <= 4'd0;
     end
-    adc_capture_enb <= adc_capture_count[16];
-    adc_capture_enb_d <= adc_capture_enb;
   end
 
   // adc data write
 
   always @(posedge adc_clk) begin
-    if (adc_capture_start_s == 1'b1) begin
+    if (adc_capture_p == 1'b1) begin
       adc_fs_toggle <= ~adc_fs_toggle;
       adc_fs_waddr <= adc_waddr;
     end
-    if ((adc_capture_rel_s == 1'b1) || (adc_capture_end_s == 1'b1)) begin
+    if (adc_capture_rel_s == 1'b1) begin
       adc_rel_toggle <= ~adc_rel_toggle;
       adc_rel_waddr <= adc_waddr;
     end
   end
 
   always @(posedge adc_clk) begin
-    adc_wr <= adc_capture_count[16] & adc_valid;
+    adc_wr <= adc_valid_count[30] & adc_valid;
     if (adc_wr == 1'b1) begin
       adc_waddr <= adc_waddr + 1'b1;
     end

@@ -56,6 +56,7 @@ entity axi_dac_4d_2c is
     dac_dbg_trigger       : out std_logic_vector(7 downto 0);
     delay_clk             : in  std_logic;
     vdma_clk              : in  std_logic;
+    vdma_fs               : out std_logic;
     M_AXIS_MM2S_TVALID    : in  std_logic;
     M_AXIS_MM2S_TKEEP     : in  std_logic_vector(7 downto 0);
     M_AXIS_MM2S_TDATA     : in  std_logic_vector(63 downto 0);
@@ -147,6 +148,7 @@ architecture IMP of axi_dac_4d_2c is
       dac_data_out_p    : out std_logic_vector(15 downto 0);
       dac_data_out_n    : out std_logic_vector(15 downto 0);
       vdma_clk          : in  std_logic;
+      vdma_fs           : out std_logic;
       vdma_valid        : in  std_logic;
       vdma_data         : in  std_logic_vector(63 downto 0);
       vdma_ready        : out std_logic;
@@ -243,6 +245,7 @@ begin
       dac_data_out_p    => dac_data_out_p,
       dac_data_out_n    => dac_data_out_n,
       vdma_clk          => vdma_clk,
+      vdma_fs           => vdma_fs,
       vdma_valid        => M_AXIS_MM2S_TVALID,
       vdma_data         => M_AXIS_MM2S_TDATA,
       vdma_ready        => M_AXIS_MM2S_TREADY,

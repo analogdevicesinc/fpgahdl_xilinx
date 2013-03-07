@@ -414,14 +414,14 @@ unsigned long ps7_clock_init_data[] = {
     // .. SRCSEL = 0x0
     // .. ==> 0XF8000180[5:4] = 0x00000000U
     // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
-    // .. DIVISOR0 = 0x5
-    // .. ==> 0XF8000180[13:8] = 0x00000005U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
+    // .. DIVISOR0 = 0x7
+    // .. ==> 0XF8000180[13:8] = 0x00000007U
+    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000700U
     // .. DIVISOR1 = 0x1
     // .. ==> 0XF8000180[25:20] = 0x00000001U
     // ..     ==> MASK : 0x03F00000U    VAL : 0x00100000U
     // .. 
-    EMIT_MASKWRITE(0XF8000180, 0x03F03F30U ,0x00100500U),
+    EMIT_MASKWRITE(0XF8000180, 0x03F03F30U ,0x00100700U),
     // .. SRCSEL = 0x0
     // .. ==> 0XF8000190[5:4] = 0x00000000U
     // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U

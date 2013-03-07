@@ -22,8 +22,31 @@ NET hdmi_data[15]       LOC = V13  | IOSTANDARD = LVCMOS25;
 NET hdmi_spdif          LOC = U15  | IOSTANDARD = LVCMOS25;
 NET hdmi_int            LOC = W16  | IOSTANDARD = LVCMOS25;
 
-NET hdmi_iic_scl        LOC = AA18 | IOSTANDARD="LVCMOS25";
-NET hdmi_iic_sda        LOC = Y16  | IOSTANDARD="LVCMOS25";
+NET hdmi_iic_scl        LOC = AA18 | IOSTANDARD = LVCMOS25;
+NET hdmi_iic_sda        LOC = Y16  | IOSTANDARD = LVCMOS25;
+
+NET sw[0]               LOC = F22  |  IOSTANDARD = "LVCMOS25";
+NET sw[1]               LOC = G22  |  IOSTANDARD = "LVCMOS25";
+NET sw[2]               LOC = H22  |  IOSTANDARD = "LVCMOS25";
+NET sw[3]               LOC = F21  |  IOSTANDARD = "LVCMOS25";
+NET sw[4]               LOC = H19  |  IOSTANDARD = "LVCMOS25";
+NET sw[5]               LOC = H18  |  IOSTANDARD = "LVCMOS25";
+NET sw[6]               LOC = H17  |  IOSTANDARD = "LVCMOS25";
+NET sw[7]               LOC = M15  |  IOSTANDARD = "LVCMOS25";
+NET sw[8]               LOC = P16  |  IOSTANDARD = "LVCMOS25";
+NET sw[9]               LOC = R16  |  IOSTANDARD = "LVCMOS25";
+NET sw[10]              LOC = N15  |  IOSTANDARD = "LVCMOS25";
+NET sw[11]              LOC = R18  |  IOSTANDARD = "LVCMOS25";
+NET sw[12]              LOC = T18  |  IOSTANDARD = "LVCMOS25";
+
+NET led[0]              LOC = T22  |  IOSTANDARD = "LVCMOS25";
+NET led[1]              LOC = T21  |  IOSTANDARD = "LVCMOS25";
+NET led[2]              LOC = U22  |  IOSTANDARD = "LVCMOS25";
+NET led[3]              LOC = U21  |  IOSTANDARD = "LVCMOS25";
+NET led[4]              LOC = V22  |  IOSTANDARD = "LVCMOS25";
+NET led[5]              LOC = W22  |  IOSTANDARD = "LVCMOS25";
+NET led[6]              LOC = U19  |  IOSTANDARD = "LVCMOS25";
+NET led[7]              LOC = U14  |  IOSTANDARD = "LVCMOS25";
 
 NET ref_clk_out_p       LOC = B19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET ref_clk_out_n       LOC = B20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
@@ -102,6 +125,18 @@ NET adc_data_in_n[13]   LOC = N20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"
 
 NET xcomm_iic_scl       LOC = R7   | IOSTANDARD="LVCMOS25";
 NET xcomm_iic_sda       LOC = U7   | IOSTANDARD="LVCMOS25";
+
+NET "processing_system7_0_FCLK_CLK0" TNM_NET = "ps7_fclk_clk0";
+TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
+
+NET "processing_system7_0_FCLK_CLK1" TNM_NET = "ps7_fclk_clk1";
+TIMESPEC TS_ps7_fclk_clk1 = PERIOD "ps7_fclk_clk1" 150 MHz;
+
+NET "processing_system7_0_FCLK_CLK2" TNM_NET = "ps7_fclk_clk2";
+TIMESPEC TS_ps7_fclk_clk2 = PERIOD "ps7_fclk_clk2" 200 MHz;
+
+NET "processing_system7_0_FCLK_CLK3" TNM_NET = "ps7_fclk_clk3";
+TIMESPEC TS_ps7_fclk_clk3 = PERIOD "ps7_fclk_clk3" 30 MHz;
 
 #BUFG is capable of running only upto 464MHz
 NET "dac_clk_in_p" TNM_NET = "dac_clk_in_p";

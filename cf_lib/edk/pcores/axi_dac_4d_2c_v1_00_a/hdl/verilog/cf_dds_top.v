@@ -46,6 +46,7 @@ module cf_dds_top (
   // VDMA interface and status signals
 
   vdma_clk,
+  vdma_fs,
   vdma_valid,
   vdma_data,
   vdma_ready,
@@ -74,6 +75,7 @@ module cf_dds_top (
 
   // processor signals
 
+  up_dds_format,      // DDS format 2's compl (0x1) or offset binary (0x0)
   up_dds_psel,        // Pattern (SED) select
   up_dds_sel,         // DDS select, DDR (0x1) or DMA (0x0)
   up_dds_init_1a,     // Initial phase value (for DDSX only)
@@ -95,6 +97,7 @@ module cf_dds_top (
   up_intp_enable,     // Interpolate Enable (for DDR only)
   up_intp_scale_a,    // Interpolate scale value (for DDR only)
   up_intp_scale_b,    // Interpolate scale value (for DDR only)
+  up_vdma_fscnt,      // VDMA fs count register
 
   // debug signals (for chipscope)
 
@@ -109,6 +112,7 @@ module cf_dds_top (
   // VDMA interface and status signals
 
   input           vdma_clk;
+  output          vdma_fs;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
@@ -137,6 +141,7 @@ module cf_dds_top (
 
   // processor signals
 
+  input           up_dds_format;      // DDS format 2's compl (0x1) or offset binary (0x0)
   input           up_dds_psel;        // Pattern (SED) select
   input           up_dds_sel;         // DDS select, DDR (0x1) or DMA (0x0)
   input   [15:0]  up_dds_init_1a;     // Initial phase value (for DDSX only)
@@ -158,6 +163,7 @@ module cf_dds_top (
   input           up_intp_enable;     // Interpolate Enable (for DDR only)
   input   [15:0]  up_intp_scale_a;    // Interpolate scale value (for DDR only)
   input   [15:0]  up_intp_scale_b;    // Interpolate scale value (for DDR only)
+  input   [15:0]  up_vdma_fscnt;      // VDMA fs count register
 
   // debug signals (for chipscope)
 
@@ -169,6 +175,8 @@ module cf_dds_top (
   output  [195:0] dac_dbg_data;
   output  [ 7:0]  dac_dbg_trigger;
 
+  reg             dds_format_n_m1 = 'd0;
+  reg             dds_format_n = 'd0;
   reg     [ 1:0]  dds_sel_m1 = 'd0;
   reg     [ 1:0]  dds_sel = 'd0;
   reg             dds_master_frame_d = 'd0;
@@ -219,6 +227,8 @@ module cf_dds_top (
   assign dds_master_frame_s = dds_master_frame & ~dds_master_frame_d;
 
   always @(posedge dac_div3_clk) begin
+    dds_format_n_m1 <= ~up_dds_format; // inverted here to reduce data path logic
+    dds_format_n <= dds_format_n_m1;
     dds_sel_m1 <= {up_dds_psel, up_dds_sel};
     dds_sel <= dds_sel_m1;
     dds_master_frame_d <= dds_master_frame;
@@ -318,6 +328,7 @@ module cf_dds_top (
     .dds_data_10 (ddsx_data_10_s),
     .dds_data_11 (ddsx_data_11_s),
     .dds_data_12 (ddsx_data_12_s),
+    .dds_format_n (dds_format_n),
     .up_dds_init_1a (up_dds_init_1a),
     .up_dds_incr_1a (up_dds_incr_1a),
     .up_dds_scale_1a (up_dds_scale_1a),
@@ -337,6 +348,7 @@ module cf_dds_top (
 
   cf_ddsv i_ddsv (
     .vdma_clk (vdma_clk),
+    .vdma_fs (vdma_fs),
     .vdma_valid (vdma_valid),
     .vdma_data (vdma_data),
     .vdma_ready (vdma_ready),
@@ -350,9 +362,11 @@ module cf_dds_top (
     .dds_data_10 (ddsv_data_10_s),
     .dds_data_11 (ddsv_data_11_s),
     .dds_data_12 (ddsv_data_12_s),
+    .dds_format_n (dds_format_n),
     .up_intp_enable (up_intp_enable),
     .up_intp_scale_a (up_intp_scale_a),
     .up_intp_scale_b (up_intp_scale_b),
+    .up_vdma_fscnt (up_vdma_fscnt),
     .vdma_dbg_data (vdma_dbg_data),
     .vdma_dbg_trigger (vdma_dbg_trigger),
     .dac_dbg_data (dac_dbg_data),

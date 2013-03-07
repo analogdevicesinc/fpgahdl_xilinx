@@ -43,6 +43,7 @@ module cf_ddsv (
   // vdma interface
 
   vdma_clk,
+  vdma_fs,
   vdma_valid,
   vdma_data,
   vdma_ready,
@@ -66,11 +67,16 @@ module cf_ddsv (
   dds_data_11,
   dds_data_12,
 
+  // 2's compl (0x0) or offset-bin (0x1)
+
+  dds_format_n,
+
   // interpolation controls
 
   up_intp_enable,
   up_intp_scale_a,
   up_intp_scale_b,
+  up_vdma_fscnt,
 
   // debug data (chipscope)
 
@@ -85,6 +91,7 @@ module cf_ddsv (
   // vdma interface
 
   input           vdma_clk;
+  output          vdma_fs;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
@@ -108,11 +115,16 @@ module cf_ddsv (
   output  [15:0]  dds_data_11;
   output  [15:0]  dds_data_12;
 
+  // 2's compl (0x0) or offset-bin (0x1)
+
+  input           dds_format_n;
+
   // interpolation controls
 
   input           up_intp_enable;
   input   [15:0]  up_intp_scale_a;
   input   [15:0]  up_intp_scale_b;
+  input   [15:0]  up_vdma_fscnt;
 
   // debug data (chipscope)
 
@@ -139,6 +151,7 @@ module cf_ddsv (
     .dds_data_10 (dds_data_10),
     .dds_data_11 (dds_data_11),
     .dds_data_12 (dds_data_12),
+    .dds_format_n (dds_format_n),
     .up_intp_enable (up_intp_enable),
     .up_intp_scale_a (up_intp_scale_a),
     .up_intp_scale_b (up_intp_scale_b),
@@ -149,6 +162,7 @@ module cf_ddsv (
 
   cf_ddsv_vdma i_ddsv_vdma (
     .vdma_clk (vdma_clk),
+    .vdma_fs (vdma_fs),
     .vdma_valid (vdma_valid),
     .vdma_data (vdma_data),
     .vdma_ready (vdma_ready),
@@ -158,6 +172,7 @@ module cf_ddsv (
     .dds_master_enable (dds_master_enable),
     .dds_rd (dds_rd_s),
     .dds_rdata (dds_rdata_s),
+    .up_vdma_fscnt (up_vdma_fscnt),
     .vdma_dbg_data (vdma_dbg_data),
     .vdma_dbg_trigger (vdma_dbg_trigger),
     .dac_dbg_data (),

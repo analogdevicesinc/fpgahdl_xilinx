@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2003-2011 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2010-2012 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -286,9 +286,9 @@ unsigned long ps7_clock_init_data[] = {
     EMIT_MASKWRITE(0XF8000008, 0x0000FFFFU ,0x0000DF0DU),
     // .. FINISH: SLCR SETTINGS
     // .. START: CLOCK CONTROL SLCR REGISTERS
-    // .. CLKACT = 0x0
-    // .. ==> 0XF8000128[0:0] = 0x00000000U
-    // ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
+    // .. CLKACT = 0x1
+    // .. ==> 0XF8000128[0:0] = 0x00000001U
+    // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
     // .. DIVISOR0 = 0x23
     // .. ==> 0XF8000128[13:8] = 0x00000023U
     // ..     ==> MASK : 0x00003F00U    VAL : 0x00002300U
@@ -296,7 +296,7 @@ unsigned long ps7_clock_init_data[] = {
     // .. ==> 0XF8000128[25:20] = 0x00000003U
     // ..     ==> MASK : 0x03F00000U    VAL : 0x00300000U
     // .. 
-    EMIT_MASKWRITE(0XF8000128, 0x03F03F01U ,0x00302300U),
+    EMIT_MASKWRITE(0XF8000128, 0x03F03F01U ,0x00302301U),
     // .. CLKACT = 0x1
     // .. ==> 0XF8000138[0:0] = 0x00000001U
     // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
@@ -383,14 +383,14 @@ unsigned long ps7_clock_init_data[] = {
     // .. SRCSEL = 0x0
     // .. ==> 0XF8000180[5:4] = 0x00000000U
     // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
-    // .. DIVISOR0 = 0x5
-    // .. ==> 0XF8000180[13:8] = 0x00000005U
-    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000500U
+    // .. DIVISOR0 = 0x7
+    // .. ==> 0XF8000180[13:8] = 0x00000007U
+    // ..     ==> MASK : 0x00003F00U    VAL : 0x00000700U
     // .. DIVISOR1 = 0x1
     // .. ==> 0XF8000180[25:20] = 0x00000001U
     // ..     ==> MASK : 0x03F00000U    VAL : 0x00100000U
     // .. 
-    EMIT_MASKWRITE(0XF8000180, 0x03F03F30U ,0x00100500U),
+    EMIT_MASKWRITE(0XF8000180, 0x03F03F30U ,0x00100700U),
     // .. SRCSEL = 0x0
     // .. ==> 0XF8000190[5:4] = 0x00000000U
     // ..     ==> MASK : 0x00000030U    VAL : 0x00000000U
@@ -498,11 +498,29 @@ unsigned long ps7_ddr_init_data[] = {
     // .. .. reg_ddrc_soft_rstb = 0
     // .. .. ==> 0XF8006000[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
-    // .. .. reg_ddrc_rdwr_idle_gap = 1
+    // .. .. reg_ddrc_powerdown_en = 0x0
+    // .. .. ==> 0XF8006000[1:1] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000002U    VAL : 0x00000000U
+    // .. .. reg_ddrc_data_bus_width = 0x0
+    // .. .. ==> 0XF8006000[3:2] = 0x00000000U
+    // .. ..     ==> MASK : 0x0000000CU    VAL : 0x00000000U
+    // .. .. reg_ddrc_burst8_refresh = 0x0
+    // .. .. ==> 0XF8006000[6:4] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000070U    VAL : 0x00000000U
+    // .. .. reg_ddrc_rdwr_idle_gap = 0x1
     // .. .. ==> 0XF8006000[13:7] = 0x00000001U
     // .. ..     ==> MASK : 0x00003F80U    VAL : 0x00000080U
+    // .. .. reg_ddrc_dis_rd_bypass = 0x0
+    // .. .. ==> 0XF8006000[14:14] = 0x00000000U
+    // .. ..     ==> MASK : 0x00004000U    VAL : 0x00000000U
+    // .. .. reg_ddrc_dis_act_bypass = 0x0
+    // .. .. ==> 0XF8006000[15:15] = 0x00000000U
+    // .. ..     ==> MASK : 0x00008000U    VAL : 0x00000000U
+    // .. .. reg_ddrc_dis_auto_refresh = 0x0
+    // .. .. ==> 0XF8006000[16:16] = 0x00000000U
+    // .. ..     ==> MASK : 0x00010000U    VAL : 0x00000000U
     // .. .. 
-    EMIT_MASKWRITE(0XF8006000, 0x00003F81U ,0x00000080U),
+    EMIT_MASKWRITE(0XF8006000, 0x0001FFFFU ,0x00000080U),
     // .. .. FINISH: LOCK DDR
     // .. .. reg_ddrc_t_rfc_nom_x32 = 0x81
     // .. .. ==> 0XF8006004[11:0] = 0x00000081U
@@ -714,9 +732,9 @@ unsigned long ps7_ddr_init_data[] = {
     // .. .. reg_ddrc_burst_rdwr = 0x4
     // .. .. ==> 0XF8006034[3:0] = 0x00000004U
     // .. ..     ==> MASK : 0x0000000FU    VAL : 0x00000004U
-    // .. .. reg_ddrc_pre_cke_x1024 = 0x1
-    // .. .. ==> 0XF8006034[13:4] = 0x00000001U
-    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x00000010U
+    // .. .. reg_ddrc_pre_cke_x1024 = 0x69
+    // .. .. ==> 0XF8006034[13:4] = 0x00000069U
+    // .. ..     ==> MASK : 0x00003FF0U    VAL : 0x00000690U
     // .. .. reg_ddrc_post_cke_x1024 = 0x1
     // .. .. ==> 0XF8006034[25:16] = 0x00000001U
     // .. ..     ==> MASK : 0x03FF0000U    VAL : 0x00010000U
@@ -724,7 +742,7 @@ unsigned long ps7_ddr_init_data[] = {
     // .. .. ==> 0XF8006034[28:28] = 0x00000000U
     // .. ..     ==> MASK : 0x10000000U    VAL : 0x00000000U
     // .. .. 
-    EMIT_MASKWRITE(0XF8006034, 0x13FF3FFFU ,0x00010014U),
+    EMIT_MASKWRITE(0XF8006034, 0x13FF3FFFU ,0x00010694U),
     // .. .. reg_ddrc_force_low_pri_n = 0x0
     // .. .. ==> 0XF8006038[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
@@ -981,11 +999,11 @@ unsigned long ps7_ddr_init_data[] = {
     // .. .. t_zq_short_interval_x1024 = 0xcb73
     // .. .. ==> 0XF80060A8[19:0] = 0x0000CB73U
     // .. ..     ==> MASK : 0x000FFFFFU    VAL : 0x0000CB73U
-    // .. .. dram_rstn_x1024 = 0x2
-    // .. .. ==> 0XF80060A8[27:20] = 0x00000002U
-    // .. ..     ==> MASK : 0x0FF00000U    VAL : 0x00200000U
+    // .. .. dram_rstn_x1024 = 0x69
+    // .. .. ==> 0XF80060A8[27:20] = 0x00000069U
+    // .. ..     ==> MASK : 0x0FF00000U    VAL : 0x06900000U
     // .. .. 
-    EMIT_MASKWRITE(0XF80060A8, 0x0FFFFFFFU ,0x0020CB73U),
+    EMIT_MASKWRITE(0XF80060A8, 0x0FFFFFFFU ,0x0690CB73U),
     // .. .. deeppowerdown_en = 0x0
     // .. .. ==> 0XF80060AC[0:0] = 0x00000000U
     // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
@@ -1698,16 +1716,48 @@ unsigned long ps7_ddr_init_data[] = {
     // .. ..     ==> MASK : 0x0003FF00U    VAL : 0x00001200U
     // .. .. 
     EMIT_MASKWRITE(0XF80062B4, 0x0003FFFFU ,0x000012A8U),
+    // .. .. START: POLL ON DCI STATUS
+    // .. .. DONE = 1
+    // .. .. ==> 0XF8000B74[13:13] = 0x00000001U
+    // .. ..     ==> MASK : 0x00002000U    VAL : 0x00002000U
+    // .. .. 
+    EMIT_MASKPOLL(0XF8000B74, 0x00002000U),
+    // .. .. FINISH: POLL ON DCI STATUS
     // .. .. START: UNLOCK DDR
+    // .. .. reg_ddrc_soft_rstb = 0x1
+    // .. .. ==> 0XF8006000[0:0] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. .. reg_ddrc_powerdown_en = 0x0
+    // .. .. ==> 0XF8006000[1:1] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000002U    VAL : 0x00000000U
+    // .. .. reg_ddrc_data_bus_width = 0x0
+    // .. .. ==> 0XF8006000[3:2] = 0x00000000U
+    // .. ..     ==> MASK : 0x0000000CU    VAL : 0x00000000U
+    // .. .. reg_ddrc_burst8_refresh = 0x0
+    // .. .. ==> 0XF8006000[6:4] = 0x00000000U
+    // .. ..     ==> MASK : 0x00000070U    VAL : 0x00000000U
     // .. .. reg_ddrc_rdwr_idle_gap = 1
     // .. .. ==> 0XF8006000[13:7] = 0x00000001U
     // .. ..     ==> MASK : 0x00003F80U    VAL : 0x00000080U
-    // .. .. reg_ddrc_soft_rstb = 1
-    // .. .. ==> 0XF8006000[0:0] = 0x00000001U
-    // .. ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. .. reg_ddrc_dis_rd_bypass = 0x0
+    // .. .. ==> 0XF8006000[14:14] = 0x00000000U
+    // .. ..     ==> MASK : 0x00004000U    VAL : 0x00000000U
+    // .. .. reg_ddrc_dis_act_bypass = 0x0
+    // .. .. ==> 0XF8006000[15:15] = 0x00000000U
+    // .. ..     ==> MASK : 0x00008000U    VAL : 0x00000000U
+    // .. .. reg_ddrc_dis_auto_refresh = 0x0
+    // .. .. ==> 0XF8006000[16:16] = 0x00000000U
+    // .. ..     ==> MASK : 0x00010000U    VAL : 0x00000000U
     // .. .. 
-    EMIT_MASKWRITE(0XF8006000, 0x00003F81U ,0x00000081U),
+    EMIT_MASKWRITE(0XF8006000, 0x0001FFFFU ,0x00000081U),
     // .. .. FINISH: UNLOCK DDR
+    // .. .. START: CHECK DDR STATUS
+    // .. .. ddrc_reg_operating_mode = 1
+    // .. .. ==> 0XF8006054[2:0] = 0x00000001U
+    // .. ..     ==> MASK : 0x00000007U    VAL : 0x00000001U
+    // .. .. 
+    EMIT_MASKPOLL(0XF8006054, 0x00000007U),
+    // .. .. FINISH: CHECK DDR STATUS
     // .. FINISH: DDR INITIALIZATION
     // FINISH: top
     //
@@ -3691,6 +3741,226 @@ unsigned long ps7_mio_init_data[] = {
     //
 };
 
+unsigned long ps7_peripherals_init_data[] = {
+    // START: top
+    // .. START: UART REGISTERS
+    // .. BDIV = 0x6
+    // .. ==> 0XE0001034[7:0] = 0x00000006U
+    // ..     ==> MASK : 0x000000FFU    VAL : 0x00000006U
+    // .. 
+    EMIT_MASKWRITE(0XE0001034, 0x000000FFU ,0x00000006U),
+    // .. CD = 0x3e
+    // .. ==> 0XE0001018[15:0] = 0x0000003EU
+    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000003EU
+    // .. 
+    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000003EU),
+    // .. STPBRK = 0x0
+    // .. ==> 0XE0001000[8:8] = 0x00000000U
+    // ..     ==> MASK : 0x00000100U    VAL : 0x00000000U
+    // .. STTBRK = 0x0
+    // .. ==> 0XE0001000[7:7] = 0x00000000U
+    // ..     ==> MASK : 0x00000080U    VAL : 0x00000000U
+    // .. RSTTO = 0x0
+    // .. ==> 0XE0001000[6:6] = 0x00000000U
+    // ..     ==> MASK : 0x00000040U    VAL : 0x00000000U
+    // .. TXDIS = 0x0
+    // .. ==> 0XE0001000[5:5] = 0x00000000U
+    // ..     ==> MASK : 0x00000020U    VAL : 0x00000000U
+    // .. TXEN = 0x1
+    // .. ==> 0XE0001000[4:4] = 0x00000001U
+    // ..     ==> MASK : 0x00000010U    VAL : 0x00000010U
+    // .. RXDIS = 0x0
+    // .. ==> 0XE0001000[3:3] = 0x00000000U
+    // ..     ==> MASK : 0x00000008U    VAL : 0x00000000U
+    // .. RXEN = 0x1
+    // .. ==> 0XE0001000[2:2] = 0x00000001U
+    // ..     ==> MASK : 0x00000004U    VAL : 0x00000004U
+    // .. TXRES = 0x1
+    // .. ==> 0XE0001000[1:1] = 0x00000001U
+    // ..     ==> MASK : 0x00000002U    VAL : 0x00000002U
+    // .. RXRES = 0x1
+    // .. ==> 0XE0001000[0:0] = 0x00000001U
+    // ..     ==> MASK : 0x00000001U    VAL : 0x00000001U
+    // .. 
+    EMIT_MASKWRITE(0XE0001000, 0x000001FFU ,0x00000017U),
+    // .. IRMODE = 0x0
+    // .. ==> 0XE0001004[11:11] = 0x00000000U
+    // ..     ==> MASK : 0x00000800U    VAL : 0x00000000U
+    // .. UCLKEN = 0x0
+    // .. ==> 0XE0001004[10:10] = 0x00000000U
+    // ..     ==> MASK : 0x00000400U    VAL : 0x00000000U
+    // .. CHMODE = 0x0
+    // .. ==> 0XE0001004[9:8] = 0x00000000U
+    // ..     ==> MASK : 0x00000300U    VAL : 0x00000000U
+    // .. NBSTOP = 0x0
+    // .. ==> 0XE0001004[7:6] = 0x00000000U
+    // ..     ==> MASK : 0x000000C0U    VAL : 0x00000000U
+    // .. PAR = 0x4
+    // .. ==> 0XE0001004[5:3] = 0x00000004U
+    // ..     ==> MASK : 0x00000038U    VAL : 0x00000020U
+    // .. CHRL = 0x0
+    // .. ==> 0XE0001004[2:1] = 0x00000000U
+    // ..     ==> MASK : 0x00000006U    VAL : 0x00000000U
+    // .. CLKS = 0x0
+    // .. ==> 0XE0001004[0:0] = 0x00000000U
+    // ..     ==> MASK : 0x00000001U    VAL : 0x00000000U
+    // .. 
+    EMIT_MASKWRITE(0XE0001004, 0x00000FFFU ,0x00000020U),
+    // .. FINISH: UART REGISTERS
+    // .. START: AFI REGISTERS
+    // .. .. START: AFI0 REGISTERS
+    // .. .. FINISH: AFI0 REGISTERS
+    // .. .. START: AFI1 REGISTERS
+    // .. .. FINISH: AFI1 REGISTERS
+    // .. .. START: AFI2 REGISTERS
+    // .. .. FINISH: AFI2 REGISTERS
+    // .. .. START: AFI3 REGISTERS
+    // .. .. FINISH: AFI3 REGISTERS
+    // .. FINISH: AFI REGISTERS
+    // .. START: QSPI REGISTERS
+    // .. Holdb_dr = 1
+    // .. ==> 0XE000D000[19:19] = 0x00000001U
+    // ..     ==> MASK : 0x00080000U    VAL : 0x00080000U
+    // .. 
+    EMIT_MASKWRITE(0XE000D000, 0x00080000U ,0x00080000U),
+    // .. FINISH: QSPI REGISTERS
+    // .. START: PL POWER ON RESET REGISTERS
+    // .. PCFG_POR_CNT_4K = 0
+    // .. ==> 0XF8007000[29:29] = 0x00000000U
+    // ..     ==> MASK : 0x20000000U    VAL : 0x00000000U
+    // .. 
+    EMIT_MASKWRITE(0XF8007000, 0x20000000U ,0x00000000U),
+    // .. FINISH: PL POWER ON RESET REGISTERS
+    // .. START: SMC TIMING CALCULATION REGISTER UPDATE
+    // .. .. START: NAND SET CYCLE
+    // .. .. FINISH: NAND SET CYCLE
+    // .. .. START: OPMODE
+    // .. .. FINISH: OPMODE
+    // .. .. START: DIRECT COMMAND
+    // .. .. FINISH: DIRECT COMMAND
+    // .. .. START: SRAM/NOR CS0 SET CYCLE
+    // .. .. FINISH: SRAM/NOR CS0 SET CYCLE
+    // .. .. START: DIRECT COMMAND
+    // .. .. FINISH: DIRECT COMMAND
+    // .. .. START: NOR CS0 BASE ADDRESS
+    // .. .. FINISH: NOR CS0 BASE ADDRESS
+    // .. .. START: SRAM/NOR CS1 SET CYCLE
+    // .. .. FINISH: SRAM/NOR CS1 SET CYCLE
+    // .. .. START: DIRECT COMMAND
+    // .. .. FINISH: DIRECT COMMAND
+    // .. .. START: NOR CS1 BASE ADDRESS
+    // .. .. FINISH: NOR CS1 BASE ADDRESS
+    // .. .. START: USB RESET
+    // .. .. .. START: DIR MODE BANK 0
+    // .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. START: DIR MODE BANK 1
+    // .. .. .. FINISH: DIR MODE BANK 1
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. START: OUTPUT ENABLE BANK 0
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 0
+    // .. .. .. START: OUTPUT ENABLE BANK 1
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 1
+    // .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. FINISH: USB RESET
+    // .. .. START: ENET RESET
+    // .. .. .. START: DIR MODE BANK 0
+    // .. .. .. FINISH: DIR MODE BANK 0
+    // .. .. .. START: DIR MODE BANK 1
+    // .. .. .. FINISH: DIR MODE BANK 1
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. START: OUTPUT ENABLE BANK 0
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 0
+    // .. .. .. START: OUTPUT ENABLE BANK 1
+    // .. .. .. FINISH: OUTPUT ENABLE BANK 1
+    // .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. FINISH: ENET RESET
+    // .. .. START: I2C RESET
+    // .. .. .. START: DIR MODE GPIO BANK0
+    // .. .. .. FINISH: DIR MODE GPIO BANK0
+    // .. .. .. START: DIR MODE GPIO BANK1
+    // .. .. .. FINISH: DIR MODE GPIO BANK1
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. START: OUTPUT ENABLE
+    // .. .. .. FINISH: OUTPUT ENABLE
+    // .. .. .. START: OUTPUT ENABLE
+    // .. .. .. FINISH: OUTPUT ENABLE
+    // .. .. .. START: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW LOW BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW LOW BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. FINISH: MASK_DATA_0_LSW HIGH BANK [15:0]
+    // .. .. .. START: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. FINISH: MASK_DATA_0_MSW HIGH BANK [31:16]
+    // .. .. .. START: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. FINISH: MASK_DATA_1_LSW HIGH BANK [47:32]
+    // .. .. .. START: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. .. FINISH: MASK_DATA_1_MSW HIGH BANK [53:48]
+    // .. .. FINISH: I2C RESET
+    // .. FINISH: SMC TIMING CALCULATION REGISTER UPDATE
+    // FINISH: top
+    //
+    EMIT_EXIT(),
+
+    //
+};
+
+
 
 int
 ps7_config(unsigned long * ps7_config_init) 
@@ -3753,4 +4023,14 @@ ps7_config(unsigned long * ps7_config_init)
     return finish;
 }
 
+int
+ps7_init() 
+{
+  if (ps7_config (ps7_mio_init_data) == -1) return -1;   
+  if (ps7_config (ps7_pll_init_data) == -1) return -1;   
+  if (ps7_config (ps7_clock_init_data) == -1) return -1;   
+  if (ps7_config (ps7_ddr_init_data) == -1) return -1;   
+  if (ps7_config (ps7_peripherals_init_data) == -1) return -1;   
+  return 1;
+}
 

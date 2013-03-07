@@ -59,6 +59,7 @@ module cf_dac_4d_2c (
   // vdma interface (for ddr-dds)
 
   vdma_clk,
+  vdma_fs,
   vdma_valid,
   vdma_data,
   vdma_ready,
@@ -128,6 +129,7 @@ module cf_dac_4d_2c (
   // vdma interface (for ddr-dds)
 
   input           vdma_clk;
+  output          vdma_fs;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
@@ -173,6 +175,7 @@ module cf_dac_4d_2c (
 
   input           delay_clk;
 
+  reg             up_dds_format = 'd0;
   reg             up_dds_psel = 'd0;
   reg             up_intp_enable = 'd0;
   reg             up_dds_sel = 'd0;
@@ -194,6 +197,7 @@ module cf_dac_4d_2c (
   reg     [ 3:0]  up_dds_scale_1b = 'd0;
   reg     [ 3:0]  up_dds_scale_1a = 'd0;
   reg             up_dds_frame_int = 'd0;
+  reg     [15:0]  up_vdma_fscnt = 'd0;
   reg     [15:0]  up_dds_data_2b = 'd0;
   reg     [15:0]  up_dds_data_2a = 'd0;
   reg     [15:0]  up_dds_data_1b = 'd0;
@@ -234,6 +238,7 @@ module cf_dac_4d_2c (
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
+      up_dds_format <= 'd0;
       up_dds_psel <= 'd0;
       up_intp_enable <= 'd0;
       up_dds_sel <= 'd0;
@@ -255,6 +260,7 @@ module cf_dac_4d_2c (
       up_dds_scale_1b <= 'd0;
       up_dds_scale_1a <= 'd0;
       up_dds_frame_int <= 'd0;
+      up_vdma_fscnt <= 'd0;
       up_dds_data_2b <= 'd0;
       up_dds_data_2a <= 'd0;
       up_dds_data_1b <= 'd0;
@@ -270,6 +276,7 @@ module cf_dac_4d_2c (
       up_vdma_unf <= 'd0;
     end else begin
       if ((up_addr == 5'h01) && (up_wr_s == 1'b1)) begin
+        up_dds_format <= up_wdata[5];
         up_dds_psel <= up_wdata[4];
         up_intp_enable <= up_wdata[3];
         up_dds_sel <= up_wdata[2];
@@ -307,6 +314,9 @@ module cf_dac_4d_2c (
       end
       if ((up_addr == 5'h09) && (up_wr_s == 1'b1)) begin
         up_dds_frame_int <= up_wdata[0];
+      end
+      if ((up_addr == 5'h0b) && (up_wr_s == 1'b1)) begin
+        up_vdma_fscnt <= up_wdata[15:0];
       end
       if ((up_addr == 5'h11) && (up_wr_s == 1'b1)) begin
         up_dds_data_2b <= up_wdata[31:16];
@@ -356,8 +366,8 @@ module cf_dac_4d_2c (
       up_ack <= 'd0;
     end else begin
       case (up_addr)
-        5'h00: up_rdata <= 32'h00010061;
-        5'h01: up_rdata <= {27'd0, up_dds_psel, up_intp_enable, up_dds_sel,
+        5'h00: up_rdata <= 32'h00010063;
+        5'h01: up_rdata <= {26'd0, up_dds_format, up_dds_psel, up_intp_enable, up_dds_sel,
                             up_dds_enable_int, up_dds_clk_enable};
         5'h02: up_rdata <= {up_dds_init_1a, up_dds_incr_1a};
         5'h03: up_rdata <= {up_dds_init_1b, up_dds_incr_1b};
@@ -369,6 +379,7 @@ module cf_dac_4d_2c (
                             up_dds_scale_1b, up_dds_scale_1a};
         5'h09: up_rdata <= {31'd0, up_dds_frame_int};
         5'h0a: up_rdata <= {30'd0, up_vdma_ovf, up_vdma_unf};
+        5'h0b: up_rdata <= {16'd0, up_vdma_fscnt};
         5'h10: up_rdata <= {up_dds_data_1b, up_dds_data_1a};
         5'h11: up_rdata <= {up_dds_data_2b, up_dds_data_2a};
         5'h12: up_rdata <= {24'd0, pid};
@@ -401,6 +412,7 @@ module cf_dac_4d_2c (
 
   cf_dds_top i_dds_top (
     .vdma_clk (vdma_clk),
+    .vdma_fs (vdma_fs),
     .vdma_valid (vdma_valid),
     .vdma_data (vdma_data),
     .vdma_ready (vdma_ready),
@@ -417,6 +429,7 @@ module cf_dac_4d_2c (
     .dds_data_10 (dds_data_10_s),
     .dds_data_11 (dds_data_11_s),
     .dds_data_12 (dds_data_12_s),
+    .up_dds_format (up_dds_format),
     .up_dds_psel (up_dds_psel),
     .up_dds_sel (up_dds_sel),
     .up_dds_init_1a (up_dds_init_1a),
@@ -438,6 +451,7 @@ module cf_dac_4d_2c (
     .up_intp_enable (up_intp_enable),
     .up_intp_scale_a (up_intp_scale_a),
     .up_intp_scale_b (up_intp_scale_b),
+    .up_vdma_fscnt (up_vdma_fscnt),
     .vdma_dbg_data (vdma_dbg_data),
     .vdma_dbg_trigger (vdma_dbg_trigger),
     .dac_dbg_data (dac_dbg_data),
@@ -465,6 +479,10 @@ module cf_dac_4d_2c (
     .dds_data_10 (dds_data_10_s),
     .dds_data_11 (dds_data_11_s),
     .dds_data_12 (dds_data_12_s),
+    .dac_clk (),
+    .usr_frame (dds_frame_0_s[0]),
+    .usr_data_I (dds_data_00_s),
+    .usr_data_Q (dds_data_10_s),
     .delay_clk (delay_clk),
     .delay_enable (1'b0),
     .delay_incdecn (1'b0),

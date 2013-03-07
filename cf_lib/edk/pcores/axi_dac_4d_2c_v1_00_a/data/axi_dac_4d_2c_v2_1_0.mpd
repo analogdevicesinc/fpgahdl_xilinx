@@ -62,6 +62,7 @@ PORT dac_dbg_data = "", DIR = O, VEC = [195:0]
 PORT dac_dbg_trigger = "", DIR = O, VEC = [7:0]
 PORT delay_clk = "", DIR = I, SIGIS = CLK
 PORT vdma_clk = "", DIR = I, SIGIS = CLK
+PORT vdma_fs = "", DIR = O
 PORT S_AXI_ACLK = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI
 PORT S_AXI_ARESETN = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI
 PORT S_AXI_AWADDR = AWADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI

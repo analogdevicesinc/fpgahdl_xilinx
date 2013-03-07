@@ -158,10 +158,11 @@ module cf_adc_2c (
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
 
-  reg             up_usr_sel = 'd0;
+  reg     [ 3:0]  up_usr_sel = 'd0;
   reg     [ 1:0]  up_ch_sel = 'd0;
   reg             up_adc_capture_int = 'd0;
-  reg     [15:0]  up_capture_count = 'd0;
+  reg             up_capture_stream = 'd0;
+  reg     [29:0]  up_capture_count = 'd0;
   reg             up_dma_unf_hold = 'd0;
   reg             up_dma_ovf_hold = 'd0;
   reg             up_dma_status = 'd0;
@@ -228,6 +229,7 @@ module cf_adc_2c (
   wire    [15:0]  usr_decimation_m_s;
   wire    [15:0]  usr_decimation_n_s;
   wire            usr_data_type_s;
+  wire    [ 3:0]  usr_max_channels_s;
   wire            delay_ack_s;
   wire    [ 4:0]  delay_rdata_s;
   wire            delay_locked_s;
@@ -243,6 +245,7 @@ module cf_adc_2c (
       up_usr_sel <= 'd0;
       up_ch_sel <= 'd3;
       up_adc_capture_int <= 'd0;
+      up_capture_stream <= 'd0;
       up_capture_count <= 'd0;
       up_dma_unf_hold <= 'd0;
       up_dma_ovf_hold <= 'd0;
@@ -268,12 +271,13 @@ module cf_adc_2c (
       up_adc_master_capture_n <= 'd1;
     end else begin
       if ((up_addr == 5'h02) && (up_wr_s == 1'b1)) begin
-        up_usr_sel <= up_wdata[2];
+        up_usr_sel <= up_wdata[5:2];
         up_ch_sel <= up_wdata[1:0];
       end
       if ((up_addr == 5'h03) && (up_wr_s == 1'b1)) begin
-        up_adc_capture_int <= up_wdata[16];
-        up_capture_count <= up_wdata[15:0];
+        up_adc_capture_int <= up_wdata[31];
+        up_capture_stream <= up_wdata[30];
+        up_capture_count <= up_wdata[29:0];
       end
       if (up_dma_unf == 1'b1) begin
         up_dma_unf_hold <= 1'b1;
@@ -369,9 +373,9 @@ module cf_adc_2c (
       up_ack <= 'd0;
     end else begin
       case (up_addr)
-        5'h00: up_rdata <= 32'h00010061;
-        5'h02: up_rdata <= {13'd0, up_usr_sel, up_ch_sel};
-        5'h03: up_rdata <= {15'd0, up_adc_capture_int, up_capture_count};
+        5'h00: up_rdata <= 32'h00010063;
+        5'h02: up_rdata <= {26'd0, up_usr_sel, up_ch_sel};
+        5'h03: up_rdata <= {up_adc_capture_int, up_capture_stream, up_capture_count};
         5'h04: up_rdata <= {29'd0, up_dma_unf_hold, up_dma_ovf_hold, up_dma_status};
         5'h05: up_rdata <= {26'd0, up_adc_pn_err_hold, up_adc_pn_oos_hold, up_adc_or_hold};
         5'h06: up_rdata <= {30'd0, up_dmode};
@@ -386,6 +390,7 @@ module cf_adc_2c (
         5'h11: up_rdata <= {1'b0, up_muladd_offset_b, up_muladd_scale_b};
         5'h12: up_rdata <= {usr_decimation_m_s, usr_decimation_n_s};
         5'h13: up_rdata <= {31'd0, usr_data_type_s};
+        5'h14: up_rdata <= {28'd0, usr_max_channels_s};
         default: up_rdata <= 0;
       endcase
       up_sel_d <= up_sel;
@@ -488,6 +493,7 @@ module cf_adc_2c (
     .dma_ovf (dma_ovf_s),
     .dma_unf (dma_unf_s),
     .dma_complete (dma_complete_s),
+    .up_capture_stream (up_capture_stream),
     .up_capture_count (up_capture_count),
     .dma_dbg_data (dma_dbg_data),
     .dma_dbg_trigger (dma_dbg_trigger),
@@ -525,9 +531,10 @@ module cf_adc_2c (
     .up_delay_rwn (up_delay_rwn),
     .up_delay_addr (up_delay_addr),
     .up_delay_wdata (up_delay_wdata),
-    .usr_decimation_m_s (usr_decimation_m_s),
-    .usr_decimation_n_s (usr_decimation_n_s),
-    .usr_data_type_s (usr_data_type_s),
+    .usr_decimation_m (usr_decimation_m_s),
+    .usr_decimation_n (usr_decimation_n_s),
+    .usr_data_type (usr_data_type_s),
+    .usr_max_channels (usr_max_channels_s),
     .delay_clk (delay_clk),
     .delay_ack (delay_ack_s),
     .delay_rdata (delay_rdata_s),

@@ -43,6 +43,7 @@ module cf_ddsv_vdma (
   // vdma interface
 
   vdma_clk,
+  vdma_fs,
   vdma_valid,
   vdma_data,
   vdma_ready,
@@ -55,6 +56,10 @@ module cf_ddsv_vdma (
   dds_master_enable,
   dds_rd,
   dds_rdata,
+
+  // frame count (for vdma fs)
+
+  up_vdma_fscnt,
 
   // debug data (chipscope)
 
@@ -69,6 +74,7 @@ module cf_ddsv_vdma (
   // vdma interface
 
   input           vdma_clk;
+  output          vdma_fs;
   input           vdma_valid;
   input   [63:0]  vdma_data;
   output          vdma_ready;
@@ -81,6 +87,10 @@ module cf_ddsv_vdma (
   input           dds_master_enable;
   input           dds_rd;
   output  [95:0]  dds_rdata;
+
+  // frame count (for vdma fs)
+
+  input   [15:0]  up_vdma_fscnt;
 
   // debug data (chipscope)
 
@@ -99,6 +109,10 @@ module cf_ddsv_vdma (
   reg     [95:0]  dds_rdata = 'd0;
   reg             vdma_master_enable_m1 = 'd0;
   reg             vdma_master_enable = 'd0;
+  reg             vdma_master_enable_d = 'd0;
+  reg     [15:0]  vdma_fscnt = 'd0;
+  reg     [15:0]  vdma_rdcnt = 'd0;
+  reg             vdma_fs = 'd0;
   reg             vdma_start = 'd0;
   reg     [ 1:0]  vdma_dcnt = 'd0;
   reg     [63:0]  vdma_data_d = 'd0;
@@ -166,7 +180,7 @@ module cf_ddsv_vdma (
   assign vdma_dbg_trigger[5:5] = vdma_master_enable;
   assign vdma_dbg_trigger[4:4] = vdma_start;
   assign vdma_dbg_trigger[3:3] = vdma_wr;
-  assign vdma_dbg_trigger[2:2] = vdma_we_s;
+  assign vdma_dbg_trigger[2:2] = vdma_fs;
   assign vdma_dbg_trigger[1:1] = vdma_ovf_s;
   assign vdma_dbg_trigger[0:0] = vdma_unf_s;
 
@@ -174,7 +188,7 @@ module cf_ddsv_vdma (
   assign vdma_dbg_data[197:197] = vdma_ready;
   assign vdma_dbg_data[196:196] = vdma_ovf;
   assign vdma_dbg_data[195:195] = vdma_unf;
-  assign vdma_dbg_data[194:194] = vdma_master_enable_m1;
+  assign vdma_dbg_data[194:194] = vdma_fs;
   assign vdma_dbg_data[193:193] = vdma_master_enable;
   assign vdma_dbg_data[192:192] = vdma_start;
   assign vdma_dbg_data[191:191] = vdma_wr;
@@ -188,7 +202,9 @@ module cf_ddsv_vdma (
   assign vdma_dbg_data[175:168] = vdma_raddr;
   assign vdma_dbg_data[167:160] = vdma_addr_diff;
   assign vdma_dbg_data[159: 96] = vdma_data;
-  assign vdma_dbg_data[ 95:  0] = vdma_wdata;
+  assign vdma_dbg_data[ 95: 80] = vdma_rdcnt;
+  assign vdma_dbg_data[ 79: 64] = vdma_fscnt;
+  assign vdma_dbg_data[ 63:  0] = vdma_wdata[63:0];
 
   assign dac_dbg_trigger[7:4] = 'd0;
   assign dac_dbg_trigger[3:3] = dds_master_enable;
@@ -217,6 +233,30 @@ module cf_ddsv_vdma (
     dds_rdata <= dds_rdata_s;
   end
 
+  // a free running counter is used to generate frame sync for vdma- it is up to the software
+  // to set it's value. the only thing is that it should be greater than the frame size.
+
+  always @(posedge vdma_clk) begin
+    vdma_master_enable_m1 <= dds_master_enable;
+    vdma_master_enable <= vdma_master_enable_m1;
+    vdma_master_enable_d <= vdma_master_enable;
+    if ((vdma_master_enable == 1'b1) && (vdma_master_enable_d == 1'b0)) begin
+      vdma_fscnt <= up_vdma_fscnt;
+    end
+    if (((vdma_master_enable == 1'b1) && (vdma_master_enable_d == 1'b0)) ||
+      (vdma_rdcnt >= vdma_fscnt)) begin
+      vdma_rdcnt <= 16'd0;
+    end else if (vdma_we_s == 1'b1) begin
+      vdma_rdcnt <= vdma_rdcnt + 1'b1;
+    end
+    if (((vdma_master_enable == 1'b1) && (vdma_master_enable_d == 1'b0)) ||
+      ((vdma_rdcnt >= vdma_fscnt) && (vdma_master_enable_d == 1'b1))) begin
+      vdma_fs <= 1'b1;
+    end else begin
+      vdma_fs <= 1'b0;
+    end
+  end
+
   // vdma write, the incoming data is 4 samples (64bits), in order to interface seamlessly to the
   // OSERDES 3:1 ratio, the dac is set to read 3 (or 6) samples. So data is written to the
   // memory as 6 samples (96bits).
@@ -224,8 +264,6 @@ module cf_ddsv_vdma (
   assign vdma_we_s = vdma_valid & vdma_ready;
 
   always @(posedge vdma_clk) begin
-    vdma_master_enable_m1 <= dds_master_enable;
-    vdma_master_enable <= vdma_master_enable_m1;
     if (vdma_master_enable == 1'b0) begin
       vdma_start <= 1'b0;
       vdma_dcnt <= 2'd0;

@@ -75,9 +75,10 @@ module cf_adc_wr (
   up_delay_addr,
   up_delay_wdata,
 
-  usr_decimation_m_s, // user decimation controls
-  usr_decimation_n_s,
-  usr_data_type_s,
+  usr_decimation_m, // user decimation controls
+  usr_decimation_n,
+  usr_data_type,
+  usr_max_channels,
 
   // delay control signals
   delay_clk,
@@ -122,15 +123,16 @@ module cf_adc_wr (
   input   [ 1:0]  up_pn_type;
   input   [ 1:0]  up_dmode;
   input   [ 1:0]  up_ch_sel;
-  input           up_usr_sel;
+  input   [ 3:0]  up_usr_sel;
   input           up_delay_sel;
   input           up_delay_rwn;
   input   [ 3:0]  up_delay_addr;
   input   [ 4:0]  up_delay_wdata;
 
-  output  [15:0]  usr_decimation_m_s;
-  output  [15:0]  usr_decimation_n_s;
-  output          usr_data_type_s;
+  output  [15:0]  usr_decimation_m;
+  output  [15:0]  usr_decimation_n;
+  output          usr_data_type;
+  output  [ 3:0]  usr_max_channels;
 
   // delay control signals
   input           delay_clk;
@@ -144,14 +146,21 @@ module cf_adc_wr (
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
 
-  reg     [ 2:0]  adc_ch_sel_m1 = 'd0;
-  reg     [ 2:0]  adc_ch_sel = 'd0;
+  reg     [ 3:0]  usr_max_channels = 'd0; // usr maximum number of channels (nodes or tap points)
+  reg     [15:0]  usr_decimation_m = 'd0; // user decimation M
+  reg     [15:0]  usr_decimation_n = 'd0; // user decimation N
+  reg             usr_data_type = 'd0; // user data type complex (0), normal (1)
+  reg             usr_data_valid = 'd0; // user logic data valid
+  reg     [63:0]  usr_data = 'd0; // user logic data
+  reg     [ 3:0]  adc_usr_sel_m1 = 'd0;
+  reg     [ 3:0]  adc_usr_sel = 'd0;
+  reg     [ 1:0]  adc_ch_sel_m1 = 'd0;
+  reg     [ 1:0]  adc_ch_sel = 'd0;
   reg     [ 1:0]  adc_cnt = 'd0;
   reg             adc_valid = 'd0;
   reg     [63:0]  adc_data = 'd0;
 
-  wire            usr_data_valid;       // user logic data valid
-  wire    [63:0]  usr_data;             // user logic data
+  wire    [ 5:0]  adc_sel_s;            // adc data select
   wire    [15:0]  adc_data_a_s;         // offset & scaled data 
   wire    [15:0]  adc_data_b_s;         // offset & scaled data
   wire    [13:0]  adc_data_a_if_s;      // raw adc data
@@ -165,37 +174,63 @@ module cf_adc_wr (
   // THIS IS NOT A COMPLETE SOLUTION and individual needs may vary.
   // Also note that the data bitwidths may require padding or truncation to match the
   // external DMA bus width. This design as it is, uses 64bits.
+  // A 4bit user logic select (max 16) is provided for tap points within the user logic.
+  // Modify the following mux accordingly. If a tap point is not used, please drive
+  // the decimation factors '0'. The example code below uses 2 tap points
 
-  assign usr_decimation_m_s = 1'b1; // user logic decimation numerator
-  assign usr_decimation_n_s = 1'b1; // user logic decimation denominator
-  assign usr_data_type_s = 1'b0; // user logic output type (0 - complex, 1- normal)
-
-  assign usr_data_valid = 1'd1; // user data valid (replace with user logic)
-  assign usr_data = {4{16'hdead}}; // user data (replace with user logic)
+  always @(posedge adc_clk) begin
+    usr_max_channels <= 4'd1; // channel selects from 0 to 1.
+    case (adc_usr_sel)
+      4'b0000: begin // tap point 1. (let's say output of pulse shaping filter)
+        usr_decimation_m = 16'd1; // user logic decimation numerator
+        usr_decimation_n = 16'd1; // user logic decimation denominator
+        usr_data_type = 1'b0; // user logic output type (0 - complex, 1- normal)
+        usr_data_valid = 1'd1; // user data valid (replace with user logic)
+        usr_data = {4{16'hf00d}}; // user data (replace with user logic)
+      end
+      4'b0001: begin // tap point 2. (let's say output of symbol timing recovery)
+        usr_decimation_m = 16'd1; // user logic decimation numerator
+        usr_decimation_n = 16'd1; // user logic decimation denominator
+        usr_data_type = 1'b0; // user logic output type (0 - complex, 1- normal)
+        usr_data_valid = 1'd1; // user data valid (replace with user logic)
+        usr_data = {4{16'hcafe}}; // user data (replace with user logic)
+      end
+      default: begin // unused tap points
+        usr_decimation_m = 16'd0; // user logic decimation numerator
+        usr_decimation_n = 16'd0; // user logic decimation denominator
+        usr_data_type = 1'b0; // user logic output type (0 - complex, 1- normal)
+        usr_data_valid = 1'd1; // user data valid (replace with user logic)
+        usr_data = {4{16'hdead}}; // user data (replace with user logic)
+      end
+    endcase
+  end
 
   assign adc_mon_valid = 1'b1;
   assign adc_mon_data = {adc_data_b_s, adc_data_a_s};
+  assign adc_sel_s = {adc_usr_sel, adc_ch_sel};
 
   // the adc channel select let you pick a particular channel -
 
   always @(posedge adc_clk) begin
-    adc_ch_sel_m1 <= {up_usr_sel, up_ch_sel};
+    adc_usr_sel_m1 <= up_usr_sel;
+    adc_usr_sel <= adc_usr_sel_m1;
+    adc_ch_sel_m1 <= up_ch_sel;
     adc_ch_sel <= adc_ch_sel_m1;
     adc_cnt <= adc_cnt + 1'b1;
-    case (adc_ch_sel)
-      3'b011: begin // both I and Q
+    case (adc_sel_s)
+      6'h03: begin // both I and Q
         adc_valid <= adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data_b_s, adc_data[63:32]};
       end
-      3'b010: begin // Q only
+      6'h02: begin // Q only
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_b_s, adc_data[63:16]};
       end
-      3'b001: begin // I only
+      6'h01: begin // I only
         adc_valid <= adc_cnt[1] & adc_cnt[0];
         adc_data <= {adc_data_a_s, adc_data[63:16]};
       end
-      3'b000: begin // None
+      6'h00: begin // None
         adc_valid <= adc_cnt[0];
         adc_data <= 64'd0;
       end
