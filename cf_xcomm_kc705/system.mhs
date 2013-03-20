@@ -337,7 +337,7 @@ BEGIN axi_intc
  BUS_INTERFACE S_AXI = axi4lite_0
  PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
  PORT Irq = axi_intc_0_Irq
- PORT Intr = RS232_Uart_1_Interrupt & Ethernet_Lite_IP2INTC_Irpt & axi_timer_0_Interrupt & axi_iic_0_IIC2INTC_Irpt & axi_dma_0_s2mm_introut & axi_dma_1_s2mm_introut & axi_vdma_0_mm2s_introut & axi_vdma_1_mm2s_introut & axi_dma_2_mm2s_introut & axi_dma_2_s2mm_introut
+ PORT Intr = RS232_Uart_1_Interrupt & Ethernet_Lite_IP2INTC_Irpt & axi_timer_0_Interrupt & axi_iic_0_IIC2INTC_Irpt & axi_dma_0_s2mm_introut & axi_dma_1_s2mm_introut & axi_vdma_0_mm2s_introut & axi_vdma_1_mm2s_introut & axi_dma_2_mm2s_introut & axi_dma_2_s2mm_introut & axi_gpio_1_IP2INTC_Irpt
 END
 
 BEGIN axi_dac_4d_2c
@@ -674,9 +674,11 @@ BEGIN axi_gpio
  PARAMETER C_GPIO2_WIDTH = 8
  PARAMETER C_BASEADDR = 0x40040000
  PARAMETER C_HIGHADDR = 0x4004ffff
+ PARAMETER C_INTERRUPT_PRESENT = 1
  BUS_INTERFACE S_AXI = axi_interconnect_1
  PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
  PORT GPIO_IO = axi_gpio_1_sw
  PORT GPIO2_IO = axi_gpio_1_led
+ PORT IP2INTC_Irpt = axi_gpio_1_IP2INTC_Irpt
 END
 

@@ -183,6 +183,9 @@ module cf_adc_2c (
   reg     [15:0]  up_muladd_scale_a = 'd0;
   reg     [14:0]  up_muladd_offset_b = 'd0;
   reg     [15:0]  up_muladd_scale_b = 'd0;
+  reg     [15:0]  up_decimation_m = 'd0;
+  reg     [15:0]  up_decimation_n = 'd0;
+  reg             up_data_type = 'd0;
   reg     [ 7:0]  up_status = 'd0;
   reg             up_adc_master_capture_n = 'd0;
   reg     [31:0]  up_rdata = 'd0;
@@ -349,6 +352,13 @@ module cf_adc_2c (
       if ((up_addr == 5'h11) && (up_wr_s == 1'b1)) begin
         up_muladd_offset_b <= up_wdata[30:16];
         up_muladd_scale_b <= up_wdata[15:0];
+      end
+      if ((up_addr == 5'h12) && (up_wr_s == 1'b1)) begin
+        up_decimation_m <= up_wdata[31:16];
+        up_decimation_n <= up_wdata[15:0];
+      end
+      if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+        up_data_type <= up_wdata[0];
       end
       if (up_status_enable == 1'b1) begin
         up_status <= {5'd1, up_adc_capture_int, up_dma_ovf, up_dma_status};
@@ -531,6 +541,9 @@ module cf_adc_2c (
     .up_delay_rwn (up_delay_rwn),
     .up_delay_addr (up_delay_addr),
     .up_delay_wdata (up_delay_wdata),
+    .up_decimation_m (up_decimation_m),
+    .up_decimation_n (up_decimation_n),
+    .up_data_type (up_data_type),
     .usr_decimation_m (usr_decimation_m_s),
     .usr_decimation_n (usr_decimation_n_s),
     .usr_data_type (usr_data_type_s),

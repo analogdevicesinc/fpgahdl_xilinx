@@ -1,5 +1,5 @@
 
-<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Wed Mar 06 13:07:28 2013">
+<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Fri Mar 08 16:37:14 2013">
 
   <SYSTEMINFO ARCH="virtex7" DEVICE="xc7vx485t" PACKAGE="ffg1761" PART="xc7vx485tffg1761-2" SOURCE="C:/corefpga/xilinx/cf_xcomm_vc707/system.xmp" SPEEDGRADE="-2"/>
 
@@ -9085,10 +9085,10 @@
         <PARAMETER ASSIGNMENT="CONSTANT" MPD_INDEX="5" NAME="C_S_AXI_DATA_WIDTH" TYPE="INTEGER" VALUE="32">
           <DESCRIPTION>AXI Data Width</DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="UPDATE" CHANGEDBY="SYSTEM" MPD_INDEX="6" NAME="C_NUM_INTR_INPUTS" TYPE="INTEGER" VALUE="7">
+        <PARAMETER ASSIGNMENT="UPDATE" CHANGEDBY="SYSTEM" MPD_INDEX="6" NAME="C_NUM_INTR_INPUTS" TYPE="INTEGER" VALUE="8">
           <DESCRIPTION>Number of Interrupt Inputs </DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="UPDATE" CHANGEDBY="SYSTEM" MPD_INDEX="7" NAME="C_KIND_OF_INTR" TYPE="std_logic_vector" VALUE="0b11111111111111111111111111000000">
+        <PARAMETER ASSIGNMENT="UPDATE" CHANGEDBY="SYSTEM" MPD_INDEX="7" NAME="C_KIND_OF_INTR" TYPE="std_logic_vector" VALUE="0b11111111111111111111111110000000">
           <DESCRIPTION>Type of Interrupt for Each Input </DESCRIPTION>
         </PARAMETER>
         <PARAMETER ASSIGNMENT="UPDATE" CHANGEDBY="SYSTEM" MPD_INDEX="8" NAME="C_KIND_OF_EDGE" TYPE="std_logic_vector" VALUE="0b11111111111111111111111111111111">
@@ -9144,7 +9144,7 @@
             <CONNECTION BUSINTERFACE="[INTERRUPT]" INSTANCE="microblaze_0" PORT="INTERRUPT"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" ENDIAN="LITTLE" IS_INSTANTIATED="TRUE" LEFT="6" LSB="0" MHS_INDEX="2" MPD_INDEX="19" MSB="6" NAME="Intr" RIGHT="0" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="RS232_Uart_1_Interrupt &amp; axi_timer_0_Interrupt &amp; axi_iic_0_IIC2INTC_Irpt &amp; axi_dma_0_s2mm_introut &amp; axi_vdma_0_mm2s_introut &amp; axi_dma_2_mm2s_introut &amp; axi_dma_2_s2mm_introut" VECFORMULA="[(C_NUM_INTR_INPUTS-1):0]">
+        <PORT DIR="I" ENDIAN="LITTLE" IS_INSTANTIATED="TRUE" LEFT="7" LSB="0" MHS_INDEX="2" MPD_INDEX="19" MSB="7" NAME="Intr" RIGHT="0" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="RS232_Uart_1_Interrupt &amp; axi_timer_0_Interrupt &amp; axi_iic_0_IIC2INTC_Irpt &amp; axi_dma_0_s2mm_introut &amp; axi_vdma_0_mm2s_introut &amp; axi_dma_2_mm2s_introut &amp; axi_dma_2_s2mm_introut &amp; axi_gpio_1_IP2INTC_Irpt" VECFORMULA="[(C_NUM_INTR_INPUTS-1):0]">
           <SIGNALS>
             <SIGNAL NAME="RS232_Uart_1_Interrupt"/>
             <SIGNAL NAME="axi_timer_0_Interrupt"/>
@@ -9153,10 +9153,11 @@
             <SIGNAL NAME="axi_vdma_0_mm2s_introut"/>
             <SIGNAL NAME="axi_dma_2_mm2s_introut"/>
             <SIGNAL NAME="axi_dma_2_s2mm_introut"/>
+            <SIGNAL NAME="axi_gpio_1_IP2INTC_Irpt"/>
           </SIGNALS>
           <DESCRIPTION>Interrupt Inputs</DESCRIPTION>
           <CONNECTIONS>
-            <CONNECTION INSTANCE="rs232_uart_1_interrupt &amp; axi_timer_0_interrupt &amp; axi_iic_0_iic2intc_irpt &amp; axi_dma_0_s2mm_introut &amp; axi_vdma_0_mm2s_introut &amp; axi_dma_2_mm2s_introut &amp; axi_dma_2_s2mm_introut"/>
+            <CONNECTION INSTANCE="rs232_uart_1_interrupt &amp; axi_timer_0_interrupt &amp; axi_iic_0_iic2intc_irpt &amp; axi_dma_0_s2mm_introut &amp; axi_vdma_0_mm2s_introut &amp; axi_dma_2_mm2s_introut &amp; axi_dma_2_s2mm_introut &amp; axi_gpio_1_ip2intc_irpt"/>
           </CONNECTIONS>
         </PORT>
         <PORT BUS="S_AXI" DEF_SIGNAME="axi4lite_0_M_ARESETN" DIR="I" MPD_INDEX="1" NAME="S_AXI_ARESETN" SIGIS="RST" SIGNAME="axi4lite_0_M_ARESETN">
@@ -9313,6 +9314,7 @@
         <SOURCE INSTANCE="axi_vdma_0" PRIORITY="4" SIGNAME="axi_vdma_0_mm2s_introut"/>
         <SOURCE INSTANCE="axi_dma_2" PRIORITY="5" SIGNAME="axi_dma_2_mm2s_introut"/>
         <SOURCE INSTANCE="axi_dma_2" PRIORITY="6" SIGNAME="axi_dma_2_s2mm_introut"/>
+        <SOURCE INSTANCE="axi_gpio_1" PRIORITY="7" SIGNAME="axi_gpio_1_IP2INTC_Irpt"/>
         <TARGET INSTANCE="microblaze_0"/>
       </INTERRUPTINFO>
     </MODULE>
@@ -14955,7 +14957,7 @@
         <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="9" NAME="C_ALL_INPUTS_2" TYPE="INTEGER" VALUE="0">
           <DESCRIPTION>Channel 2 is Input Only </DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="10" NAME="C_INTERRUPT_PRESENT" TYPE="INTEGER" VALUE="0">
+        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="7" MPD_INDEX="10" NAME="C_INTERRUPT_PRESENT" TYPE="INTEGER" VALUE="1">
           <DESCRIPTION>GPIO Supports Interrupts</DESCRIPTION>
         </PARAMETER>
         <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="11" NAME="C_DOUT_DEFAULT" TYPE="std_logic_vector" VALUE="0x00000000">
@@ -14993,6 +14995,11 @@
           <DESCRIPTION>GPIO2 Data IO</DESCRIPTION>
           <CONNECTIONS>
             <CONNECTION INSTANCE="External Ports" PORT="led"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" IS_INSTANTIATED="TRUE" MHS_INDEX="3" MPD_INDEX="19" NAME="IP2INTC_Irpt" SENSITIVITY="LEVEL_HIGH" SIGIS="INTERRUPT" SIGNAME="axi_gpio_1_IP2INTC_Irpt">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_intc_0" PORT="Intr"/>
           </CONNECTIONS>
         </PORT>
         <PORT BUS="S_AXI" DEF_SIGNAME="axi_interconnect_1_M_ARESETN" DIR="I" MPD_INDEX="1" NAME="S_AXI_ARESETN" SIGIS="RST" SIGNAME="axi_interconnect_1_M_ARESETN">
@@ -15085,7 +15092,6 @@
             <CONNECTION INSTANCE="axi_interconnect_1" PORT="M_AXI_RREADY"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" IS_VALID="FALSE" MPD_INDEX="19" NAME="IP2INTC_Irpt" SENSITIVITY="LEVEL_HIGH" SIGIS="INTERRUPT" SIGNAME="__NOC__"/>
         <PORT DIR="I" ENDIAN="LITTLE" IOS="gpio_0" LEFT="12" LSB="0" MPD_INDEX="20" MSB="12" NAME="GPIO_IO_I" RIGHT="0" SIGNAME="__NOC__" VECFORMULA="[(C_GPIO_WIDTH-1):0]"/>
         <PORT DIR="O" ENDIAN="LITTLE" IOS="gpio_0" LEFT="12" LSB="0" MPD_INDEX="21" MSB="12" NAME="GPIO_IO_O" RIGHT="0" SIGNAME="__NOC__" VECFORMULA="[(C_GPIO_WIDTH-1):0]"/>
         <PORT DIR="O" ENDIAN="LITTLE" IOS="gpio_0" LEFT="12" LSB="0" MPD_INDEX="22" MSB="12" NAME="GPIO_IO_T" RIGHT="0" SIGNAME="__NOC__" VECFORMULA="[(C_GPIO_WIDTH-1):0]"/>
@@ -15139,6 +15145,9 @@
           </SLAVES>
         </MEMRANGE>
       </MEMORYMAP>
+      <INTERRUPTINFO TYPE="SOURCE">
+        <TARGET INSTANCE="axi_intc_0" INTC_INDEX="0" PRIORITY="7"/>
+      </INTERRUPTINFO>
     </MODULE>
   </MODULES>
 
