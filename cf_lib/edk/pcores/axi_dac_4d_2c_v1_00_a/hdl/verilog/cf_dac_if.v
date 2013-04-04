@@ -101,6 +101,11 @@ module cf_dac_if (
   parameter C_CF_BUFTYPE = 0;
   parameter C_CF_7SERIES = 0;
   parameter C_CF_VIRTEX6 = 1;
+  parameter MMCM_CLKIN1_PERIOD  = 1.667;
+  parameter MMCM_DIVCLK_DIVIDE  = 6;
+  parameter MMCM_CLKFBOUT_MULT_F = 12.000;
+  parameter MMCM_CLKOUT0_DIVIDE_F = 2.000;
+  parameter MMCM_CLKOUT1_DIVIDE = 6;
 
   parameter C_DEVICE_SEL = C_CF_BUFTYPE & 'hf;
   parameter C_ODDR_SEL = (C_CF_BUFTYPE >> 4) & 'hf;
@@ -381,7 +386,7 @@ module cf_dac_if (
   // dac clock output serdes & buffer
   
   generate
-  if (C_ODDR_SEL == C_CF_VIRTEX6) begin
+  if (C_ODDR_SEL == 1) begin
   ODDR #(
     .DDR_CLK_EDGE ("SAME_EDGE"),
     .INIT (1'b0),
@@ -458,19 +463,19 @@ module cf_dac_if (
     .CLOCK_HOLD ("FALSE"),
     .COMPENSATION ("ZHOLD"),
     .STARTUP_WAIT ("FALSE"),
-    .DIVCLK_DIVIDE (6),
-    .CLKFBOUT_MULT_F (12.000),
+    .DIVCLK_DIVIDE (MMCM_DIVCLK_DIVIDE),
+    .CLKFBOUT_MULT_F (MMCM_CLKFBOUT_MULT_F),
     .CLKFBOUT_PHASE (0.000),
     .CLKFBOUT_USE_FINE_PS ("FALSE"),
-    .CLKOUT0_DIVIDE_F (2.000),
+    .CLKOUT0_DIVIDE_F (MMCM_CLKOUT0_DIVIDE_F),
     .CLKOUT0_PHASE (0.000),
     .CLKOUT0_DUTY_CYCLE (0.500),
     .CLKOUT0_USE_FINE_PS ("FALSE"),
-    .CLKOUT1_DIVIDE (6),
+    .CLKOUT1_DIVIDE (MMCM_CLKOUT1_DIVIDE),
     .CLKOUT1_PHASE (0.000),
     .CLKOUT1_DUTY_CYCLE (0.500),
     .CLKOUT1_USE_FINE_PS ("FALSE"),
-    .CLKIN1_PERIOD (1.667),
+    .CLKIN1_PERIOD (MMCM_CLKIN1_PERIOD),
     .REF_JITTER1 (0.010))
   i_dac_clk_mmcm (
     .CLKFBOUT (dac_mmcm_fb_clk_s),
@@ -512,19 +517,19 @@ module cf_dac_if (
     .CLKOUT4_CASCADE ("FALSE"),
     .COMPENSATION ("ZHOLD"),
     .STARTUP_WAIT ("FALSE"),
-    .DIVCLK_DIVIDE (2),
-    .CLKFBOUT_MULT_F (4.000),
+    .DIVCLK_DIVIDE (MMCM_DIVCLK_DIVIDE),
+    .CLKFBOUT_MULT_F (MMCM_CLKFBOUT_MULT_F),
     .CLKFBOUT_PHASE (0.000),
     .CLKFBOUT_USE_FINE_PS ("FALSE"),
-    .CLKOUT0_DIVIDE_F (2.000),
+    .CLKOUT0_DIVIDE_F (MMCM_CLKOUT0_DIVIDE_F),
     .CLKOUT0_PHASE (0.000),
     .CLKOUT0_DUTY_CYCLE (0.500),
     .CLKOUT0_USE_FINE_PS ("FALSE"),
-    .CLKOUT1_DIVIDE (6),
+    .CLKOUT1_DIVIDE (MMCM_CLKOUT1_DIVIDE),
     .CLKOUT1_PHASE (0.000),
     .CLKOUT1_DUTY_CYCLE (0.500),
     .CLKOUT1_USE_FINE_PS ("FALSE"),
-    .CLKIN1_PERIOD (2.000),
+    .CLKIN1_PERIOD (MMCM_CLKIN1_PERIOD),
     .REF_JITTER1 (0.010))
   i_dac_clk_mmcm (
     .CLKFBOUT (dac_mmcm_fb_clk_s),
