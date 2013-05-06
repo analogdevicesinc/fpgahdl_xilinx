@@ -78,7 +78,7 @@ NET dac_data_out_n[14]  LOC = P21  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET dac_data_out_p[15]  LOC = N15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET dac_data_out_n[15]  LOC = P15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 
-NET adc_clk_in_p        LOC = M19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"; 
+NET adc_clk_in_p        LOC = M19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_clk_in_n        LOC = M20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_or_p       LOC = K19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_or_n       LOC = K20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
@@ -140,4 +140,7 @@ OFFSET = IN BEFORE "adc_clk_in_p" FALLING;
 
 OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" RISING;
 OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" FALLING;
+
+NET axi_iic_0_Sda_pin LOC = W8 | IOSTANDARD=LVCMOS25 | PULLUP; # Bank 13 VCCO - VADJ - IO_L2N_T0_13
+NET axi_iic_0_Scl_pin LOC = W11 | IOSTANDARD=LVCMOS25 | PULLUP; # Bank 13 VCCO - VADJ - IO_L3P_T0_DQS_13
 

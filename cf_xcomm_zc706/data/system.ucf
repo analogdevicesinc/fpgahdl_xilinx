@@ -30,18 +30,18 @@ NET hdmi_data[23]       LOC = AC22 | IOSTANDARD = LVCMOS25;
 NET hdmi_spdif          LOC = AC21 | IOSTANDARD = LVCMOS25;
 NET hdmi_int            LOC = AC23 | IOSTANDARD = LVCMOS25;
 
-NET sw[0]               LOC = AB17 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW0   
-NET sw[1]               LOC = AC16 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW1   
-NET sw[2]               LOC = AC17 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW2   
-NET sw[3]               LOC = AJ13 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW3   
-NET sw[4]               LOC = AK25 | IOSTANDARD = LVCMOS25; ## GPIO_SW_LEFT   
-NET sw[5]               LOC = K15  | IOSTANDARD = LVCMOS15; ## GPIO_SW_CENTER 
-NET sw[6]               LOC = R27  | IOSTANDARD = LVCMOS25; ## GPIO_SW_RIGHT  
+NET sw[0]               LOC = AB17 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW0
+NET sw[1]               LOC = AC16 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW1
+NET sw[2]               LOC = AC17 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW2
+NET sw[3]               LOC = AJ13 | IOSTANDARD = LVCMOS25; ## GPIO_DIP_SW3
+NET sw[4]               LOC = AK25 | IOSTANDARD = LVCMOS25; ## GPIO_SW_LEFT
+NET sw[5]               LOC = K15  | IOSTANDARD = LVCMOS15; ## GPIO_SW_CENTER
+NET sw[6]               LOC = R27  | IOSTANDARD = LVCMOS25; ## GPIO_SW_RIGHT
 
-NET led[0]              LOC = Y21  | IOSTANDARD = LVCMOS25; ## GPIO_LED_LEFT  
+NET led[0]              LOC = Y21  | IOSTANDARD = LVCMOS25; ## GPIO_LED_LEFT
 NET led[1]              LOC = G2   | IOSTANDARD = LVCMOS15; ## GPIO_LED_CENTER
-NET led[2]              LOC = W21  | IOSTANDARD = LVCMOS25; ## GPIO_LED_RIGHT 
-NET led[3]              LOC = A17  | IOSTANDARD = LVCMOS15; ## GPIO_LED_0     
+NET led[2]              LOC = W21  | IOSTANDARD = LVCMOS25; ## GPIO_LED_RIGHT
+NET led[3]              LOC = A17  | IOSTANDARD = LVCMOS15; ## GPIO_LED_0
 
 NET ref_clk_out_p       LOC = AB27 | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET ref_clk_out_n       LOC = AC27 | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
@@ -85,7 +85,7 @@ NET dac_data_out_n[14]  LOC = AB14 | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET dac_data_out_p[15]  LOC = AE18 | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET dac_data_out_n[15]  LOC = AE17 | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 
-NET adc_clk_in_p        LOC = AC28 | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"; 
+NET adc_clk_in_p        LOC = AC28 | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_clk_in_n        LOC = AD28 | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_or_p       LOC = AE13 | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_or_n       LOC = AF13 | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
@@ -147,3 +147,5 @@ OFFSET = IN BEFORE "adc_clk_in_p" FALLING;
 OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" RISING;
 OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" FALLING;
 
+NET axi_iic_0_Sda_pin LOC = AJ18 | IOSTANDARD=LVCMOS25 | PULLUP;
+NET axi_iic_0_Scl_pin LOC = AJ14 | IOSTANDARD=LVCMOS25 | PULLUP;

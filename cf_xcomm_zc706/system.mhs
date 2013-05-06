@@ -57,7 +57,8 @@
  PORT adc_data_or_n = axi_adc_2c_0_adc_data_or_n, DIR = I
  PORT sw = axi_gpio_0_sw, DIR = IO, VEC = [6:0]
  PORT led = axi_gpio_0_led, DIR = IO, VEC = [3:0]
-
+ PORT axi_iic_0_Sda_pin = axi_iic_0_Sda, DIR = IO
+ PORT axi_iic_0_Scl_pin = axi_iic_0_Scl, DIR = IO
 
 BEGIN processing_system7
  PARAMETER INSTANCE = processing_system7_0
@@ -171,7 +172,7 @@ BEGIN processing_system7
  PORT S_AXI_HP1_ACLK = processing_system7_0_FCLK_CLK0
  PORT S_AXI_HP2_ACLK = processing_system7_0_FCLK_CLK1
  PORT S_AXI_HP3_ACLK = processing_system7_0_FCLK_CLK1
- PORT IRQ_F2P = axi_vdma_1_mm2s_introut & axi_dma_1_s2mm_introut & axi_vdma_0_mm2s_introut & axi_dma_0_mm2s_introut & hdmi_int & axi_spdif_tx_0_spdif_tx_int_o & axi_gpio_0_IP2INTC_Irpt
+ PORT IRQ_F2P = axi_vdma_1_mm2s_introut & axi_dma_1_s2mm_introut & axi_vdma_0_mm2s_introut & axi_dma_0_mm2s_introut & hdmi_int & axi_spdif_tx_0_spdif_tx_int_o & axi_gpio_0_IP2INTC_Irpt & axi_iic_0_IIC2INTC_Irpt
 END
 
 BEGIN axi_interconnect
@@ -466,3 +467,14 @@ BEGIN axi_gpio
  PORT IP2INTC_Irpt = axi_gpio_0_IP2INTC_Irpt
 END
 
+BEGIN axi_iic
+ PARAMETER INSTANCE = axi_iic_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BASEADDR = 0x41600000
+ PARAMETER C_HIGHADDR = 0x4160ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
+ PORT Sda = axi_iic_0_Sda
+ PORT Scl = axi_iic_0_Scl
+ PORT IIC2INTC_Irpt = axi_iic_0_IIC2INTC_Irpt
+END
