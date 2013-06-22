@@ -69,7 +69,7 @@ entity tx_encoder is
     chstat_copy: in std_logic;          -- copyright bit
     chstat_audio: in  std_logic;        -- data format
     sample_data: in std_logic_vector(DATA_WIDTH - 1 downto 0);  -- audio data
-    mem_rd: out std_logic;              -- sample buffer read
+    sample_data_ack: out std_logic;              -- sample buffer read
     channel: out std_logic;
     spdif_tx_o: out std_logic);
 end tx_encoder;
@@ -90,7 +90,7 @@ architecture rtl of tx_encoder is
   signal active_user_data, active_ch_status : std_logic_vector(191 downto 0);
   signal audio : std_logic_vector(23 downto 0);
   signal par_vector : std_logic_vector(26 downto 0);
-  signal send_audio, imem_rd : std_logic;
+  signal send_audio : std_logic;
   
   signal tick_counter : std_logic;
   signal tick_counter_d1 : std_logic;
@@ -178,42 +178,37 @@ begin
     end if;
   end process CGEN;
 
--- Sample memory read process. Enabled by the conf_txdata bit.
--- Buffer address is reset when disabled. Also generates events for
--- lower and upper buffer empty conditions
-  mem_rd <= imem_rd;
-    
   SRD: process (up_clk)
   begin 
     if rising_edge(up_clk) then
       if resetn = '0' or conf_txdata = '0' then
         bufctrl <= IDLE;
-        imem_rd <= '0';
+        sample_data_ack <= '0';
         channel <= '0';
       else
         case bufctrl is
           when IDLE =>
-            imem_rd <= '0';
+            sample_data_ack <= '0';
             if conf_txdata = '1' then
               bufctrl <= READ_CHA;
-              imem_rd <='1';
+              sample_data_ack <='1';
             end if;
           when READ_CHA =>
             channel <= '0';
-            imem_rd <= '0';
+            sample_data_ack <= '0';
             bufctrl <= CHA_RDY;
           when CHA_RDY =>
             if cha_samp_ack = '1' then
-              imem_rd <= '1';
+              sample_data_ack <= '1';
               bufctrl <= READ_CHB;
             end if;
           when READ_CHB =>
             channel <= '1';
-            imem_rd <= '0';
+            sample_data_ack <= '0';
             bufctrl <= CHB_RDY;
           when CHB_RDY =>
             if chb_samp_ack = '1' then
-              imem_rd <= '1';
+              sample_data_ack <= '1';
               bufctrl <= READ_CHA;
             end if;  
           when others =>

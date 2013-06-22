@@ -108,7 +108,7 @@ architecture IMP of axi_spdif_tx is
 
 	signal chstat_freq : std_logic_vector(1 downto 0);
 	signal chstat_gstat, chstat_preem, chstat_copy, chstat_audio : std_logic;
-	signal mem_rd, mem_rd_d1 : std_logic;
+	signal sample_data_ack : std_logic;
 	signal sample_data: std_logic_vector(15 downto 0);
 	signal conf_mode : std_logic_vector(3 downto 0);
 	signal conf_ratio : std_logic_vector(7 downto 0);
@@ -144,17 +144,14 @@ begin
 				audio_fifo_rd_addr  <= (others => '0');
 				audio_fifo_free_cnt := 2**RAM_ADDR_WIDTH;
 				audio_fifo_full	 <= '0';
-				mem_rd_d1		   <= '0';
 			else
-				mem_rd_d1 <= mem_rd;
-				
 				if ((S_AXIS_TVALID = '1') and (audio_fifo_free_cnt > 0)) then
 					audio_fifo(conv_integer(audio_fifo_wr_addr)) <= S_AXIS_TDATA;
 					audio_fifo_wr_addr <= audio_fifo_wr_addr + '1';
 					audio_fifo_free_cnt := audio_fifo_free_cnt - 1;
 				end if;
 				
-				if((channel = '1') and (mem_rd_d1 = '1' and mem_rd = '0') and (audio_fifo_free_cnt < (2**RAM_ADDR_WIDTH)))then
+				if((channel = '1') and (sample_data_ack = '1') and (audio_fifo_free_cnt < (2**RAM_ADDR_WIDTH)))then
 					audio_fifo_rd_addr <= audio_fifo_rd_addr + '1';
 					audio_fifo_free_cnt := audio_fifo_free_cnt + 1;
 				end if; 
@@ -164,15 +161,19 @@ begin
 				else
 					audio_fifo_full <= '0';
 				end if;
-				
-				if(channel = '1') then
-					sample_data(15 downto 0) <= audio_fifo(conv_integer(audio_fifo_rd_addr))(31 downto 16);
-				else
-					sample_data(15 downto 0) <= audio_fifo(conv_integer(audio_fifo_rd_addr))(15 downto 0);
-				end if;
+
 			end if;
 		end if;
 	end process AUDIO_FIFO_PROCESS;
+
+	sample_data_mux: process (audio_fifo, channel, audio_fifo_rd_addr) is
+	begin
+		if channel = '0' then
+			sample_data <= audio_fifo(conv_integer(audio_fifo_rd_addr))(15 downto 0);
+		else
+			sample_data <= audio_fifo(conv_integer(audio_fifo_rd_addr))(31 downto 16);
+		end if;
+	end process;
 
 	-- Configuration signals update
 	conf_mode(3 downto 0)  <= config_reg(23 downto 20);
@@ -207,7 +208,7 @@ begin
 			chstat_copy	=> chstat_copy,	    -- copyright bit
 			chstat_audio	=> chstat_audio,    -- data format
 			sample_data	=> sample_data,	    -- audio data
-			mem_rd		=> mem_rd,	    -- sample buffer read
+			sample_data_ack => sample_data_ack, -- sample buffer read
 			channel		=> channel,	    -- which channel should be read
 			spdif_tx_o	=> spdif_tx_o	    -- SPDIF output signal
 		);

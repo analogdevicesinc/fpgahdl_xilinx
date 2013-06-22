@@ -79,7 +79,7 @@ package tx_package is
             chstat_copy: in std_logic;                                  -- copyright bit
             chstat_audio: in  std_logic;                                -- data format
             sample_data: in std_logic_vector(DATA_WIDTH - 1 downto 0);  -- audio data
-            mem_rd: out std_logic;                                      -- sample buffer read
+            sample_data_ack : out std_logic;                            -- sample buffer read
             channel: out std_logic;
             spdif_tx_o: out std_logic
         );
