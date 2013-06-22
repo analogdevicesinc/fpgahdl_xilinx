@@ -59,24 +59,6 @@ use ieee.std_logic_1164.all;
 
 package tx_package is
 
--- components used in the transmitter
-    component tx_bitbuf 
-        generic 
-        (
-            ENABLE_BUFFER: integer range 0 to 1
-        ); 
-        port 
-        (
-            up_clk: in std_logic;                                       -- clock
-            up_rstn: in std_logic;                                      -- reset
-            buf_wr: in std_logic;                                       -- buffer write strobe
-            up_addr: in std_logic_vector(4 downto 0);                   -- address
-            up_wdata: in std_logic_vector(15 downto 0);                 -- data
-            buf_data_a: out std_logic_vector(191 downto 0);
-            buf_data_b: out std_logic_vector(191 downto 0)
-        );
-    end component;
-
     component tx_encoder 
         generic 
         (
@@ -89,14 +71,8 @@ package tx_package is
             resetn : in std_logic;                                      -- resetn
             conf_mode: in std_logic_vector(3 downto 0);                 -- sample format
             conf_ratio: in std_logic_vector(7 downto 0);                -- clock divider
-            conf_udaten: in std_logic_vector(1 downto 0);               -- user data control
-            conf_chsten: in std_logic_vector(1 downto 0);               -- ch. status control
             conf_txdata: in std_logic;                                  -- sample data enable
             conf_txen: in std_logic;                                    -- spdif signal enable
-            user_data_a: in std_logic_vector(191 downto 0);             -- ch. a user data
-            user_data_b: in std_logic_vector(191 downto 0);             -- ch. b user data
-            ch_stat_a: in std_logic_vector(191 downto 0);               -- ch. a status
-            ch_stat_b: in std_logic_vector(191 downto 0);               -- ch. b status
             chstat_freq: in std_logic_vector(1 downto 0);               -- sample freq.
             chstat_gstat: in std_logic;                                 -- generation status
             chstat_preem: in std_logic;                                 -- preemphasis status

@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
--- Copyright 2011(c) Analog Devices, Inc.
+-- Copyright 2011-2013(c) Analog Devices, Inc.
 -- 
 -- All rights reserved.
 -- 
@@ -51,7 +51,7 @@ library axi_lite_ipif_v1_01_a;
 use axi_lite_ipif_v1_01_a.axi_lite_ipif;
 
 library axi_spdif_tx_v1_00_a;
-use axi_spdif_tx_v1_00_a.user_logic;
+use axi_spdif_tx_v1_00_a.tx_package.all;
 
 entity axi_spdif_tx is
   generic
@@ -76,7 +76,6 @@ entity axi_spdif_tx is
     --SPDIF ports
     spdif_data_clk : in std_logic;
     spdif_tx_o     : out std_logic;
-    spdif_tx_int_o : out std_logic;  
     
     --AXI Lite interface
     S_AXI_ACLK                     : in  std_logic;
@@ -100,22 +99,13 @@ entity axi_spdif_tx is
     S_AXI_AWREADY                  : out std_logic;
     
     --AXI streaming interface
-    ACLK	        : in	std_logic;
-    ARESETN	        : in	std_logic;
+    S_AXIS_ACLK	        : in	std_logic;
+    S_AXIS_ARESETN	        : in	std_logic;
     S_AXIS_TREADY	: out	std_logic;
     S_AXIS_TDATA	: in	std_logic_vector(31 downto 0);
     S_AXIS_TLAST	: in	std_logic;
     S_AXIS_TVALID	: in	std_logic    
   );
-
-  attribute MAX_FANOUT  : string;
-  attribute SIGIS       : string;
-  
-  attribute SIGIS of ACLK               : signal is "Clk"; 
-  attribute MAX_FANOUT of S_AXI_ACLK    : signal is "10000";
-  attribute MAX_FANOUT of S_AXI_ARESETN : signal is "10000";
-  attribute SIGIS of S_AXI_ACLK         : signal is "Clk";
-  attribute SIGIS of S_AXI_ARESETN      : signal is "Rst";
 end entity axi_spdif_tx;
 
 ------------------------------------------------------------------------------
@@ -138,7 +128,7 @@ architecture IMP of axi_spdif_tx is
       ZERO_ADDR_PAD & USER_SLV_HIGHADDR   -- user logic slave space high address
     );
 
-  constant USER_SLV_NUM_REG               : integer              := 8;
+  constant USER_SLV_NUM_REG               : integer              := 2;
   constant USER_NUM_REG                   : integer              := USER_SLV_NUM_REG;
   constant TOTAL_IPIF_CE                  : integer              := USER_NUM_REG;
 
@@ -167,10 +157,6 @@ architecture IMP of axi_spdif_tx is
   signal ipif_Bus2IP_RdCE               : std_logic_vector(calc_num_ce(IPIF_ARD_NUM_CE_ARRAY)-1 downto 0);
   signal ipif_Bus2IP_WrCE               : std_logic_vector(calc_num_ce(IPIF_ARD_NUM_CE_ARRAY)-1 downto 0);
   signal ipif_Bus2IP_Data               : std_logic_vector(IPIF_SLV_DWIDTH-1 downto 0);
-  signal ipif_IP2Bus_WrAck              : std_logic;
-  signal ipif_IP2Bus_RdAck              : std_logic;
-  signal ipif_IP2Bus_Error              : std_logic;
-  signal ipif_IP2Bus_Data               : std_logic_vector(IPIF_SLV_DWIDTH-1 downto 0);
   signal user_Bus2IP_RdCE               : std_logic_vector(USER_NUM_REG-1 downto 0);
   signal user_Bus2IP_WrCE               : std_logic_vector(USER_NUM_REG-1 downto 0);
   signal user_IP2Bus_Data               : std_logic_vector(USER_SLV_DWIDTH-1 downto 0);
@@ -178,6 +164,40 @@ architecture IMP of axi_spdif_tx is
   signal user_IP2Bus_WrAck              : std_logic;
   signal user_IP2Bus_Error              : std_logic;
 
+  ------------------------------------------
+  -- Signals for user logic slave model s/w accessible register example
+  ------------------------------------------
+  signal slv_reg_write_sel              : std_logic_vector(1 downto 0);
+  signal slv_reg_read_sel               : std_logic_vector(1 downto 0);
+  signal slv_user_IP2Bus_Data                : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal slv_read_ack                   : std_logic;
+  signal slv_write_ack                  : std_logic;
+  
+  ------------------------------------------
+  -- SPDIF signals
+  ------------------------------------------
+  constant RAM_ADDR_WIDTH : integer := 7;
+  
+  signal config_reg    : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal chstatus_reg  : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+ 
+  signal chstat_freq : std_logic_vector(1 downto 0);
+  signal chstat_gstat, chstat_preem, chstat_copy, chstat_audio : std_logic;
+  signal mem_rd, mem_rd_d1, ch_status_wr, user_data_wr : std_logic;
+  signal sample_data: std_logic_vector(15 downto 0);
+  signal conf_mode : std_logic_vector(3 downto 0);
+  signal conf_ratio : std_logic_vector(7 downto 0);
+  signal conf_tinten, conf_txdata, conf_txen : std_logic;
+  signal channel : std_logic;
+
+  ------------------------------------------
+  -- Audio samples FIFO  
+  ------------------------------------------
+  type RAM_TYPE is array (0 to (2**RAM_ADDR_WIDTH - 1)) of std_logic_vector(C_SLV_DWIDTH - 1 downto 0);
+  signal audio_fifo          : RAM_TYPE;
+  signal audio_fifo_wr_addr  : std_logic_vector(RAM_ADDR_WIDTH - 1 downto 0);
+  signal audio_fifo_rd_addr  : std_logic_vector(RAM_ADDR_WIDTH - 1 downto 0);
+  signal audio_fifo_full     : std_logic;
 begin
 
   ------------------------------------------
@@ -225,57 +245,149 @@ begin
       Bus2IP_RdCE                    => ipif_Bus2IP_RdCE,
       Bus2IP_WrCE                    => ipif_Bus2IP_WrCE,
       Bus2IP_Data                    => ipif_Bus2IP_Data,
-      IP2Bus_WrAck                   => ipif_IP2Bus_WrAck,
-      IP2Bus_RdAck                   => ipif_IP2Bus_RdAck,
-      IP2Bus_Error                   => ipif_IP2Bus_Error,
-      IP2Bus_Data                    => ipif_IP2Bus_Data
+      IP2Bus_WrAck                   => user_IP2Bus_WrAck,
+      IP2Bus_RdAck                   => user_IP2Bus_RdAck,
+      IP2Bus_Error                   => user_IP2Bus_Error,
+      IP2Bus_Data                    => user_IP2Bus_Data
     );
 
-  ------------------------------------------
-  -- instantiate User Logic
-  ------------------------------------------
-  USER_LOGIC_I : entity axi_spdif_tx_v1_00_a.user_logic
-    generic map
-    (
-      C_NUM_REG                      => USER_NUM_REG,
-      C_SLV_DWIDTH                   => USER_SLV_DWIDTH
-    )
-    port map
-    (
-      --SPDIF interface
-        spdif_data_clk => spdif_data_clk,
-        spdif_tx_o     => spdif_tx_o,
-        spdif_tx_int_o => spdif_tx_int_o,
-      
-      --AXI Lite interface
-        Bus2IP_Clk                     => ipif_Bus2IP_Clk,
-        Bus2IP_Resetn                  => ipif_Bus2IP_Resetn,
-        Bus2IP_Data                    => ipif_Bus2IP_Data,
-        Bus2IP_BE                      => ipif_Bus2IP_BE,
-        Bus2IP_RdCE                    => user_Bus2IP_RdCE,
-        Bus2IP_WrCE                    => user_Bus2IP_WrCE,
-        IP2Bus_Data                    => user_IP2Bus_Data,
-        IP2Bus_RdAck                   => user_IP2Bus_RdAck,
-        IP2Bus_WrAck                   => user_IP2Bus_WrAck,
-        IP2Bus_Error                   => user_IP2Bus_Error,
-      
-      --AXI streaming interface
-        S_AXIS_ACLK                    => ACLK,
-		S_AXIS_TREADY                  => S_AXIS_TREADY,
-		S_AXIS_TDATA                   => S_AXIS_TDATA,
-		S_AXIS_TLAST                   => S_AXIS_TLAST,
-		S_AXIS_TVALID                  => S_AXIS_TVALID
-    );
+	user_Bus2IP_RdCE <= ipif_Bus2IP_RdCE(USER_NUM_REG-1 downto 0);
+	user_Bus2IP_WrCE <= ipif_Bus2IP_WrCE(USER_NUM_REG-1 downto 0);
+
+	-- Audio samples FIFO management
+    S_AXIS_TREADY  <= '1' when audio_fifo_full = '0' else '0';
+    AUDIO_FIFO_PROCESS : process (S_AXIS_ACLK) is
+        variable audio_fifo_free_cnt : integer range 0 to 2**RAM_ADDR_WIDTH;
+    begin        
+        if S_AXIS_ACLK'event and S_AXIS_ACLK = '1' then
+            if ipif_Bus2IP_Resetn = '0' or conf_txdata = '0' then
+                audio_fifo_wr_addr  <= (others => '0');
+                audio_fifo_rd_addr  <= (others => '0');
+                audio_fifo_free_cnt := 2**RAM_ADDR_WIDTH;
+                audio_fifo_full     <= '0';
+                mem_rd_d1           <= '0';
+            else
+                mem_rd_d1 <= mem_rd;
+                
+                if ((S_AXIS_TVALID = '1') and (audio_fifo_free_cnt > 0)) then
+                    audio_fifo(conv_integer(audio_fifo_wr_addr)) <= S_AXIS_TDATA;
+                    audio_fifo_wr_addr <= audio_fifo_wr_addr + '1';
+                    audio_fifo_free_cnt := audio_fifo_free_cnt - 1;
+                end if;
+                
+                if((channel = '1') and (mem_rd_d1 = '1' and mem_rd = '0') and (audio_fifo_free_cnt < (2**RAM_ADDR_WIDTH)))then
+                    audio_fifo_rd_addr <= audio_fifo_rd_addr + '1';
+                    audio_fifo_free_cnt := audio_fifo_free_cnt + 1;
+                end if; 
+                
+                if(audio_fifo_free_cnt = 0)then
+                    audio_fifo_full <= '1';
+                else
+                    audio_fifo_full <= '0';
+                end if;
+                
+                if(channel = '1') then
+                    sample_data(15 downto 0) <= audio_fifo(conv_integer(audio_fifo_rd_addr))(31 downto 16);
+                else
+                    sample_data(15 downto 0) <= audio_fifo(conv_integer(audio_fifo_rd_addr))(15 downto 0);
+                end if;
+            end if;
+        end if;
+    end process AUDIO_FIFO_PROCESS;
+
+	-- SPDIF registers update
+
+	-- Configuration signals update
+    conf_mode(3 downto 0)  <= config_reg(23 downto 20);
+    conf_ratio(7 downto 0) <= config_reg(15 downto 8);
+    conf_tinten <= config_reg(2);
+    conf_txdata <= config_reg(1);
+    conf_txen   <= config_reg(0);
+
+	-- Channel status signals update
+    chstat_freq(1 downto 0) <= chstatus_reg(7 downto 6);
+    chstat_gstat <= chstatus_reg(3);
+    chstat_preem <= chstatus_reg(2);
+    chstat_copy <= chstatus_reg(1);
+    chstat_audio <= chstatus_reg(0);
+    
+
+	-- Transmit encoder
+    TENC: tx_encoder 	 
+      generic map (DATA_WIDTH => 16) 
+      port map (
+        up_clk          => ipif_Bus2IP_Clk,
+        data_clk        => spdif_data_clk,  -- data clock
+        resetn          => ipif_Bus2IP_Resetn,   -- resetn
+        conf_mode       => conf_mode,       -- sample format
+        conf_ratio      => conf_ratio,      -- clock divider
+        conf_txdata     => conf_txdata,     -- sample data enable
+        conf_txen       => conf_txen,       -- spdif signal enable
+        chstat_freq     => chstat_freq,     -- sample freq.
+        chstat_gstat    => chstat_gstat,    -- generation status
+        chstat_preem    => chstat_preem,    -- preemphasis status
+        chstat_copy     => chstat_copy,     -- copyright bit
+        chstat_audio    => chstat_audio,    -- data format
+        sample_data     => sample_data,     -- audio data
+        mem_rd          => mem_rd,          -- sample buffer read
+        channel         => channel,         -- which channel should be read
+        spdif_tx_o      => spdif_tx_o);     -- SPDIF output signal
+
+  -- internal registers access logic
+  slv_reg_write_sel <= user_Bus2IP_WrCE(1 downto 0);
+  slv_reg_read_sel  <= user_Bus2IP_RdCE(1 downto 0);
+  slv_write_ack     <= user_Bus2IP_WrCE(0) or user_Bus2IP_WrCE(1);
+  slv_read_ack      <= user_Bus2IP_RdCE(0) or user_Bus2IP_RdCE(1);
+
+  -- implement slave model software accessible register(s)
+  SLAVE_REG_WRITE_PROC : process( ipif_Bus2IP_Clk ) is
+  begin
+
+    if ipif_Bus2IP_Clk'event and ipif_Bus2IP_Clk = '1' then
+      if ipif_Bus2IP_Resetn = '0' then
+        config_reg <= (others => '0');
+        chstatus_reg <= (others => '0');
+      else
+        case slv_reg_write_sel is
+          when "10" =>
+            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
+              if ( ipif_Bus2IP_BE(byte_index) = '1' ) then
+                config_reg(byte_index*8+7 downto byte_index*8) <= ipif_Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+              end if;
+            end loop;
+          when "01" =>
+            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
+              if ( ipif_Bus2IP_BE(byte_index) = '1' ) then
+                chstatus_reg(byte_index*8+7 downto byte_index*8) <= ipif_Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+              end if;
+            end loop;
+          when others => null;
+        end case;
+      end if;
+    end if;
+
+  end process SLAVE_REG_WRITE_PROC;
+
+  -- implement slave model software accessible register(s) read mux
+  SLAVE_REG_READ_PROC : process( slv_reg_read_sel, config_reg, chstatus_reg) is
+  begin
+
+    case slv_reg_read_sel is
+      when "10" => slv_user_IP2Bus_Data <= config_reg;
+      when "01" => slv_user_IP2Bus_Data <= chstatus_reg;
+      when others => slv_user_IP2Bus_Data <= (others => '0');
+    end case;
+
+  end process SLAVE_REG_READ_PROC;
 
   ------------------------------------------
-  -- connect internal signals
+  -- Example code to drive IP to Bus signals
   ------------------------------------------
-  ipif_IP2Bus_Data <= user_IP2Bus_Data;
-  ipif_IP2Bus_WrAck <= user_IP2Bus_WrAck;
-  ipif_IP2Bus_RdAck <= user_IP2Bus_RdAck;
-  ipif_IP2Bus_Error <= user_IP2Bus_Error;
+  user_IP2Bus_Data  <= slv_user_IP2Bus_Data when slv_read_ack = '1' else
+                  (others => '0');
 
-  user_Bus2IP_RdCE <= ipif_Bus2IP_RdCE(USER_NUM_REG-1 downto 0);
-  user_Bus2IP_WrCE <= ipif_Bus2IP_WrCE(USER_NUM_REG-1 downto 0);
+  user_IP2Bus_WrAck <= slv_write_ack;
+  user_IP2Bus_RdAck <= slv_read_ack;
+  user_IP2Bus_Error <= '0';
 
 end IMP;

@@ -69,6 +69,5 @@ PORT S_AXIS_TVALID = TVALID, DIR=I, BUS=S_AXIS_MM2S
 ## SPDIF ports
 PORT spdif_data_clk = "", DIR = I, SIGIS = CLK
 PORT spdif_tx_o = "", DIR = O
-PORT spdif_tx_int_o = "", DIR = O, SIGIS = INTERRUPT, SENSITIVITY = LEVEL_HIGH
 
 END

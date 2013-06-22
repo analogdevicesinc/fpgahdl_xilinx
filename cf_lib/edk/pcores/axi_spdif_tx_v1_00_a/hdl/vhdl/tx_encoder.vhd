@@ -61,14 +61,8 @@ entity tx_encoder is
     resetn : in std_logic;            -- resetn
     conf_mode: in std_logic_vector(3 downto 0);   -- sample format
     conf_ratio: in std_logic_vector(7 downto 0);  -- clock divider
-    conf_udaten: in std_logic_vector(1 downto 0);  -- user data control
-    conf_chsten: in std_logic_vector(1 downto 0);  -- ch. status control
     conf_txdata: in std_logic;          -- sample data enable
     conf_txen: in std_logic;            -- spdif signal enable
-    user_data_a: in std_logic_vector(191 downto 0);  -- ch. a user data
-    user_data_b: in std_logic_vector(191 downto 0);  -- ch. b user data
-    ch_stat_a: in std_logic_vector(191 downto 0);  -- ch. a status
-    ch_stat_b: in std_logic_vector(191 downto 0);  -- ch. b status
     chstat_freq: in std_logic_vector(1 downto 0);  -- sample freq.
     chstat_gstat: in std_logic;         -- generation status
     chstat_preem: in std_logic;         -- preemphasis status
@@ -494,15 +488,9 @@ begin
   def_ch_status(191 downto 28) <= (others => '0'); --191 28
 
 -- Generate channel status vector based on configuration register setting.
-  active_ch_status <= ch_stat_a when conf_chsten = "01" else
-                      ch_stat_a when conf_chsten = "10" and framest = CHANNEL_A else
-                      ch_stat_b when conf_chsten = "10" and framest = CHANNEL_B else
-                      def_ch_status;
+  active_ch_status <= def_ch_status;
   
 -- Generate user data vector based on configuration register setting.
-  active_user_data <= user_data_a when conf_udaten = "01" else
-                      user_data_a when conf_udaten = "10" and framest = CHANNEL_A else
-                      user_data_b when conf_udaten = "10" and framest = CHANNEL_B else
-                      def_user_data;
+  active_user_data <= def_user_data;
   
 end rtl;
