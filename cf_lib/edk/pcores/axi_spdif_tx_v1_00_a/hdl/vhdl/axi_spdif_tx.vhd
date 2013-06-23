@@ -101,7 +101,7 @@ architecture IMP of axi_spdif_tx is
 	------------------------------------------
 	-- SPDIF signals
 	------------------------------------------
-	constant RAM_ADDR_WIDTH : integer := 7;
+	constant RAM_ADDR_WIDTH : integer := 3;
 
 	signal config_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal chstatus_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
