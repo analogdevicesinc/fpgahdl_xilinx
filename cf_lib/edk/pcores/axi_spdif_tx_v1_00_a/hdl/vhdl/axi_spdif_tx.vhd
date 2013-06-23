@@ -40,14 +40,13 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_unsigned.all;
 
 library axi_spdif_tx_v1_00_a;
 use axi_spdif_tx_v1_00_a.tx_package.all;
 
 library adi_common_v1_00_a;
 use adi_common_v1_00_a.axi_ctrlif;
+use adi_common_v1_00_a.axi_streaming_dma_tx_fifo;
 
 entity axi_spdif_tx is
 	generic (
@@ -101,8 +100,6 @@ architecture IMP of axi_spdif_tx is
 	------------------------------------------
 	-- SPDIF signals
 	------------------------------------------
-	constant RAM_ADDR_WIDTH : integer := 3;
-
 	signal config_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal chstatus_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
@@ -115,14 +112,8 @@ architecture IMP of axi_spdif_tx is
 	signal conf_tinten, conf_txdata, conf_txen : std_logic;
 	signal channel : std_logic;
 
-	------------------------------------------
-	-- Audio samples FIFO  
-	------------------------------------------
-	type RAM_TYPE is array (0 to (2**RAM_ADDR_WIDTH - 1)) of std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal audio_fifo		: RAM_TYPE;
-	signal audio_fifo_wr_addr	: std_logic_vector(RAM_ADDR_WIDTH - 1 downto 0);
-	signal audio_fifo_rd_addr	: std_logic_vector(RAM_ADDR_WIDTH - 1 downto 0);
-	signal audio_fifo_full		: std_logic;
+	signal fifo_data_out : std_logic_vector(31 downto 0);
+	signal fifo_reset : std_logic;
 
 	-- Register access
 	signal wr_data : std_logic_vector(31 downto 0);
@@ -133,45 +124,34 @@ architecture IMP of axi_spdif_tx is
 	signal rd_ack : std_logic;
 begin
 
-	-- Audio samples FIFO management
-	S_AXIS_TREADY  <= '1' when audio_fifo_full = '0' else '0';
-	AUDIO_FIFO_PROCESS : process (S_AXIS_ACLK) is
-		variable audio_fifo_free_cnt : integer range 0 to 2**RAM_ADDR_WIDTH;
-	begin		
-		if S_AXIS_ACLK'event and S_AXIS_ACLK = '1' then
-			if S_AXIS_ARESETN = '0' or conf_txdata = '0' then
-				audio_fifo_wr_addr  <= (others => '0');
-				audio_fifo_rd_addr  <= (others => '0');
-				audio_fifo_free_cnt := 2**RAM_ADDR_WIDTH;
-				audio_fifo_full	 <= '0';
-			else
-				if ((S_AXIS_TVALID = '1') and (audio_fifo_free_cnt > 0)) then
-					audio_fifo(conv_integer(audio_fifo_wr_addr)) <= S_AXIS_TDATA;
-					audio_fifo_wr_addr <= audio_fifo_wr_addr + '1';
-					audio_fifo_free_cnt := audio_fifo_free_cnt - 1;
-				end if;
-				
-				if((channel = '1') and (sample_data_ack = '1') and (audio_fifo_free_cnt < (2**RAM_ADDR_WIDTH)))then
-					audio_fifo_rd_addr <= audio_fifo_rd_addr + '1';
-					audio_fifo_free_cnt := audio_fifo_free_cnt + 1;
-				end if; 
-				
-				if(audio_fifo_free_cnt = 0)then
-					audio_fifo_full <= '1';
-				else
-					audio_fifo_full <= '0';
-				end if;
+	fifo_reset <= not conf_txdata;
 
-			end if;
-		end if;
-	end process AUDIO_FIFO_PROCESS;
+	fifo: entity axi_streaming_dma_tx_fifo
+		generic map (
+			RAM_ADDR_WIDTH	=> 3,
+			FIFO_DWIDTH	=> 32
+		)
+		port map (
+			clk		=> S_AXI_ACLK,
+			resetn		=> S_AXI_ARESETN,
+			fifo_reset	=> fifo_reset,
+			enable		=> conf_txdata = '1',
+			S_AXIS_ACLK	=> S_AXIS_ACLK,
+			S_AXIS_TREADY	=> S_AXIS_TREADY,
+			S_AXIS_TDATA	=> S_AXIS_TDATA,
+			S_AXIS_TVALID	=> S_AXIS_TLAST,
+			S_AXIS_TLAST	=> S_AXIS_TVALID,
 
-	sample_data_mux: process (audio_fifo, channel, audio_fifo_rd_addr) is
+			out_ack		=> channel and sample_data_ack,
+			out_data	=> fifo_data_out
+		);
+
+	sample_data_mux: process (fifo_data_out, channel) is
 	begin
 		if channel = '0' then
-			sample_data <= audio_fifo(conv_integer(audio_fifo_rd_addr))(15 downto 0);
+			sample_data <= fifo_data_out(15 downto 0);
 		else
-			sample_data <= audio_fifo(conv_integer(audio_fifo_rd_addr))(31 downto 16);
+			sample_data <= fifo_data_out(31 downto 16);
 		end if;
 	end process;
 
