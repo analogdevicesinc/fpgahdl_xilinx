@@ -308,8 +308,8 @@ BEGIN axi_i2s_adi
  PORT LRCLK_O = axi_i2s_adi_0_LRCLK_O
  PORT SDATA_I = axi_i2s_adi_0_SDATA_I
  PORT SDATA_O = axi_i2s_adi_0_SDATA_O
- PORT ACLK = processing_system7_0_FCLK_CLK0
  PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
+ PORT S_AXIS_ACLK = processing_system7_0_FCLK_CLK0
  PORT M_AXIS_ACLK = processing_system7_0_FCLK_CLK0
 END
 
