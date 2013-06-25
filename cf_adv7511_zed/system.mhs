@@ -233,7 +233,7 @@ BEGIN axi_spdif_tx
  BUS_INTERFACE S_AXI = axi_interconnect_1
  BUS_INTERFACE S_AXIS_MM2S = axi_dma_spdif_M_AXIS_MM2S
  PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
- PORT ACLK = processing_system7_0_FCLK_CLK0
+ PORT S_AXIS_ACLK = processing_system7_0_FCLK_CLK0
  PORT spdif_tx_o = axi_spdif_tx_0_spdif_tx_o
  PORT spdif_data_clk = clock_generator_0_CLKOUT0
 END
