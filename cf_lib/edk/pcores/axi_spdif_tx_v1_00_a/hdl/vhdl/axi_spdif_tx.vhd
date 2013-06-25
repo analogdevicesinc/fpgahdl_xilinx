@@ -47,6 +47,7 @@ use axi_spdif_tx_v1_00_a.tx_package.all;
 library adi_common_v1_00_a;
 use adi_common_v1_00_a.axi_ctrlif;
 use adi_common_v1_00_a.axi_streaming_dma_tx_fifo;
+use adi_common_v1_00_a.pl330_dma_fifo;
 
 entity axi_spdif_tx is
 	generic (
@@ -54,7 +55,8 @@ entity axi_spdif_tx is
 		C_S_AXI_ADDR_WIDTH	: integer		:= 32;
 		C_BASEADDR		: std_logic_vector	:= X"FFFFFFFF";
 		C_HIGHADDR		: std_logic_vector	:= X"00000000";
-		C_FAMILY		: string		:= "virtex6"
+		C_FAMILY		: string		:= "virtex6";
+		C_DMA_TYPE		: integer		:= 0
 	);
 	port (
 		--SPDIF ports
@@ -88,8 +90,19 @@ entity axi_spdif_tx is
 		S_AXIS_TREADY	: out std_logic;
 		S_AXIS_TDATA	: in  std_logic_vector(31 downto 0);
 		S_AXIS_TLAST	: in  std_logic;
-		S_AXIS_TVALID	: in  std_logic
-	);
+		S_AXIS_TVALID	: in  std_logic;
+
+		--PL330 DMA interface
+		DMA_REQ_ACLK    : in  std_logic;
+		DMA_REQ_RSTN    : in  std_logic;
+		DMA_REQ_DAVALID : in  std_logic;
+		DMA_REQ_DATYPE  : in  std_logic_vector(1 downto 0);
+		DMA_REQ_DAREADY : out std_logic;
+		DMA_REQ_DRVALID : out std_logic;
+		DMA_REQ_DRTYPE  : out std_logic_vector(1 downto 0);
+		DMA_REQ_DRLAST  : out std_logic;
+		DMA_REQ_DRREADY : in  std_logic
+		);
 end entity axi_spdif_tx;
 
 ------------------------------------------------------------------------------
@@ -114,37 +127,73 @@ architecture IMP of axi_spdif_tx is
 
 	signal fifo_data_out : std_logic_vector(31 downto 0);
 	signal fifo_reset : std_logic;
+	signal tx_fifo_stb : std_logic;
 
 	-- Register access
 	signal wr_data : std_logic_vector(31 downto 0);
 	signal rd_data : std_logic_vector(31 downto 0);
-	signal wr_addr : integer range 0 to 1;
-	signal rd_addr : integer range 0 to 1;
+	signal wr_addr : integer range 0 to 3;
+	signal rd_addr : integer range 0 to 3;
 	signal wr_stb : std_logic;
 	signal rd_ack : std_logic;
 begin
 
 	fifo_reset <= not conf_txdata;
 
-	fifo: entity axi_streaming_dma_tx_fifo
-		generic map (
-			RAM_ADDR_WIDTH	=> 3,
-			FIFO_DWIDTH	=> 32
-		)
-		port map (
-			clk		=> S_AXI_ACLK,
-			resetn		=> S_AXI_ARESETN,
-			fifo_reset	=> fifo_reset,
-			enable		=> conf_txdata = '1',
-			S_AXIS_ACLK	=> S_AXIS_ACLK,
-			S_AXIS_TREADY	=> S_AXIS_TREADY,
-			S_AXIS_TDATA	=> S_AXIS_TDATA,
-			S_AXIS_TVALID	=> S_AXIS_TLAST,
-			S_AXIS_TLAST	=> S_AXIS_TVALID,
+	streaming_dma_gen: if C_DMA_TYPE = 0 generate
+		fifo: entity axi_streaming_dma_tx_fifo
+			generic map (
+				RAM_ADDR_WIDTH	=> 3,
+				FIFO_DWIDTH	=> 32
+			)
+			port map (
+				clk		=> S_AXI_ACLK,
+				resetn		=> S_AXI_ARESETN,
+				fifo_reset	=> fifo_reset,
+				enable		=> conf_txdata = '1',
+				S_AXIS_ACLK	=> S_AXIS_ACLK,
+				S_AXIS_TREADY	=> S_AXIS_TREADY,
+				S_AXIS_TDATA	=> S_AXIS_TDATA,
+				S_AXIS_TVALID	=> S_AXIS_TLAST,
+				S_AXIS_TLAST	=> S_AXIS_TVALID,
 
-			out_ack		=> channel and sample_data_ack,
-			out_data	=> fifo_data_out
-		);
+				out_ack		=> channel and sample_data_ack,
+				out_data	=> fifo_data_out
+			);
+	end generate;
+
+	pl330_dma_gen: if C_DMA_TYPE = 1 generate
+		tx_fifo_stb <= '1' when wr_addr = 3 and wr_stb = '1' else '0';
+
+		fifo: entity pl330_dma_fifo
+			generic map(
+				RAM_ADDR_WIDTH => 3,
+				FIFO_DWIDTH => 32,
+				FIFO_DIRECTION => 0
+			)
+			port map (
+				clk		=> S_AXI_ACLK,
+				resetn		=> S_AXI_ARESETN,
+				fifo_reset	=> fifo_reset,
+				enable		=> conf_txdata = '1',
+
+				in_data		=> wr_data,
+				in_stb		=> tx_fifo_stb,
+
+				out_ack		=> channel and sample_data_ack,
+				out_data	=> fifo_data_out,
+
+				dclk		=> DMA_REQ_ACLK,
+				dresetn		=> DMA_REQ_RSTN,
+				davalid		=> DMA_REQ_DAVALID,
+				daready		=> DMA_REQ_DAREADY,
+				datype		=> DMA_REQ_DATYPE,
+				drvalid		=> DMA_REQ_DRVALID,
+				drready		=> DMA_REQ_DRREADY,
+				drtype		=> DMA_REQ_DRTYPE,
+				drlast		=> DMA_REQ_DRLAST
+			);
+	end generate;
 
 	sample_data_mux: process (fifo_data_out, channel) is
 	begin
@@ -197,7 +246,7 @@ begin
 		generic map (
 			C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH,
 			C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
-			C_NUM_REG => 2
+			C_NUM_REG => 4
 		)
 		port map(
 			S_AXI_ACLK		=> S_AXI_ACLK,
