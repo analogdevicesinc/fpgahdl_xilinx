@@ -65,7 +65,7 @@ NET "MIO[11]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "slow" | LOC = "B4"
 NET "MIO[10]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "slow" | LOC = "G7" ; #  GPIO / gpio[10] / MIO[10]
 NET "MIO[9]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "slow" | LOC = "C4" ; #  GPIO / gpio[9] / MIO[9]
 NET "MIO[8]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "fast" | LOC = "E5" ; #  Quad SPI Flash / qspi_fbclk / MIO[8]
-NET "MIO[7]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "slow" | LOC = "D5" ; #  GPIO / gpio[7] / MIO[7]
+NET "MIO[7]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "slow" | LOC = "D5" ; #  USB 0 / reset / MIO[7]
 NET "MIO[6]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "fast" | LOC = "A4" ; #  Quad SPI Flash / qspi0_sclk / MIO[6]
 NET "MIO[5]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "fast" | LOC = "A3" ; #  Quad SPI Flash / qspi0_io[3] / MIO[5]
 NET "MIO[4]"   IOSTANDARD = LVCMOS33 | DRIVE = "8" | SLEW = "fast" | LOC = "E4" ; #  Quad SPI Flash / qspi0_io[2] / MIO[4]

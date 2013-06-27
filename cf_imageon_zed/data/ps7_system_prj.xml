@@ -77,6 +77,8 @@
   <set param="PCW::CAN::PERIPHERAL::FREQMHZ" value="100" />
   <set param="PCW::FPGA2::PERIPHERAL::FREQMHZ" value="200.000000" />
   <set param="PCW::USB0::PERIPHERAL::ENABLE" value="1" />
+  <set param="PCW::USB0::RESET::ENABLE" value="1" />
+  <set param="PCW::USB0::RESET::IO" value="MIO 7" />
   <set param="PCW::MIO::MIO[30]::SLEW" value="fast" />
   <set param="PCW::MIO::MIO[30]::IOTYPE" value="LVCMOS 1.8V" />
   <set param="PCW::SDIO::PERIPHERAL::FREQMHZ" value="50" />
