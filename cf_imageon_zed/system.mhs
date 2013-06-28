@@ -34,6 +34,8 @@
  PORT iic_scl = axi_iic_0_scl, DIR = IO
  PORT iic_rstn = net_vcc, DIR = O
  PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO, DIR = IO, VEC = [30:0]
+ PORT otg_reset = net_vcc, DIR = O
+ PORT otg_vbusoc = net_otg_oc, DIR = I
 
 
 BEGIN processing_system7
@@ -149,6 +151,7 @@ BEGIN processing_system7
  PORT DMA0_DRTYPE = axi_spdif_tx_0_DMA_REQ_DRTYPE
  PORT DMA0_DRLAST = axi_spdif_tx_0_DMA_REQ_DRLAST
  PORT DMA0_ACLK = processing_system7_0_FCLK_CLK0
+ PORT USB0_VBUS_PWRFAULT = util_vector_logic_0_Res
 END
 
 BEGIN axi_interconnect
@@ -298,5 +301,14 @@ BEGIN clock_generator
  PORT CLKIN = processing_system7_0_FCLK_CLK2
  PORT CLKOUT0 = clock_generator_0_CLKOUT0
  PORT RST = processing_system7_0_FCLK_RESET3_N
+END
+
+BEGIN util_vector_logic
+ PARAMETER INSTANCE = util_vector_logic_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_OPERATION = not
+ PARAMETER C_SIZE = 1
+ PORT Res = util_vector_logic_0_Res
+ PORT Op1 = net_otg_oc
 END
 

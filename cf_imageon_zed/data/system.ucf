@@ -46,6 +46,9 @@ NET iic_scl           LOC = "J20" | IOSTANDARD = "LVCMOS25";
 NET iic_sda           LOC = "K21" | IOSTANDARD = "LVCMOS25";
 NET iic_rstn          LOC = "N20" | IOSTANDARD = "LVCMOS25";
 
+NET otg_reset         LOC = "G17"  | IOSTANDARD = "LVCMOS25";
+NET otg_vbusoc        LOC = "L16"  | IOSTANDARD = "LVCMOS25";
+
 NET "h2v_hdmi_clk" TNM_NET = "h2v_hdmi_clk";
 TIMESPEC "TS_h2v_hdmi_clk" = PERIOD "h2v_hdmi_clk" 150 MHz;
 
