@@ -3,9 +3,9 @@
 
 
  PORT processing_system7_0_MIO = processing_system7_0_MIO, DIR = IO, VEC = [53:0]
- PORT processing_system7_0_PS_SRSTB = processing_system7_0_PS_SRSTB, DIR = IO
- PORT processing_system7_0_PS_CLK = processing_system7_0_PS_CLK, DIR = IO, SIGIS = CLK
- PORT processing_system7_0_PS_PORB = processing_system7_0_PS_PORB, DIR = IO
+ PORT processing_system7_0_PS_SRSTB = processing_system7_0_PS_SRSTB, DIR = I
+ PORT processing_system7_0_PS_CLK = processing_system7_0_PS_CLK, DIR = I, SIGIS = CLK
+ PORT processing_system7_0_PS_PORB = processing_system7_0_PS_PORB, DIR = I
  PORT processing_system7_0_DDR_Clk = processing_system7_0_DDR_Clk, DIR = IO, SIGIS = CLK
  PORT processing_system7_0_DDR_Clk_n = processing_system7_0_DDR_Clk_n, DIR = IO, SIGIS = CLK
  PORT processing_system7_0_DDR_CKE = processing_system7_0_DDR_CKE, DIR = IO
@@ -54,7 +54,7 @@
 
 BEGIN processing_system7
  PARAMETER INSTANCE = processing_system7_0
- PARAMETER HW_VER = 3.00.a
+ PARAMETER HW_VER = 4.02.a
  PARAMETER C_DDR_RAM_HIGHADDR = 0x3FFFFFFF
  PARAMETER C_EN_EMIO_CAN0 = 0
  PARAMETER C_EN_EMIO_CAN1 = 0
@@ -75,8 +75,6 @@ BEGIN processing_system7
  PARAMETER C_EN_EMIO_UART1 = 0
  PARAMETER C_EN_EMIO_MODEM_UART0 = 0
  PARAMETER C_EN_EMIO_MODEM_UART1 = 0
- PARAMETER C_EN_EMIO_USB0 = 0
- PARAMETER C_EN_EMIO_USB1 = 0
  PARAMETER C_EN_EMIO_WDT = 1
  PARAMETER C_EN_QSPI = 1
  PARAMETER C_EN_SMC = 0
@@ -122,6 +120,11 @@ BEGIN processing_system7
  PARAMETER C_INTERCONNECT_S_AXI_HP2_R_REGISTER = 1
  PARAMETER C_INTERCONNECT_S_AXI_HP2_B_REGISTER = 1
  PARAMETER C_USE_DMA0 = 1
+ PARAMETER C_EN_EMIO_CD_SDIO0 = 0
+ PARAMETER C_EN_EMIO_WP_SDIO0 = 0
+ PARAMETER C_EN_EMIO_CD_SDIO1 = 0
+ PARAMETER C_EN_EMIO_WP_SDIO1 = 0
+ PARAMETER C_EMIO_GPIO_WIDTH = 64
  BUS_INTERFACE M_AXI_GP0 = axi_interconnect_0
  BUS_INTERFACE S_AXI_HP0 = axi_interconnect_1
  BUS_INTERFACE S_AXI_HP2 = axi_interconnect_3
