@@ -5,6 +5,7 @@
 *.bit
 *.elf
 __xps
+hdl
 etc
 synthesis
 implementation
