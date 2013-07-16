@@ -45,6 +45,23 @@ NET otg_vbusoc         LOC = L16  | IOSTANDARD="LVCMOS25";
 #NET pmod_ja9       LOC = AB9  | IOSTANDARD="LVCMOS25";
 #NET pmod_ja10      LOC = AA8  | IOSTANDARD="LVCMOS25";
 
+NET axi_spi_0_SS_pin	LOC = Y11  | IOSTANDARD = "LVCMOS33";	# JA1
+NET axi_spi_0_MOSI_pin	LOC = AA11 | IOSTANDARD = "LVCMOS33";	# JA2
+NET axi_spi_0_MISO_pin	LOC = Y10  | IOSTANDARD = "LVCMOS33";	# JA3
+NET axi_spi_0_SCK_pin	LOC = AA9  | IOSTANDARD = "LVCMOS33";	# JA4
+NET int_1_pin		LOC = AB11 | IOSTANDARD = "LVCMOS33";	# JA7
+NET int_2_pin		LOC = AB10 | IOSTANDARD = "LVCMOS33";	# JA8
+
+NET axi_spi_1_SS_pin	LOC = W12  | IOSTANDARD = "LVCMOS33";	# JB1
+NET axi_spi_1_MOSI_pin	LOC = W11  | IOSTANDARD = "LVCMOS33";	# JB2
+NET axi_spi_1_MISO_pin	LOC = V10  | IOSTANDARD = "LVCMOS33";	# JB3
+NET axi_spi_1_SCK_pin	LOC = W8   | IOSTANDARD = "LVCMOS33";	# JB4
+NET int_3_pin		LOC = V12  | IOSTANDARD = "LVCMOS33";	# JB7
+NET int_4_pin		LOC = W10  | IOSTANDARD = "LVCMOS33";	# JB8
+
+NET axi_iic_1_Scl_pin   LOC = AB7  | IOSTANDARD = "LVCMOS33" | PULLUP;	# JC1_P
+NET axi_iic_1_Sda_pin   LOC = AB6  | IOSTANDARD = "LVCMOS33" | PULLUP;	# JC1_N
+
 NET processing_system7_0_GPIO_pin[0]	LOC = P16  | IOSTANDARD="LVCMOS25";  # "BTNC"
 NET processing_system7_0_GPIO_pin[1]	LOC = R16  | IOSTANDARD="LVCMOS25";  # "BTND"
 NET processing_system7_0_GPIO_pin[2]	LOC = N15  | IOSTANDARD="LVCMOS25";  # "BTNL"
