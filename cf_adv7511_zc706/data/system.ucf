@@ -1,0 +1,53 @@
+
+NET hdmi_clk        LOC = P28  | IOSTANDARD = "LVCMOS25";
+NET hdmi_vsync      LOC = U21  | IOSTANDARD = "LVCMOS25";
+NET hdmi_hsync      LOC = R22  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data_e     LOC = V24  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[0]    LOC = U24  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[1]    LOC = T22  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[2]    LOC = R23  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[3]    LOC = AA25 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[4]    LOC = AE28 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[5]    LOC = T23  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[6]    LOC = AB25 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[7]    LOC = T27  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[8]    LOC = AD26 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[9]    LOC = AB26 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[10]   LOC = AA28 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[11]   LOC = AC26 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[12]   LOC = AE30 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[13]   LOC = Y25  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[14]   LOC = AA29 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[15]   LOC = AD30 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[16]   LOC = Y28  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[17]   LOC = AF28 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[18]   LOC = V22  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[19]   LOC = AA27 | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[20]   LOC = U22  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[21]   LOC = N28  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[22]   LOC = V21  | IOSTANDARD = "LVCMOS25";
+NET hdmi_data[23]   LOC = AC22 | IOSTANDARD = "LVCMOS25";
+NET hdmi_spdif      LOC = AC21 | IOSTANDARD = "LVCMOS25";
+NET hdmi_int        LOC = AC23 | IOSTANDARD = "LVCMOS25";
+
+NET axi_iic_0_Sda_pin LOC = AJ18 | IOSTANDARD = "LVCMOS25" | PULLUP; # IIC_SDA_MAIN_LS
+NET axi_iic_0_Scl_pin LOC = AJ14 | IOSTANDARD = "LVCMOS25" | PULLUP; # IIC_SCL_MAIN_LS
+
+NET processing_system7_0_GPIO_pin[0]  LOC = AB17 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW0   
+NET processing_system7_0_GPIO_pin[1]  LOC = AC16 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW1   
+NET processing_system7_0_GPIO_pin[2]  LOC = AC17 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW2   
+NET processing_system7_0_GPIO_pin[3]  LOC = AJ13 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW3   
+NET processing_system7_0_GPIO_pin[4]  LOC = AK25 | IOSTANDARD = "LVCMOS25"; # GPIO_SW_LEFT   
+NET processing_system7_0_GPIO_pin[5]  LOC = K15  | IOSTANDARD = "LVCMOS15"; # GPIO_SW_CENTER 
+NET processing_system7_0_GPIO_pin[6]  LOC = R27  | IOSTANDARD = "LVCMOS25"; # GPIO_SW_RIGHT  
+
+NET processing_system7_0_GPIO_pin[7]  LOC = Y21  | IOSTANDARD = "LVCMOS25"; # GPIO_LED_LEFT  
+NET processing_system7_0_GPIO_pin[8]  LOC = G2   | IOSTANDARD = "LVCMOS15"; # GPIO_LED_CENTER
+NET processing_system7_0_GPIO_pin[9]  LOC = W21  | IOSTANDARD = "LVCMOS25"; # GPIO_LED_RIGHT 
+NET processing_system7_0_GPIO_pin[10] LOC = A17  | IOSTANDARD = "LVCMOS15"; # GPIO_LED_0     
+
+NET processing_system7_0_GPIO_pin[11] LOC = H14  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_0
+NET processing_system7_0_GPIO_pin[12] LOC = J15  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_1
+NET processing_system7_0_GPIO_pin[13] LOC = J16  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_2
+NET processing_system7_0_GPIO_pin[14] LOC = J14  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_3
+
