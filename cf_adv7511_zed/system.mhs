@@ -41,22 +41,20 @@
  PORT util_i2c_mixer_0_downstream_scl_pin = util_i2c_mixer_0_downstream_scl, DIR = IO, VEC = [1:0]
  PORT util_i2c_mixer_0_downstream_sda_pin = util_i2c_mixer_0_downstream_sda, DIR = IO, VEC = [1:0]
  PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO_0, DIR = IO, VEC = [30:0]
- PORT axi_spi_0_SPISEL_pin = axi_spi_0_SPISEL, DIR = I
- PORT axi_spi_0_SCK_pin = axi_spi_0_SCK, DIR = IO
- PORT axi_spi_0_MISO_pin = axi_spi_0_MISO, DIR = IO
- PORT axi_spi_0_MOSI_pin = axi_spi_0_MOSI, DIR = IO
- PORT axi_spi_0_SS_pin = axi_spi_0_SS, DIR = IO
- PORT axi_spi_1_SPISEL_pin = axi_spi_1_SPISEL, DIR = I
- PORT axi_spi_1_SCK_pin = axi_spi_1_SCK, DIR = IO
- PORT axi_spi_1_MISO_pin = axi_spi_1_MISO, DIR = IO
- PORT axi_spi_1_MOSI_pin = axi_spi_1_MOSI, DIR = IO
- PORT axi_spi_1_SS_pin = axi_spi_1_SS, DIR = IO
  PORT axi_iic_1_Sda_pin = axi_iic_1_Sda, DIR = IO
  PORT axi_iic_1_Scl_pin = axi_iic_1_Scl, DIR = IO
  PORT int_1_pin = int_1, DIR = I, SIGIS = INTERRUPT
  PORT int_2_pin = int_2, DIR = I, SIGIS = INTERRUPT
  PORT int_3_pin = int_3, DIR = I, SIGIS = INTERRUPT
  PORT int_4_pin = int_4, DIR = I, SIGIS = INTERRUPT
+ PORT processing_system7_0_SPI0_SCLK_O_pin = processing_system7_0_SPI0_SCLK_O, DIR = O, SIGIS = CLK
+ PORT processing_system7_0_SPI0_MOSI_O_pin = processing_system7_0_SPI0_MOSI_O, DIR = O
+ PORT processing_system7_0_SPI0_MISO_I_pin = processing_system7_0_SPI0_MISO_I, DIR = I
+ PORT processing_system7_0_SPI0_SS_O_pin = processing_system7_0_SPI0_SS_O, DIR = O
+ PORT processing_system7_0_SPI1_SCLK_O_pin = processing_system7_0_SPI1_SCLK_O, DIR = O, SIGIS = CLK
+ PORT processing_system7_0_SPI1_MOSI_O_pin = processing_system7_0_SPI1_MOSI_O, DIR = O
+ PORT processing_system7_0_SPI1_MISO_I_pin = processing_system7_0_SPI1_MISO_I, DIR = I
+ PORT processing_system7_0_SPI1_SS_O_pin = processing_system7_0_SPI1_SS_O, DIR = O
 
 
 BEGIN processing_system7
@@ -72,8 +70,8 @@ BEGIN processing_system7
  PARAMETER C_EN_EMIO_PJTAG = 0
  PARAMETER C_EN_EMIO_SDIO0 = 0
  PARAMETER C_EN_EMIO_SDIO1 = 0
- PARAMETER C_EN_EMIO_SPI0 = 0
- PARAMETER C_EN_EMIO_SPI1 = 0
+ PARAMETER C_EN_EMIO_SPI0 = 1
+ PARAMETER C_EN_EMIO_SPI1 = 1
  PARAMETER C_EN_EMIO_SRAM_INT = 0
  PARAMETER C_EN_EMIO_TRACE = 0
  PARAMETER C_EN_EMIO_TTC0 = 0
@@ -94,8 +92,8 @@ BEGIN processing_system7
  PARAMETER C_EN_PJTAG = 0
  PARAMETER C_EN_SDIO0 = 1
  PARAMETER C_EN_SDIO1 = 0
- PARAMETER C_EN_SPI0 = 0
- PARAMETER C_EN_SPI1 = 0
+ PARAMETER C_EN_SPI0 = 1
+ PARAMETER C_EN_SPI1 = 1
  PARAMETER C_EN_TRACE = 0
  PARAMETER C_EN_TTC0 = 0
  PARAMETER C_EN_TTC1 = 0
@@ -156,7 +154,7 @@ BEGIN processing_system7
  PORT FCLK_RESET1_N = processing_system7_0_FCLK_RESET1_N
  PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
  PORT S_AXI_HP0_ACLK = processing_system7_0_FCLK_CLK1
- PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_spi_0_IP2INTC_Irpt & axi_spi_1_IP2INTC_Irpt & axi_iic_1_IIC2INTC_Irpt & int_1 & int_2 & int_3 & int_4
+ PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_iic_1_IIC2INTC_Irpt & int_1 & int_2 & int_3 & int_4
  PORT USB0_VBUS_PWRFAULT = util_vector_logic_0_Res
  PORT DMA0_ACLK = processing_system7_0_FCLK_CLK0
  PORT DMA0_RSTN = processing_system7_0_DMA0_RSTN
@@ -186,6 +184,16 @@ BEGIN processing_system7
  PORT DMA2_DRTYPE = axi_i2s_adi_0_DMA_REQ_RX_DRTYPE
  PORT DMA2_DAREADY = axi_i2s_adi_0_DMA_REQ_RX_DAREADY
  PORT GPIO = processing_system7_0_GPIO_0
+ PORT SPI0_SCLK_O = processing_system7_0_SPI0_SCLK_O
+ PORT SPI0_MOSI_O = processing_system7_0_SPI0_MOSI_O
+ PORT SPI0_MISO_I = processing_system7_0_SPI0_MISO_I
+ PORT SPI0_SS_O = processing_system7_0_SPI0_SS_O
+ PORT SPI0_SS_I = net_vcc
+ PORT SPI1_SCLK_O = processing_system7_0_SPI1_SCLK_O
+ PORT SPI1_MOSI_O = processing_system7_0_SPI1_MOSI_O
+ PORT SPI1_MISO_I = processing_system7_0_SPI1_MISO_I
+ PORT SPI1_SS_O = processing_system7_0_SPI1_SS_O
+ PORT SPI1_SS_I = net_vcc
 END
 
 BEGIN axi_vdma
@@ -272,7 +280,6 @@ END
 BEGIN axi_iic
  PARAMETER INSTANCE = axi_iic_0
  PARAMETER HW_VER = 1.02.a
- PARAMETER C_S_AXI_ACLK_FREQ_HZ = 100000000
  PARAMETER C_BASEADDR = 0x41600000
  PARAMETER C_HIGHADDR = 0x4160ffff
  BUS_INTERFACE S_AXI = axi_interconnect_1
@@ -362,36 +369,6 @@ BEGIN util_i2c_mixer
  PORT upstream_scl_T = axi_iic_0_Scl_T
  PORT downstream_scl = util_i2c_mixer_0_downstream_scl
  PORT downstream_sda = util_i2c_mixer_0_downstream_sda
-END
-
-BEGIN axi_spi
- PARAMETER INSTANCE = axi_spi_0
- PARAMETER HW_VER = 1.02.a
- PARAMETER C_BASEADDR = 0x42000000
- PARAMETER C_HIGHADDR = 0x4200ffff
- BUS_INTERFACE S_AXI = axi_interconnect_1
- PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
- PORT SPISEL = net_vcc
- PORT SCK = axi_spi_0_SCK
- PORT MISO = axi_spi_0_MISO
- PORT MOSI = axi_spi_0_MOSI
- PORT SS = axi_spi_0_SS
- PORT IP2INTC_Irpt = axi_spi_0_IP2INTC_Irpt
-END
-
-BEGIN axi_spi
- PARAMETER INSTANCE = axi_spi_1
- PARAMETER HW_VER = 1.02.a
- PARAMETER C_BASEADDR = 0x42040000
- PARAMETER C_HIGHADDR = 0x4204ffff
- BUS_INTERFACE S_AXI = axi_interconnect_1
- PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
- PORT SPISEL = net_vcc
- PORT SCK = axi_spi_1_SCK
- PORT MISO = axi_spi_1_MISO
- PORT MOSI = axi_spi_1_MOSI
- PORT SS = axi_spi_1_SS
- PORT IP2INTC_Irpt = axi_spi_1_IP2INTC_Irpt
 END
 
 BEGIN axi_iic
