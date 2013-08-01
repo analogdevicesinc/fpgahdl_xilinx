@@ -10,7 +10,7 @@
 # ##############################################################################
  PARAMETER VERSION = 2.1.0
 
-
+ PORT ddr_a13 = net_gnd, DIR = O
  PORT ddr_memory_we_n = ddr_memory_we_n, DIR = O
  PORT ddr_memory_ras_n = ddr_memory_ras_n, DIR = O
  PORT ddr_memory_odt = ddr_memory_odt, DIR = O
