@@ -1,0 +1,346 @@
+
+# ##############################################################################
+# Created by Base System Builder Wizard for Xilinx EDK 13.4 Build EDK_O.87xd
+# Thu Jan 26 14:12:06 2012
+# Target Board:  xilinx.com kc705 Rev C
+# Family:    kintex7
+# Device:    xc7k325t
+# Package:   ffg900
+# Speed Grade:  -1
+# ##############################################################################
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT sm_fan_pwm_net_vcc = net_vcc, DIR = O
+ PORT ddr_memory_we_n = ddr_memory_we_n, DIR = O
+ PORT ddr_memory_ras_n = ddr_memory_ras_n, DIR = O
+ PORT ddr_memory_odt = ddr_memory_odt, DIR = O
+ PORT ddr_memory_dqs_n = ddr_memory_dqs_n, DIR = IO, VEC = [0:0]
+ PORT ddr_memory_dqs = ddr_memory_dqs, DIR = IO, VEC = [0:0]
+ PORT ddr_memory_dq = ddr_memory_dq, DIR = IO, VEC = [7:0]
+ PORT ddr_memory_dm = ddr_memory_dm, DIR = O, VEC = [0:0]
+ PORT ddr_memory_ddr3_rst = ddr_memory_ddr3_rst, DIR = O
+ PORT ddr_memory_cs_n = ddr_memory_cs_n, DIR = O
+ PORT ddr_memory_clk_n = ddr_memory_clk_n, DIR = O
+ PORT ddr_memory_clk = ddr_memory_clk, DIR = O
+ PORT ddr_memory_cke = ddr_memory_cke, DIR = O
+ PORT ddr_memory_cas_n = ddr_memory_cas_n, DIR = O
+ PORT ddr_memory_ba = ddr_memory_ba, DIR = O, VEC = [2:0]
+ PORT ddr_memory_addr = ddr_memory_addr, DIR = O, VEC = [13:0]
+ PORT RS232_Uart_1_sout = RS232_Uart_1_sout, DIR = O
+ PORT RS232_Uart_1_sin = RS232_Uart_1_sin, DIR = I
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 1
+ PORT CLK_P = CLK, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 200000000
+ PORT CLK_N = CLK, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 200000000
+ PORT CON_GPIO = axi_gpio_0_GPIO_IO, DIR = IO, VEC = [7:0]
+ PORT CON_I2C0_SDA = axi_iic_0_Sda, DIR = IO
+ PORT CON_I2C0_SCL = axi_iic_0_Scl, DIR = IO
+ PORT CON_I2C1_SDA = axi_iic_1_Sda, DIR = IO
+ PORT CON_I2C1_SCL = axi_iic_1_Scl, DIR = IO
+ PORT CON_SPI_CLK = axi_spi_0_SCK, DIR = IO
+ PORT CON_SPI_MISO = axi_spi_0_MISO, DIR = IO
+ PORT CON_SPI_MOSI = axi_spi_0_MOSI, DIR = IO
+ PORT CON_SPI_SS = axi_spi_0_SS, DIR = IO, VEC = [2:0]
+ PORT CON_SPORT_TSCLK = axi_spi_1_SCK, DIR = IO
+ PORT CON_SPORT_DR0 = axi_spi_1_MISO, DIR = IO
+ PORT CON_SPORT_DT0 = axi_spi_1_MOSI, DIR = IO
+ PORT CON_SPORT_TFS = axi_spi_1_SS, DIR = IO
+ PORT CON_PAR = axi_gpio_1_GPIO_IO, DIR = IO, VEC = [27:0]
+
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = proc_sys_reset_0
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 1
+ PORT MB_Debug_Sys_Rst = proc_sys_reset_0_MB_Debug_Sys_Rst
+ PORT Dcm_locked = proc_sys_reset_0_Dcm_locked
+ PORT MB_Reset = proc_sys_reset_0_MB_Reset
+ PORT Slowest_sync_clk = clk_100_0000MHzPLLE0
+ PORT Interconnect_aresetn = proc_sys_reset_0_Interconnect_aresetn
+ PORT Ext_Reset_In = RESET
+ PORT BUS_STRUCT_RESET = proc_sys_reset_0_BUS_STRUCT_RESET
+END
+
+BEGIN axi_intc
+ PARAMETER INSTANCE = microblaze_0_intc
+ PARAMETER HW_VER = 1.04.a
+ PARAMETER C_BASEADDR = 0x41200000
+ PARAMETER C_HIGHADDR = 0x4120ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT IRQ = microblaze_0_interrupt
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT INTR = RS232_Uart_1_Interrupt & axi_timer_0_Interrupt
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_ilmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = proc_sys_reset_0_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_100_0000MHzPLLE0
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0000ffff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_dlmb
+ PARAMETER HW_VER = 2.00.b
+ PORT SYS_RST = proc_sys_reset_0_BUS_STRUCT_RESET
+ PORT LMB_CLK = clk_100_0000MHzPLLE0
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
+ PARAMETER HW_VER = 3.10.c
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x0000ffff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN microblaze
+ PARAMETER INSTANCE = microblaze_0
+ PARAMETER HW_VER = 8.50.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_USE_FPU = 0
+ PARAMETER C_DEBUG_ENABLED = 1
+ PARAMETER C_ICACHE_BASEADDR = 0xa8000000
+ PARAMETER C_ICACHE_HIGHADDR = 0xafffffff
+ PARAMETER C_USE_ICACHE = 1
+ PARAMETER C_CACHE_BYTE_SIZE = 8192
+ PARAMETER C_ICACHE_ALWAYS_USED = 1
+ PARAMETER C_DCACHE_BASEADDR = 0xa8000000
+ PARAMETER C_DCACHE_HIGHADDR = 0xafffffff
+ PARAMETER C_USE_DCACHE = 1
+ PARAMETER C_DCACHE_BYTE_SIZE = 8192
+ PARAMETER C_DCACHE_ALWAYS_USED = 1
+ BUS_INTERFACE ILMB = microblaze_0_ilmb
+ BUS_INTERFACE DLMB = microblaze_0_dlmb
+ BUS_INTERFACE M_AXI_DP = axi4lite_0
+ BUS_INTERFACE M_AXI_DC = axi4_0
+ BUS_INTERFACE M_AXI_IC = axi4_0
+ BUS_INTERFACE DEBUG = microblaze_0_debug
+ PORT MB_RESET = proc_sys_reset_0_MB_Reset
+ PORT CLK = clk_100_0000MHzPLLE0
+ PORT INTERRUPT = microblaze_0_interrupt
+END
+
+BEGIN mdm
+ PARAMETER INSTANCE = debug_module
+ PARAMETER HW_VER = 2.10.a
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_UART = 1
+ PARAMETER C_BASEADDR = 0x41400000
+ PARAMETER C_HIGHADDR = 0x4140ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ BUS_INTERFACE MBDEBUG_0 = microblaze_0_debug
+ PORT Debug_SYS_Rst = proc_sys_reset_0_MB_Debug_Sys_Rst
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.03.a
+ PARAMETER C_CLKIN_FREQ = 200000000
+ PARAMETER C_CLKOUT0_FREQ = 400000000
+ PARAMETER C_CLKOUT0_PHASE = 337.5
+ PARAMETER C_CLKOUT0_GROUP = PLLE0
+ PARAMETER C_CLKOUT0_BUF = FALSE
+ PARAMETER C_CLKOUT1_FREQ = 400000000
+ PARAMETER C_CLKOUT1_GROUP = PLLE0
+ PARAMETER C_CLKOUT1_BUF = FALSE
+ PARAMETER C_CLKOUT2_FREQ = 25000000
+ PARAMETER C_CLKOUT2_PHASE = 10
+ PARAMETER C_CLKOUT2_DUTY_CYCLE = 0.0625
+ PARAMETER C_CLKOUT2_GROUP = PLLE0
+ PARAMETER C_CLKOUT2_BUF = FALSE
+ PARAMETER C_CLKOUT3_FREQ = 100000000
+ PARAMETER C_CLKOUT3_GROUP = PLLE0
+ PARAMETER C_CLKOUT4_FREQ = 200000000
+ PARAMETER C_CLKOUT4_GROUP = PLLE0
+ PORT LOCKED = proc_sys_reset_0_Dcm_locked
+ PORT CLKOUT3 = clk_100_0000MHzPLLE0
+ PORT RST = RESET
+ PORT CLKOUT2 = clk_25_0000MHz10PLLE0_nobuf
+ PORT CLKOUT1 = clk_400_0000MHzPLLE0_nobuf
+ PORT CLKOUT0 = clk_400_0000MHz45PLLE0_nobuf
+ PORT CLKOUT4 = clk_200_0000MHzPLLE0
+ PORT CLKIN = CLK
+END
+
+BEGIN axi_timer
+ PARAMETER INSTANCE = axi_timer_0
+ PARAMETER HW_VER = 1.03.a
+ PARAMETER C_COUNT_WIDTH = 32
+ PARAMETER C_ONE_TIMER_ONLY = 0
+ PARAMETER C_BASEADDR = 0x41c00000
+ PARAMETER C_HIGHADDR = 0x41c0ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT Interrupt = axi_timer_0_Interrupt
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi4lite_0
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ARESETN = proc_sys_reset_0_Interconnect_aresetn
+ PORT INTERCONNECT_ACLK = clk_100_0000MHzPLLE0
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi4_0
+ PARAMETER HW_VER = 1.06.a
+ PORT interconnect_aclk = clk_100_0000MHzPLLE0
+ PORT INTERCONNECT_ARESETN = proc_sys_reset_0_Interconnect_aresetn
+END
+
+BEGIN axi_uartlite
+ PARAMETER INSTANCE = RS232_Uart_1
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BAUDRATE = 115200
+ PARAMETER C_DATA_BITS = 8
+ PARAMETER C_USE_PARITY = 0
+ PARAMETER C_ODD_PARITY = 1
+ PARAMETER C_BASEADDR = 0x40600000
+ PARAMETER C_HIGHADDR = 0x4060ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT TX = RS232_Uart_1_sout
+ PORT RX = RS232_Uart_1_sin
+ PORT Interrupt = RS232_Uart_1_Interrupt
+END
+
+BEGIN axi_7series_ddrx
+ PARAMETER INSTANCE = DDR3_SDRAM
+ PARAMETER HW_VER = 1.08.a
+ PARAMETER C_MEM_PARTNO = CUSTOM
+ PARAMETER C_INTERCONNECT_S_AXI_AR_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_AW_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_R_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_W_REGISTER = 8
+ PARAMETER C_INTERCONNECT_S_AXI_B_REGISTER = 8
+ PARAMETER C_XC7K325T_REV_1X = TRUE
+ PARAMETER C_DM_WIDTH = 1
+ PARAMETER C_DQS_WIDTH = 1
+ PARAMETER C_DQ_WIDTH = 8
+ PARAMETER C_ROW_WIDTH = 14
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DC & microblaze_0.M_AXI_IC
+ PARAMETER C_MEM_BASEPARTNO = MT8JTF12864HZ-1G6
+ PARAMETER C_S_AXI_BASEADDR = 0xa8000000
+ PARAMETER C_S_AXI_HIGHADDR = 0xafffffff
+ BUS_INTERFACE S_AXI = axi4_0
+ PORT clk = clk_100_0000MHzPLLE0
+ PORT ddr_we_n = ddr_memory_we_n
+ PORT ddr_ras_n = ddr_memory_ras_n
+ PORT ddr_odt = ddr_memory_odt
+ PORT ddr_dqs_n = ddr_memory_dqs_n
+ PORT ddr_dqs_p = ddr_memory_dqs
+ PORT ddr_dq = ddr_memory_dq
+ PORT ddr_dm = ddr_memory_dm
+ PORT ddr_reset_n = ddr_memory_ddr3_rst
+ PORT ddr_cs_n = ddr_memory_cs_n
+ PORT ddr_ck_n = ddr_memory_clk_n
+ PORT ddr_ck_p = ddr_memory_clk
+ PORT ddr_cke = ddr_memory_cke
+ PORT ddr_cas_n = ddr_memory_cas_n
+ PORT ddr_ba = ddr_memory_ba
+ PORT ddr_addr = ddr_memory_addr
+ PORT sync_pulse = clk_25_0000MHz10PLLE0_nobuf
+ PORT mem_refclk = clk_400_0000MHzPLLE0_nobuf
+ PORT freq_refclk = clk_400_0000MHz45PLLE0_nobuf
+ PORT clk_ref = clk_200_0000MHzPLLE0
+ PORT pll_lock = proc_sys_reset_0_Dcm_locked
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = axi_gpio_0
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_GPIO_WIDTH = 8
+ PARAMETER C_BASEADDR = 0x40000000
+ PARAMETER C_HIGHADDR = 0x4000ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT GPIO_IO = axi_gpio_0_GPIO_IO
+END
+
+BEGIN axi_iic
+ PARAMETER INSTANCE = axi_iic_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BASEADDR = 0x40800000
+ PARAMETER C_HIGHADDR = 0x4080ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT Sda = axi_iic_0_Sda
+ PORT Scl = axi_iic_0_Scl
+END
+
+BEGIN axi_iic
+ PARAMETER INSTANCE = axi_iic_1
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_BASEADDR = 0x40840000
+ PARAMETER C_HIGHADDR = 0x4084ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT Sda = axi_iic_1_Sda
+ PORT Scl = axi_iic_1_Scl
+END
+
+BEGIN axi_spi
+ PARAMETER INSTANCE = axi_spi_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_SCK_RATIO = 256
+ PARAMETER C_NUM_SS_BITS = 3
+ PARAMETER C_BASEADDR = 0x40a00000
+ PARAMETER C_HIGHADDR = 0x40a0ffff
+ PARAMETER C_NUM_TRANSFER_BITS = 8
+ PARAMETER C_FIFO_EXIST = 1
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT SCK = axi_spi_0_SCK
+ PORT MISO = axi_spi_0_MISO
+ PORT MOSI = axi_spi_0_MOSI
+ PORT SS = axi_spi_0_SS
+END
+
+BEGIN axi_spi
+ PARAMETER INSTANCE = axi_sport_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_SCK_RATIO = 112
+ PARAMETER C_BASEADDR = 0x40a40000
+ PARAMETER C_HIGHADDR = 0x40a4ffff
+ PARAMETER C_NUM_TRANSFER_BITS = 8
+ PARAMETER C_FIFO_EXIST = 1
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT SCK = axi_spi_1_SCK
+ PORT MISO = axi_spi_1_MISO
+ PORT MOSI = axi_spi_1_MOSI
+ PORT SS = axi_spi_1_SS
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = axi_par_0
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_BASEADDR = 0x40040000
+ PARAMETER C_HIGHADDR = 0x4004ffff
+ PARAMETER C_GPIO_WIDTH = 28
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
+ PORT GPIO_IO = axi_gpio_1_GPIO_IO
+END
+

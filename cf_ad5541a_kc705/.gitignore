@@ -1,0 +1,14 @@
+*.log 
+*.bak 
+*.make 
+*.opt 
+*.bit  
+__xps 
+hdl 
+etc 
+synthesis 
+implementation 
+revup 
+XpsGuiSessionLock 
+!*/SDK/SDK_Workspace/hw/system.bit 
+!*/SDK/SDK_Workspace/bin/sw.elf 
