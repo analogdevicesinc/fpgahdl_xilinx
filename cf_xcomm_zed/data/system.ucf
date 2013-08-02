@@ -22,31 +22,80 @@ NET hdmi_data[15]       LOC = V13  | IOSTANDARD = "LVCMOS33";
 NET hdmi_spdif          LOC = U15  | IOSTANDARD = "LVCMOS33";
 NET hdmi_int            LOC = W16  | IOSTANDARD = "LVCMOS33";
 
-NET hdmi_iic_scl        LOC = AA18 | IOSTANDARD = "LVCMOS33";
-NET hdmi_iic_sda        LOC = Y16  | IOSTANDARD = "LVCMOS33";
+NET util_i2c_mixer_0_downstream_scl_pin[0] LOC = AA18	| IOSTANDARD = "LVCMOS33";
+NET util_i2c_mixer_0_downstream_sda_pin[0] LOC = Y16	| IOSTANDARD = "LVCMOS33";
+NET util_i2c_mixer_0_downstream_scl_pin[1] LOC = "AB4"	| IOSTANDARD = "LVCMOS33"; # AC-SCK
+NET util_i2c_mixer_0_downstream_sda_pin[1] LOC = "AB5"	| IOSTANDARD = "LVCMOS33"; # AC-SDA
 
-NET sw[0]               LOC = F22  |  IOSTANDARD = "LVCMOS25";
-NET sw[1]               LOC = G22  |  IOSTANDARD = "LVCMOS25";
-NET sw[2]               LOC = H22  |  IOSTANDARD = "LVCMOS25";
-NET sw[3]               LOC = F21  |  IOSTANDARD = "LVCMOS25";
-NET sw[4]               LOC = H19  |  IOSTANDARD = "LVCMOS25";
-NET sw[5]               LOC = H18  |  IOSTANDARD = "LVCMOS25";
-NET sw[6]               LOC = H17  |  IOSTANDARD = "LVCMOS25";
-NET sw[7]               LOC = M15  |  IOSTANDARD = "LVCMOS25";
-NET sw[8]               LOC = P16  |  IOSTANDARD = "LVCMOS25";
-NET sw[9]               LOC = R16  |  IOSTANDARD = "LVCMOS25";
-NET sw[10]              LOC = N15  |  IOSTANDARD = "LVCMOS25";
-NET sw[11]              LOC = R18  |  IOSTANDARD = "LVCMOS25";
-NET sw[12]              LOC = T18  |  IOSTANDARD = "LVCMOS25";
+NET axi_i2s_adi_0_BCLK_O_pin LOC = "AA6" | IOSTANDARD = "LVCMOS33"; # AC-GPIO2
+NET axi_i2s_adi_0_LRCLK_O_pin LOC = "Y6" | IOSTANDARD = "LVCMOS33"; # AC-GPIO3
+NET axi_i2s_adi_0_SDATA_I_pin LOC = "AA7" | IOSTANDARD = "LVCMOS33"; # AC-GPIO1 AA7
+NET axi_i2s_adi_0_SDATA_O_pin LOC = "Y8" | IOSTANDARD = "LVCMOS33"; # AC-GPIO0 Y8
+NET axi_i2s_adi_0_MCLK_pin LOC = "AB2" | IOSTANDARD = "LVCMOS33"; # AC-MCLK
 
-NET led[0]              LOC = T22  |  IOSTANDARD = "LVCMOS33";
-NET led[1]              LOC = T21  |  IOSTANDARD = "LVCMOS33";
-NET led[2]              LOC = U22  |  IOSTANDARD = "LVCMOS33";
-NET led[3]              LOC = U21  |  IOSTANDARD = "LVCMOS33";
-NET led[4]              LOC = V22  |  IOSTANDARD = "LVCMOS33";
-NET led[5]              LOC = W22  |  IOSTANDARD = "LVCMOS33";
-NET led[6]              LOC = U19  |  IOSTANDARD = "LVCMOS33";
-NET led[7]              LOC = U14  |  IOSTANDARD = "LVCMOS33";
+NET otg_reset		LOC = G17  | IOSTANDARD = "LVCMOS25";
+NET otg_vbusoc		LOC = L16  | IOSTANDARD = "LVCMOS25";
+
+#NET pmod_ja1		LOC = Y11  | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja2		LOC = AA11 | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja3		LOC = Y10  | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja4		LOC = AA9  | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja7		LOC = AB11 | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja8		LOC = AB10 | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja9		LOC = AB9  | IOSTANDARD = "LVCMOS33";
+#NET pmod_ja10		LOC = AA8  | IOSTANDARD = "LVCMOS33";
+
+NET axi_spi_0_SS_pin	LOC = Y11  | IOSTANDARD = "LVCMOS33";	# JA1
+NET axi_spi_0_MOSI_pin	LOC = AA11 | IOSTANDARD = "LVCMOS33";	# JA2
+NET axi_spi_0_MISO_pin	LOC = Y10  | IOSTANDARD = "LVCMOS33";	# JA3
+NET axi_spi_0_SCK_pin	LOC = AA9  | IOSTANDARD = "LVCMOS33";	# JA4
+NET int_1_pin		LOC = AB11 | IOSTANDARD = "LVCMOS33";	# JA7
+NET int_2_pin		LOC = AB10 | IOSTANDARD = "LVCMOS33";	# JA8
+
+NET axi_spi_1_SS_pin	LOC = W12  | IOSTANDARD = "LVCMOS33";	# JB1
+NET axi_spi_1_MOSI_pin	LOC = W11  | IOSTANDARD = "LVCMOS33";	# JB2
+NET axi_spi_1_MISO_pin	LOC = V10  | IOSTANDARD = "LVCMOS33";	# JB3
+NET axi_spi_1_SCK_pin	LOC = W8   | IOSTANDARD = "LVCMOS33";	# JB4
+NET int_3_pin		LOC = V12  | IOSTANDARD = "LVCMOS33";	# JB7
+NET int_4_pin		LOC = W10  | IOSTANDARD = "LVCMOS33";	# JB8
+
+NET util_i2c_mixer_0_downstream_scl_pin[2]   LOC = AB7  | IOSTANDARD = "LVCMOS33" | PULLUP;	# JC1_P
+NET util_i2c_mixer_0_downstream_sda_pin[2]   LOC = AB6  | IOSTANDARD = "LVCMOS33" | PULLUP;	# JC1_N
+
+NET processing_system7_0_GPIO_pin[0]	LOC = P16  | IOSTANDARD = "LVCMOS25";  # "BTNC"
+NET processing_system7_0_GPIO_pin[1]	LOC = R16  | IOSTANDARD = "LVCMOS25";  # "BTND"
+NET processing_system7_0_GPIO_pin[2]	LOC = N15  | IOSTANDARD = "LVCMOS25";  # "BTNL"
+NET processing_system7_0_GPIO_pin[3]	LOC = R18  | IOSTANDARD = "LVCMOS25";  # "BTNR"
+NET processing_system7_0_GPIO_pin[4]	LOC = T18  | IOSTANDARD = "LVCMOS25";  # "BTNU"
+NET processing_system7_0_GPIO_pin[5]	LOC = U10  | IOSTANDARD = "LVCMOS33";  # "OLED-DC"
+NET processing_system7_0_GPIO_pin[6]	LOC = U9   | IOSTANDARD = "LVCMOS33";  # "OLED-RES"
+NET processing_system7_0_GPIO_pin[7]	LOC = AB12 | IOSTANDARD = "LVCMOS33";  # "OLED-SCLK"
+NET processing_system7_0_GPIO_pin[8]	LOC = AA12 | IOSTANDARD = "LVCMOS33";  # "OLED-SDIN"
+NET processing_system7_0_GPIO_pin[9]	LOC = U11  | IOSTANDARD = "LVCMOS33";  # "OLED-VBAT"
+NET processing_system7_0_GPIO_pin[10]	LOC = U12  | IOSTANDARD = "LVCMOS33";  # "OLED-VDD"
+
+NET processing_system7_0_GPIO_pin[11]	LOC = F22  | IOSTANDARD = "LVCMOS25";  # "SW0"
+NET processing_system7_0_GPIO_pin[12]	LOC = G22  | IOSTANDARD = "LVCMOS25";  # "SW1"
+NET processing_system7_0_GPIO_pin[13]	LOC = H22  | IOSTANDARD = "LVCMOS25";  # "SW2"
+NET processing_system7_0_GPIO_pin[14]	LOC = F21  | IOSTANDARD = "LVCMOS25";  # "SW3"
+NET processing_system7_0_GPIO_pin[15]	LOC = H19  | IOSTANDARD = "LVCMOS25";  # "SW4"
+NET processing_system7_0_GPIO_pin[16]	LOC = H18  | IOSTANDARD = "LVCMOS25";  # "SW5"
+NET processing_system7_0_GPIO_pin[17]	LOC = H17  | IOSTANDARD = "LVCMOS25";  # "SW6"
+NET processing_system7_0_GPIO_pin[18]	LOC = M15  | IOSTANDARD = "LVCMOS25";  # "SW7"
+
+NET processing_system7_0_GPIO_pin[19]	LOC = T22  | IOSTANDARD = "LVCMOS33";  # "LD0"
+NET processing_system7_0_GPIO_pin[20]	LOC = T21  | IOSTANDARD = "LVCMOS33";  # "LD1"
+NET processing_system7_0_GPIO_pin[21]	LOC = U22  | IOSTANDARD = "LVCMOS33";  # "LD2"
+NET processing_system7_0_GPIO_pin[22]	LOC = U21  | IOSTANDARD = "LVCMOS33";  # "LD3"
+NET processing_system7_0_GPIO_pin[23]	LOC = V22  | IOSTANDARD = "LVCMOS33";  # "LD4"
+NET processing_system7_0_GPIO_pin[24]	LOC = W22  | IOSTANDARD = "LVCMOS33";  # "LD5"
+NET processing_system7_0_GPIO_pin[25]	LOC = U19  | IOSTANDARD = "LVCMOS33";  # "LD6"
+NET processing_system7_0_GPIO_pin[26]	LOC = U14  | IOSTANDARD = "LVCMOS33";  # "LD7"
+
+NET processing_system7_0_GPIO_pin[27]	LOC = H15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO0"
+NET processing_system7_0_GPIO_pin[28]	LOC = R15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO1"
+NET processing_system7_0_GPIO_pin[29]	LOC = K15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO2"
+NET processing_system7_0_GPIO_pin[30]	LOC = J15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO3"
 
 NET ref_clk_out_p       LOC = B19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET ref_clk_out_n       LOC = B20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
@@ -123,8 +172,8 @@ NET adc_data_in_n[12]   LOC = L22  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"
 NET adc_data_in_p[13]   LOC = N19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_in_n[13]   LOC = N20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 
-NET xcomm_iic_scl       LOC = R7   | IOSTANDARD="LVCMOS25";
-NET xcomm_iic_sda       LOC = U7   | IOSTANDARD="LVCMOS25";
+NET xcomm_iic_scl       LOC = R7   | IOSTANDARD="LVCMOS33";
+NET xcomm_iic_sda       LOC = U7   | IOSTANDARD="LVCMOS33";
 
 NET "processing_system7_0_FCLK_CLK0" TNM_NET = "ps7_fclk_clk0";
 TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
@@ -149,8 +198,9 @@ TIMESPEC "TS_adc_clk_in_p" = PERIOD "adc_clk_in_p" 260 MHz;
 NET "adc_clk_in_n" TNM_NET = "adc_clk_in_n";
 TIMESPEC "TS_adc_clk_in_n" = PERIOD "adc_clk_in_n" 260 MHz;
 
-NET otg_reset	    LOC = G17  | IOSTANDARD = "LVCMOS25";
-#NET otg_vbusoc	    LOC = L16  | IOSTANDARD = "LVCMOS25";
+# can't use real numbers as bufg alone exceeds 4ns
+OFFSET = IN BEFORE "adc_clk_in_p" RISING;
+OFFSET = IN BEFORE "adc_clk_in_p" FALLING;
 
-#NET pmod_ja1       LOC = Y11  | IOSTANDARD = "LVCMOS33";
-#NET pmod_ja2       LOC = AA11 | IOSTANDARD = "LVCMOS33";
+OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" RISING;
+OFFSET = OUT AFTER "dac_clk_in_p" REFERENCE_PIN "dac_clk_out_p" FALLING;
