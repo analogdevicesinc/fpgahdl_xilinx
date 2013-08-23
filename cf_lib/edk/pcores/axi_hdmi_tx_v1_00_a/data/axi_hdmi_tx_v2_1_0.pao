@@ -1,0 +1,17 @@
+##############################################################################
+## Filename:          pcores/axi_hdmi_tx_v1_00_a/data/axi_hdmi_tx_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Thu Aug 18 12:59:28 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a mem verilog
+lib adi_common_v1_00_a ad_csc_1_mul verilog
+lib adi_common_v1_00_a ad_csc_1_add verilog
+lib adi_common_v1_00_a ad_csc_1 verilog
+lib adi_common_v1_00_a ad_csc_RGB2CrYCb verilog
+lib adi_common_v1_00_a ad_ss_444to422 verilog
+lib adi_common_v1_00_a up_axi verilog
+lib adi_common_v1_00_a up_hdmi_tx verilog
+lib axi_hdmi_tx_v1_00_a axi_hdmi_tx_vdma verilog
+lib axi_hdmi_tx_v1_00_a axi_hdmi_tx_core verilog
+lib axi_hdmi_tx_v1_00_a axi_hdmi_tx verilog

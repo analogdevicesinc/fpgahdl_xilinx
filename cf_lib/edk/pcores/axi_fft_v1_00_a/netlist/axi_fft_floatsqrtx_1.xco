@@ -1,0 +1,81 @@
+##############################################################
+#
+# Xilinx Core Generator version 14.1
+# Date: Mon Sep 17 15:36:31 2012
+#
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:floating_point:6.0
+#
+##############################################################
+#
+# BEGIN Project Options
+SET addpads = false
+SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = false
+SET designentry = Verilog
+SET device = xc6vlx240t
+SET devicefamily = virtex6
+SET flowvendor = Other
+SET formalverification = false
+SET foundationsym = false
+SET implementationfiletype = Ngc
+SET package = ff1156
+SET removerpms = false
+SET simulationfiles = Behavioral
+SET speedgrade = -1
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT Floating-point xilinx.com:ip:floating_point:6.0
+# END Select
+# BEGIN Parameters
+CSET a_precision_type=Single
+CSET a_tuser_width=1
+CSET add_sub_value=Both
+CSET axi_optimize_goal=Resources
+CSET b_tuser_width=1
+CSET c_a_exponent_width=8
+CSET c_a_fraction_width=24
+CSET c_compare_operation=Programmable
+CSET c_has_divide_by_zero=false
+CSET c_has_invalid_op=true
+CSET c_has_overflow=false
+CSET c_has_underflow=false
+CSET c_latency=29
+CSET c_mult_usage=No_Usage
+CSET c_optimization=Speed_Optimized
+CSET c_rate=1
+CSET c_result_exponent_width=8
+CSET c_result_fraction_width=24
+CSET component_name=axi_fft_floatsqrtx_1
+CSET flow_control=Blocking
+CSET has_a_tlast=true
+CSET has_a_tuser=false
+CSET has_aclken=false
+CSET has_aresetn=false
+CSET has_b_tlast=false
+CSET has_b_tuser=false
+CSET has_operation_tlast=false
+CSET has_operation_tuser=false
+CSET has_result_tready=true
+CSET maximum_latency=true
+CSET operation_tuser_width=1
+CSET operation_type=Square_root
+CSET result_precision_type=Single
+CSET result_tlast_behv=Pass_A_TLAST
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2012-03-28T11:01:30Z
+# END Extra information
+GENERATE
+# CRC: e94b0264
