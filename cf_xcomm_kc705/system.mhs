@@ -44,38 +44,38 @@
  PORT Ethernet_Lite_COL = Ethernet_Lite_COL, DIR = I
  PORT CLK_P = CLK, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 200000000
  PORT CLK_N = CLK, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 200000000
- PORT ref0_clk_out_p = ref0_clk_out_p, DIR = O
- PORT ref0_clk_out_n = ref0_clk_out_n, DIR = O
- PORT ref1_clk_out_p = ref1_clk_out_p, DIR = O
- PORT ref1_clk_out_n = ref1_clk_out_n, DIR = O
- PORT dac0_clk_in_p = axi_dac_4d_2c_0_dac_clk_in_p, DIR = I
- PORT dac0_clk_in_n = axi_dac_4d_2c_0_dac_clk_in_n, DIR = I
- PORT dac0_clk_out_p = axi_dac_4d_2c_0_dac_clk_out_p, DIR = O
- PORT dac0_clk_out_n = axi_dac_4d_2c_0_dac_clk_out_n, DIR = O
- PORT dac0_frame_out_p = axi_dac_4d_2c_0_dac_frame_out_p, DIR = O
- PORT dac0_frame_out_n = axi_dac_4d_2c_0_dac_frame_out_n, DIR = O
- PORT dac0_data_out_p = axi_dac_4d_2c_0_dac_data_out_p, DIR = O, VEC = [15:0]
- PORT dac0_data_out_n = axi_dac_4d_2c_0_dac_data_out_n, DIR = O, VEC = [15:0]
- PORT dac1_clk_in_p = axi_dac_4d_2c_1_dac_clk_in_p, DIR = I
- PORT dac1_clk_in_n = axi_dac_4d_2c_1_dac_clk_in_n, DIR = I
- PORT dac1_clk_out_p = axi_dac_4d_2c_1_dac_clk_out_p, DIR = O
- PORT dac1_clk_out_n = axi_dac_4d_2c_1_dac_clk_out_n, DIR = O
- PORT dac1_frame_out_p = axi_dac_4d_2c_1_dac_frame_out_p, DIR = O
- PORT dac1_frame_out_n = axi_dac_4d_2c_1_dac_frame_out_n, DIR = O
- PORT dac1_data_out_p = axi_dac_4d_2c_1_dac_data_out_p, DIR = O, VEC = [15:0]
- PORT dac1_data_out_n = axi_dac_4d_2c_1_dac_data_out_n, DIR = O, VEC = [15:0]
- PORT adc0_clk_in_p = axi_adc_2c_0_adc_clk_in_p, DIR = I
- PORT adc0_clk_in_n = axi_adc_2c_0_adc_clk_in_n, DIR = I
- PORT adc0_data_or_p = axi_adc_2c_0_adc_data_or_p, DIR = I
- PORT adc0_data_or_n = axi_adc_2c_0_adc_data_or_n, DIR = I
- PORT adc0_data_in_p = axi_adc_2c_0_adc_data_in_p, DIR = I, VEC = [13:0]
- PORT adc0_data_in_n = axi_adc_2c_0_adc_data_in_n, DIR = I, VEC = [13:0]
- PORT adc1_clk_in_p = axi_adc_2c_1_adc_clk_in_p, DIR = I
- PORT adc1_clk_in_n = axi_adc_2c_1_adc_clk_in_n, DIR = I
- PORT adc1_data_or_p = axi_adc_2c_1_adc_data_or_p, DIR = I
- PORT adc1_data_or_n = axi_adc_2c_1_adc_data_or_n, DIR = I
- PORT adc1_data_in_p = axi_adc_2c_1_adc_data_in_p, DIR = I, VEC = [13:0]
- PORT adc1_data_in_n = axi_adc_2c_1_adc_data_in_n, DIR = I, VEC = [13:0]
+ PORT ref0_clk_out_p = ref0_clk_out_p, DIR = O, SIGIS = CLK
+ PORT ref0_clk_out_n = ref0_clk_out_n, DIR = O, SIGIS = CLK
+ PORT ref1_clk_out_p = ref1_clk_out_p, DIR = O, SIGIS = CLK
+ PORT ref1_clk_out_n = ref1_clk_out_n, DIR = O, SIGIS = CLK
+ PORT dac0_clk_in_p = axi_ad9122_0_dac_clk_in_p, DIR = I, SIGIS = CLK
+ PORT dac0_clk_in_n = axi_ad9122_0_dac_clk_in_n, DIR = I, SIGIS = CLK
+ PORT dac0_clk_out_p = axi_ad9122_0_dac_clk_out_p, DIR = O
+ PORT dac0_clk_out_n = axi_ad9122_0_dac_clk_out_n, DIR = O
+ PORT dac0_frame_out_p = axi_ad9122_0_dac_frame_out_p, DIR = O
+ PORT dac0_frame_out_n = axi_ad9122_0_dac_frame_out_n, DIR = O
+ PORT dac0_data_out_p = axi_ad9122_0_dac_data_out_p, DIR = O, VEC = [15:0]
+ PORT dac0_data_out_n = axi_ad9122_0_dac_data_out_n, DIR = O, VEC = [15:0]
+ PORT dac1_clk_in_p = axi_ad9122_1_dac_clk_in_p, DIR = I, SIGIS = CLK
+ PORT dac1_clk_in_n = axi_ad9122_1_dac_clk_in_n, DIR = I, SIGIS = CLK
+ PORT dac1_clk_out_p = axi_ad9122_1_dac_clk_out_p, DIR = O
+ PORT dac1_clk_out_n = axi_ad9122_1_dac_clk_out_n, DIR = O
+ PORT dac1_frame_out_p = axi_ad9122_1_dac_frame_out_p, DIR = O
+ PORT dac1_frame_out_n = axi_ad9122_1_dac_frame_out_n, DIR = O
+ PORT dac1_data_out_p = axi_ad9122_1_dac_data_out_p, DIR = O, VEC = [15:0]
+ PORT dac1_data_out_n = axi_ad9122_1_dac_data_out_n, DIR = O, VEC = [15:0]
+ PORT adc0_clk_in_p = axi_ad9643_0_adc_clk_in_p, DIR = I, SIGIS = CLK
+ PORT adc0_clk_in_n = axi_ad9643_0_adc_clk_in_n, DIR = I, SIGIS = CLK
+ PORT adc0_or_in_p = axi_ad9643_0_adc_or_in_p, DIR = I
+ PORT adc0_or_in_n = axi_ad9643_0_adc_or_in_n, DIR = I
+ PORT adc0_data_in_p = axi_ad9643_0_adc_data_in_p, DIR = I, VEC = [13:0]
+ PORT adc0_data_in_n = axi_ad9643_0_adc_data_in_n, DIR = I, VEC = [13:0]
+ PORT adc1_clk_in_p = axi_ad9643_1_adc_clk_in_p, DIR = I, SIGIS = CLK
+ PORT adc1_clk_in_n = axi_ad9643_1_adc_clk_in_n, DIR = I, SIGIS = CLK
+ PORT adc1_or_in_p = axi_ad9643_1_adc_or_in_p, DIR = I
+ PORT adc1_or_in_n = axi_ad9643_1_adc_or_in_n, DIR = I
+ PORT adc1_data_in_p = axi_ad9643_1_adc_data_in_p, DIR = I, VEC = [13:0]
+ PORT adc1_data_in_n = axi_ad9643_1_adc_data_in_n, DIR = I, VEC = [13:0]
  PORT iic_rstn = net_vcc, DIR = O
  PORT iic_sda = axi_iic_0_sda, DIR = IO
  PORT iic_scl = axi_iic_0_scl, DIR = IO
@@ -340,97 +340,102 @@ BEGIN axi_intc
  PORT Intr = RS232_Uart_1_Interrupt & Ethernet_Lite_IP2INTC_Irpt & axi_timer_0_Interrupt & axi_iic_0_IIC2INTC_Irpt & axi_dma_0_s2mm_introut & axi_dma_1_s2mm_introut & axi_vdma_0_mm2s_introut & axi_vdma_1_mm2s_introut & axi_dma_2_mm2s_introut & axi_dma_2_s2mm_introut & axi_gpio_1_IP2INTC_Irpt
 END
 
-BEGIN axi_dac_4d_2c
- PARAMETER INSTANCE = axi_dac_4d_2c_0
+BEGIN axi_ad9122
+ PARAMETER INSTANCE = axi_ad9122_0
  PARAMETER HW_VER = 1.00.a
+ PARAMETER PCORE_ID = 0
+ PARAMETER PCORE_DEVICE_TYPE = 0
  PARAMETER C_BASEADDR = 0x73060000
  PARAMETER C_HIGHADDR = 0x7306ffff
  BUS_INTERFACE S_AXI = axi4lite_0
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
- PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
- PORT pid = 0x00
- PORT dac_clk_in_p = axi_dac_4d_2c_0_dac_clk_in_p
- PORT dac_clk_in_n = axi_dac_4d_2c_0_dac_clk_in_n
- PORT dac_clk_out_p = axi_dac_4d_2c_0_dac_clk_out_p
- PORT dac_clk_out_n = axi_dac_4d_2c_0_dac_clk_out_n
- PORT dac_frame_out_p = axi_dac_4d_2c_0_dac_frame_out_p
- PORT dac_frame_out_n = axi_dac_4d_2c_0_dac_frame_out_n
- PORT dac_data_out_p = axi_dac_4d_2c_0_dac_data_out_p
- PORT dac_data_out_n = axi_dac_4d_2c_0_dac_data_out_n
- PORT up_dds_enable_int = up_dds_master_enable
- PORT up_dds_enable_ext = 0b0
- PORT vdma_fs = axi_dac_4d_2c_0_vdma_fs
- PORT vdma_clk = clk_200_0000MHzPLLE0
- PORT delay_clk = clk_200_0000MHzPLLE0
+ PORT s_axi_aclk = clk_100_0000MHzPLLE0
+ PORT dac_clk_in_p = axi_ad9122_0_dac_clk_in_p
+ PORT dac_clk_in_n = axi_ad9122_0_dac_clk_in_n
+ PORT dac_clk_out_p = axi_ad9122_0_dac_clk_out_p
+ PORT dac_clk_out_n = axi_ad9122_0_dac_clk_out_n
+ PORT dac_frame_out_p = axi_ad9122_0_dac_frame_out_p
+ PORT dac_frame_out_n = axi_ad9122_0_dac_frame_out_n
+ PORT dac_data_out_p = axi_ad9122_0_dac_data_out_p
+ PORT dac_data_out_n = axi_ad9122_0_dac_data_out_n
+ PORT dac_enable_out = axi_ad9122_0_dac_enable
+ PORT dac_enable_in = 0b0
+ PORT m_axis_mm2s_fsync = axi_ad9122_0_m_axis_mm2s_fsync
+ PORT m_axis_mm2s_clk = clk_200_0000MHzPLLE0
 END
 
-BEGIN axi_dac_4d_2c
- PARAMETER INSTANCE = axi_dac_4d_2c_1
+BEGIN axi_ad9122
+ PARAMETER INSTANCE = axi_ad9122_1
  PARAMETER HW_VER = 1.00.a
+ PARAMETER PCORE_ID = 1
+ PARAMETER PCORE_DEVICE_TYPE = 0
  PARAMETER C_BASEADDR = 0x73040000
  PARAMETER C_HIGHADDR = 0x7304ffff
  BUS_INTERFACE S_AXI = axi4lite_0
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_1_M_AXIS_MM2S
- PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
- PORT pid = 0x01
- PORT dac_clk_in_p = axi_dac_4d_2c_1_dac_clk_in_p
- PORT dac_clk_in_n = axi_dac_4d_2c_1_dac_clk_in_n
- PORT dac_clk_out_p = axi_dac_4d_2c_1_dac_clk_out_p
- PORT dac_clk_out_n = axi_dac_4d_2c_1_dac_clk_out_n
- PORT dac_frame_out_p = axi_dac_4d_2c_1_dac_frame_out_p
- PORT dac_frame_out_n = axi_dac_4d_2c_1_dac_frame_out_n
- PORT dac_data_out_p = axi_dac_4d_2c_1_dac_data_out_p
- PORT dac_data_out_n = axi_dac_4d_2c_1_dac_data_out_n
- PORT up_dds_enable_ext = up_dds_master_enable
- PORT vdma_clk = clk_200_0000MHzPLLE0
- PORT vdma_fs = axi_dac_4d_2c_1_vdma_fs
- PORT delay_clk = clk_200_0000MHzPLLE0
+ PORT s_axi_aclk = clk_100_0000MHzPLLE0
+ PORT dac_clk_in_p = axi_ad9122_1_dac_clk_in_p
+ PORT dac_clk_in_n = axi_ad9122_1_dac_clk_in_n
+ PORT dac_clk_out_p = axi_ad9122_1_dac_clk_out_p
+ PORT dac_clk_out_n = axi_ad9122_1_dac_clk_out_n
+ PORT dac_frame_out_p = axi_ad9122_1_dac_frame_out_p
+ PORT dac_frame_out_n = axi_ad9122_1_dac_frame_out_n
+ PORT dac_data_out_p = axi_ad9122_1_dac_data_out_p
+ PORT dac_data_out_n = axi_ad9122_1_dac_data_out_n
+ PORT dac_enable_in = axi_ad9122_0_dac_enable
+ PORT m_axis_mm2s_fsync = axi_ad9122_1_m_axis_mm2s_fsync
+ PORT m_axis_mm2s_clk = clk_200_0000MHzPLLE0
 END
 
-BEGIN axi_adc_2c
- PARAMETER INSTANCE = axi_adc_2c_0
+BEGIN axi_ad9643
+ PARAMETER INSTANCE = axi_ad9643_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_IODELAY_GROUP = adc_if_delay_group_0
+ PARAMETER PCORE_ID = 0
+ PARAMETER PCORE_DEVICE_TYPE = 0
+ PARAMETER PCORE_IODELAY_GROUP = axi_ad9643_0_delay_group
  PARAMETER C_BASEADDR = 0x73020000
  PARAMETER C_HIGHADDR = 0x7302ffff
  BUS_INTERFACE S_AXI = axi4lite_0
- BUS_INTERFACE S_AXIS_S2MM = axi_adc_2c_0_S_AXIS_S2MM
- PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
- PORT S_AXIS_S2MM_CLK = clk_200_0000MHzPLLE0
- PORT pid = 0x00
- PORT adc_clk_in_p = axi_adc_2c_0_adc_clk_in_p
- PORT adc_clk_in_n = axi_adc_2c_0_adc_clk_in_n
- PORT adc_data_in_p = axi_adc_2c_0_adc_data_in_p
- PORT adc_data_in_n = axi_adc_2c_0_adc_data_in_n
- PORT adc_data_or_p = axi_adc_2c_0_adc_data_or_p
- PORT adc_data_or_n = axi_adc_2c_0_adc_data_or_n
+ BUS_INTERFACE S_AXIS_S2MM = axi_dma_0_S_AXIS_S2MM
+ PORT s_axi_aclk = clk_100_0000MHzPLLE0
+ PORT s_axis_s2mm_clk = clk_200_0000MHzPLLE0
+ PORT adc_clk_in_p = axi_ad9643_0_adc_clk_in_p
+ PORT adc_clk_in_n = axi_ad9643_0_adc_clk_in_n
+ PORT adc_data_in_p = axi_ad9643_0_adc_data_in_p
+ PORT adc_data_in_n = axi_ad9643_0_adc_data_in_n
+ PORT adc_or_in_p = axi_ad9643_0_adc_or_in_p
+ PORT adc_or_in_n = axi_ad9643_0_adc_or_in_n
+ PORT adc_start_out = axi_ad9643_0_adc_start
+ PORT dma_start_out = axi_ad9643_0_dma_start
+ PORT adc_start_in = 0b0
+ PORT dma_start_in = 0b0
  PORT delay_clk = clk_200_0000MHzPLLE0
- PORT up_adc_capture_int = up_adc_master_capture
- PORT up_adc_capture_ext = 0b0
- PORT adc_clk = axi_adc_2c_0_adc_clk
- PORT adc_mon_valid = axi_adc_2c_0_adc_mon_valid
- PORT adc_mon_data = axi_adc_2c_0_adc_mon_data
+ PORT adc_clk = axi_ad9643_0_adc_clk
+ PORT adc_mon_valid = axi_ad9643_0_adc_mon_valid
+ PORT adc_mon_data = axi_ad9643_0_adc_mon_data
 END
 
-BEGIN axi_adc_2c
- PARAMETER INSTANCE = axi_adc_2c_1
+BEGIN axi_ad9643
+ PARAMETER INSTANCE = axi_ad9643_1
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_IODELAY_GROUP = adc_if_delay_group_1
+ PARAMETER PCORE_ID = 1
+ PARAMETER PCORE_DEVICE_TYPE = 0
+ PARAMETER PCORE_IODELAY_GROUP = axi_ad9643_1_delay_group
  PARAMETER C_BASEADDR = 0x73000000
  PARAMETER C_HIGHADDR = 0x7300ffff
  BUS_INTERFACE S_AXI = axi4lite_0
- BUS_INTERFACE S_AXIS_S2MM = axi_adc_2c_1_S_AXIS_S2MM
- PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
- PORT S_AXIS_S2MM_CLK = clk_200_0000MHzPLLE0
- PORT pid = 0x01
- PORT adc_clk_in_p = axi_adc_2c_1_adc_clk_in_p
- PORT adc_clk_in_n = axi_adc_2c_1_adc_clk_in_n
- PORT adc_data_in_p = axi_adc_2c_1_adc_data_in_p
- PORT adc_data_in_n = axi_adc_2c_1_adc_data_in_n
- PORT adc_data_or_p = axi_adc_2c_1_adc_data_or_p
- PORT adc_data_or_n = axi_adc_2c_1_adc_data_or_n
+ BUS_INTERFACE S_AXIS_S2MM = axi_dma_1_S_AXIS_S2MM
+ PORT s_axi_aclk = clk_100_0000MHzPLLE0
+ PORT s_axis_s2mm_clk = clk_200_0000MHzPLLE0
+ PORT adc_clk_in_p = axi_ad9643_1_adc_clk_in_p
+ PORT adc_clk_in_n = axi_ad9643_1_adc_clk_in_n
+ PORT adc_data_in_p = axi_ad9643_1_adc_data_in_p
+ PORT adc_data_in_n = axi_ad9643_1_adc_data_in_n
+ PORT adc_or_in_p = axi_ad9643_1_adc_or_in_p
+ PORT adc_or_in_n = axi_ad9643_1_adc_or_in_n
+ PORT adc_start_in = axi_ad9643_0_adc_start
+ PORT dma_start_in = axi_ad9643_0_dma_start
  PORT delay_clk = clk_200_0000MHzPLLE0
- PORT up_adc_capture_ext = up_adc_master_capture
 END
 
 BEGIN axi_vdma
@@ -453,7 +458,7 @@ BEGIN axi_vdma
  PORT m_axi_mm2s_aclk = clk_200_0000MHzPLLE0
  PORT m_axis_mm2s_aclk = clk_200_0000MHzPLLE0
  PORT mm2s_introut = axi_vdma_0_mm2s_introut
- PORT mm2s_fsync = axi_dac_4d_2c_0_vdma_fs
+ PORT mm2s_fsync = axi_ad9122_0_m_axis_mm2s_fsync
 END
 
 BEGIN axi_vdma
@@ -476,7 +481,7 @@ BEGIN axi_vdma
  PORT m_axi_mm2s_aclk = clk_200_0000MHzPLLE0
  PORT m_axis_mm2s_aclk = clk_200_0000MHzPLLE0
  PORT mm2s_introut = axi_vdma_1_mm2s_introut
- PORT mm2s_fsync = axi_dac_4d_2c_1_vdma_fs
+ PORT mm2s_fsync = axi_ad9122_1_m_axis_mm2s_fsync
 END
 
 BEGIN axi_dma
@@ -495,7 +500,7 @@ BEGIN axi_dma
  PARAMETER C_HIGHADDR = 0x41e2ffff
  BUS_INTERFACE S_AXI_LITE = axi4lite_0
  BUS_INTERFACE M_AXI_S2MM = axi4_0
- BUS_INTERFACE S_AXIS_S2MM = axi_adc_2c_0_S_AXIS_S2MM
+ BUS_INTERFACE S_AXIS_S2MM = axi_dma_0_S_AXIS_S2MM
  BUS_INTERFACE M_AXI_SG = axi4_0
  PORT s_axi_lite_aclk = clk_100_0000MHzPLLE0
  PORT m_axi_s2mm_aclk = clk_200_0000MHzPLLE0
@@ -519,7 +524,7 @@ BEGIN axi_dma
  PARAMETER C_HIGHADDR = 0x41e0ffff
  BUS_INTERFACE S_AXI_LITE = axi4lite_0
  BUS_INTERFACE M_AXI_S2MM = axi4_0
- BUS_INTERFACE S_AXIS_S2MM = axi_adc_2c_1_S_AXIS_S2MM
+ BUS_INTERFACE S_AXIS_S2MM = axi_dma_1_S_AXIS_S2MM
  BUS_INTERFACE M_AXI_SG = axi4_0
  PORT s_axi_lite_aclk = clk_100_0000MHzPLLE0
  PORT m_axi_s2mm_aclk = clk_200_0000MHzPLLE0
@@ -567,10 +572,10 @@ BEGIN axi_fft
  BUS_INTERFACE S_AXI = axi4lite_0
  BUS_INTERFACE S_AXIS_S2MM = axi_fft_0_S_AXIS_S2MM
  BUS_INTERFACE M_AXIS_MM2S = axi_dma_2_M_AXIS_MM2S
- PORT S_AXI_ACLK = clk_100_0000MHzPLLE0
- PORT CLK = clk_100_0000MHzPLLE0
- PORT mon_sync = axi_fft_0_mon_sync
- PORT mon_data = axi_fft_0_mon_data
+ PORT s_axi_aclk = clk_100_0000MHzPLLE0
+ PORT axis_clk = clk_100_0000MHzPLLE0
+ PORT fft_mon_sync = axi_fft_0_mon_sync
+ PORT fft_mon_data = axi_fft_0_mon_data
 END
 
 BEGIN axi_dma
@@ -634,8 +639,8 @@ BEGIN chipscope_icon
  PARAMETER INSTANCE = chipscope_icon_0
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_NUM_CONTROL_PORTS = 2
- PORT control0 = chipscope_icon_0_control0
- PORT control1 = chipscope_icon_0_control1
+ PORT control0 = chipscope_ila_0_CHIPSCOPE_ILA_CONTROL_0
+ PORT control1 = chipscope_ila_0_CHIPSCOPE_ILA_CONTROL_1
 END
 
 BEGIN chipscope_ila
@@ -646,7 +651,7 @@ BEGIN chipscope_ila
  PARAMETER C_ENABLE_TRIGGER_OUT = 0
  PARAMETER C_TRIG0_TRIGGER_IN_WIDTH = 1
  PARAMETER C_NUM_DATA_SAMPLES = 1024
- PORT CHIPSCOPE_ILA_CONTROL = chipscope_icon_0_control0
+ PORT CHIPSCOPE_ILA_CONTROL = chipscope_ila_0_CHIPSCOPE_ILA_CONTROL_0
  PORT TRIG0 = axi_fft_0_mon_sync
  PORT DATA = axi_fft_0_mon_data
  PORT CLK = clk_100_0000MHzPLLE0
@@ -656,14 +661,14 @@ BEGIN chipscope_ila
  PARAMETER INSTANCE = chipscope_ila_1
  PARAMETER HW_VER = 1.05.a
  PARAMETER C_DATA_SAME_AS_TRIGGER = 0
- PARAMETER C_DATA_IN_WIDTH = 32
+ PARAMETER C_DATA_IN_WIDTH = 60
  PARAMETER C_ENABLE_TRIGGER_OUT = 0
  PARAMETER C_TRIG0_TRIGGER_IN_WIDTH = 1
  PARAMETER C_NUM_DATA_SAMPLES = 1024
- PORT CHIPSCOPE_ILA_CONTROL = chipscope_icon_0_control1
- PORT TRIG0 = axi_adc_2c_0_adc_mon_valid
- PORT DATA = axi_adc_2c_0_adc_mon_data
- PORT CLK = axi_adc_2c_0_adc_clk
+ PORT CHIPSCOPE_ILA_CONTROL = chipscope_ila_0_CHIPSCOPE_ILA_CONTROL_1
+ PORT TRIG0 = axi_ad9643_0_adc_mon_valid
+ PORT DATA = axi_ad9643_0_adc_mon_data
+ PORT CLK = axi_ad9643_0_adc_clk
 END
 
 BEGIN axi_gpio

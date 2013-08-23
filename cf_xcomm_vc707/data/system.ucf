@@ -53,8 +53,8 @@ NET dac0_data_out_n[15]       LOC = "AJ41"  | IOSTANDARD = "LVDS" | SLEW = "FAST
 
 NET adc0_clk_in_p             LOC = "U39"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
 NET adc0_clk_in_n             LOC = "T39"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
-NET adc0_data_or_p            LOC = "AD40"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
-NET adc0_data_or_n            LOC = "AD41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_or_in_p              LOC = "AD40"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
+NET adc0_or_in_n              LOC = "AD41"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
 NET adc0_data_in_p[0]         LOC = "U36"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
 NET adc0_data_in_n[0]         LOC = "T37"   | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";
 NET adc0_data_in_p[1]         LOC = "AB38"  | IOSTANDARD = "LVDS" | DIFF_TERM = "TRUE";

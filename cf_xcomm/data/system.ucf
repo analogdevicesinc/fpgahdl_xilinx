@@ -111,8 +111,8 @@ NET dac1_data_out_n[15] LOC = "AN23" | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 
 NET adc0_clk_in_p       LOC = "F33"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc0_clk_in_n       LOC = "G33"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc0_data_or_p      LOC = "K26"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc0_data_or_n      LOC = "K27"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_or_in_p        LOC = "K26"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc0_or_in_n        LOC = "K27"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc0_data_in_p[0]   LOC = "L29"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc0_data_in_n[0]   LOC = "L30"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc0_data_in_p[1]   LOC = "C33"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
@@ -144,8 +144,8 @@ NET adc0_data_in_n[13]  LOC = "E31"  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRU
 
 NET adc1_clk_in_p       LOC = "AP20" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc1_clk_in_n       LOC = "AP21" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc1_data_or_p      LOC = "AF20" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc1_data_or_n      LOC = "AF21" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_or_in_p        LOC = "AF20" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc1_or_in_n        LOC = "AF21" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc1_data_in_p[0]   LOC = "AH25" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc1_data_in_n[0]   LOC = "AJ25" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc1_data_in_p[1]   LOC = "AN19" | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
@@ -233,14 +233,14 @@ NET "dac1_clk_in_n" TNM_NET = "dac1_clk_in_n";
 TIMESPEC "TS_dac1_clk_in_n" = PERIOD "dac1_clk_in_n" 600 MHz;
 
 NET "adc0_clk_in_p" TNM_NET = "adc0_clk_in_p";
-TIMESPEC "TS_adc0_clk_in_p" = PERIOD "adc0_clk_in_p" 300 MHz;
+TIMESPEC "TS_adc0_clk_in_p" = PERIOD "adc0_clk_in_p" 260 MHz;
 NET "adc0_clk_in_n" TNM_NET = "adc0_clk_in_n";
-TIMESPEC "TS_adc0_clk_in_n" = PERIOD "adc0_clk_in_n" 300 MHz;
+TIMESPEC "TS_adc0_clk_in_n" = PERIOD "adc0_clk_in_n" 260 MHz;
 
 NET "adc1_clk_in_p" TNM_NET = "adc1_clk_in_p";
-TIMESPEC "TS_adc1_clk_in_p" = PERIOD "adc1_clk_in_p" 300 MHz;
+TIMESPEC "TS_adc1_clk_in_p" = PERIOD "adc1_clk_in_p" 260 MHz;
 NET "adc1_clk_in_n" TNM_NET = "adc1_clk_in_n";
-TIMESPEC "TS_adc1_clk_in_n" = PERIOD "adc1_clk_in_n" 300 MHz;
+TIMESPEC "TS_adc1_clk_in_n" = PERIOD "adc1_clk_in_n" 260 MHz;
 
 # can't use real numbers as bufg alone exceeds 4ns
 OFFSET = IN BEFORE "adc0_clk_in_p" RISING;

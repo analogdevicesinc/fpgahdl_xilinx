@@ -6,4 +6,4 @@
 
 Files
 ################################################################################
-cf_fftx_1.ngc, cf_fftx_4k_1.ngc, cf_float2fixx_1.ngc, cf_floatmulx_1.ngc, cf_floataddx_1.ngc, cf_floatsqrtx_1.ngc, cf_fix2floatx_1.ngc
+axi_fft_float64k_fftx_1.ngc, axi_fft_float4k_fftx_1.ngc, axi_fft_float2fixx_1.ngc, axi_fft_floatmulx_1.ngc, axi_fft_floataddx_1.ngc, axi_fft_floatsqrtx_1.ngc, axi_fft_fix2floatx_1.ngc

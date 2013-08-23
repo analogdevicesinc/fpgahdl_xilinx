@@ -57,8 +57,8 @@ module mul_u16 (
 
   // delayed data bus width
 
-  parameter DELAY_DATA_WIDTH = 16;
-  parameter DW = DELAY_DATA_WIDTH - 1;
+  parameter   DELAY_DATA_WIDTH = 16;
+  localparam  DW = DELAY_DATA_WIDTH - 1;
 
   // data_p = data_a * data_b;
 
@@ -74,6 +74,10 @@ module mul_u16 (
 
   // internal registers
 
+  reg     [DW:0]  ddata_in_d = 'd0;
+  reg     [16:0]  data_a_p = 'd0;
+  reg     [16:0]  data_a_n = 'd0;
+  reg     [15:0]  data_b_d = 'd0;
   reg     [DW:0]  p1_ddata = 'd0;
   reg     [31:0]  p1_data_p_0 = 'd0;
   reg     [31:0]  p1_data_p_1 = 'd0;
@@ -102,34 +106,41 @@ module mul_u16 (
 
   // internal signals
 
-  wire    [16:0]  p1_data_a_1p_17_s;
-  wire    [16:0]  p1_data_a_1n_17_s;
+  wire    [16:0]  data_a_p_17_s;
+  wire    [16:0]  data_a_n_17_s;
   wire    [31:0]  p1_data_a_1p_s;
   wire    [31:0]  p1_data_a_1n_s;
   wire    [31:0]  p1_data_a_2p_s;
   wire    [31:0]  p1_data_a_2n_s;
 
-  // pipe line stage 1, get the two's complement versions
+  // pipe line stage 0, get the two's complement versions
 
-  assign p1_data_a_1p_17_s = {1'b0, data_a};
-  assign p1_data_a_1n_17_s = ~p1_data_a_1p_17_s + 1'b1;
+  assign data_a_p_17_s = {1'b0, data_a};
+  assign data_a_n_17_s = ~data_a_p_17_s + 1'b1;
 
-  assign p1_data_a_1p_s = {{15{p1_data_a_1p_17_s[16]}}, p1_data_a_1p_17_s};
-  assign p1_data_a_1n_s = {{15{p1_data_a_1n_17_s[16]}}, p1_data_a_1n_17_s};
-  assign p1_data_a_2p_s = {{14{p1_data_a_1p_17_s[16]}}, p1_data_a_1p_17_s, 1'b0};
-  assign p1_data_a_2n_s = {{14{p1_data_a_1n_17_s[16]}}, p1_data_a_1n_17_s, 1'b0};
+  always @(posedge clk) begin
+    ddata_in_d <= ddata_in;
+    data_a_p <= data_a_p_17_s;
+    data_a_n <= data_a_n_17_s;
+    data_b_d <= data_b;
+  end
 
   // pipe line stage 1, get the partial products
 
+  assign p1_data_a_1p_s = {{15{data_a_p[16]}}, data_a_p};
+  assign p1_data_a_1n_s = {{15{data_a_n[16]}}, data_a_n};
+  assign p1_data_a_2p_s = {{14{data_a_p[16]}}, data_a_p, 1'b0};
+  assign p1_data_a_2n_s = {{14{data_a_n[16]}}, data_a_n, 1'b0};
+
   always @(posedge clk) begin
-    p1_ddata <= ddata_in;
-    case (data_b[1:0])
+    p1_ddata <= ddata_in_d;
+    case (data_b_d[1:0])
       2'b11: p1_data_p_0 <= p1_data_a_1n_s;
       2'b10: p1_data_p_0 <= p1_data_a_2n_s;
       2'b01: p1_data_p_0 <= p1_data_a_1p_s;
       default: p1_data_p_0 <= 32'd0;
     endcase
-    case (data_b[3:1])
+    case (data_b_d[3:1])
       3'b011: p1_data_p_1 <= {p1_data_a_2p_s[29:0], 2'd0};
       3'b100: p1_data_p_1 <= {p1_data_a_2n_s[29:0], 2'd0};
       3'b001: p1_data_p_1 <= {p1_data_a_1p_s[29:0], 2'd0};
@@ -138,7 +149,7 @@ module mul_u16 (
       3'b110: p1_data_p_1 <= {p1_data_a_1n_s[29:0], 2'd0};
       default: p1_data_p_1 <= 32'd0;
     endcase
-    case (data_b[5:3])
+    case (data_b_d[5:3])
       3'b011: p1_data_p_2 <= {p1_data_a_2p_s[27:0], 4'd0};
       3'b100: p1_data_p_2 <= {p1_data_a_2n_s[27:0], 4'd0};
       3'b001: p1_data_p_2 <= {p1_data_a_1p_s[27:0], 4'd0};
@@ -147,7 +158,7 @@ module mul_u16 (
       3'b110: p1_data_p_2 <= {p1_data_a_1n_s[27:0], 4'd0};
       default: p1_data_p_2 <= 32'd0;
     endcase
-    case (data_b[7:5])
+    case (data_b_d[7:5])
       3'b011: p1_data_p_3 <= {p1_data_a_2p_s[25:0], 6'd0};
       3'b100: p1_data_p_3 <= {p1_data_a_2n_s[25:0], 6'd0};
       3'b001: p1_data_p_3 <= {p1_data_a_1p_s[25:0], 6'd0};
@@ -156,7 +167,7 @@ module mul_u16 (
       3'b110: p1_data_p_3 <= {p1_data_a_1n_s[25:0], 6'd0};
       default: p1_data_p_3 <= 32'd0;
     endcase
-    case (data_b[9:7])
+    case (data_b_d[9:7])
       3'b011: p1_data_p_4 <= {p1_data_a_2p_s[23:0], 8'd0};
       3'b100: p1_data_p_4 <= {p1_data_a_2n_s[23:0], 8'd0};
       3'b001: p1_data_p_4 <= {p1_data_a_1p_s[23:0], 8'd0};
@@ -165,7 +176,7 @@ module mul_u16 (
       3'b110: p1_data_p_4 <= {p1_data_a_1n_s[23:0], 8'd0};
       default: p1_data_p_4 <= 32'd0;
     endcase
-    case (data_b[11:9])
+    case (data_b_d[11:9])
       3'b011: p1_data_p_5 <= {p1_data_a_2p_s[21:0], 10'd0};
       3'b100: p1_data_p_5 <= {p1_data_a_2n_s[21:0], 10'd0};
       3'b001: p1_data_p_5 <= {p1_data_a_1p_s[21:0], 10'd0};
@@ -174,7 +185,7 @@ module mul_u16 (
       3'b110: p1_data_p_5 <= {p1_data_a_1n_s[21:0], 10'd0};
       default: p1_data_p_5 <= 32'd0;
     endcase
-    case (data_b[13:11])
+    case (data_b_d[13:11])
       3'b011: p1_data_p_6 <= {p1_data_a_2p_s[19:0], 12'd0};
       3'b100: p1_data_p_6 <= {p1_data_a_2n_s[19:0], 12'd0};
       3'b001: p1_data_p_6 <= {p1_data_a_1p_s[19:0], 12'd0};
@@ -183,7 +194,7 @@ module mul_u16 (
       3'b110: p1_data_p_6 <= {p1_data_a_1n_s[19:0], 12'd0};
       default: p1_data_p_6 <= 32'd0;
     endcase
-    case (data_b[15:13])
+    case (data_b_d[15:13])
       3'b011: p1_data_p_7 <= {p1_data_a_2p_s[17:0], 14'd0};
       3'b100: p1_data_p_7 <= {p1_data_a_2n_s[17:0], 14'd0};
       3'b001: p1_data_p_7 <= {p1_data_a_1p_s[17:0], 14'd0};
@@ -192,7 +203,7 @@ module mul_u16 (
       3'b110: p1_data_p_7 <= {p1_data_a_1n_s[17:0], 14'd0};
       default: p1_data_p_7 <= 32'd0;
     endcase
-    case (data_b[15])
+    case (data_b_d[15])
       1'b1: p1_data_p_8 <= {p1_data_a_1p_s[15:0], 16'd0};
       default: p1_data_p_8 <= 32'd0;
     endcase

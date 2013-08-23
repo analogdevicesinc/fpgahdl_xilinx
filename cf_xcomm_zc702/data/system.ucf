@@ -1,5 +1,5 @@
 
-NET hdmi_clk            LOC = L16  | IOSTANDARD = "LVCMOS25";
+NET hdmi_out_clk        LOC = L16  | IOSTANDARD = "LVCMOS25";
 NET hdmi_vsync          LOC = H15  | IOSTANDARD = "LVCMOS25";
 NET hdmi_hsync          LOC = R18  | IOSTANDARD = "LVCMOS25";
 NET hdmi_data_e         LOC = T18  | IOSTANDARD = "LVCMOS25";
@@ -85,8 +85,8 @@ NET dac_data_out_n[15]  LOC = P15  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 
 NET adc_clk_in_p        LOC = M19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE"; 
 NET adc_clk_in_n        LOC = M20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc_data_or_p       LOC = K19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
-NET adc_data_or_n       LOC = K20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_or_in_p         LOC = K19  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
+NET adc_or_in_n         LOC = K20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_in_p[0]    LOC = D20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_in_n[0]    LOC = C20  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
 NET adc_data_in_p[1]    LOC = J16  | IOSTANDARD = "LVDS_25" | DIFF_TERM = "TRUE";
@@ -135,9 +135,9 @@ NET "dac_clk_in_n" TNM_NET = "dac_clk_in_n";
 TIMESPEC "TS_dac_clk_in_n" = PERIOD "dac_clk_in_n" 464 MHz;
 
 NET "adc_clk_in_p" TNM_NET = "adc_clk_in_p";
-TIMESPEC "TS_adc_clk_in_p" = PERIOD "adc_clk_in_p" 260 MHz;
+TIMESPEC "TS_adc_clk_in_p" = PERIOD "adc_clk_in_p" 250 MHz;
 NET "adc_clk_in_n" TNM_NET = "adc_clk_in_n";
-TIMESPEC "TS_adc_clk_in_n" = PERIOD "adc_clk_in_n" 260 MHz;
+TIMESPEC "TS_adc_clk_in_n" = PERIOD "adc_clk_in_n" 250 MHz;
 
 # can't use real numbers as bufg alone exceeds 4ns
 OFFSET = IN BEFORE "adc_clk_in_p" RISING;

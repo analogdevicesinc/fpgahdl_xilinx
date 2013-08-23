@@ -75,7 +75,7 @@ module up_adc_common (
   drp_clk,
   drp_rst,
   drp_sel,
-  drp_rwn,
+  drp_wr,
   drp_addr,
   drp_wdata,
   drp_rdata,
@@ -148,7 +148,7 @@ module up_adc_common (
   input           drp_clk;
   output          drp_rst;
   output          drp_sel;
-  output          drp_rwn;
+  output          drp_wr;
   output  [11:0]  drp_addr;
   output  [15:0]  drp_wdata;
   input   [15:0]  drp_rdata;
@@ -243,7 +243,7 @@ module up_adc_common (
   reg             drp_sel_m2 = 'd0;
   reg             drp_sel_m3 = 'd0;
   reg             drp_sel = 'd0;
-  reg             drp_rwn = 'd0;
+  reg             drp_wr = 'd0;
   reg     [11:0]  drp_addr = 'd0;
   reg     [15:0]  drp_wdata = 'd0;
   reg             up_drp_ack_t_m1 = 'd0;
@@ -582,11 +582,16 @@ module up_adc_common (
       drp_sel_m2 <= drp_sel_m1;
       drp_sel_m3 <= drp_sel_m2;
     end
-    drp_sel <= drp_sel_m2 & ~drp_sel_m3;
     if ((drp_sel_m2 == 1'b1) && (drp_sel_m3 == 1'b0)) begin
-      drp_rwn <= up_drp_rwn;
+      drp_sel <= 1'b1;
+      drp_wr <= ~up_drp_rwn;
       drp_addr <= up_drp_addr;
       drp_wdata <= up_drp_wdata;
+    end else begin
+      drp_sel <= 1'b0;
+      drp_wr <= 1'b0;
+      drp_addr <= 12'd0;
+      drp_wdata <= 16'd0;
     end
   end
 
