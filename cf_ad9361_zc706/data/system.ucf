@@ -30,6 +30,24 @@ NET hdmi_data[23]   LOC = AC22 | IOSTANDARD = LVCMOS25;
 NET hdmi_spdif      LOC = AC21 | IOSTANDARD = LVCMOS25;
 NET hdmi_int        LOC = AC23 | IOSTANDARD = LVCMOS25;
 
+NET ps7_gpio[0]  LOC = AB17 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW0   
+NET ps7_gpio[1]  LOC = AC16 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW1   
+NET ps7_gpio[2]  LOC = AC17 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW2   
+NET ps7_gpio[3]  LOC = AJ13 | IOSTANDARD = "LVCMOS25"; # GPIO_DIP_SW3   
+NET ps7_gpio[4]  LOC = AK25 | IOSTANDARD = "LVCMOS25"; # GPIO_SW_LEFT   
+NET ps7_gpio[5]  LOC = K15  | IOSTANDARD = "LVCMOS15"; # GPIO_SW_CENTER 
+NET ps7_gpio[6]  LOC = R27  | IOSTANDARD = "LVCMOS25"; # GPIO_SW_RIGHT  
+
+NET ps7_gpio[7]  LOC = Y21  | IOSTANDARD = "LVCMOS25"; # GPIO_LED_LEFT  
+NET ps7_gpio[8]  LOC = G2   | IOSTANDARD = "LVCMOS15"; # GPIO_LED_CENTER
+NET ps7_gpio[9]  LOC = W21  | IOSTANDARD = "LVCMOS25"; # GPIO_LED_RIGHT 
+NET ps7_gpio[10] LOC = A17  | IOSTANDARD = "LVCMOS15"; # GPIO_LED_0     
+
+NET ps7_gpio[11] LOC = H14  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_0
+NET ps7_gpio[12] LOC = J15  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_1
+NET ps7_gpio[13] LOC = J16  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_2
+NET ps7_gpio[14] LOC = J14  | IOSTANDARD = "LVCMOS15"; # XADC_GPIO_3
+
 NET rx_clk_in_p       LOC = AE13 | IOSTANDARD = LVDS_25 | DIFF_TERM = TRUE; ## G6   FMC_LPC_LA00_CC_P       AE13   IO_L11P_T1_SRCC_10   1   10   NA   NA   HR   NA   
 NET rx_clk_in_n       LOC = AF13 | IOSTANDARD = LVDS_25 | DIFF_TERM = TRUE; ## G7   FMC_LPC_LA00_CC_N       AF13   IO_L11N_T1_SRCC_10   1   10   NA   NA   HR   NA   
 NET rx_frame_in_p     LOC = AF15 | IOSTANDARD = LVDS_25 | DIFF_TERM = TRUE; ## D8   FMC_LPC_LA01_CC_P       AF15   IO_L14P_T2_SRCC_10   2   10   NA   NA   HR   NA   
@@ -70,21 +88,21 @@ NET spi_clk           LOC = AK30 | IOSTANDARD = LVCMOS25;                   ## D
 NET spi_mosi          LOC = AJ28 | IOSTANDARD = LVCMOS25;                   ## C26  FMC_LPC_LA27_P          AJ28   IO_L21P_T3_DQS_12    3   12   NA   NA   HR   NA   
 NET spi_miso          LOC = AJ29 | IOSTANDARD = LVCMOS25;                   ## C27  FMC_LPC_LA27_N          AJ29   IO_L21N_T3_DQS_12    3   12   NA   NA   HR   NA   
 
-NET ctrl_out[0]       LOC = AG26 | IOSTANDARD = LVCMOS25;                   ## G21  FMC_LPC_LA20_P          AG26   IO_L17P_T2_12        2   12   NA   NA   HR   NA   
-NET ctrl_out[1]       LOC = AG27 | IOSTANDARD = LVCMOS25;                   ## G22  FMC_LPC_LA20_N          AG27   IO_L17N_T2_12        2   12   NA   NA   HR   NA   
-NET ctrl_out[2]       LOC = AH28 | IOSTANDARD = LVCMOS25;                   ## H25  FMC_LPC_LA21_P          AH28   IO_L19P_T3_12        3   12   NA   NA   HR   NA   
-NET ctrl_out[3]       LOC = AH29 | IOSTANDARD = LVCMOS25;                   ## H26  FMC_LPC_LA21_N          AH29   IO_L19N_T3_VREF_12   3   12   NA   NA   HR   NA   
-NET ctrl_out[4]       LOC = AK27 | IOSTANDARD = LVCMOS25;                   ## G24  FMC_LPC_LA22_P          AK27   IO_L22P_T3_12        3   12   NA   NA   HR   NA   
-NET ctrl_out[5]       LOC = AK28 | IOSTANDARD = LVCMOS25;                   ## G25  FMC_LPC_LA22_N          AK28   IO_L22N_T3_12        3   12   NA   NA   HR   NA   
-NET ctrl_out[6]       LOC = AJ26 | IOSTANDARD = LVCMOS25;                   ## D23  FMC_LPC_LA23_P          AJ26   IO_L24P_T3_12        3   12   NA   NA   HR   NA   
-NET ctrl_out[7]       LOC = AK26 | IOSTANDARD = LVCMOS25;                   ## D24  FMC_LPC_LA23_N          AK26   IO_L24N_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[15]       LOC = AG26 | IOSTANDARD = LVCMOS25;                  ## G21  FMC_LPC_LA20_P          AG26   IO_L17P_T2_12        2   12   NA   NA   HR   NA   
+NET ps7_gpio[16]       LOC = AG27 | IOSTANDARD = LVCMOS25;                  ## G22  FMC_LPC_LA20_N          AG27   IO_L17N_T2_12        2   12   NA   NA   HR   NA   
+NET ps7_gpio[17]       LOC = AH28 | IOSTANDARD = LVCMOS25;                  ## H25  FMC_LPC_LA21_P          AH28   IO_L19P_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[18]       LOC = AH29 | IOSTANDARD = LVCMOS25;                  ## H26  FMC_LPC_LA21_N          AH29   IO_L19N_T3_VREF_12   3   12   NA   NA   HR   NA   
+NET ps7_gpio[19]       LOC = AK27 | IOSTANDARD = LVCMOS25;                  ## G24  FMC_LPC_LA22_P          AK27   IO_L22P_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[20]       LOC = AK28 | IOSTANDARD = LVCMOS25;                  ## G25  FMC_LPC_LA22_N          AK28   IO_L22N_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[21]       LOC = AJ26 | IOSTANDARD = LVCMOS25;                  ## D23  FMC_LPC_LA23_P          AJ26   IO_L24P_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[22]       LOC = AK26 | IOSTANDARD = LVCMOS25;                  ## D24  FMC_LPC_LA23_N          AK26   IO_L24N_T3_12        3   12   NA   NA   HR   NA   
 
-NET ctrl_in[0]        LOC = AF30 | IOSTANDARD = LVCMOS25;                   ## H28  FMC_LPC_LA24_P          AF30   IO_L16P_T2_12        2   12   NA   NA   HR   NA   
-NET ctrl_in[1]        LOC = AG30 | IOSTANDARD = LVCMOS25;                   ## H29  FMC_LPC_LA24_N          AG30   IO_L16N_T2_12        2   12   NA   NA   HR   NA   
-NET ctrl_in[2]        LOC = AF29 | IOSTANDARD = LVCMOS25;                   ## G27  FMC_LPC_LA25_P          AF29   IO_L15P_T2_DQS_12    2   12   NA   NA   HR   NA   
-NET ctrl_in[3]        LOC = AG29 | IOSTANDARD = LVCMOS25;                   ## G28  FMC_LPC_LA25_N          AG29   IO_L15N_T2_DQS_12    2   12   NA   NA   HR   NA   
-NET ctrl_in[4]        LOC = AH26 | IOSTANDARD = LVCMOS25; ## EN_AGC         ## H22  FMC_LPC_LA19_P          AH26   IO_L23P_T3_12        3   12   NA   NA   HR   NA   
-NET ctrl_in[5]        LOC = AH27 | IOSTANDARD = LVCMOS25; ## SYNC_IN        ## H23  FMC_LPC_LA19_N          AH27   IO_L23N_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[23]        LOC = AF30 | IOSTANDARD = LVCMOS25;                 ## H28  FMC_LPC_LA24_P          AF30   IO_L16P_T2_12        2   12   NA   NA   HR   NA   
+NET ps7_gpio[24]        LOC = AG30 | IOSTANDARD = LVCMOS25;                 ## H29  FMC_LPC_LA24_N          AG30   IO_L16N_T2_12        2   12   NA   NA   HR   NA   
+NET ps7_gpio[25]        LOC = AF29 | IOSTANDARD = LVCMOS25;                 ## G27  FMC_LPC_LA25_P          AF29   IO_L15P_T2_DQS_12    2   12   NA   NA   HR   NA   
+NET ps7_gpio[26]        LOC = AG29 | IOSTANDARD = LVCMOS25;                 ## G28  FMC_LPC_LA25_N          AG29   IO_L15N_T2_DQS_12    2   12   NA   NA   HR   NA   
+NET ps7_gpio[27]        LOC = AH26 | IOSTANDARD = LVCMOS25; ## EN_AGC       ## H22  FMC_LPC_LA19_P          AH26   IO_L23P_T3_12        3   12   NA   NA   HR   NA   
+NET ps7_gpio[28]        LOC = AH27 | IOSTANDARD = LVCMOS25; ## SYNC_IN      ## H23  FMC_LPC_LA19_N          AH27   IO_L23N_T3_12        3   12   NA   NA   HR   NA   
 
 NET "processing_system7_0_FCLK_CLK0" TNM_NET = "ps7_fclk_clk0";
 TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
