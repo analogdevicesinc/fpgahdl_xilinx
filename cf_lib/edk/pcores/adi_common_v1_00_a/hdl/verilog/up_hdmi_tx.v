@@ -134,7 +134,7 @@ module up_hdmi_tx (
   reg             up_resetn = 'd0;
   reg             up_full_range = 'd0;
   reg             up_csc_bypass = 'd0;
-  reg     [ 1:0]  up_srcsel = 'd0;
+  reg     [ 1:0]  up_srcsel = 'd1;
   reg     [23:0]  up_const_rgb = 'd0;
   reg     [15:0]  up_hl_active = 'd0;
   reg     [15:0]  up_hl_width = 'd0;
@@ -154,7 +154,7 @@ module up_hdmi_tx (
   reg             hdmi_up_xfer_toggle_m3 = 'd0;
   reg             hdmi_full_range = 'd0;
   reg             hdmi_csc_bypass = 'd0;
-  reg     [ 1:0]  hdmi_srcsel = 'd0;
+  reg     [ 1:0]  hdmi_srcsel = 'd1;
   reg     [23:0]  hdmi_const_rgb = 'd0;
   reg     [15:0]  hdmi_hl_active = 'd0;
   reg     [15:0]  hdmi_hl_width = 'd0;
@@ -224,7 +224,7 @@ module up_hdmi_tx (
       up_resetn <= 'd0;
       up_full_range <= 'd0;
       up_csc_bypass <= 'd0;
-      up_srcsel <= 'd0;
+      up_srcsel <= 'd1;
       up_const_rgb <= 'd0;
       up_hl_active <= 'd0;
       up_hl_width <= 'd0;
