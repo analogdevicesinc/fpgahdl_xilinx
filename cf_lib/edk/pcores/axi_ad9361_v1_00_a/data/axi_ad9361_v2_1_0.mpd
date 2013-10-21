@@ -18,6 +18,7 @@ OPTION ARCH_SUPPORT_MAP = (others=DEVELOPMENT)
 OPTION STYLE = MIX
 OPTION RUN_NGCBUILD = TRUE
 
+OPTION PLATGEN_SYSLEVEL_UPDATE_PROC = run_coregen
 
 ## Bus Interfaces
 BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
@@ -48,8 +49,6 @@ PORT tx_frame_out_p = "", DIR = O
 PORT tx_frame_out_n = "", DIR = O
 PORT tx_data_out_p = "", DIR = O, VEC = [5:0]
 PORT tx_data_out_n = "", DIR = O, VEC = [5:0]
-PORT enable = "", DIR = O
-PORT txnrx = "", DIR = O
 
 ## Core Interface
 PORT clk = "", DIR = O, SIGIS = CLK

@@ -138,6 +138,7 @@ module axi_ad9361_rx (
 
   // internal registers
 
+  reg     [47:0]  adc_iqcor_data_3 = 'd0;
   reg             adc_iqcor_valid = 'd0;
   reg     [63:0]  adc_iqcor_data = 'd0;
   reg     [ 1:0]  adc_iqcor_data_cnt = 'd0;
@@ -154,8 +155,6 @@ module axi_ad9361_rx (
 
   // internal signals
 
-  wire            adc_status_int_s;
-  wire            adc_status_s;
   wire            adc_iqcor_valid_s;
   wire    [15:0]  adc_dcfilter_data_out_0_s;
   wire            adc_pn_oos_out_0_s;
@@ -224,12 +223,6 @@ module axi_ad9361_rx (
   assign adc_mon_data[115:104] = adc_data_q2;
   assign adc_mon_data[116:116] = adc_valid;
 
-  // adc status
-
-  assign adc_status_int_s = ~(adc_iqcor_valid_0_s ^ adc_iqcor_valid_1_s ^
-    adc_iqcor_valid_2_s ^ adc_iqcor_valid_3_s);
-  assign adc_status_s = adc_status & adc_status_int_s;
-
   // adc channels - dma interface
 
   assign adc_iqcor_valid_s = adc_iqcor_valid_0_s & adc_iqcor_valid_1_s &
@@ -239,55 +232,223 @@ module axi_ad9361_rx (
     if (adc_iqcor_valid_s == 1'b1) begin
       case ({adc_enable_3_s, adc_enable_2_s, adc_enable_1_s, adc_enable_0_s})
         4'b1111: begin
+          adc_iqcor_data_3 <= 48'd0;
           adc_iqcor_valid <= 1'b1;
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
           adc_iqcor_data[31:16] <= adc_iqcor_data_1_s;
           adc_iqcor_data[15: 0] <= adc_iqcor_data_0_s;
         end
-        4'b0001: begin
-          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
-          adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
-          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
-          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
-          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
+        4'b1110: begin
+          adc_iqcor_data_3[47:32] <= adc_iqcor_data_3_s;
+          adc_iqcor_data_3[31:16] <= adc_iqcor_data_2_s;
+          adc_iqcor_data_3[15: 0] <= adc_iqcor_data_1_s;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];
+          case (adc_iqcor_data_cnt)
+            2'b11: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[47:32];
+            end
+            2'b10: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[31:16];
+            end
+            2'b01: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[31:16];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[15: 0];
+            end
+            default:begin
+              adc_iqcor_data[63:48] <= 16'hdead;
+              adc_iqcor_data[47:32] <= 16'hdead;
+              adc_iqcor_data[31:16] <= 16'hdead;
+              adc_iqcor_data[15: 0] <= 16'hdead;
+            end
+          endcase
         end
-        4'b0010: begin
-          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
-          adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
-          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
-          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
-          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
-        end
-        4'b0100: begin
-          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
-          adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
-          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
-          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
-          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
-        end
-        4'b1000: begin
-          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
-          adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
-          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
-          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
-          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
-        end
-        4'b0011: begin
-          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
-          adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
-          adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
-          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
-          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        4'b1101: begin
+          adc_iqcor_data_3[47:32] <= adc_iqcor_data_3_s;
+          adc_iqcor_data_3[31:16] <= adc_iqcor_data_2_s;
+          adc_iqcor_data_3[15: 0] <= adc_iqcor_data_0_s;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];
+          case (adc_iqcor_data_cnt)
+            2'b11: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[47:32];
+            end
+            2'b10: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[31:16];
+            end
+            2'b01: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[31:16];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[15: 0];
+            end
+            default:begin
+              adc_iqcor_data[63:48] <= 16'hdead;
+              adc_iqcor_data[47:32] <= 16'hdead;
+              adc_iqcor_data[31:16] <= 16'hdead;
+              adc_iqcor_data[15: 0] <= 16'hdead;
+            end
+          endcase
         end
         4'b1100: begin
+          adc_iqcor_data_3 <= 48'd0;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
           adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
+        4'b1011: begin
+          adc_iqcor_data_3[47:32] <= adc_iqcor_data_3_s;
+          adc_iqcor_data_3[31:16] <= adc_iqcor_data_1_s;
+          adc_iqcor_data_3[15: 0] <= adc_iqcor_data_0_s;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];
+          case (adc_iqcor_data_cnt)
+            2'b11: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[47:32];
+            end
+            2'b10: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[31:16];
+            end
+            2'b01: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[31:16];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[15: 0];
+            end
+            default:begin
+              adc_iqcor_data[63:48] <= 16'hdead;
+              adc_iqcor_data[47:32] <= 16'hdead;
+              adc_iqcor_data[31:16] <= 16'hdead;
+              adc_iqcor_data[15: 0] <= 16'hdead;
+            end
+          endcase
+        end
+        4'b1010: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
+          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        end
+        4'b1001: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        end
+        4'b1000: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
+        end
+        4'b0111: begin
+          adc_iqcor_data_3[47:32] <= adc_iqcor_data_2_s;
+          adc_iqcor_data_3[31:16] <= adc_iqcor_data_1_s;
+          adc_iqcor_data_3[15: 0] <= adc_iqcor_data_0_s;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];
+          case (adc_iqcor_data_cnt)
+            2'b11: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[47:32];
+            end
+            2'b10: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[31:16];
+            end
+            2'b01: begin
+              adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
+              adc_iqcor_data[47:32] <= adc_iqcor_data_3[47:32];
+              adc_iqcor_data[31:16] <= adc_iqcor_data_3[31:16];
+              adc_iqcor_data[15: 0] <= adc_iqcor_data_3[15: 0];
+            end
+            default:begin
+              adc_iqcor_data[63:48] <= 16'hdead;
+              adc_iqcor_data[47:32] <= 16'hdead;
+              adc_iqcor_data[31:16] <= 16'hdead;
+              adc_iqcor_data[15: 0] <= 16'hdead;
+            end
+          endcase
+        end
+        4'b0110: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
+          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        end
+        4'b0101: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        end
+        4'b0100: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
+        end
+        4'b0011: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
+          adc_iqcor_data[31:16] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
+        end
+        4'b0010: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
+        end
+        4'b0001: begin
+          adc_iqcor_data_3 <= 48'd0;
+          adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
+          adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
+          adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
+          adc_iqcor_data[31:16] <= adc_iqcor_data[47:32];
+          adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
+        end
         default: begin
+          adc_iqcor_data_3 <= 48'd0;
           adc_iqcor_valid <= 1'b1;
           adc_iqcor_data[63:48] <= 16'hdead;
           adc_iqcor_data[47:32] <= 16'hdead;
@@ -297,6 +458,7 @@ module axi_ad9361_rx (
       endcase
       adc_iqcor_data_cnt <= adc_iqcor_data_cnt + 1'b1;
     end else begin
+      adc_iqcor_data_3 <= 48'd0;
       adc_iqcor_valid <= 1'b0;
       adc_iqcor_data <= adc_iqcor_data;
       adc_iqcor_data_cnt <= adc_iqcor_data_cnt;
@@ -476,7 +638,7 @@ module axi_ad9361_rx (
     .adc_r1_mode (adc_r1_mode),
     .adc_ddr_edgesel (),
     .adc_pin_mode (),
-    .adc_status (adc_status_s),
+    .adc_status (adc_status),
     .adc_status_pn_err (up_adc_status_pn_err),
     .adc_status_pn_oos (up_adc_status_pn_oos),
     .adc_status_or (up_adc_status_or),
@@ -493,7 +655,7 @@ module axi_ad9361_rx (
     .drp_clk (1'd0),
     .drp_rst (),
     .drp_sel (),
-    .drp_rwn (),
+    .drp_wr (),
     .drp_addr (),
     .drp_wdata (),
     .drp_rdata (16'd0),

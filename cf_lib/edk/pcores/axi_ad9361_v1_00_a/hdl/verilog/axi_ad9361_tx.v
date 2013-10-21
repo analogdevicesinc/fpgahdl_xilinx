@@ -350,7 +350,7 @@ module axi_ad9361_tx (
     .drp_clk (1'b0),
     .drp_rst (),
     .drp_sel (),
-    .drp_rwn (),
+    .drp_wr (),
     .drp_addr (),
     .drp_wdata (),
     .drp_rdata (16'd0),

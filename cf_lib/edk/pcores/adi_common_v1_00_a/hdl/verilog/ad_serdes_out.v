@@ -63,8 +63,13 @@ module ad_serdes_out (
 
   // parameters
 
+  parameter   DEVICE_TYPE = 0;
   parameter   SERDES = 1;
   parameter   DATA_WIDTH = 16;
+
+
+  localparam  DEVICE_6SERIES = 1;
+  localparam  DEVICE_7SERIES = 0;
   localparam  DW = DATA_WIDTH - 1;
 
   // reset and clocks
@@ -113,7 +118,44 @@ module ad_serdes_out (
     .Q (data_out_s[l_inst]));
   end
 
-  if (SERDES == 1) begin
+  if ((SERDES == 1) && (DEVICE_TYPE == DEVICE_7SERIES)) begin
+  OSERDESE2 #(
+    .DATA_RATE_OQ ("DDR"),
+    .DATA_RATE_TQ ("SDR"),
+    .DATA_WIDTH (8),
+    .TRISTATE_WIDTH (1),
+    .SERDES_MODE ("MASTER"))
+  i_serdes (
+    .D1 (data_s0[l_inst]),
+    .D2 (data_s1[l_inst]),
+    .D3 (data_s2[l_inst]),
+    .D4 (data_s3[l_inst]),
+    .D5 (data_s4[l_inst]),
+    .D6 (data_s5[l_inst]),
+    .D7 (data_s6[l_inst]),
+    .D8 (data_s7[l_inst]),
+    .T1 (1'b0),
+    .T2 (1'b0),
+    .T3 (1'b0),
+    .T4 (1'b0),
+    .SHIFTIN1 (1'b0),
+    .SHIFTIN2 (1'b0),
+    .SHIFTOUT1 (),
+    .SHIFTOUT2 (),
+    .OCE (1'b1),
+    .CLK (clk),
+    .CLKDIV (div_clk),
+    .OQ (data_out_s[l_inst]),
+    .TQ (),
+    .OFB (),
+    .TFB (),
+    .TBYTEIN (1'b0),
+    .TBYTEOUT (),
+    .TCE (1'b0),
+    .RST (rst));
+  end
+
+  if ((SERDES == 1) && (DEVICE_TYPE == DEVICE_6SERIES)) begin
   OSERDESE1 #(
     .DATA_RATE_OQ ("DDR"),
     .DATA_RATE_TQ ("SDR"),

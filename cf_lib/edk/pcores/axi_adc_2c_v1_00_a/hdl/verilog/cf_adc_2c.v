@@ -111,9 +111,11 @@ module cf_adc_2c (
   parameter C_IODELAY_GROUP = "adc_if_delay_group";
 
   // pcore identifier (master(0)/slave(>0) control for multiple instances)
+
   input   [ 7:0]  pid;
 
   // adc interface (clk, data, over-range)
+
   input           adc_clk_in_p;
   input           adc_clk_in_n;
   input   [13:0]  adc_data_in_p;
@@ -122,6 +124,7 @@ module cf_adc_2c (
   input           adc_data_or_n;
 
   // dma interface (refer to xilinx AXI_DMA doc. for details)
+
   input           dma_clk;
   output          dma_valid;
   output  [63:0]  dma_data;
@@ -130,6 +133,7 @@ module cf_adc_2c (
   input           dma_ready;
 
   // processor (control) interface
+
   input           up_rstn;
   input           up_clk;
   input           up_sel;
@@ -141,22 +145,28 @@ module cf_adc_2c (
   output  [ 7:0]  up_status;
 
   // processor master/slave controls
+
   output          up_adc_capture_int;
   input           up_adc_capture_ext;
 
   // delay elements clock (200MHz for most devices)
+
   input           delay_clk;
 
   // dma debug and monitor signals (for chipscope)
+
   output  [63:0]  dma_dbg_data;
   output  [ 7:0]  dma_dbg_trigger;
 
   // adc debug and monitor signals (for chipscope)
+
   output          adc_clk;
   output  [63:0]  adc_dbg_data;
   output  [ 7:0]  adc_dbg_trigger;
   output          adc_mon_valid;
   output  [31:0]  adc_mon_data;
+
+  // internal signals
 
   reg     [ 3:0]  up_usr_sel = 'd0;
   reg     [ 1:0]  up_ch_sel = 'd0;
@@ -186,6 +196,8 @@ module cf_adc_2c (
   reg     [15:0]  up_decimation_m = 'd0;
   reg     [15:0]  up_decimation_n = 'd0;
   reg             up_data_type = 'd0;
+  reg     [15:0]  up_dcfilter_coeff_b = 'd0;
+  reg     [15:0]  up_dcfilter_coeff_a = 'd0;
   reg     [ 7:0]  up_status = 'd0;
   reg             up_adc_master_capture_n = 'd0;
   reg     [31:0]  up_rdata = 'd0;
@@ -217,6 +229,8 @@ module cf_adc_2c (
   reg             up_delay_ack = 'd0;
   reg     [ 4:0]  up_delay_rdata = 'd0;
   reg             up_delay_locked = 'd0;
+
+  // internal signals
 
   wire            up_wr_s;
   wire            up_ack_s;
@@ -270,6 +284,11 @@ module cf_adc_2c (
       up_muladd_scale_a <= 'd0;
       up_muladd_offset_b <= 'd0;
       up_muladd_scale_b <= 'd0;
+      up_decimation_m <= 'd0;
+      up_decimation_n <= 'd0;
+      up_data_type <= 'd0;
+      up_dcfilter_coeff_b <= 'd0;
+      up_dcfilter_coeff_a <= 'd0;
       up_status <= 'd0;
       up_adc_master_capture_n <= 'd1;
     end else begin
@@ -360,6 +379,10 @@ module cf_adc_2c (
       if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
         up_data_type <= up_wdata[0];
       end
+      if ((up_addr == 5'h15) && (up_wr_s == 1'b1)) begin
+        up_dcfilter_coeff_b <= up_wdata[31:16];
+        up_dcfilter_coeff_a <= up_wdata[15:0];
+      end
       if (up_status_enable == 1'b1) begin
         up_status <= {5'd1, up_adc_capture_int, up_dma_ovf, up_dma_status};
       end else begin
@@ -401,6 +424,7 @@ module cf_adc_2c (
         5'h12: up_rdata <= {usr_decimation_m_s, usr_decimation_n_s};
         5'h13: up_rdata <= {31'd0, usr_data_type_s};
         5'h14: up_rdata <= {28'd0, usr_max_channels_s};
+        5'h15: up_rdata <= {up_dcfilter_coeff_b, up_dcfilter_coeff_a};
         default: up_rdata <= 0;
       endcase
       up_sel_d <= up_sel;
@@ -544,6 +568,8 @@ module cf_adc_2c (
     .up_decimation_m (up_decimation_m),
     .up_decimation_n (up_decimation_n),
     .up_data_type (up_data_type),
+    .up_dcfilter_coeff_a (up_dcfilter_coeff_a),
+    .up_dcfilter_coeff_b (up_dcfilter_coeff_b),
     .usr_decimation_m (usr_decimation_m_s),
     .usr_decimation_n (usr_decimation_n_s),
     .usr_data_type (usr_data_type_s),

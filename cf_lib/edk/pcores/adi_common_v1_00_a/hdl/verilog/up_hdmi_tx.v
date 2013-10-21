@@ -320,7 +320,7 @@ module up_hdmi_tx (
     if (up_rstn == 0) begin
       up_xfer_toggle <= 'd0;
     end else begin
-      if (up_wr_s == 1'b1) begin
+      if (up_count[5:0] == 6'd0) begin
         up_xfer_toggle <= ~up_xfer_toggle;
       end
     end

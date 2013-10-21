@@ -59,11 +59,6 @@ module axi_ad9361 (
   tx_data_out_p,
   tx_data_out_n,
 
-  // physical interface (data control)
-
-  enable,
-  txnrx,
-
   // delay clock
 
   delay_clk,
@@ -146,11 +141,6 @@ module axi_ad9361 (
   output          tx_frame_out_n;
   output  [ 5:0]  tx_data_out_p;
   output  [ 5:0]  tx_data_out_n;
-
-  // physical interface (data control)
-
-  output          enable;
-  output          txnrx;
 
   // delay clock
 
@@ -292,7 +282,10 @@ module axi_ad9361 (
 
   // device interface
 
-  axi_ad9361_dev_if i_dev_if (
+  axi_ad9361_dev_if #(
+    .PCORE_BUFTYPE (PCORE_BUFTYPE),
+    .PCORE_IODELAY_GROUP (PCORE_IODELAY_GROUP))
+  i_dev_if (
     .rx_clk_in_p (rx_clk_in_p),
     .rx_clk_in_n (rx_clk_in_n),
     .rx_frame_in_p (rx_frame_in_p),
@@ -305,8 +298,6 @@ module axi_ad9361 (
     .tx_frame_out_n (tx_frame_out_n),
     .tx_data_out_p (tx_data_out_p),
     .tx_data_out_n (tx_data_out_n),
-    .enable (enable),
-    .txnrx (txnrx),
     .clk (clk),
     .adc_valid (adc_valid_s),
     .adc_data_i1 (adc_data_i1_s),

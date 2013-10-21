@@ -61,11 +61,6 @@ module axi_ad9361_dev_if (
   tx_data_out_p,
   tx_data_out_n,
 
-  // physical interface (data control)
-
-  enable,
-  txnrx,
-
   // clock (common to both receive and transmit)
 
   clk,
@@ -130,11 +125,6 @@ module axi_ad9361_dev_if (
   output          tx_frame_out_n;
   output  [ 5:0]  tx_data_out_p;
   output  [ 5:0]  tx_data_out_n;
-
-  // physical interface (data control)
-
-  output          enable;
-  output          txnrx;
 
   // clock (common to both receive and transmit)
 
@@ -282,11 +272,6 @@ module axi_ad9361_dev_if (
   assign dev_dbg_data[273:262] = adc_data_q1;
   assign dev_dbg_data[285:274] = adc_data_i2;
   assign dev_dbg_data[297:286] = adc_data_q2;
-
-  // data control
-
-  assign enable = 1'd0;
-  assign txnrx = 1'd0;
 
   // receive data path interface
 

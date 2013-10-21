@@ -105,15 +105,15 @@ module up_clkgen (
   reg     [31:0]  up_scratch = 'd0;
   reg             up_mmcm_resetn = 'd0;
   reg             up_resetn = 'd0;
-  reg             up_drp_sel = 'd0;
+  reg             up_drp_sel_t = 'd0;
   reg             up_drp_rwn = 'd0;
   reg     [11:0]  up_drp_addr = 'd0;
   reg     [15:0]  up_drp_wdata = 'd0;
   reg             up_ack = 'd0;
   reg     [31:0]  up_rdata = 'd0;
-  reg             drp_sel_m1 = 'd0;
-  reg             drp_sel_m2 = 'd0;
-  reg             drp_sel_m3 = 'd0;
+  reg             drp_sel_t_m1 = 'd0;
+  reg             drp_sel_t_m2 = 'd0;
+  reg             drp_sel_t_m3 = 'd0;
   reg             drp_sel = 'd0;
   reg             drp_wr = 'd0;
   reg     [11:0]  drp_addr = 'd0;
@@ -121,7 +121,7 @@ module up_clkgen (
   reg             up_drp_ack_t_m1 = 'd0;
   reg             up_drp_ack_t_m2 = 'd0;
   reg             up_drp_ack_t_m3 = 'd0;
-  reg             up_drp_sel_d = 'd0;
+  reg             up_drp_sel_t_d = 'd0;
   reg             up_drp_status = 'd0;
   reg     [15:0]  up_drp_rdata = 'd0;
   reg             up_drp_locked_m1 = 'd0;
@@ -133,8 +133,9 @@ module up_clkgen (
   wire            up_wr_s;
   wire            up_preset_s;
   wire            up_mmcm_preset_s;
+  wire            drp_sel_t_s;
   wire            up_drp_ack_t_s;
-  wire            up_drp_sel_s;
+  wire            up_drp_sel_t_s;
 
   // decode block select
 
@@ -150,7 +151,7 @@ module up_clkgen (
       up_scratch <= 'd0;
       up_mmcm_resetn <= 'd0;
       up_resetn <= 'd0;
-      up_drp_sel <= 'd0;
+      up_drp_sel_t <= 'd0;
       up_drp_rwn <= 'd0;
       up_drp_addr <= 'd0;
       up_drp_wdata <= 'd0;
@@ -163,7 +164,7 @@ module up_clkgen (
         up_resetn <= up_wdata[0];
       end
       if ((up_wr_s == 1'b1) && (up_addr[7:0] == 8'h1c)) begin
-        up_drp_sel <= up_wdata[29];
+        up_drp_sel_t <= ~up_drp_sel_t;
         up_drp_rwn <= up_wdata[28];
         up_drp_addr <= up_wdata[27:16];
         up_drp_wdata <= up_wdata[15:0];
@@ -186,7 +187,7 @@ module up_clkgen (
           8'h02: up_rdata <= up_scratch;
           8'h10: up_rdata <= {30'd0, up_mmcm_resetn, up_resetn};
           8'h17: up_rdata <= {31'd0, up_drp_locked};
-          8'h1c: up_rdata <= {2'd0, up_drp_sel, up_drp_rwn, up_drp_addr, up_drp_wdata};
+          8'h1c: up_rdata <= {3'd0, up_drp_rwn, up_drp_addr, up_drp_wdata};
           8'h1d: up_rdata <= {15'd0, up_drp_status, up_drp_rdata};
           default: up_rdata <= 0;
         endcase
@@ -216,17 +217,19 @@ module up_clkgen (
 
   // drp control transfer
 
+  assign drp_sel_t_s = drp_sel_t_m2 ^ drp_sel_t_m3;
+
   always @(posedge drp_clk) begin
     if (drp_rst == 1'b1) begin
-      drp_sel_m1 <= 'd0;
-      drp_sel_m2 <= 'd0;
-      drp_sel_m3 <= 'd0;
+      drp_sel_t_m1 <= 'd0;
+      drp_sel_t_m2 <= 'd0;
+      drp_sel_t_m3 <= 'd0;
     end else begin
-      drp_sel_m1 <= up_drp_sel;
-      drp_sel_m2 <= drp_sel_m1;
-      drp_sel_m3 <= drp_sel_m2;
+      drp_sel_t_m1 <= up_drp_sel_t;
+      drp_sel_t_m2 <= drp_sel_t_m1;
+      drp_sel_t_m3 <= drp_sel_t_m2;
     end
-    if ((drp_sel_m2 == 1'b1) && (drp_sel_m3 == 1'b0)) begin
+    if (drp_sel_t_s == 1'b1) begin
       drp_sel <= 1'b1;
       drp_wr <= ~up_drp_rwn;
       drp_addr <= up_drp_addr;
@@ -242,14 +245,14 @@ module up_clkgen (
   // drp status transfer
 
   assign up_drp_ack_t_s = up_drp_ack_t_m3 ^ up_drp_ack_t_m2;
-  assign up_drp_sel_s = up_drp_sel & ~up_drp_sel_d;
+  assign up_drp_sel_t_s = up_drp_sel_t ^ up_drp_sel_t_d;
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_drp_ack_t_m1 <= 'd0;
       up_drp_ack_t_m2 <= 'd0;
       up_drp_ack_t_m3 <= 'd0;
-      up_drp_sel_d <= 'd0;
+      up_drp_sel_t_d <= 'd0;
       up_drp_status <= 'd0;
       up_drp_rdata <= 'd0;
       up_drp_locked_m1 <= 'd0;
@@ -258,10 +261,10 @@ module up_clkgen (
       up_drp_ack_t_m1 <= drp_ack_t;
       up_drp_ack_t_m2 <= up_drp_ack_t_m1;
       up_drp_ack_t_m3 <= up_drp_ack_t_m2;
-      up_drp_sel_d <= up_drp_sel;
+      up_drp_sel_t_d <= up_drp_sel_t;
       if (up_drp_ack_t_s == 1'b1) begin
         up_drp_status <= 1'b0;
-      end else if (up_drp_sel_s == 1'b1) begin
+      end else if (up_drp_sel_t_s == 1'b1) begin
         up_drp_status <= 1'b1;
       end
       if (up_drp_ack_t_s == 1'b1) begin

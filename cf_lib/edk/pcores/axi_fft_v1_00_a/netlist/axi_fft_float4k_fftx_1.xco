@@ -16,6 +16,10 @@
 #
 ##############################################################
 #
+
+NEWPROJECT .
+SETPROJECT .
+
 # BEGIN Project Options
 SET addpads = false
 SET asysymbol = true

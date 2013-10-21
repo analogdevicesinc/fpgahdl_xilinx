@@ -70,12 +70,15 @@ module axi_ad9361_rx_pnmon (
 
   reg     [15:0]  adc_data = 'd0;
   reg     [15:0]  adc_pn_data = 'd0;
+  reg             adc_valid_d = 'd0;
+  reg             adc_iq_match = 'd0;
+  reg             adc_pn_match_d = 'd0;
+  reg             adc_pn_match_z = 'd0;
+  reg             adc_pn_err = 'd0;
   reg     [ 6:0]  adc_pn_oos_count = 'd0;
   reg             adc_pn_oos = 'd0;
-  reg     [ 4:0]  adc_pn_err_count = 'd0;
-  reg             adc_pn_err = 'd0;
 
-  // inernal signals
+  // internal signals
 
   wire    [11:0]  adc_data_q_rev_s;
   wire    [15:0]  adc_data_s;
@@ -139,7 +142,7 @@ module axi_ad9361_rx_pnmon (
   assign adc_pn_data_s = (adc_pn_oos == 1'b1) ? adc_data_s : adc_pn_data;
   assign adc_pn_match_d_s = (adc_data_s == adc_pn_data) ? 1'b1 : 1'b0;
   assign adc_pn_match_z_s = (adc_data_s == adc_data) ? 1'b0 : 1'b1;
-  assign adc_pn_match_s = adc_pn_match_d_s & adc_pn_match_z_s & adc_iq_match_s;
+  assign adc_pn_match_s = adc_iq_match & adc_pn_match_d & adc_pn_match_z;
   assign adc_pn_update_s = ~(adc_pn_oos ^ adc_pn_match_s);
   assign adc_pn_err_s = ~(adc_pn_oos | adc_pn_match_s);
 
@@ -149,6 +152,13 @@ module axi_ad9361_rx_pnmon (
     if (adc_valid == 1'b1) begin
       adc_data <= adc_data_s;
       adc_pn_data <= pnfn(adc_pn_data_s);
+    end
+    adc_valid_d <= adc_valid;
+    adc_iq_match <= adc_iq_match_s;
+    adc_pn_match_d <= adc_pn_match_d_s;
+    adc_pn_match_z <= adc_pn_match_z_s;
+    if (adc_valid_d == 1'b1) begin
+      adc_pn_err <= adc_pn_err_s;
       if (adc_pn_update_s == 1'b1) begin
         if (adc_pn_oos_count >= 16) begin
           adc_pn_oos_count <= 'd0;
@@ -162,19 +172,6 @@ module axi_ad9361_rx_pnmon (
         adc_pn_oos <= adc_pn_oos;
       end
     end
-  end
-
-  // error state is streched to multiple adc clocks for the processor
-    
-  always @(posedge adc_clk) begin
-    if (adc_valid == 1'b1) begin
-      if (adc_pn_err_s == 1'b1) begin
-        adc_pn_err_count <= 5'h10;
-      end else if (adc_pn_err_count[4] == 1'b1) begin
-        adc_pn_err_count <= adc_pn_err_count + 1'b1;
-      end
-    end
-    adc_pn_err <= adc_pn_err_count[4];
   end
 
 endmodule
