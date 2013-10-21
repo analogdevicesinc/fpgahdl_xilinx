@@ -1,0 +1,158 @@
+
+NET hdmi_out_clk      LOC = W18  | IOSTANDARD = "LVCMOS33";
+NET hdmi_vsync        LOC = W17  | IOSTANDARD = "LVCMOS33";
+NET hdmi_hsync        LOC = V17  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data_e       LOC = U16  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[0]      LOC = Y13  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[1]      LOC = AA13 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[2]      LOC = AA14 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[3]      LOC = Y14  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[4]      LOC = AB15 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[5]      LOC = AB16 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[6]      LOC = AA16 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[7]      LOC = AB17 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[8]      LOC = AA17 | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[9]      LOC = Y15  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[10]     LOC = W13  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[11]     LOC = W15  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[12]     LOC = V15  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[13]     LOC = U17  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[14]     LOC = V14  | IOSTANDARD = "LVCMOS33";
+NET hdmi_data[15]     LOC = V13  | IOSTANDARD = "LVCMOS33";
+NET hdmi_spdif        LOC = U15  | IOSTANDARD = "LVCMOS33";
+NET hdmi_int          LOC = W16  | IOSTANDARD = "LVCMOS33";
+
+NET util_i2c_mixer_0_downstream_scl_pin[0] LOC = AA18 | IOSTANDARD="LVCMOS33";
+NET util_i2c_mixer_0_downstream_sda_pin[0] LOC = Y16  | IOSTANDARD="LVCMOS33";
+NET util_i2c_mixer_0_downstream_scl_pin[1] LOC = "AB4" | IOSTANDARD = "LVCMOS33"; # AC-SCK
+NET util_i2c_mixer_0_downstream_sda_pin[1] LOC = "AB5" | IOSTANDARD = "LVCMOS33"; # AC-SDA
+
+NET axi_i2s_adi_0_BCLK_O_pin LOC = "AA6" | IOSTANDARD = "LVCMOS33"; # AC-GPIO2
+NET axi_i2s_adi_0_LRCLK_O_pin LOC = "Y6" | IOSTANDARD = "LVCMOS33"; # AC-GPIO3
+NET axi_i2s_adi_0_SDATA_I_pin LOC = "AA7" | IOSTANDARD = "LVCMOS33"; # AC-GPIO1 AA7
+NET axi_i2s_adi_0_SDATA_O_pin LOC = "Y8" | IOSTANDARD = "LVCMOS33"; # AC-GPIO0 Y8
+NET axi_i2s_adi_0_MCLK_pin LOC = "AB2" | IOSTANDARD = "LVCMOS33"; # AC-MCLK
+
+#NET otg_reset         LOC = G17  | IOSTANDARD = "LVCMOS25";
+NET otg_vbusoc        LOC = L16  | IOSTANDARD = "LVCMOS25";
+
+NET ps7_gpio[0]       LOC = P16  | IOSTANDARD = "LVCMOS25";  # "BTNC"
+NET ps7_gpio[1]       LOC = R16  | IOSTANDARD = "LVCMOS25";  # "BTND"
+NET ps7_gpio[2]       LOC = N15  | IOSTANDARD = "LVCMOS25";  # "BTNL"
+NET ps7_gpio[3]       LOC = R18  | IOSTANDARD = "LVCMOS25";  # "BTNR"
+NET ps7_gpio[4]       LOC = T18  | IOSTANDARD = "LVCMOS25";  # "BTNU"
+NET ps7_gpio[5]       LOC = U10  | IOSTANDARD = "LVCMOS33";  # "OLED-DC"
+NET ps7_gpio[6]       LOC = U9   | IOSTANDARD = "LVCMOS33";  # "OLED-RES"
+NET ps7_gpio[7]       LOC = AB12 | IOSTANDARD = "LVCMOS33";  # "OLED-SCLK"
+NET ps7_gpio[8]       LOC = AA12 | IOSTANDARD = "LVCMOS33";  # "OLED-SDIN"
+NET ps7_gpio[9]       LOC = U11  | IOSTANDARD = "LVCMOS33";  # "OLED-VBAT"
+NET ps7_gpio[10]      LOC = U12  | IOSTANDARD = "LVCMOS33";  # "OLED-VDD"
+
+NET ps7_gpio[11]      LOC = F22  | IOSTANDARD = "LVCMOS25";  # "SW0"
+NET ps7_gpio[12]      LOC = G22  | IOSTANDARD = "LVCMOS25";  # "SW1"
+NET ps7_gpio[13]      LOC = H22  | IOSTANDARD = "LVCMOS25";  # "SW2"
+NET ps7_gpio[14]      LOC = F21  | IOSTANDARD = "LVCMOS25";  # "SW3"
+NET ps7_gpio[15]      LOC = H19  | IOSTANDARD = "LVCMOS25";  # "SW4"
+NET ps7_gpio[16]      LOC = H18  | IOSTANDARD = "LVCMOS25";  # "SW5"
+NET ps7_gpio[17]      LOC = H17  | IOSTANDARD = "LVCMOS25";  # "SW6"
+NET ps7_gpio[18]      LOC = M15  | IOSTANDARD = "LVCMOS25";  # "SW7"
+
+NET ps7_gpio[19]      LOC = T22  | IOSTANDARD = "LVCMOS33";  # "LD0"
+NET ps7_gpio[20]      LOC = T21  | IOSTANDARD = "LVCMOS33";  # "LD1"
+NET ps7_gpio[21]      LOC = U22  | IOSTANDARD = "LVCMOS33";  # "LD2"
+NET ps7_gpio[22]      LOC = U21  | IOSTANDARD = "LVCMOS33";  # "LD3"
+NET ps7_gpio[23]      LOC = V22  | IOSTANDARD = "LVCMOS33";  # "LD4"
+NET ps7_gpio[24]      LOC = W22  | IOSTANDARD = "LVCMOS33";  # "LD5"
+NET ps7_gpio[25]      LOC = U19  | IOSTANDARD = "LVCMOS33";  # "LD6"
+NET ps7_gpio[26]      LOC = U14  | IOSTANDARD = "LVCMOS33";  # "LD7"
+
+NET ps7_gpio[27]      LOC = H15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO0"
+NET ps7_gpio[28]      LOC = R15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO1"
+NET ps7_gpio[29]      LOC = K15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO2"
+NET ps7_gpio[30]      LOC = J15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO3"
+
+NET ps7_gpio[31]      LOC = G17  | IOSTANDARD="LVCMOS25";  # "OTG-RESETN"
+
+NET rx_clk_in_p       LOC = M19 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G6   FMC_LPC_LA00_CC_P
+NET rx_clk_in_n       LOC = M20 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G7   FMC_LPC_LA00_CC_N
+NET rx_frame_in_p     LOC = N19 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D8   FMC_LPC_LA01_CC_P
+NET rx_frame_in_n     LOC = N20 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D9   FMC_LPC_LA01_CC_N
+NET rx_data_in_p[0]   LOC = P17 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H7   FMC_LPC_LA02_P
+NET rx_data_in_n[0]   LOC = P18 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H8   FMC_LPC_LA02_N
+NET rx_data_in_p[1]   LOC = N22 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G9   FMC_LPC_LA03_P
+NET rx_data_in_n[1]   LOC = P22 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G10  FMC_LPC_LA03_N
+NET rx_data_in_p[2]   LOC = M21 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H10  FMC_LPC_LA04_P
+NET rx_data_in_n[2]   LOC = M22 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H11  FMC_LPC_LA04_N
+NET rx_data_in_p[3]   LOC = J18 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D11  FMC_LPC_LA05_P
+NET rx_data_in_n[3]   LOC = K18 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D12  FMC_LPC_LA05_N
+NET rx_data_in_p[4]   LOC = L21 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## C10  FMC_LPC_LA06_P
+NET rx_data_in_n[4]   LOC = L22 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## C11  FMC_LPC_LA06_N
+NET rx_data_in_p[5]   LOC = T16 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H13  FMC_LPC_LA07_P
+NET rx_data_in_n[5]   LOC = T17 | IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H14  FMC_LPC_LA07_N
+NET tx_clk_out_p      LOC = J21 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G12  FMC_LPC_LA08_P
+NET tx_clk_out_n      LOC = J22 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G13  FMC_LPC_LA08_N
+NET tx_frame_out_p    LOC = R20 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D14  FMC_LPC_LA09_P
+NET tx_frame_out_n    LOC = R21 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D15  FMC_LPC_LA09_N
+NET tx_data_out_p[0]  LOC = N17 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H16  FMC_LPC_LA11_P
+NET tx_data_out_n[0]  LOC = N18 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H17  FMC_LPC_LA11_N
+NET tx_data_out_p[1]  LOC = P20 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G15  FMC_LPC_LA12_P
+NET tx_data_out_n[1]  LOC = P21 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G16  FMC_LPC_LA12_N
+NET tx_data_out_p[2]  LOC = L17 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D17  FMC_LPC_LA13_P
+NET tx_data_out_n[2]  LOC = M17 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D18  FMC_LPC_LA13_N
+NET tx_data_out_p[3]  LOC = R19 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C14  FMC_LPC_LA10_P
+NET tx_data_out_n[3]  LOC = T19 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C15  FMC_LPC_LA10_N
+NET tx_data_out_p[4]  LOC = K19 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C18  FMC_LPC_LA14_P
+NET tx_data_out_n[4]  LOC = K20 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C19  FMC_LPC_LA14_N
+NET tx_data_out_p[5]  LOC = J16 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H19  FMC_LPC_LA15_P
+NET tx_data_out_n[5]  LOC = J17 | IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H20  FMC_LPC_LA15_N
+#NET enable            LOC = J20 | IOSTANDARD = LVCMOS25 | SLEW = FAST;      ## G18  FMC_LPC_LA16_P
+#NET txnrx             LOC = K21 | IOSTANDARD = LVCMOS25 | SLEW = FAST;      ## G19  FMC_LPC_LA16_N
+
+NET spi_csn           LOC = F18 | IOSTANDARD = LVCMOS25 | PULLUP;           ## D26  FMC_LPC_LA26_P
+NET spi_clk           LOC = E18 | IOSTANDARD = LVCMOS25;                    ## D27  FMC_LPC_LA26_N
+NET spi_mosi          LOC = E21 | IOSTANDARD = LVCMOS25;                    ## C26  FMC_LPC_LA27_P
+NET spi_miso          LOC = D21 | IOSTANDARD = LVCMOS25;                    ## C27  FMC_LPC_LA27_N
+
+NET ps7_gpio[32]      LOC = G20 | IOSTANDARD = LVCMOS25;                    ## G21  FMC_LPC_LA20_P
+NET ps7_gpio[33]      LOC = G21 | IOSTANDARD = LVCMOS25;                    ## G22  FMC_LPC_LA20_N
+NET ps7_gpio[34]      LOC = E19 | IOSTANDARD = LVCMOS25;                    ## H25  FMC_LPC_LA21_P
+NET ps7_gpio[35]      LOC = E20 | IOSTANDARD = LVCMOS25;                    ## H26  FMC_LPC_LA21_N
+NET ps7_gpio[36]      LOC = G19 | IOSTANDARD = LVCMOS25;                    ## G24  FMC_LPC_LA22_P
+NET ps7_gpio[37]      LOC = F19 | IOSTANDARD = LVCMOS25;                    ## G25  FMC_LPC_LA22_N
+NET ps7_gpio[38]      LOC = E15 | IOSTANDARD = LVCMOS25;                    ## D23  FMC_LPC_LA23_P
+NET ps7_gpio[39]      LOC = D15 | IOSTANDARD = LVCMOS25;                    ## D24  FMC_LPC_LA23_N
+
+NET ps7_gpio[40]      LOC = A18 | IOSTANDARD = LVCMOS25;                    ## H28  FMC_LPC_LA24_P
+NET ps7_gpio[41]      LOC = A19 | IOSTANDARD = LVCMOS25;                    ## H29  FMC_LPC_LA24_N
+NET ps7_gpio[42]      LOC = D22 | IOSTANDARD = LVCMOS25;                    ## G27  FMC_LPC_LA25_P
+NET ps7_gpio[43]      LOC = C22 | IOSTANDARD = LVCMOS25;                    ## G28  FMC_LPC_LA25_N
+NET ps7_gpio[44]      LOC = G15 | IOSTANDARD = LVCMOS25; ## EN_AGC          ## H22  FMC_LPC_LA19_P
+NET ps7_gpio[45]      LOC = G16 | IOSTANDARD = LVCMOS25; ## SYNC_IN         ## H23  FMC_LPC_LA19_N
+
+NET ps7_gpio[46]      LOC = A16 | IOSTANDARD = LVCMOS25; ## RESETB          ## H31  FMC_LPC_LA28_P       A16   IO_L9P_T1_DQS_AD3P_35     1   35   NA   NA   HR   NA
+NET ps7_gpio[47]      LOC = J20 | IOSTANDARD = LVCMOS25 | SLEW = FAST;      ## G18  FMC_LPC_LA16_P (AD9361 enable)
+NET ps7_gpio[48]      LOC = K21 | IOSTANDARD = LVCMOS25 | SLEW = FAST;      ## G19  FMC_LPC_LA16_N (AD9361 txnrx)
+
+NET fmc_scl           LOC = R7  | IOSTANDARD="LVCMOS33";
+NET fmc_sda           LOC = U7  | IOSTANDARD="LVCMOS33";
+
+NET "processing_system7_0_FCLK_CLK0" TNM_NET = "ps7_fclk_clk0";
+TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
+
+NET "processing_system7_0_FCLK_CLK1" TNM_NET = "ps7_fclk_clk1";
+TIMESPEC TS_ps7_fclk_clk1 = PERIOD "ps7_fclk_clk1" 200 MHz;
+
+NET "processing_system7_0_FCLK_CLK2" TNM_NET = "ps7_fclk_clk2";
+TIMESPEC TS_ps7_fclk_clk2 = PERIOD "ps7_fclk_clk2" 125 MHz;
+
+NET "rx_clk_in_p" TNM_NET = "rx_clk_in_p";
+TIMESPEC "TS_rx_clk_in_p" = PERIOD "rx_clk_in_p" 250 MHz;
+NET "rx_clk_in_n" TNM_NET = "rx_clk_in_n";
+TIMESPEC "TS_rx_clk_in_n" = PERIOD "rx_clk_in_n" 250 MHz;
+
+OFFSET = IN BEFORE "rx_clk_in_p" RISING;
+OFFSET = IN BEFORE "rx_clk_in_p" FALLING;
+
+OFFSET = OUT AFTER "rx_clk_in_p" REFERENCE_PIN "tx_clk_out_p" RISING;
+OFFSET = OUT AFTER "rx_clk_in_p" REFERENCE_PIN "tx_clk_out_p" FALLING;
+

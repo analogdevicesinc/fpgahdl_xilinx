@@ -80,8 +80,8 @@ NET tx_data_out_p[4]  LOC = AF18 | IOSTANDARD = LVDS_25 | SLEW = FAST;      ## C
 NET tx_data_out_n[4]  LOC = AF17 | IOSTANDARD = LVDS_25 | SLEW = FAST;      ## C19  FMC_LPC_LA14_N          AF17   IO_L15N_T2_DQS_10    2   10   NA   NA   HR   NA   
 NET tx_data_out_p[5]  LOC = AB15 | IOSTANDARD = LVDS_25 | SLEW = FAST;      ## H19  FMC_LPC_LA15_P          AB15   IO_L22P_T3_10        3   10   NA   NA   HR   NA   
 NET tx_data_out_n[5]  LOC = AB14 | IOSTANDARD = LVDS_25 | SLEW = FAST;      ## H20  FMC_LPC_LA15_N          AB14   IO_L22N_T3_10        3   10   NA   NA   HR   NA   
-NET enable            LOC = AE18 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G18  FMC_LPC_LA16_P          AE18   IO_L17P_T2_10        2   10   NA   NA   HR   NA   
-NET txnrx             LOC = AE17 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G19  FMC_LPC_LA16_N          AE17   IO_L17N_T2_10        2   10   NA   NA   HR   NA   
+#NET enable            LOC = AE18 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G18  FMC_LPC_LA16_P          AE18   IO_L17P_T2_10        2   10   NA   NA   HR   NA   
+#NET txnrx             LOC = AE17 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G19  FMC_LPC_LA16_N          AE17   IO_L17N_T2_10        2   10   NA   NA   HR   NA   
 
 NET spi_csn           LOC = AJ30 | IOSTANDARD = LVCMOS25;                   ## D26  FMC_LPC_LA26_P          AJ30   IO_L20P_T3_12        3   12   NA   NA   HR   NA   
 NET spi_clk           LOC = AK30 | IOSTANDARD = LVCMOS25;                   ## D27  FMC_LPC_LA26_N          AK30   IO_L20N_T3_12        3   12   NA   NA   HR   NA   
@@ -103,6 +103,10 @@ NET ps7_gpio[25]        LOC = AF29 | IOSTANDARD = LVCMOS25;                 ## G
 NET ps7_gpio[26]        LOC = AG29 | IOSTANDARD = LVCMOS25;                 ## G28  FMC_LPC_LA25_N          AG29   IO_L15N_T2_DQS_12    2   12   NA   NA   HR   NA   
 NET ps7_gpio[27]        LOC = AH26 | IOSTANDARD = LVCMOS25; ## EN_AGC       ## H22  FMC_LPC_LA19_P          AH26   IO_L23P_T3_12        3   12   NA   NA   HR   NA   
 NET ps7_gpio[28]        LOC = AH27 | IOSTANDARD = LVCMOS25; ## SYNC_IN      ## H23  FMC_LPC_LA19_N          AH27   IO_L23N_T3_12        3   12   NA   NA   HR   NA   
+
+NET ps7_gpio[29]        LOC = AD25 | IOSTANDARD = LVCMOS25; ## RESETB       ## H31  FMC_LPC_LA28_P          AD25   IO_L10P_T1_12        1   12   NA   NA   HR   NA   
+NET ps7_gpio[30]        LOC = AE18 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G18  FMC_LPC_LA16_P          AE18   IO_L17P_T2_10        2   10   NA   NA   HR   NA   enable
+NET ps7_gpio[31]        LOC = AE17 | IOSTANDARD = LVCMOS25 | SLEW = FAST;     ## G19  FMC_LPC_LA16_N          AE17   IO_L17N_T2_10        2   10   NA   NA   HR   NA   txnrx
 
 NET "processing_system7_0_FCLK_CLK0" TNM_NET = "ps7_fclk_clk0";
 TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
