@@ -23,7 +23,7 @@
  PORT processing_system7_0_DDR_DQS_n = processing_system7_0_DDR_DQS_n, DIR = IO, VEC = [3:0]
  PORT processing_system7_0_DDR_VRN = processing_system7_0_DDR_VRN, DIR = IO
  PORT processing_system7_0_DDR_VRP = processing_system7_0_DDR_VRP, DIR = IO
- PORT hdmi_out_clk = axi_hdmi_tx_0_hdmi_out_clk, DIR = O
+ PORT hdmi_out_clk = axi_hdmi_tx_0_hdmi_out_clk, DIR = O, SIGIS = CLK
  PORT hdmi_data = axi_hdmi_tx_0_hdmi_data, DIR = O, VEC = [15:0]
  PORT hdmi_hsync = axi_hdmi_tx_0_hdmi_hsync, DIR = O
  PORT hdmi_vsync = axi_hdmi_tx_0_hdmi_vsync, DIR = O

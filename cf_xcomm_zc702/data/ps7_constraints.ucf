@@ -71,7 +71,7 @@ NET "MIO[5]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "A3" 
 NET "MIO[4]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "E4" ; #  Quad SPI Flash / qspi0_io[2] / MIO[4]
 NET "MIO[3]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "F6" ; #  Quad SPI Flash / qspi0_io[1] / MIO[3]
 NET "MIO[2]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "A2" ; #  Quad SPI Flash / qspi0_io[0] / MIO[2]
-NET "MIO[1]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "A1" ; #  Quad SPI Flash / qspi0_ss_b / MIO[1]
+NET "MIO[1]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "A1" ; #  Quad SPI Flash / qspi0_ss_b / MIO[1]
 NET "MIO[0]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "G6" ; #  SD 0 / cd / MIO[0]
 NET "DDR_WEB"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "R4" ; 
 NET "DDR_VRP"   IOSTANDARD = SSTL15_T_DCI | SLEW = "FAST" | LOC = "N7" ; 
