@@ -33,7 +33,6 @@ NET axi_i2s_adi_0_SDATA_I_pin LOC = "AA7" | IOSTANDARD = "LVCMOS33"; # AC-GPIO1 
 NET axi_i2s_adi_0_SDATA_O_pin LOC = "Y8" | IOSTANDARD = "LVCMOS33"; # AC-GPIO0 Y8
 NET axi_i2s_adi_0_MCLK_pin LOC = "AB2" | IOSTANDARD = "LVCMOS33"; # AC-MCLK
 
-NET otg_reset		LOC = G17  | IOSTANDARD = "LVCMOS25";
 NET otg_vbusoc		LOC = L16  | IOSTANDARD = "LVCMOS25";
 
 #NET pmod_ja1		LOC = Y11  | IOSTANDARD = "LVCMOS33";
@@ -96,6 +95,8 @@ NET processing_system7_0_GPIO_pin[27]	LOC = H15  | IOSTANDARD = "LVCMOS25";  # "
 NET processing_system7_0_GPIO_pin[28]	LOC = R15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO1"
 NET processing_system7_0_GPIO_pin[29]	LOC = K15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO2"
 NET processing_system7_0_GPIO_pin[30]	LOC = J15  | IOSTANDARD = "LVCMOS25";  # "XADC-GIO3"
+
+NET processing_system7_0_GPIO_pin[31]	LOC = G17  | IOSTANDARD = "LVCMOS25";  # "OTG-RESET"
 
 NET ref_clk_out_p       LOC = B19  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";
 NET ref_clk_out_n       LOC = B20  | IOSTANDARD = "LVDS_25" | SLEW = "FAST";

@@ -23,14 +23,13 @@
  PORT processing_system7_0_DDR_DQS_n = processing_system7_0_DDR_DQS_n, DIR = IO, VEC = [3:0]
  PORT processing_system7_0_DDR_VRN = processing_system7_0_DDR_VRN, DIR = IO
  PORT processing_system7_0_DDR_VRP = processing_system7_0_DDR_VRP, DIR = IO
- PORT hdmi_out_clk = axi_hdmi_tx_0_hdmi_out_clk, DIR = O
+ PORT hdmi_out_clk = axi_hdmi_tx_0_hdmi_out_clk, DIR = O, SIGIS = CLK
  PORT hdmi_data = axi_hdmi_tx_0_hdmi_data, DIR = O, VEC = [15:0]
  PORT hdmi_hsync = axi_hdmi_tx_0_hdmi_hsync, DIR = O
  PORT hdmi_vsync = axi_hdmi_tx_0_hdmi_vsync, DIR = O
  PORT hdmi_data_e = axi_hdmi_tx_0_hdmi_data_e, DIR = O
  PORT hdmi_spdif = axi_spdif_tx_0_spdif_tx_o, DIR = O
  PORT hdmi_int = hdmi_int, DIR = I, SIGIS = INTERRUPT
- PORT otg_reset = net_vcc, DIR = O
  PORT otg_vbusoc = net_otg_oc, DIR = I
  PORT util_i2c_mixer_0_downstream_scl_pin = util_i2c_mixer_0_downstream_scl, DIR = IO, VEC = [2:0]
  PORT util_i2c_mixer_0_downstream_sda_pin = util_i2c_mixer_0_downstream_sda, DIR = IO, VEC = [2:0]
@@ -69,7 +68,7 @@
  PORT int_2_pin = int_2, DIR = I, SIGIS = INTERRUPT
  PORT int_3_pin = int_3, DIR = I, SIGIS = INTERRUPT
  PORT int_4_pin = int_4, DIR = I, SIGIS = INTERRUPT
- PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO, DIR = IO, VEC = [30:0]
+ PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO, DIR = IO, VEC = [31:0]
  PORT xcomm_iic_scl = axi_iic_1_Scl, DIR = IO
  PORT xcomm_iic_sda = axi_iic_1_Sda, DIR = IO
 
@@ -151,7 +150,7 @@ BEGIN processing_system7
  PARAMETER C_USE_DMA1 = 1
  PARAMETER C_USE_DMA2 = 1
  PARAMETER C_EN_EMIO_GPIO = 1
- PARAMETER C_EMIO_GPIO_WIDTH = 31
+ PARAMETER C_EMIO_GPIO_WIDTH = 32
  BUS_INTERFACE M_AXI_GP0 = axi_interconnect_0
  BUS_INTERFACE S_AXI_HP0 = axi_interconnect_1
  BUS_INTERFACE S_AXI_HP2 = axi_interconnect_3
@@ -258,6 +257,8 @@ BEGIN axi_vdma
  PARAMETER C_MM2S_LINEBUFFER_THRESH = 8
  PARAMETER C_BASEADDR = 0x43020000
  PARAMETER C_HIGHADDR = 0x4302ffff
+ PARAMETER C_NUM_FSTORES = 1
+ PARAMETER C_MM2S_SOF_ENABLE = 0
  BUS_INTERFACE S_AXI_LITE = axi_interconnect_0
  BUS_INTERFACE M_AXI_MM2S = axi_interconnect_1
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
@@ -433,6 +434,7 @@ BEGIN axi_vdma
  PARAMETER C_MM2S_GENLOCK_MODE = 0
  PARAMETER C_BASEADDR = 0x43000000
  PARAMETER C_HIGHADDR = 0x4300ffff
+ PARAMETER C_NUM_FSTORES = 1
  BUS_INTERFACE S_AXI_LITE = axi_interconnect_0
  BUS_INTERFACE M_AXI_MM2S = axi_interconnect_3
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_1_M_AXIS_MM2S

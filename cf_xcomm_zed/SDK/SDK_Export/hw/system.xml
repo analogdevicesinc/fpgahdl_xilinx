@@ -1,7 +1,7 @@
 
-<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Fri Aug 23 13:36:31 2013">
+<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Tue Oct 22 12:09:07 2013">
 
-  <SYSTEMINFO ARCH="zynq" DEVICE="xc7z020" PACKAGE="clg484" PART="xc7z020clg484-1" SOURCE="C:/corefpga/xilinx/cf_xcomm_zed/system.xmp" SPEEDGRADE="-1"/>
+  <SYSTEMINFO ARCH="zynq" DEVICE="xc7z020" PACKAGE="clg484" PART="xc7z020clg484-1" SOURCE="D:/ADI/SVN/corefpga/xilinx/cf_xcomm_zed/system.xmp" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
     <PORT DIR="IO" ENDIAN="LITTLE" LEFT="53" LSB="0" MHS_INDEX="0" MSB="53" NAME="processing_system7_0_MIO" RIGHT="0" SIGNAME="processing_system7_0_MIO">
@@ -67,7 +67,7 @@
     <PORT DIR="IO" MHS_INDEX="20" NAME="processing_system7_0_DDR_VRP" SIGNAME="processing_system7_0_DDR_VRP">
       <CONNECTIONS/>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="21" NAME="hdmi_out_clk" SIGNAME="axi_hdmi_tx_0_hdmi_out_clk">
+    <PORT DIR="O" MHS_INDEX="21" NAME="hdmi_out_clk" SIGIS="CLK" SIGNAME="axi_hdmi_tx_0_hdmi_out_clk">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_hdmi_tx_0" PORT="hdmi_out_clk"/>
       </CONNECTIONS>
@@ -100,206 +100,201 @@
     <PORT DIR="I" MHS_INDEX="27" NAME="hdmi_int" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="hdmi_int">
       <CONNECTIONS/>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="28" NAME="otg_reset" SIGNAME="net_vcc">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="net_vcc"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="I" MHS_INDEX="29" NAME="otg_vbusoc" SIGNAME="net_otg_oc">
+    <PORT DIR="I" MHS_INDEX="28" NAME="otg_vbusoc" SIGNAME="net_otg_oc">
       <CONNECTIONS>
         <CONNECTION INSTANCE="util_vector_logic_0" PORT="Op1"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="2" LSB="0" MHS_INDEX="30" MSB="2" NAME="util_i2c_mixer_0_downstream_scl_pin" RIGHT="0" SIGNAME="util_i2c_mixer_0_downstream_scl">
+    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="2" LSB="0" MHS_INDEX="29" MSB="2" NAME="util_i2c_mixer_0_downstream_scl_pin" RIGHT="0" SIGNAME="util_i2c_mixer_0_downstream_scl">
       <CONNECTIONS>
         <CONNECTION INSTANCE="util_i2c_mixer_0" PORT="downstream_scl"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="2" LSB="0" MHS_INDEX="31" MSB="2" NAME="util_i2c_mixer_0_downstream_sda_pin" RIGHT="0" SIGNAME="util_i2c_mixer_0_downstream_sda">
+    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="2" LSB="0" MHS_INDEX="30" MSB="2" NAME="util_i2c_mixer_0_downstream_sda_pin" RIGHT="0" SIGNAME="util_i2c_mixer_0_downstream_sda">
       <CONNECTIONS>
         <CONNECTION INSTANCE="util_i2c_mixer_0" PORT="downstream_sda"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="32" NAME="ref_clk_out_p" SIGNAME="util_outclk_lvds_0_clk_out_p">
+    <PORT DIR="O" MHS_INDEX="31" NAME="ref_clk_out_p" SIGNAME="util_outclk_lvds_0_clk_out_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="util_outclk_lvds_0" PORT="clk_out_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="33" NAME="ref_clk_out_n" SIGNAME="util_outclk_lvds_0_clk_out_n">
+    <PORT DIR="O" MHS_INDEX="32" NAME="ref_clk_out_n" SIGNAME="util_outclk_lvds_0_clk_out_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="util_outclk_lvds_0" PORT="clk_out_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="34" NAME="dac_clk_in_p" SIGNAME="axi_ad9122_0_dac_clk_in_p">
+    <PORT DIR="I" MHS_INDEX="33" NAME="dac_clk_in_p" SIGNAME="axi_ad9122_0_dac_clk_in_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_clk_in_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="35" NAME="dac_clk_in_n" SIGNAME="axi_ad9122_0_dac_clk_in_n">
+    <PORT DIR="I" MHS_INDEX="34" NAME="dac_clk_in_n" SIGNAME="axi_ad9122_0_dac_clk_in_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_clk_in_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="36" NAME="dac_clk_out_p" SIGNAME="axi_ad9122_0_dac_clk_out_p">
+    <PORT DIR="O" MHS_INDEX="35" NAME="dac_clk_out_p" SIGNAME="axi_ad9122_0_dac_clk_out_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_clk_out_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="37" NAME="dac_clk_out_n" SIGNAME="axi_ad9122_0_dac_clk_out_n">
+    <PORT DIR="O" MHS_INDEX="36" NAME="dac_clk_out_n" SIGNAME="axi_ad9122_0_dac_clk_out_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_clk_out_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="38" NAME="dac_frame_out_p" SIGNAME="axi_ad9122_0_dac_frame_out_p">
+    <PORT DIR="O" MHS_INDEX="37" NAME="dac_frame_out_p" SIGNAME="axi_ad9122_0_dac_frame_out_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_frame_out_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="39" NAME="dac_frame_out_n" SIGNAME="axi_ad9122_0_dac_frame_out_n">
+    <PORT DIR="O" MHS_INDEX="38" NAME="dac_frame_out_n" SIGNAME="axi_ad9122_0_dac_frame_out_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_frame_out_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" ENDIAN="LITTLE" LEFT="15" LSB="0" MHS_INDEX="40" MSB="15" NAME="dac_data_out_p" RIGHT="0" SIGNAME="axi_ad9122_0_dac_data_out_p">
+    <PORT DIR="O" ENDIAN="LITTLE" LEFT="15" LSB="0" MHS_INDEX="39" MSB="15" NAME="dac_data_out_p" RIGHT="0" SIGNAME="axi_ad9122_0_dac_data_out_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_data_out_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" ENDIAN="LITTLE" LEFT="15" LSB="0" MHS_INDEX="41" MSB="15" NAME="dac_data_out_n" RIGHT="0" SIGNAME="axi_ad9122_0_dac_data_out_n">
+    <PORT DIR="O" ENDIAN="LITTLE" LEFT="15" LSB="0" MHS_INDEX="40" MSB="15" NAME="dac_data_out_n" RIGHT="0" SIGNAME="axi_ad9122_0_dac_data_out_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9122_0" PORT="dac_data_out_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="42" NAME="adc_clk_in_p" SIGNAME="axi_ad9643_0_adc_clk_in_p">
+    <PORT DIR="I" MHS_INDEX="41" NAME="adc_clk_in_p" SIGNAME="axi_ad9643_0_adc_clk_in_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_clk_in_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="43" NAME="adc_clk_in_n" SIGNAME="axi_ad9643_0_adc_clk_in_n">
+    <PORT DIR="I" MHS_INDEX="42" NAME="adc_clk_in_n" SIGNAME="axi_ad9643_0_adc_clk_in_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_clk_in_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" ENDIAN="LITTLE" LEFT="13" LSB="0" MHS_INDEX="44" MSB="13" NAME="adc_data_in_p" RIGHT="0" SIGNAME="axi_ad9643_0_adc_data_in_p">
+    <PORT DIR="I" ENDIAN="LITTLE" LEFT="13" LSB="0" MHS_INDEX="43" MSB="13" NAME="adc_data_in_p" RIGHT="0" SIGNAME="axi_ad9643_0_adc_data_in_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_data_in_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" ENDIAN="LITTLE" LEFT="13" LSB="0" MHS_INDEX="45" MSB="13" NAME="adc_data_in_n" RIGHT="0" SIGNAME="axi_ad9643_0_adc_data_in_n">
+    <PORT DIR="I" ENDIAN="LITTLE" LEFT="13" LSB="0" MHS_INDEX="44" MSB="13" NAME="adc_data_in_n" RIGHT="0" SIGNAME="axi_ad9643_0_adc_data_in_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_data_in_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="46" NAME="adc_or_in_p" SIGNAME="axi_ad9643_0_adc_or_in_p">
+    <PORT DIR="I" MHS_INDEX="45" NAME="adc_or_in_p" SIGNAME="axi_ad9643_0_adc_or_in_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_or_in_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="47" NAME="adc_or_in_n" SIGNAME="axi_ad9643_0_adc_or_in_n">
+    <PORT DIR="I" MHS_INDEX="46" NAME="adc_or_in_n" SIGNAME="axi_ad9643_0_adc_or_in_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="axi_ad9643_0" PORT="adc_or_in_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="48" NAME="axi_i2s_adi_0_BCLK_O_pin" SIGIS="CLK" SIGNAME="axi_i2s_adi_0_BCLK_O">
+    <PORT DIR="O" MHS_INDEX="47" NAME="axi_i2s_adi_0_BCLK_O_pin" SIGIS="CLK" SIGNAME="axi_i2s_adi_0_BCLK_O">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[I2S]" INSTANCE="axi_i2s_adi_0" PORT="BCLK_O"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="49" NAME="axi_i2s_adi_0_LRCLK_O_pin" SIGIS="CLK" SIGNAME="axi_i2s_adi_0_LRCLK_O">
+    <PORT DIR="O" MHS_INDEX="48" NAME="axi_i2s_adi_0_LRCLK_O_pin" SIGIS="CLK" SIGNAME="axi_i2s_adi_0_LRCLK_O">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[I2S]" INSTANCE="axi_i2s_adi_0" PORT="LRCLK_O"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="50" NAME="axi_i2s_adi_0_SDATA_I_pin" SIGNAME="axi_i2s_adi_0_SDATA_I">
+    <PORT DIR="I" MHS_INDEX="49" NAME="axi_i2s_adi_0_SDATA_I_pin" SIGNAME="axi_i2s_adi_0_SDATA_I">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[I2S]" INSTANCE="axi_i2s_adi_0" PORT="SDATA_I"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="51" NAME="axi_i2s_adi_0_SDATA_O_pin" SIGNAME="axi_i2s_adi_0_SDATA_O">
+    <PORT DIR="O" MHS_INDEX="50" NAME="axi_i2s_adi_0_SDATA_O_pin" SIGNAME="axi_i2s_adi_0_SDATA_O">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[I2S]" INSTANCE="axi_i2s_adi_0" PORT="SDATA_O"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" MHS_INDEX="52" NAME="axi_i2s_adi_0_MCLK_pin" SIGNAME="clock_generator_0_CLKOUT0">
+    <PORT DIR="O" MHS_INDEX="51" NAME="axi_i2s_adi_0_MCLK_pin" SIGNAME="clock_generator_0_CLKOUT0">
       <CONNECTIONS>
         <CONNECTION INSTANCE="clock_generator_0" PORT="CLKOUT0"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="53" NAME="axi_spi_0_SPISEL_pin" SIGNAME="axi_spi_0_SPISEL">
+    <PORT DIR="I" MHS_INDEX="52" NAME="axi_spi_0_SPISEL_pin" SIGNAME="axi_spi_0_SPISEL">
       <CONNECTIONS/>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="54" NAME="axi_spi_0_SCK_pin" SIGNAME="axi_spi_0_SCK">
+    <PORT DIR="IO" MHS_INDEX="53" NAME="axi_spi_0_SCK_pin" SIGNAME="axi_spi_0_SCK">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_0" PORT="SCK"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="55" NAME="axi_spi_0_MISO_pin" SIGNAME="axi_spi_0_MISO">
+    <PORT DIR="IO" MHS_INDEX="54" NAME="axi_spi_0_MISO_pin" SIGNAME="axi_spi_0_MISO">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_0" PORT="MISO"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="56" NAME="axi_spi_0_MOSI_pin" SIGNAME="axi_spi_0_MOSI">
+    <PORT DIR="IO" MHS_INDEX="55" NAME="axi_spi_0_MOSI_pin" SIGNAME="axi_spi_0_MOSI">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_0" PORT="MOSI"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="57" NAME="axi_spi_0_SS_pin" SIGNAME="axi_spi_0_SS">
+    <PORT DIR="IO" MHS_INDEX="56" NAME="axi_spi_0_SS_pin" SIGNAME="axi_spi_0_SS">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_0" PORT="SS"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="58" NAME="axi_spi_1_SPISEL_pin" SIGNAME="axi_spi_1_SPISEL">
+    <PORT DIR="I" MHS_INDEX="57" NAME="axi_spi_1_SPISEL_pin" SIGNAME="axi_spi_1_SPISEL">
       <CONNECTIONS/>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="59" NAME="axi_spi_1_SCK_pin" SIGNAME="axi_spi_1_SCK">
+    <PORT DIR="IO" MHS_INDEX="58" NAME="axi_spi_1_SCK_pin" SIGNAME="axi_spi_1_SCK">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_1" PORT="SCK"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="60" NAME="axi_spi_1_MISO_pin" SIGNAME="axi_spi_1_MISO">
+    <PORT DIR="IO" MHS_INDEX="59" NAME="axi_spi_1_MISO_pin" SIGNAME="axi_spi_1_MISO">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_1" PORT="MISO"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="61" NAME="axi_spi_1_MOSI_pin" SIGNAME="axi_spi_1_MOSI">
+    <PORT DIR="IO" MHS_INDEX="60" NAME="axi_spi_1_MOSI_pin" SIGNAME="axi_spi_1_MOSI">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_1" PORT="MOSI"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="62" NAME="axi_spi_1_SS_pin" SIGNAME="axi_spi_1_SS">
+    <PORT DIR="IO" MHS_INDEX="61" NAME="axi_spi_1_SS_pin" SIGNAME="axi_spi_1_SS">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[spi_0]" INSTANCE="axi_spi_1" PORT="SS"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="63" NAME="int_1_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_1">
+    <PORT DIR="I" MHS_INDEX="62" NAME="int_1_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_1">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ps7_scugic_0" PORT="IRQ_F2P"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="64" NAME="int_2_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_2">
+    <PORT DIR="I" MHS_INDEX="63" NAME="int_2_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_2">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ps7_scugic_0" PORT="IRQ_F2P"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="65" NAME="int_3_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_3">
+    <PORT DIR="I" MHS_INDEX="64" NAME="int_3_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_3">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ps7_scugic_0" PORT="IRQ_F2P"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" MHS_INDEX="66" NAME="int_4_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_4">
+    <PORT DIR="I" MHS_INDEX="65" NAME="int_4_pin" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT" SIGNAME="int_4">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ps7_scugic_0" PORT="IRQ_F2P"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="30" LSB="0" MHS_INDEX="67" MSB="30" NAME="processing_system7_0_GPIO_pin" RIGHT="0" SIGNAME="processing_system7_0_GPIO">
+    <PORT DIR="IO" ENDIAN="LITTLE" LEFT="31" LSB="0" MHS_INDEX="66" MSB="31" NAME="processing_system7_0_GPIO_pin" RIGHT="0" SIGNAME="processing_system7_0_GPIO">
       <CONNECTIONS/>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="68" NAME="xcomm_iic_scl" SIGNAME="axi_iic_1_Scl">
+    <PORT DIR="IO" MHS_INDEX="67" NAME="xcomm_iic_scl" SIGNAME="axi_iic_1_Scl">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[iic_0]" INSTANCE="axi_iic_1" PORT="Scl"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" MHS_INDEX="69" NAME="xcomm_iic_sda" SIGNAME="axi_iic_1_Sda">
+    <PORT DIR="IO" MHS_INDEX="68" NAME="xcomm_iic_sda" SIGNAME="axi_iic_1_Sda">
       <CONNECTIONS>
         <CONNECTION BUSINTERFACE="[iic_0]" INSTANCE="axi_iic_1" PORT="Sda"/>
       </CONNECTIONS>
@@ -1481,7 +1476,7 @@
         <PARAMETER ASSIGNMENT="CONSTANT" MPD_INDEX="5" NAME="C_M_AXI_SG_DATA_WIDTH" TYPE="INTEGER" VALUE="32">
           <DESCRIPTION>AXI SG Data Width</DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="6" NAME="C_NUM_FSTORES" TYPE="INTEGER" VALUE="3">
+        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="9" MPD_INDEX="6" NAME="C_NUM_FSTORES" TYPE="INTEGER" VALUE="1">
           <DESCRIPTION>Frame Stores</DESCRIPTION>
         </PARAMETER>
         <PARAMETER ASSIGNMENT="OPTIONAL" IS_INSTANTIATED="TRUE" MHS_INDEX="2" MPD_INDEX="7" NAME="C_USE_FSYNC" TYPE="INTEGER" VALUE="1">
@@ -1517,7 +1512,7 @@
         <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="17" NAME="C_INCLUDE_MM2S_SF" TYPE="INTEGER" VALUE="1">
           <DESCRIPTION>Enable Store And Forward</DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="18" NAME="C_MM2S_SOF_ENABLE" TYPE="INTEGER" VALUE="1">
+        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="10" MPD_INDEX="18" NAME="C_MM2S_SOF_ENABLE" TYPE="INTEGER" VALUE="0">
           <DESCRIPTION>Output Start-Of-Frame on tuser(0)</DESCRIPTION>
         </PARAMETER>
         <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="19" NAME="C_MM2S_MAX_BURST_LENGTH" TYPE="INTEGER" VALUE="16">
@@ -4337,7 +4332,7 @@
         <PARAMETER ASSIGNMENT="CONSTANT" MPD_INDEX="5" NAME="C_M_AXI_SG_DATA_WIDTH" TYPE="INTEGER" VALUE="32">
           <DESCRIPTION>AXI SG Data Width</DESCRIPTION>
         </PARAMETER>
-        <PARAMETER ASSIGNMENT="OPTIONAL" MPD_INDEX="6" NAME="C_NUM_FSTORES" TYPE="INTEGER" VALUE="3">
+        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="12" MPD_INDEX="6" NAME="C_NUM_FSTORES" TYPE="INTEGER" VALUE="1">
           <DESCRIPTION>Frame Stores</DESCRIPTION>
         </PARAMETER>
         <PARAMETER ASSIGNMENT="OPTIONAL" IS_INSTANTIATED="TRUE" MHS_INDEX="3" MPD_INDEX="7" NAME="C_USE_FSYNC" TYPE="INTEGER" VALUE="1">
@@ -13005,7 +13000,7 @@
         <PARAMETER ADDRESS="BASE" ADDR_TYPE="REGISTER" ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="3" MPD_INDEX="0" NAME="C_S_AXI_BASEADDR" TYPE="STD_LOGIC_VECTOR" VALUE="0xE000A000"/>
         <PARAMETER ADDRESS="HIGH" ADDR_TYPE="REGISTER" ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="4" MPD_INDEX="1" NAME="C_S_AXI_HIGHADDR" TYPE="STD_LOGIC_VECTOR" VALUE="0xE000AFFF"/>
         <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="5" MPD_INDEX="2" NAME="C_MIO_GPIO_MASK" TYPE="STD_LOGIC_VECTOR" VALUE="0xc00000000fe81"/>
-        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="6" MPD_INDEX="3" NAME="C_EMIO_GPIO_WIDTH" TYPE="INTEGER" VALUE="31"/>
+        <PARAMETER ASSIGNMENT="OPTIONAL" CHANGEDBY="USER" IS_INSTANTIATED="TRUE" MHS_INDEX="6" MPD_INDEX="3" NAME="C_EMIO_GPIO_WIDTH" TYPE="INTEGER" VALUE="32"/>
         <PARAMETER IS_INSTANTIATED="TRUE" MHS_INDEX="2" NAME="C_INTERCONNECT_S_AXI_MASTERS" VALUE="ps7_cortexa9_0.M_AXI_DP &amp; ps7_cortexa9_1.M_AXI_DP"/>
       </PARAMETERS>
       <PORTS>
