@@ -23,8 +23,8 @@ NET "MIO[53]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "C18
 NET "MIO[52]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "D19" ; #  Enet 0 / mdc / MIO[52]
 NET "MIO[51]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "F19" | PULLUP = "TRUE" ; #  GPIO / gpio[51] / MIO[51]
 NET "MIO[50]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "A19" | PULLUP = "TRUE" ; #  GPIO / gpio[50] / MIO[50]
-NET "MIO[49]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "D18" ; #  UART 1 / rx / MIO[49]
-NET "MIO[48]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "C19" ; #  UART 1 / tx / MIO[48]
+NET "MIO[49]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "D18" | PULLUP = "TRUE" ; #  UART 1 / rx / MIO[49]
+NET "MIO[48]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "C19" | PULLUP = "TRUE" ; #  UART 1 / tx / MIO[48]
 NET "MIO[47]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "A18" | PULLUP = "TRUE" ; #  Enet 0 / reset / MIO[47]
 NET "MIO[46]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "F20" | PULLUP = "TRUE" ; #  GPIO / gpio[46] / MIO[46]
 NET "MIO[45]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "H18" ; #  SD 0 / data[3] / MIO[45]
@@ -58,7 +58,7 @@ NET "MIO[18]"   IOSTANDARD = HSTL_I_18 | SLEW = "fast" | LOC = "K20" ; #  Enet 0
 NET "MIO[17]"   IOSTANDARD = HSTL_I_18 | SLEW = "fast" | LOC = "K21" ; #  Enet 0 / txd[0] / MIO[17]
 NET "MIO[16]"   IOSTANDARD = HSTL_I_18 | SLEW = "fast" | LOC = "L19" ; #  Enet 0 / tx_clk / MIO[16]
 NET "MIO[15]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "C22" | PULLUP = "TRUE" ; #  SD 0 / wp / MIO[15]
-NET "MIO[14]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "B22" ; #  SD 0 / cd / MIO[14]
+NET "MIO[14]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "B22" | PULLUP = "TRUE" ; #  SD 0 / cd / MIO[14]
 NET "MIO[13]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "F22" ; #  Quad SPI Flash / qspi1_io[3] / MIO[13]
 NET "MIO[12]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "E21" ; #  Quad SPI Flash / qspi1_io[2] / MIO[12]
 NET "MIO[11]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "A23" ; #  Quad SPI Flash / qspi1_io[1] / MIO[11]
@@ -72,7 +72,7 @@ NET "MIO[4]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "E23"
 NET "MIO[3]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "C23" ; #  Quad SPI Flash / qspi0_io[1] / MIO[3]
 NET "MIO[2]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "F23" ; #  Quad SPI Flash / qspi0_io[0] / MIO[2]
 NET "MIO[1]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "D23" ; #  Quad SPI Flash / qspi0_ss_b / MIO[1]
-NET "MIO[0]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "F24" ; #  Quad SPI Flash / qspi1_ss_b / MIO[0]
+NET "MIO[0]"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "F24" ; #  Quad SPI Flash / qspi1_ss_b / MIO[0]
 NET "DDR_WEB"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "N23" ; 
 NET "DDR_VRP"   IOSTANDARD = SSTL15_T_DCI | SLEW = "FAST" | LOC = "M21" ; 
 NET "DDR_VRN"   IOSTANDARD = SSTL15_T_DCI | SLEW = "FAST" | LOC = "N21" ; 
@@ -146,6 +146,6 @@ NET "DDR_Addr[12]"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "K23" ;
 NET "DDR_Addr[11]"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "H24" ; 
 NET "DDR_Addr[10]"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "G26" ; 
 NET "DDR_Addr[0]"   IOSTANDARD = SSTL15 | SLEW = "SLOW" | LOC = "L25" ; 
-NET "PS_PORB"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "D21" ; 
-NET "PS_SRSTB"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "B19" ; 
-NET "PS_CLK"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "fast" | LOC = "A22" ; 
+NET "PS_PORB"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "D21" ; 
+NET "PS_SRSTB"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "B19" ; 
+NET "PS_CLK"   IOSTANDARD = LVCMOS18 | DRIVE = "8" | SLEW = "slow" | LOC = "A22" ; 
