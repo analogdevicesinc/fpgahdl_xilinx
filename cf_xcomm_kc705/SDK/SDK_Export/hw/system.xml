@@ -1,7 +1,7 @@
 
-<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Thu Aug 22 15:22:40 2013">
+<EDKSYSTEM EDKVERSION="14.4" EDWVERSION="1.2" TIMESTAMP="Wed Oct 30 09:37:31 2013">
 
-  <SYSTEMINFO ARCH="kintex7" DEVICE="xc7k325t" PACKAGE="ffg900" PART="xc7k325tffg900-2" SOURCE="C:/corefpga/xilinx/cf_xcomm_kc705/system.xmp" SPEEDGRADE="-2"/>
+  <SYSTEMINFO ARCH="kintex7" DEVICE="xc7k325t" PACKAGE="ffg900" PART="xc7k325tffg900-2" SOURCE="D:/ADI/SVN/corefpga/xilinx/cf_xcomm_kc705/system.xmp" SPEEDGRADE="-2"/>
 
   <EXTERNALPORTS>
     <PORT DIR="O" MHS_INDEX="0" NAME="sm_fan_pwm_net_vcc" SIGNAME="net_vcc">
