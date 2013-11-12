@@ -80,6 +80,8 @@ module axi_ad9361_rx_pnmon (
 
   // internal signals
 
+  wire    [11:0]  adc_data_i_s;
+  wire    [11:0]  adc_data_q_s;
   wire    [11:0]  adc_data_q_rev_s;
   wire    [15:0]  adc_data_s;
   wire            adc_iq_match_s;
@@ -125,9 +127,11 @@ module axi_ad9361_rx_pnmon (
 
   // assuming lower nibble is lost-
 
-  assign adc_data_q_rev_s = brfn(adc_data_q);
-  assign adc_data_s = {adc_data_i, adc_data_q_rev_s[3:0]};
-  assign adc_iq_match_s = (adc_data_i[7:0] == adc_data_q_rev_s[11:4]) ? 1'b1 : 1'b0;
+  assign adc_data_i_s = ~adc_data_i;
+  assign adc_data_q_s = ~adc_data_q;
+  assign adc_data_q_rev_s = brfn(adc_data_q_s);
+  assign adc_data_s = {adc_data_i_s, adc_data_q_rev_s[3:0]};
+  assign adc_iq_match_s = (adc_data_i_s[7:0] == adc_data_q_rev_s[11:4]) ? 1'b1 : 1'b0;
 
   // pn sequence checking algorithm is commonly used in most applications.
   // if oos is asserted (pn is out of sync):

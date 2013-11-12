@@ -33,37 +33,23 @@ entity axi_hdmi_16b_es is
   );
   port
   (
-    hdmi_ref_clk          : in  std_logic;
     h2v_hdmi_clk          : in  std_logic;
     h2v_hdmi_data         : in  std_logic_vector(15 downto 0);
-    v2h_hdmi_clk          : out std_logic;
-    v2h_hdmi_data         : out std_logic_vector(15 downto 0);
     vdma_clk              : in  std_logic;
     h2v_vdma_fs           : out std_logic;
     h2v_vdma_fs_ret       : in  std_logic;
     h2v_vdma_full         : in  std_logic;       
-    h2v_vdma_almost_full  : in  std_logic;       
-    v2h_vdma_fs           : out std_logic;      
-    v2h_vdma_fs_ret       : in  std_logic;       
-    v2h_vdma_empty        : in  std_logic;       
-    v2h_vdma_almost_empty : in  std_logic;       
+    h2v_vdma_almost_full  : in  std_logic;            
     up_status             : out std_logic_vector(7 downto 0);
     vdma_dbg_data         : out std_logic_vector(75 downto 0);
     vdma_dbg_trigger      : out std_logic_vector(15 downto 0);
-    v2h_dbg_data          : out std_logic_vector(59 downto 0);
-    v2h_dbg_trigger       : out std_logic_vector(7 downto 0);
     h2v_dbg_data          : out std_logic_vector(61 downto 0);
     h2v_dbg_trigger       : out std_logic_vector(7 downto 0);
     S_AXIS_S2MM_TVALID    : out std_logic;
     S_AXIS_S2MM_TKEEP     : out std_logic_vector(7 downto 0);
     S_AXIS_S2MM_TDATA     : out std_logic_vector(63 downto 0);
     S_AXIS_S2MM_TLAST     : out std_logic;      
-    S_AXIS_S2MM_TREADY    : in  std_logic;       
-    M_AXIS_MM2S_TVALID    : in  std_logic;       
-    M_AXIS_MM2S_TKEEP     : in  std_logic_vector(7 downto 0);
-    M_AXIS_MM2S_TDATA     : in  std_logic_vector(63 downto 0);
-    M_AXIS_MM2S_TLAST     : in  std_logic;       
-    M_AXIS_MM2S_TREADY    : out std_logic;      
+    S_AXIS_S2MM_TREADY    : in  std_logic;           
     S_AXI_ACLK            : in  std_logic;
     S_AXI_ARESETN         : in  std_logic;
     S_AXI_AWADDR          : in  std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -139,11 +125,8 @@ architecture IMP of axi_hdmi_16b_es is
     );
     port
     (
-      hdmi_ref_clk          : in  std_logic;
       h2v_hdmi_clk          : in  std_logic;
       h2v_hdmi_data         : in  std_logic_vector(15 downto 0);
-      v2h_hdmi_clk          : out std_logic;
-      v2h_hdmi_data         : out std_logic_vector(15 downto 0);
       vdma_clk              : in  std_logic;
       h2v_vdma_fs           : out std_logic;
       h2v_vdma_fs_ret       : in  std_logic;
@@ -153,21 +136,10 @@ architecture IMP of axi_hdmi_16b_es is
       h2v_vdma_last         : out std_logic;      
       h2v_vdma_ready        : in  std_logic;       
       h2v_vdma_full         : in  std_logic;       
-      h2v_vdma_almost_full  : in  std_logic;       
-      v2h_vdma_fs           : out std_logic;      
-      v2h_vdma_fs_ret       : in  std_logic;       
-      v2h_vdma_valid        : in  std_logic;       
-      v2h_vdma_be           : in  std_logic_vector(7 downto 0);
-      v2h_vdma_data         : in  std_logic_vector(63 downto 0);
-      v2h_vdma_last         : in  std_logic;       
-      v2h_vdma_ready        : out std_logic;      
-      v2h_vdma_empty        : in  std_logic;       
-      v2h_vdma_almost_empty : in  std_logic;       
+      h2v_vdma_almost_full  : in  std_logic;             
       up_status             : out std_logic_vector(7 downto 0);
       vdma_dbg_data         : out std_logic_vector(75 downto 0);
       vdma_dbg_trigger      : out std_logic_vector(15 downto 0);
-      v2h_dbg_data          : out std_logic_vector(59 downto 0);
-      v2h_dbg_trigger       : out std_logic_vector(7 downto 0);
       h2v_dbg_data          : out std_logic_vector(61 downto 0);
       h2v_dbg_trigger       : out std_logic_vector(7 downto 0);
       Bus2IP_Clk            : in  std_logic;
@@ -241,11 +213,8 @@ begin
     )
     port map
     (
-      hdmi_ref_clk          => hdmi_ref_clk,
       h2v_hdmi_clk          => h2v_hdmi_clk,
       h2v_hdmi_data         => h2v_hdmi_data,
-      v2h_hdmi_clk          => v2h_hdmi_clk,
-      v2h_hdmi_data         => v2h_hdmi_data,
       vdma_clk              => vdma_clk,
       h2v_vdma_fs           => h2v_vdma_fs,
       h2v_vdma_fs_ret       => h2v_vdma_fs_ret,
@@ -256,20 +225,9 @@ begin
       h2v_vdma_ready        => S_AXIS_S2MM_TREADY,
       h2v_vdma_full         => h2v_vdma_full,
       h2v_vdma_almost_full  => h2v_vdma_almost_full,
-      v2h_vdma_fs           => v2h_vdma_fs,
-      v2h_vdma_fs_ret       => v2h_vdma_fs_ret,
-      v2h_vdma_valid        => M_AXIS_MM2S_TVALID,
-      v2h_vdma_be           => M_AXIS_MM2S_TKEEP,
-      v2h_vdma_data         => M_AXIS_MM2S_TDATA,
-      v2h_vdma_last         => M_AXIS_MM2S_TLAST,
-      v2h_vdma_ready        => M_AXIS_MM2S_TREADY,
-      v2h_vdma_empty        => v2h_vdma_empty,
-      v2h_vdma_almost_empty => v2h_vdma_almost_empty,
       up_status             => up_status,
       vdma_dbg_data         => vdma_dbg_data,
       vdma_dbg_trigger      => vdma_dbg_trigger,
-      v2h_dbg_data          => v2h_dbg_data,
-      v2h_dbg_trigger       => v2h_dbg_trigger,
       h2v_dbg_data          => h2v_dbg_data,
       h2v_dbg_trigger       => h2v_dbg_trigger,
       Bus2IP_Clk            => ipif_Bus2IP_Clk,

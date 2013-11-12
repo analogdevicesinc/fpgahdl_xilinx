@@ -53,6 +53,8 @@ module axi_ad9361_tx_channel (
   dac_dds_data_enable,
   dac_dds_format,
   dac_dds_pattenb,
+  dac_lb_enb,
+  dac_pn_enb,
 
   // bus interface
 
@@ -81,6 +83,8 @@ module axi_ad9361_tx_channel (
   input           dac_dds_data_enable;
   input           dac_dds_format;
   input           dac_dds_pattenb;
+  output          dac_lb_enb;
+  output          dac_pn_enb;
 
   // bus interface
 
@@ -136,6 +140,8 @@ module axi_ad9361_tx_channel (
     .dac_dds_incr_2 (dac_dds_incr_2_s),
     .dac_dds_patt_1 (dac_dds_patt_1_s),
     .dac_dds_patt_2 (dac_dds_patt_2_s),
+    .dac_lb_enb (dac_lb_enb),
+    .dac_pn_enb (dac_pn_enb),
     .up_usr_datatype_be (),
     .up_usr_datatype_signed (),
     .up_usr_datatype_shift (),

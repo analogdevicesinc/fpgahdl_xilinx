@@ -38,20 +38,10 @@
 // ***************************************************************************
 
 module cf_hdmi_16b_es (
-
-  // this is the hdmi transmit clock (passed to the 7511)
-
-  hdmi_ref_clk,
-
   // hdmi input (to vdma) interface
 
   h2v_hdmi_clk,
   h2v_hdmi_data,
-
-  // hdmi output (from vdma) interface
-
-  v2h_hdmi_clk,
-  v2h_hdmi_data,
 
   // vdma clock
 
@@ -66,16 +56,6 @@ module cf_hdmi_16b_es (
   h2v_vdma_data,
   h2v_vdma_last,
   h2v_vdma_ready,
-
-  // vdma input (to hdmi) interface
-
-  v2h_vdma_fs,
-  v2h_vdma_fs_ret,
-  v2h_vdma_valid,
-  v2h_vdma_be,
-  v2h_vdma_data,
-  v2h_vdma_last,
-  v2h_vdma_ready,
 
   // processor signals
 
@@ -93,26 +73,13 @@ module cf_hdmi_16b_es (
 
   vdma_dbg_data,
   vdma_dbg_trigger,
-  v2h_dbg_data,
-  v2h_dbg_trigger,
   h2v_dbg_data,
   h2v_dbg_trigger);
 
-  input           hdmi_ref_clk;
-
   input           h2v_hdmi_clk;
   input   [15:0]  h2v_hdmi_data;
-  output          v2h_hdmi_clk;
-  output  [15:0]  v2h_hdmi_data;
 
   input           vdma_clk;
-  output          v2h_vdma_fs;
-  input           v2h_vdma_fs_ret;
-  input           v2h_vdma_valid;
-  input   [ 7:0]  v2h_vdma_be;
-  input   [63:0]  v2h_vdma_data;
-  input           v2h_vdma_last;
-  output          v2h_vdma_ready;
   output          h2v_vdma_fs;
   input           h2v_vdma_fs_ret;
   output          h2v_vdma_valid;
@@ -133,63 +100,10 @@ module cf_hdmi_16b_es (
 
   output  [75:0]  vdma_dbg_data;
   output  [15:0]  vdma_dbg_trigger;
-  output  [59:0]  v2h_dbg_data;
-  output  [ 7:0]  v2h_dbg_trigger;
   output  [61:0]  h2v_dbg_data;
   output  [ 7:0]  h2v_dbg_trigger;
 
-  reg     [ 7:0]  up_status;
-  reg     [31:0]  up_rdata;
-  reg             up_ack;
-
-  wire    [31:0]  v2h_up_rdata_s;
-  wire            v2h_up_ack_s;
-  wire    [ 3:0]  v2h_up_status_s;
-  wire    [31:0]  h2v_up_rdata_s;
-  wire            h2v_up_ack_s;
-  wire    [ 3:0]  h2v_up_status_s;
-
-  always @(negedge up_rstn or posedge up_clk) begin
-    if (up_rstn == 0) begin
-      up_status <= 'd0;
-      up_rdata <= 'd0;
-      up_ack <= 'd0;
-    end else begin
-      up_status <= {v2h_up_status_s, h2v_up_status_s};
-      up_rdata <= v2h_up_rdata_s | h2v_up_rdata_s;
-      up_ack <= v2h_up_ack_s | h2v_up_ack_s;
-    end
-  end
-
-  // vdma to hdmi (hdmi output)
-
-  cf_v2h i_v2h (
-    .hdmi_clk (hdmi_ref_clk),
-    .hdmi_data (v2h_hdmi_data),
-    .vdma_clk (vdma_clk),
-    .vdma_fs (v2h_vdma_fs),
-    .vdma_fs_ret (v2h_vdma_fs_ret),
-    .vdma_valid (v2h_vdma_valid),
-    .vdma_be (v2h_vdma_be),
-    .vdma_data (v2h_vdma_data),
-    .vdma_last (v2h_vdma_last),
-    .vdma_ready (v2h_vdma_ready),
-    .up_rstn (up_rstn),
-    .up_clk (up_clk),
-    .up_sel (up_sel),
-    .up_rwn (up_rwn),
-    .up_addr (up_addr),
-    .up_wdata (up_wdata),
-    .up_rdata (v2h_up_rdata_s),
-    .up_ack (v2h_up_ack_s),
-    .up_status (v2h_up_status_s),
-    .vdma_dbg_data (vdma_dbg_data[75:40]),
-    .vdma_dbg_trigger (vdma_dbg_trigger[15:8]),
-    .hdmi_dbg_data (v2h_dbg_data),
-    .hdmi_dbg_trigger (v2h_dbg_trigger));
-
   // hdmi to vdma (hdmi input)
-
   cf_h2v i_h2v (
     .hdmi_clk (h2v_hdmi_clk),
     .hdmi_data (h2v_hdmi_data),
@@ -207,28 +121,13 @@ module cf_hdmi_16b_es (
     .up_rwn (up_rwn),
     .up_addr (up_addr),
     .up_wdata (up_wdata),
-    .up_rdata (h2v_up_rdata_s),
-    .up_ack (h2v_up_ack_s),
-    .up_status (h2v_up_status_s),
+    .up_rdata (up_rdata),
+    .up_ack (up_ack),
+    .up_status (up_status),
     .vdma_dbg_data (vdma_dbg_data[39:0]),
     .vdma_dbg_trigger (vdma_dbg_trigger[7:0]),
     .hdmi_dbg_data (h2v_dbg_data),
     .hdmi_dbg_trigger (h2v_dbg_trigger));
-
-  // hdmi clock output is driven by a ODDR (IOB to pad)
-
-  ODDR #(
-    .DDR_CLK_EDGE ("OPPOSITE_EDGE"),
-    .INIT(1'b0),
-    .SRTYPE("SYNC"))
-  i_v2h_clk (
-    .R (1'b0),
-    .S (1'b0),
-    .CE (1'b1),
-    .D1 (1'b1),
-    .D2 (1'b0),
-    .C (hdmi_ref_clk),
-    .Q (v2h_hdmi_clk));
 
 endmodule
 

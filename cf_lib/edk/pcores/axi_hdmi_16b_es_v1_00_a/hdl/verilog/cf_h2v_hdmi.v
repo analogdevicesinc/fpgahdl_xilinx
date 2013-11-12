@@ -62,7 +62,8 @@ module cf_h2v_hdmi (
   hdmi_waddr_g,             // running write address (for ovf/unf)
 
   // processor interface
-
+  up_toggle,
+  hdmi_up_toggle_ret,
   up_enable,
   up_crcb_init,
   up_edge_sel,
@@ -99,6 +100,8 @@ module cf_h2v_hdmi (
 
   // processor interface
 
+  input           up_toggle;
+  output          hdmi_up_toggle_ret;
   input           up_enable;
   input           up_crcb_init;
   input           up_edge_sel;
@@ -168,9 +171,6 @@ module cf_h2v_hdmi (
   reg     [15:0]  hdmi_data_pos_p = 'd0;
   reg     [15:0]  hdmi_data_p = 'd0;
   reg     [15:0]  hdmi_data_neg = 'd0;
-  reg             hdmi_up_enable_m1 = 'd0;
-  reg             hdmi_up_enable_m2 = 'd0;
-  reg             hdmi_up_enable_m3 = 'd0;
   reg             hdmi_up_enable = 'd0;
   reg             hdmi_up_crcb_init = 'd0;
   reg             hdmi_up_edge_sel = 'd0;
@@ -421,12 +421,14 @@ module cf_h2v_hdmi (
 
   // microprocessor signals on the hdmi side
 
+  reg [2:0] hdmi_up_toggle;
+  assign hdmi_up_toggle_ret = hdmi_up_toggle[2];
+
   always @(posedge hdmi_clk) begin
-    hdmi_up_enable_m1 <= up_enable;
-    hdmi_up_enable_m2 <= hdmi_up_enable_m1;
-    hdmi_up_enable_m3 <= hdmi_up_enable_m2;
-    hdmi_up_enable <= hdmi_up_enable_m3;
-    if ((hdmi_up_enable_m3 == 1'b0) && (hdmi_up_enable_m2 == 1'b1)) begin
+    hdmi_up_toggle[0] <= up_toggle;
+    hdmi_up_toggle[2:1] <= hdmi_up_toggle[1:0];
+    if (hdmi_up_toggle[2] ^ hdmi_up_toggle[1]) begin
+      hdmi_up_enable <= up_enable;
       hdmi_up_crcb_init <= up_crcb_init;
       hdmi_up_edge_sel <= up_edge_sel;
       hdmi_up_hs_count <= up_hs_count;
@@ -434,7 +436,7 @@ module cf_h2v_hdmi (
       hdmi_up_csc_bypass <= up_csc_bypass;
       hdmi_up_tpg_enable <= up_tpg_enable;
     end
-  end
+   end
 
   // super sampling, 422 to 444
 

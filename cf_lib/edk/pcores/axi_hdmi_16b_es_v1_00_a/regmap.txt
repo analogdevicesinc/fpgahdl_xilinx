@@ -43,60 +43,11 @@
 // Address
 // QW     Byte   Bits     Description
 // ---------------------------------------------------------------------------
-// HDMI Transmit Registers (VDMA to HDMI)
+// HDMI Receive Registers (HDMI to VDMA)
 // ---------------------------------------------------------------------------
 // 0x00   0x00   [31: 0]  version[31:0]         32'h00010061  (1.0a)
 // ---------------------------------------------------------------------------
-// 0x01   0x04   [ 4: 4]  crcb_init             Enable (0x1) Cb first for sub/super sampling
-//               [ 3: 3]  full_range            Enable (0x1) full 0x00-0xff range(*).
-//               [ 2: 2]  tpg_enable            Enable (0x1) test pattern video
-//               [ 1: 1]  csc_bypass            Bypass the CSC
-//               [ 0: 0]  enable                Video output enable (0->1).
-//
-// *If full range is disabled RGB colors are limited to 0x10 to 0xeb.
-// ---------------------------------------------------------------------------
-// 0x02   0x08   [31:16]  h_width               Horizontal width (see below)
-//               [15: 0]  h_count               Horizontal count (see below)
-// ---------------------------------------------------------------------------
-// The HSYNC parameters above are based on pixel clocks.
-//
-//              ____________________________________________               ___
-// HSYNC ______|                                            |_____________|
-//             |<- width ---------------------------------->|             '
-//             |<- count ------------------------------------------------>|
-//
-// For 1080p (1080x1920):
-//  h_width = 1920;
-//  h_count = 2200;
-// ---------------------------------------------------------------------------
-// 0x03   0x0c   [31:16]  v_width               Vertical width (see below)
-//               [15: 0]  v_count               Vertical count (see below)
-// ---------------------------------------------------------------------------
-// The VSYNC parameters above are based on horizontal lines.
-//
-// For 1080p (1080x1920):
-//  v_width = 1080;
-//  v_count = 1125;
-// ---------------------------------------------------------------------------
-// 0x04   0x10   [ 4: 4]  hdmi_tpm_oos          Indicates TPM OOS on HDMI side (W1C).
-//               [ 3: 3]  vdma_tpm_oos          Indicates TPM OOS on VDMA side (W1C).
-//               [ 2: 2]  vdma_be_error*        Indicates byte enable errors on VDMA side (W1C).
-//               [ 1: 1]  vdma_ovf              Indicates overflow on VDMA side (W1C).
-//               [ 0: 0]  vdma_unf              Indicates underfow on VDMA side (W1C).
-//
-// *The HDMI core expects VDMA byte enables to be all asserted (all 4 bytes valid) per clock.
-// ---------------------------------------------------------------------------
-// 0x05   0x14   [24:24]  cp_enable             Color pattern enable (0->1).
-//               [23: 0]  cp_value              Color pattern value (RGB).         
-// ---------------------------------------------------------------------------
-// ***************************************************************************
-// ***************************************************************************
-// ---------------------------------------------------------------------------
-// HDMI Receive Registers (HDMI to VDMA)
-// ---------------------------------------------------------------------------
-// 0x10   0x40   [31: 0]  version[31:0]         32'h00010061  (1.0a)
-// ---------------------------------------------------------------------------
-// 0x11   0x44   [ 5: 5]  crcb_init             Enable (0x1) Cb first for sub/super sampling
+// 0x01   0x04   [ 5: 5]  crcb_init             Enable (0x1) Cb first for sub/super sampling
 //               [ 4: 4]  align_right           Enable (0x1) right alignment of video data
 //               [ 3: 3]  tpg_enable            Enable (0x1) test pattern video
 //               [ 2: 2]  csc_bypass            Bypass the CSC
@@ -105,7 +56,7 @@
 //                                                1: data sampled on falling edge
 //               [ 0: 0]  enable                Video output enable (0->1).
 // ---------------------------------------------------------------------------
-// 0x12   0x48   [31:16]  v_width               Vertical width (see below)
+// 0x02   0x08   [31:16]  v_width               Vertical width (see below)
 //               [15: 0]  h_width               Horizontal width (see below)
 // ---------------------------------------------------------------------------
 // The above parameters are expected video size.
@@ -113,7 +64,7 @@
 //  v_width = 1080;
 //  h_width = 1920;
 // ---------------------------------------------------------------------------
-// 0x13   0x4c   [ 6: 6]  hdmi_h_mismatch       Indicates horizontal width mismatch (W1C)*.
+// 0x03   0x0c   [ 6: 6]  hdmi_h_mismatch       Indicates horizontal width mismatch (W1C)*.
 //               [ 5: 5]  hdmi_v_mismatch       Indicates vertical width mismatch (W1C)*.
 //               [ 4: 4]  hdmi_oos              Indicates OOS on HDMI decoding (W1C)*.
 //               [ 3: 3]  hdmi_tpm_oos          Indicates TPM OOS on HDMI side (W1C).
@@ -127,7 +78,7 @@
 // the decoded widths (see reg. 0x14) against the expected widths (reg. 0x12) and sets
 // the hdmi_h_mismatch or hdmi_v_mismatch bits - if there are any mismatches.
 // ---------------------------------------------------------------------------
-// 0x14   0x50   [31:16]  v_width               Vertical decoded width (RO)
+// 0x04   0x10   [31:16]  v_width               Vertical decoded width (RO)
 //               [15: 0]  h_width               Horizontal decoded width (RO)
 // ---------------------------------------------------------------------------
 // ***************************************************************************

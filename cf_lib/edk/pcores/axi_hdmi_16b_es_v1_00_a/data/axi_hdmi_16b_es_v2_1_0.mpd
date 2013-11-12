@@ -36,29 +36,19 @@ PARAMETER C_NUM_MEM = 1, DT = INTEGER
 PARAMETER C_SLV_AWIDTH = 32, DT = INTEGER
 PARAMETER C_SLV_DWIDTH = 32, DT = INTEGER
 PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
-PARAMETER C_M_AXIS_MM2S_PROTOCOL = XIL_AXI_STREAM_VID_DATA, DT = STRING, BUS = M_AXIS_MM2S, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
 PARAMETER C_S_AXIS_S2MM_PROTOCOL = XIL_AXI_STREAM_VID_DATA, DT = STRING, BUS = S_AXIS_S2MM, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
 
 ## Ports
-PORT hdmi_ref_clk = "", DIR = I
 PORT h2v_hdmi_clk = "", DIR = I
 PORT h2v_hdmi_data = "", DIR = I, VEC = [15:0]
-PORT v2h_hdmi_clk = "", DIR = O
-PORT v2h_hdmi_data = "", DIR = O, VEC = [15:0]
 PORT vdma_clk = "", DIR = I
 PORT h2v_vdma_fs = "", DIR = O
 PORT h2v_vdma_fs_ret = "", DIR = I
 PORT h2v_vdma_full = "", DIR = I
 PORT h2v_vdma_almost_full = "", DIR = I
-PORT v2h_vdma_fs = "", DIR = O
-PORT v2h_vdma_fs_ret = "", DIR = I
-PORT v2h_vdma_empty = "", DIR = I
-PORT v2h_vdma_almost_empty = "", DIR = I
 PORT up_status = "", DIR = O, VEC = [7:0]
 PORT vdma_dbg_data = "", DIR = O, VEC = [75:0]
 PORT vdma_dbg_trigger = "", DIR = O, VEC = [15:0]
-PORT v2h_dbg_data = "", DIR = O, VEC = [59:0]
-PORT v2h_dbg_trigger = "", DIR = O, VEC = [7:0]
 PORT h2v_dbg_data = "", DIR = O, VEC = [61:0]
 PORT h2v_dbg_trigger = "", DIR = O, VEC = [7:0]
 PORT S_AXI_ACLK = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI
@@ -85,10 +75,5 @@ PORT S_AXIS_S2MM_TKEEP = TKEEP, DIR = O, VEC = [7:0], BUS=S_AXIS_S2MM
 PORT S_AXIS_S2MM_TDATA = TDATA, DIR = O, VEC = [63:0], BUS=S_AXIS_S2MM
 PORT S_AXIS_S2MM_TLAST = TLAST, DIR = O, BUS=S_AXIS_S2MM
 PORT S_AXIS_S2MM_TREADY = TREADY, DIR = I, BUS=S_AXIS_S2MM
-PORT M_AXIS_MM2S_TVALID = TVALID, DIR = I, BUS=M_AXIS_MM2S
-PORT M_AXIS_MM2S_TKEEP = TKEEP, DIR = I, VEC = [7:0], BUS=M_AXIS_MM2S
-PORT M_AXIS_MM2S_TDATA = TDATA, DIR = I, VEC = [63:0], BUS=M_AXIS_MM2S
-PORT M_AXIS_MM2S_TLAST = TLAST, DIR = I, BUS=M_AXIS_MM2S
-PORT M_AXIS_MM2S_TREADY = TREADY, DIR = O, BUS=M_AXIS_MM2S
 
 END

@@ -45,9 +45,17 @@ module axi_ad9361_tx (
 
   dac_clk,
   dac_valid,
+  dac_lb_enb_i1,
+  dac_pn_enb_i1,
   dac_data_i1,
+  dac_lb_enb_q1,
+  dac_pn_enb_q1,
   dac_data_q1,
+  dac_lb_enb_i2,
+  dac_pn_enb_i2,
   dac_data_i2,
+  dac_lb_enb_q2,
+  dac_pn_enb_q2,
   dac_data_q2,
   dac_r1_mode,
 
@@ -74,9 +82,17 @@ module axi_ad9361_tx (
 
   input           dac_clk;
   output          dac_valid;
+  output          dac_lb_enb_i1;
+  output          dac_pn_enb_i1;
   output  [11:0]  dac_data_i1;
+  output          dac_lb_enb_q1;
+  output          dac_pn_enb_q1;
   output  [11:0]  dac_data_q1;
+  output          dac_lb_enb_i2;
+  output          dac_pn_enb_i2;
   output  [11:0]  dac_data_i2;
+  output          dac_lb_enb_q2;
+  output          dac_pn_enb_q2;
   output  [11:0]  dac_data_q2;
   output          dac_r1_mode;
 
@@ -247,6 +263,8 @@ module axi_ad9361_tx (
     .dac_dds_data_enable (dac_dds_data_enable),
     .dac_dds_format (dac_datafmt_s),
     .dac_dds_pattenb (dac_datasel_s[0]),
+    .dac_lb_enb (dac_lb_enb_i1),
+    .dac_pn_enb (dac_pn_enb_i1),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel),
@@ -266,6 +284,8 @@ module axi_ad9361_tx (
     .dac_dds_data_enable (dac_dds_data_enable),
     .dac_dds_format (dac_datafmt_s),
     .dac_dds_pattenb (dac_datasel_s[0]),
+    .dac_lb_enb (dac_lb_enb_q1),
+    .dac_pn_enb (dac_pn_enb_q1),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel),
@@ -285,6 +305,8 @@ module axi_ad9361_tx (
     .dac_dds_data_enable (dac_dds_data_enable),
     .dac_dds_format (dac_datafmt_s),
     .dac_dds_pattenb (dac_datasel_s[0]),
+    .dac_lb_enb (dac_lb_enb_i2),
+    .dac_pn_enb (dac_pn_enb_i2),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel),
@@ -304,6 +326,8 @@ module axi_ad9361_tx (
     .dac_dds_data_enable (dac_dds_data_enable),
     .dac_dds_format (dac_datafmt_s),
     .dac_dds_pattenb (dac_datasel_s[0]),
+    .dac_lb_enb (dac_lb_enb_q2),
+    .dac_pn_enb (dac_pn_enb_q2),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel),

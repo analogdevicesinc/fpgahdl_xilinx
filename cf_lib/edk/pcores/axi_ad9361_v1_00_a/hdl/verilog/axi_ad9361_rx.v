@@ -46,9 +46,17 @@ module axi_ad9361_rx (
 
   adc_clk,
   adc_valid,
+  adc_pn_oos_i1,
+  adc_pn_err_i1,
   adc_data_i1,
+  adc_pn_oos_q1,
+  adc_pn_err_q1,
   adc_data_q1,
+  adc_pn_oos_i2,
+  adc_pn_err_i2,
   adc_data_i2,
+  adc_pn_oos_q2,
+  adc_pn_err_q2,
   adc_data_q2,
   adc_status,
   adc_r1_mode,
@@ -93,9 +101,17 @@ module axi_ad9361_rx (
 
   input           adc_clk;
   input           adc_valid;
+  input           adc_pn_oos_i1;
+  input           adc_pn_err_i1;
   input   [11:0]  adc_data_i1;
+  input           adc_pn_oos_q1;
+  input           adc_pn_err_q1;
   input   [11:0]  adc_data_q1;
+  input           adc_pn_oos_i2;
+  input           adc_pn_err_i2;
   input   [11:0]  adc_data_i2;
+  input           adc_pn_oos_q2;
+  input           adc_pn_err_q2;
   input   [11:0]  adc_data_q2;
   input           adc_status;
   output          adc_r1_mode;
@@ -494,6 +510,8 @@ module axi_ad9361_rx (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
+    .adc_pn_oos_pl (adc_pn_oos_i1),
+    .adc_pn_err_pl (adc_pn_err_i1),
     .adc_data (adc_data_i1),
     .adc_data_q (adc_data_q1),
     .adc_or (1'b0),
@@ -524,6 +542,8 @@ module axi_ad9361_rx (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
+    .adc_pn_oos_pl (adc_pn_oos_q1),
+    .adc_pn_err_pl (adc_pn_err_q1),
     .adc_data (adc_data_q1),
     .adc_data_q (12'd0),
     .adc_or (1'b0),
@@ -554,6 +574,8 @@ module axi_ad9361_rx (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
+    .adc_pn_oos_pl (adc_pn_oos_i2),
+    .adc_pn_err_pl (adc_pn_err_i2),
     .adc_data (adc_data_i2),
     .adc_data_q (adc_data_q2),
     .adc_or (1'b0),
@@ -584,6 +606,8 @@ module axi_ad9361_rx (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
+    .adc_pn_oos_pl (adc_pn_oos_q2),
+    .adc_pn_err_pl (adc_pn_err_q2),
     .adc_data (adc_data_q2),
     .adc_data_q (12'd0),
     .adc_or (1'b0),

@@ -23,11 +23,11 @@
  PORT processing_system7_0_DDR_DQS_n = processing_system7_0_DDR_DQS_n, DIR = IO, VEC = [3:0]
  PORT processing_system7_0_DDR_VRN = processing_system7_0_DDR_VRN, DIR = IO
  PORT processing_system7_0_DDR_VRP = processing_system7_0_DDR_VRP, DIR = IO
- PORT hdmi_clk = axi_hdmi_tx_16b_0_hdmi_clk, DIR = O
- PORT hdmi_data = axi_hdmi_tx_16b_0_hdmi_data, DIR = O, VEC = [15:0]
- PORT hdmi_hsync = axi_hdmi_tx_16b_0_hdmi_hsync, DIR = O
- PORT hdmi_vsync = axi_hdmi_tx_16b_0_hdmi_vsync, DIR = O
- PORT hdmi_data_e = axi_hdmi_tx_16b_0_hdmi_data_e, DIR = O
+ PORT hdmi_clk = axi_hdmi_tx_0_hdmi_clk, DIR = O, SIGIS = CLK
+ PORT hdmi_data = axi_hdmi_tx_0_hdmi_data, DIR = O, VEC = [15:0]
+ PORT hdmi_hsync = axi_hdmi_tx_0_hdmi_hsync, DIR = O
+ PORT hdmi_vsync = axi_hdmi_tx_0_hdmi_vsync, DIR = O
+ PORT hdmi_data_e = axi_hdmi_tx_0_hdmi_data_e, DIR = O
  PORT hdmi_spdif = axi_spdif_tx_0_spdif_tx_o, DIR = O
  PORT hdmi_int = hdmi_int, DIR = I, SIGIS = INTERRUPT
  PORT axi_iic_0_Sda_pin = axi_iic_0_Sda, DIR = IO
@@ -37,7 +37,7 @@
 
 BEGIN processing_system7
  PARAMETER INSTANCE = processing_system7_0
- PARAMETER HW_VER = 4.02.a
+ PARAMETER HW_VER = 4.03.a
  PARAMETER C_DDR_RAM_HIGHADDR = 0x3FFFFFFF
  PARAMETER C_EN_EMIO_CAN0 = 0
  PARAMETER C_EN_EMIO_CAN1 = 0
@@ -157,13 +157,13 @@ BEGIN axi_vdma
  BUS_INTERFACE S_AXI_LITE = axi_interconnect_1
  BUS_INTERFACE M_AXI_MM2S = axi_interconnect_2
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
- PORT m_axis_mm2s_aclk = processing_system7_0_FCLK_CLK1
+ PORT m_axis_mm2s_aclk = processing_system7_0_FCLK_CLK0
  PORT mm2s_fsync_out = axi_vdma_0_mm2s_fsync_out
  PORT mm2s_buffer_almost_empty = axi_vdma_0_mm2s_buffer_almost_empty
  PORT mm2s_buffer_empty = axi_vdma_0_mm2s_buffer_empty
- PORT mm2s_fsync = axi_hdmi_tx_16b_0_vdma_fs
+ PORT mm2s_fsync = axi_hdmi_tx_0_vdma_fs
  PORT s_axi_lite_aclk = processing_system7_0_FCLK_CLK0
- PORT m_axi_mm2s_aclk = processing_system7_0_FCLK_CLK1
+ PORT m_axi_mm2s_aclk = processing_system7_0_FCLK_CLK0
  PORT mm2s_introut = axi_vdma_0_mm2s_introut
 END
 
@@ -183,25 +183,25 @@ BEGIN axi_interconnect
  PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET1_N
 END
 
-BEGIN axi_hdmi_tx_16b
- PARAMETER INSTANCE = axi_hdmi_tx_16b_0
+BEGIN axi_hdmi_tx
+ PARAMETER INSTANCE = axi_hdmi_tx_0
  PARAMETER HW_VER = 1.00.a
+ PARAMETER PCORE_Cr_Cb_N = 0
+ PARAMETER PCORE_EMBEDDED_SYNC = 0
  PARAMETER C_BASEADDR = 0x70e00000
  PARAMETER C_HIGHADDR = 0x70e0ffff
  BUS_INTERFACE S_AXI = axi_interconnect_1
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
- PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
- PORT hdmi_ref_clk = axi_hdmi_tx_16b_0_hdmi_ref_clk
- PORT hdmi_clk = axi_hdmi_tx_16b_0_hdmi_clk
- PORT hdmi_data = axi_hdmi_tx_16b_0_hdmi_data
- PORT hdmi_hsync = axi_hdmi_tx_16b_0_hdmi_hsync
- PORT hdmi_vsync = axi_hdmi_tx_16b_0_hdmi_vsync
- PORT hdmi_data_e = axi_hdmi_tx_16b_0_hdmi_data_e
- PORT vdma_clk = processing_system7_0_FCLK_CLK1
- PORT vdma_fs = axi_hdmi_tx_16b_0_vdma_fs
- PORT vdma_fs_ret = axi_vdma_0_mm2s_fsync_out
- PORT vdma_empty = axi_vdma_0_mm2s_buffer_empty
- PORT vdma_almost_empty = axi_vdma_0_mm2s_buffer_almost_empty
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT hdmi_clk = axi_hdmi_tx_0_hdmi_clk
+ PORT hdmi_out_clk = axi_hdmi_tx_0_hdmi_out_clk
+ PORT hdmi_16_hsync = axi_hdmi_tx_0_hdmi_hsync
+ PORT hdmi_16_vsync = axi_hdmi_tx_0_hdmi_vsync
+ PORT hdmi_16_data_e = axi_hdmi_tx_0_hdmi_data_e
+ PORT hdmi_16_data = axi_hdmi_tx_0_hdmi_data
+ PORT m_axis_mm2s_clk = processing_system7_0_FCLK_CLK0
+ PORT m_axis_mm2s_fsync = axi_hdmi_tx_0_vdma_fs
+ PORT m_axis_mm2s_fsync_ret = axi_vdma_0_mm2s_fsync_out
 END
 
 BEGIN axi_spdif_tx
@@ -227,13 +227,14 @@ END
 
 BEGIN axi_clkgen
  PARAMETER INSTANCE = axi_clkgen_0
- PARAMETER HW_VER = 1.00.a
+ PARAMETER HW_VER = 2.00.a
  PARAMETER C_BASEADDR = 0x79000000
  PARAMETER C_HIGHADDR = 0x7900ffff
  BUS_INTERFACE S_AXI = axi_interconnect_1
- PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
- PORT ref_clk = processing_system7_0_FCLK_CLK2
- PORT clk = axi_hdmi_tx_16b_0_hdmi_ref_clk
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT drp_clk = processing_system7_0_FCLK_CLK0
+ PORT clk = processing_system7_0_FCLK_CLK2
+ PORT clk_0 = axi_hdmi_tx_0_hdmi_clk
 END
 
 BEGIN clock_generator

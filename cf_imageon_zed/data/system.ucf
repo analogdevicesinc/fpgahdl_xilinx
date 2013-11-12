@@ -46,7 +46,7 @@ NET iic_scl           LOC = "J20" | IOSTANDARD = "LVCMOS25";
 NET iic_sda           LOC = "K21" | IOSTANDARD = "LVCMOS25";
 NET iic_rstn          LOC = "N20" | IOSTANDARD = "LVCMOS25";
 
-NET otg_reset         LOC = "G17"  | IOSTANDARD = "LVCMOS25";
+#NET otg_reset         LOC = "G17"  | IOSTANDARD = "LVCMOS25";
 NET otg_vbusoc        LOC = "L16"  | IOSTANDARD = "LVCMOS25";
 
 NET "h2v_hdmi_clk" TNM_NET = "h2v_hdmi_clk";
@@ -105,3 +105,5 @@ NET processing_system7_0_GPIO_pin[27]	LOC = H15  | IOSTANDARD="LVCMOS25";  # "XA
 NET processing_system7_0_GPIO_pin[28]	LOC = R15  | IOSTANDARD="LVCMOS25";  # "XADC-GIO1"
 NET processing_system7_0_GPIO_pin[29]	LOC = K15  | IOSTANDARD="LVCMOS25";  # "XADC-GIO2"
 NET processing_system7_0_GPIO_pin[30]	LOC = J15  | IOSTANDARD="LVCMOS25";  # "XADC-GIO3"
+
+NET processing_system7_0_GPIO_pin[31]	LOC = G17  | IOSTANDARD="LVCMOS25";  # "OTG-RESETN"

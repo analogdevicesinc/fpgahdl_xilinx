@@ -179,6 +179,35 @@ module cf_h2v (
   assign up_wr_s = up_sel & ~up_rwn;
   assign up_ack_s = up_sel_d & ~up_sel_2d;
 
+  // Whenever a register write happens up_toggle is toggled to notify the HDMI
+  // clock domain that it should update its registers. We need to be careful
+  // though to not toggle to fast, e.g. if the HDMI clock is running at slower
+  // rate than the AXI clock it is possible that two consecutive writes happen
+  // so fast that the toggled signal is not seen in the HDMI domain. Hence we
+  // synchronize the toggle signal from the HDMI domain back to the AXI domain.
+  // And only if both signals match, the original toggle signal and the one
+  // returned from the HDMI domain, we may toggle again.
+  reg [1:0] up_toggle_ret;
+  reg up_pending;
+  reg up_toggle;
+  wire hdmi_up_toggle_ret;
+
+  always @(posedge up_clk) begin
+    if (up_rstn == 0) begin
+      up_toggle <= 'b0;
+      up_toggle_ret <= 'b0;
+    end else begin
+      up_toggle_ret[0] <= hdmi_up_toggle_ret;
+      up_toggle_ret[1] <= up_toggle_ret[0];
+      if (up_wr_s == 1'b1) begin
+		  up_pending <= 1'b1;
+		end else if (up_pending == 1'b1 && up_toggle_ret[1] == up_toggle) begin
+		  up_toggle <= ~up_toggle;
+		  up_pending <= 1'b0;
+      end
+    end
+  end
+
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
       up_crcb_init <= 'd0;
@@ -198,7 +227,7 @@ module cf_h2v (
       up_vdma_tpm_oos_hold <= 'd0;
       up_status <= 'd0;
     end else begin
-      if ((up_addr == 5'h11) && (up_wr_s == 1'b1)) begin
+      if ((up_addr == 5'h1) && (up_wr_s == 1'b1)) begin
         up_crcb_init <= up_wdata[5];
         up_align_right <= up_wdata[4];
         up_tpg_enable <= up_wdata[3];
@@ -206,43 +235,43 @@ module cf_h2v (
         up_edge_sel <= up_wdata[1];
         up_enable <= up_wdata[0];
       end
-      if ((up_addr == 5'h12) && (up_wr_s == 1'b1)) begin
+      if ((up_addr == 5'h2) && (up_wr_s == 1'b1)) begin
         up_vs_count <= up_wdata[31:16];
         up_hs_count <= up_wdata[15:0];
       end
       if (up_hdmi_hs_mismatch == 1'b1) begin
         up_hdmi_hs_mismatch_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_hdmi_hs_mismatch_hold <= up_hdmi_hs_mismatch_hold & ~up_wdata[6];
       end
       if (up_hdmi_vs_mismatch == 1'b1) begin
         up_hdmi_vs_mismatch_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_hdmi_vs_mismatch_hold <= up_hdmi_vs_mismatch_hold & ~up_wdata[5];
       end
       if (up_hdmi_oos == 1'b1) begin
         up_hdmi_oos_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_hdmi_oos_hold <= up_hdmi_oos_hold & ~up_wdata[4];
       end
       if (up_hdmi_tpm_oos == 1'b1) begin
         up_hdmi_tpm_oos_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_hdmi_tpm_oos_hold <= up_hdmi_tpm_oos_hold & ~up_wdata[3];
       end
       if (up_vdma_ovf == 1'b1) begin
         up_vdma_ovf_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_vdma_ovf_hold <= up_vdma_ovf_hold & ~up_wdata[2];
       end
       if (up_vdma_unf == 1'b1) begin
         up_vdma_unf_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_vdma_unf_hold <= up_vdma_unf_hold & ~up_wdata[1];
       end
       if (up_vdma_tpm_oos == 1'b1) begin
         up_vdma_tpm_oos_hold <= 1'b1;
-      end else if ((up_addr == 5'h13) && (up_wr_s == 1'b1)) begin
+      end else if ((up_addr == 5'h3) && (up_wr_s == 1'b1)) begin
         up_vdma_tpm_oos_hold <= up_vdma_tpm_oos_hold & ~up_wdata[0];
       end
       up_status <= {up_enable, (up_hdmi_hs_mismatch_hold | up_hdmi_vs_mismatch_hold | up_hdmi_oos_hold),
@@ -260,14 +289,14 @@ module cf_h2v (
       up_ack <= 'd0;
     end else begin
       case (up_addr)
-        5'h10: up_rdata <= 32'h00010061;
-        5'h11: up_rdata <= {26'd0, up_crcb_init, up_align_right, up_tpg_enable,
+        5'h0: up_rdata <= 32'h00010061;
+        5'h1: up_rdata <= {26'd0, up_crcb_init, up_align_right, up_tpg_enable,
                             up_csc_bypass, up_edge_sel, up_enable};
-        5'h12: up_rdata <= {up_vs_count, up_hs_count};
-        5'h13: up_rdata <= {25'd0, up_hdmi_hs_mismatch_hold, up_hdmi_vs_mismatch_hold,
+        5'h2: up_rdata <= {up_vs_count, up_hs_count};
+        5'h3: up_rdata <= {25'd0, up_hdmi_hs_mismatch_hold, up_hdmi_vs_mismatch_hold,
                             up_hdmi_oos_hold, up_hdmi_tpm_oos_hold, up_vdma_ovf_hold,
                             up_vdma_unf_hold, up_vdma_tpm_oos_hold};
-        5'h14: up_rdata <= {up_hdmi_vs, up_hdmi_hs};
+        5'h4: up_rdata <= {up_hdmi_vs, up_hdmi_hs};
         default: up_rdata <= 0;
       endcase
       up_sel_d <= up_sel;
@@ -353,6 +382,8 @@ module cf_h2v (
     .hdmi_waddr_rel_toggle (hdmi_waddr_rel_toggle_s),
     .hdmi_waddr_rel (hdmi_waddr_rel_s),
     .hdmi_waddr_g (hdmi_waddr_g_s),
+    .up_toggle (up_toggle),
+    .hdmi_up_toggle_ret (hdmi_up_toggle_ret),
     .up_enable (up_enable),
     .up_crcb_init (up_crcb_init),
     .up_edge_sel (up_edge_sel),

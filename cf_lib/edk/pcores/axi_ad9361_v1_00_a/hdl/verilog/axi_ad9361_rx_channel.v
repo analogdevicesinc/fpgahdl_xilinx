@@ -47,6 +47,8 @@ module axi_ad9361_rx_channel (
   adc_clk,
   adc_rst,
   adc_valid,
+  adc_pn_oos_pl,
+  adc_pn_err_pl,
   adc_data,
   adc_data_q,
   adc_or,
@@ -87,6 +89,8 @@ module axi_ad9361_rx_channel (
   input           adc_clk;
   input           adc_rst;
   input           adc_valid;
+  input           adc_pn_oos_pl;
+  input           adc_pn_err_pl;
   input   [11:0]  adc_data;
   input   [11:0]  adc_data_q;
   input           adc_or;
@@ -124,6 +128,7 @@ module axi_ad9361_rx_channel (
   wire            adc_dcfilter_valid_s;
   wire    [15:0]  adc_dcfilter_data_i_s;
   wire    [15:0]  adc_dcfilter_data_q_s;
+  wire            adc_pn_sel_s;
   wire            adc_iqcor_enb_s;
   wire            adc_dcfilt_enb_s;
   wire            adc_dfmt_se_s;
@@ -140,8 +145,8 @@ module axi_ad9361_rx_channel (
 
   assign adc_dcfilter_data_i_s = (IQSEL == 1) ? adc_dcfilter_data_in  : adc_dcfilter_data_out;
   assign adc_dcfilter_data_q_s = (IQSEL == 1) ? adc_dcfilter_data_out : adc_dcfilter_data_in;
-  assign adc_pn_oos_s = (IQSEL == 1) ? adc_pn_oos_in : adc_pn_oos_out;
-  assign adc_pn_err_s = (IQSEL == 1) ? adc_pn_err_in : adc_pn_err_out;
+  assign adc_pn_oos_s = (adc_pn_sel_s == 1'b1) ? adc_pn_oos_pl : ((IQSEL == 1) ? adc_pn_oos_in : adc_pn_oos_out);
+  assign adc_pn_err_s = (adc_pn_sel_s == 1'b1) ? adc_pn_err_pl : ((IQSEL == 1) ? adc_pn_err_in : adc_pn_err_out);
 
   generate
   if (IQSEL == 1) begin
@@ -193,6 +198,7 @@ module axi_ad9361_rx_channel (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_enable (adc_enable),
+    .adc_pn_sel (adc_pn_sel_s),
     .adc_iqcor_enb (adc_iqcor_enb_s),
     .adc_dcfilt_enb (adc_dcfilt_enb_s),
     .adc_dfmt_se (adc_dfmt_se_s),

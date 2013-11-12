@@ -39,13 +39,8 @@
 
 module user_logic (
 
-  hdmi_ref_clk,
-
   h2v_hdmi_clk,
   h2v_hdmi_data,
-
-  v2h_hdmi_clk,
-  v2h_hdmi_data,
   
   vdma_clk,
 
@@ -59,22 +54,10 @@ module user_logic (
   h2v_vdma_full,
   h2v_vdma_almost_full,
 
-  v2h_vdma_fs,
-  v2h_vdma_fs_ret,
-  v2h_vdma_valid,
-  v2h_vdma_be,
-  v2h_vdma_data,
-  v2h_vdma_last,
-  v2h_vdma_ready,
-  v2h_vdma_empty,
-  v2h_vdma_almost_empty,
-
   up_status,
 
   vdma_dbg_data,
   vdma_dbg_trigger,
-  v2h_dbg_data,
-  v2h_dbg_trigger,
   h2v_dbg_data,
   h2v_dbg_trigger,
 
@@ -92,13 +75,8 @@ module user_logic (
   parameter C_NUM_REG = 32;
   parameter C_SLV_DWIDTH = 32;
 
-  input           hdmi_ref_clk;
-
   input           h2v_hdmi_clk;
   input   [15:0]  h2v_hdmi_data;
-
-  output          v2h_hdmi_clk;
-  output  [15:0]  v2h_hdmi_data;
 
   input           vdma_clk;
 
@@ -112,22 +90,10 @@ module user_logic (
   input           h2v_vdma_full;
   input           h2v_vdma_almost_full;
 
-  output          v2h_vdma_fs;
-  input           v2h_vdma_fs_ret;
-  input           v2h_vdma_valid;
-  input   [ 7:0]  v2h_vdma_be;
-  input   [63:0]  v2h_vdma_data;
-  input           v2h_vdma_last;
-  output          v2h_vdma_ready;
-  input           v2h_vdma_empty;
-  input           v2h_vdma_almost_empty;
-
   output  [ 7:0]  up_status;
 
   output  [75:0]  vdma_dbg_data;
   output  [15:0]  vdma_dbg_trigger;
-  output  [59:0]  v2h_dbg_data;
-  output  [ 7:0]  v2h_dbg_trigger;
   output  [61:0]  h2v_dbg_data;
   output  [ 7:0]  h2v_dbg_trigger;
 
@@ -220,11 +186,8 @@ module user_logic (
   end
 
   cf_hdmi_16b_es i_hdmi_16b_es (
-    .hdmi_ref_clk (hdmi_ref_clk),
     .h2v_hdmi_clk (h2v_hdmi_clk),
     .h2v_hdmi_data (h2v_hdmi_data),
-    .v2h_hdmi_clk (v2h_hdmi_clk),
-    .v2h_hdmi_data (v2h_hdmi_data),
     .vdma_clk (vdma_clk),
     .h2v_vdma_fs (h2v_vdma_fs),
     .h2v_vdma_fs_ret (h2v_vdma_fs_ret),
@@ -233,13 +196,6 @@ module user_logic (
     .h2v_vdma_data (h2v_vdma_data),
     .h2v_vdma_last (h2v_vdma_last),
     .h2v_vdma_ready (h2v_vdma_ready),
-    .v2h_vdma_fs (v2h_vdma_fs),
-    .v2h_vdma_fs_ret (v2h_vdma_fs_ret),
-    .v2h_vdma_valid (v2h_vdma_valid),
-    .v2h_vdma_be (v2h_vdma_be),
-    .v2h_vdma_data (v2h_vdma_data),
-    .v2h_vdma_last (v2h_vdma_last),
-    .v2h_vdma_ready (v2h_vdma_ready),
     .up_rstn (Bus2IP_Resetn),
     .up_clk (Bus2IP_Clk),
     .up_sel (up_sel),
@@ -251,8 +207,6 @@ module user_logic (
     .up_status (up_status),
     .vdma_dbg_data (vdma_dbg_data),
     .vdma_dbg_trigger (vdma_dbg_trigger),
-    .v2h_dbg_data (v2h_dbg_data),
-    .v2h_dbg_trigger (v2h_dbg_trigger),
     .h2v_dbg_data (h2v_dbg_data),
     .h2v_dbg_trigger (h2v_dbg_trigger));
 

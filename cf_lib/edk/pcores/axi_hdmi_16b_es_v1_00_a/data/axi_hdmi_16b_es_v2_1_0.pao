@@ -16,10 +16,7 @@ lib adi_common_v1_00_a cf_csc_CrYCb2RGB verilog
 lib adi_common_v1_00_a cf_ss_422to444 verilog
 lib axi_hdmi_16b_es_v1_00_a cf_h2v_hdmi verilog
 lib axi_hdmi_16b_es_v1_00_a cf_h2v_vdma verilog
-lib axi_hdmi_16b_es_v1_00_a cf_v2h_hdmi verilog
-lib axi_hdmi_16b_es_v1_00_a cf_v2h_vdma verilog
 lib axi_hdmi_16b_es_v1_00_a cf_h2v verilog
-lib axi_hdmi_16b_es_v1_00_a cf_v2h verilog
 lib axi_hdmi_16b_es_v1_00_a cf_hdmi_16b_es verilog
 lib axi_hdmi_16b_es_v1_00_a user_logic verilog
 lib axi_hdmi_16b_es_v1_00_a axi_hdmi_16b_es vhdl
