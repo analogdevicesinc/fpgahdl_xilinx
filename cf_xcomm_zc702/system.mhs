@@ -155,7 +155,6 @@ BEGIN processing_system7
  PORT FCLK_CLK0 = processing_system7_0_FCLK_CLK0
  PORT FCLK_CLK1 = processing_system7_0_FCLK_CLK1
  PORT FCLK_CLK2 = processing_system7_0_FCLK_CLK2
- PORT FCLK_CLK3 = processing_system7_0_FCLK_CLK3
  PORT FCLK_RESET0_N = processing_system7_0_FCLK_RESET0_N
  PORT FCLK_RESET1_N = processing_system7_0_FCLK_RESET1_N
  PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
@@ -275,6 +274,16 @@ BEGIN clock_generator
  PARAMETER C_CLKOUT0_FREQ = 12288135
  PORT RST = net_gnd
  PORT CLKOUT0 = clock_generator_0_CLKOUT0
+ PORT CLKIN = processing_system7_0_FCLK_CLK2
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_1
+ PARAMETER HW_VER = 4.03.a
+ PARAMETER C_CLKIN_FREQ = 200000000
+ PARAMETER C_CLKOUT0_FREQ = 30000000
+ PORT RST = net_gnd
+ PORT CLKOUT0 = clock_generator_1_CLKOUT0
  PORT CLKIN = processing_system7_0_FCLK_CLK2
 END
 
@@ -419,7 +428,7 @@ END
 BEGIN util_outclk_lvds
  PARAMETER INSTANCE = util_outclk_lvds_0
  PARAMETER HW_VER = 1.00.a
- PORT ref_clk = processing_system7_0_FCLK_CLK3
+ PORT ref_clk = clock_generator_1_CLKOUT0
  PORT clk_out_p = util_outclk_lvds_0_clk_out_p
  PORT clk_out_n = util_outclk_lvds_0_clk_out_n
 END
