@@ -180,6 +180,7 @@ module axi_ad9122_if (
   // dac data output serdes(s) & buffers
 
   ad_serdes_out #(
+    .DEVICE_TYPE (PCORE_DEVICE_TYPE),
     .SERDES(PCORE_SERDES_DDR_N),
     .DATA_WIDTH(16))
   i_serdes_out_data (
@@ -200,6 +201,7 @@ module axi_ad9122_if (
   // dac frame output serdes & buffer
   
   ad_serdes_out #(
+    .DEVICE_TYPE (PCORE_DEVICE_TYPE),
     .SERDES(PCORE_SERDES_DDR_N),
     .DATA_WIDTH(1))
   i_serdes_out_frame (
@@ -220,6 +222,7 @@ module axi_ad9122_if (
   // dac clock output serdes & buffer
   
   ad_serdes_out #(
+    .DEVICE_TYPE (PCORE_DEVICE_TYPE),
     .SERDES(PCORE_SERDES_DDR_N),
     .DATA_WIDTH(1))
   i_serdes_out_clk (
