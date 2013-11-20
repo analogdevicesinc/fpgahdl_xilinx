@@ -1,0 +1,79 @@
+
+NET DDR3_ODT1     LOC = "U2" | IOSTANDARD = "SSTL15";
+NET DDR3_CKE1     LOC = "N4" | IOSTANDARD = "SSTL15";
+NET DDR3_A14      LOC = "L3" | IOSTANDARD = "SSTL15";
+NET DDR3_A15      LOC = "K2" | IOSTANDARD = "SSTL15";
+NET DDR3_CLK1_P   LOC = "N3" | IOSTANDARD = "SSTL15";
+NET DDR3_CLK1_N   LOC = "N2" | IOSTANDARD = "SSTL15";
+NET DDR3_S1_B     LOC = "T2" | IOSTANDARD = "SSTL15";
+
+NET RESET LOC = "U4"   |  IOSTANDARD = "LVCMOS15" | TIG;
+
+NET CLK_N LOC = "P3"   |  IOSTANDARD = "DIFF_SSTL15";
+NET CLK_P LOC = "R3"   |  IOSTANDARD = "DIFF_SSTL15";
+NET RS232_Uart_1_sin LOC = "T19"  |  IOSTANDARD = "LVCMOS18";
+NET RS232_Uart_1_sout LOC = "U19"  |  IOSTANDARD = "LVCMOS18";
+NET sm_fan_pwm_net_vcc LOC = "J26"  |  IOSTANDARD = "LVCMOS25";
+
+NET iic_sda   LOC = "K25" | IOSTANDARD = "LVCMOS33";
+NET iic_scl   LOC = "N18" | IOSTANDARD = "LVCMOS33";
+NET iic_rstn  LOC = "R17" | IOSTANDARD = "LVCMOS33";
+
+NET hdmi_out_clk    LOC = "V21"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_vsync      LOC = "AC26" | IOSTANDARD = "LVCMOS18";
+NET hdmi_hsync      LOC = "AA22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data_e     LOC = "AB26" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[0]    LOC = "AA24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[1]    LOC = "Y25"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[2]    LOC = "Y26"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[3]    LOC = "V26"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[4]    LOC = "W26"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[5]    LOC = "W25"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[6]    LOC = "W24"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[7]    LOC = "U26"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[8]    LOC = "U25"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[9]    LOC = "V24"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[10]   LOC = "U20"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[11]   LOC = "W23"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[12]   LOC = "W20"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[13]   LOC = "U24"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[14]   LOC = "Y20"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[15]   LOC = "V23"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[16]   LOC = "AA23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[17]   LOC = "AA25" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[18]   LOC = "AB25" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[19]   LOC = "AC24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[20]   LOC = "AB24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[21]   LOC = "Y22"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[22]   LOC = "Y23"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[23]   LOC = "V22"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_spdif      LOC = "Y21"  | IOSTANDARD = "LVCMOS18";
+NET hdmi_int        LOC = "W21"  | IOSTANDARD = "LVCMOS18";
+
+NET "CLK_P" TNM_NET = "CLK_P";
+TIMESPEC "TS_CLK_P" = PERIOD "CLK_P" 200 MHz;
+NET "CLK_N" TNM_NET = "CLK_N";
+TIMESPEC "TS_CLK_N" = PERIOD "CLK_N" 200 MHz;
+
+# false paths across hdmi, vdma and up clocks
+
+NET "hdmi_clk" TNM_NET = "hdmi_clk";
+TIMESPEC TS_hdmi_clk = PERIOD "hdmi_clk" 150 MHz;
+
+NET "clock_generator_0_CLKOUT5" TNM_NET = "clock_generator_0_CLKOUT5";
+TIMESPEC TS_clock_generator_0_CLKOUT5 = PERIOD "clock_generator_0_CLKOUT5" 80 MHz;
+
+NET "clk_100_0000MHzPLLE0" TNM_NET = "clk_100MHz";
+TIMESPEC TS_clk_100MHz = PERIOD "clk_100MHz" 100 MHz;
+
+NET "clk_200_0000MHzPLLE0" TNM_NET = "clk_200MHz";
+TIMESPEC TS_clk_200MHz = PERIOD "clk_200MHz" 200 MHz;
+
+TIMESPEC TS_hdmi_to_vdma = FROM "hdmi_clk" TO "clk_200MHz" TIG;
+TIMESPEC TS_vdma_to_hdmi = FROM "clk_200MHz" TO "hdmi_clk" TIG;
+TIMESPEC TS_up_to_hdmi = FROM "clk_100MHz" TO "hdmi_clk" TIG;
+TIMESPEC TS_hdmi_to_up = FROM "hdmi_clk" TO "clk_100MHz" TIG;
+
+TIMESPEC TS_spdif_2_up = FROM "clock_generator_0_CLKOUT5" TO "clk_100MHz" TIG;
+TIMESPEC TS_up_2_spdif = FROM "clk_100MHz" TO "clock_generator_0_CLKOUT5" TIG;
+  
