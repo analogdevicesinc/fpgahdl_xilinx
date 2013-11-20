@@ -1,0 +1,75 @@
+
+NET RESET LOC = "AV40"  |  IOSTANDARD = "LVCMOS18"  |  TIG;
+
+NET CLK_N LOC = "E18"  |  IOSTANDARD = "LVDS";
+NET CLK_P LOC = "E19"  |  IOSTANDARD = "LVDS";
+
+NET RS232_Uart_1_sin LOC = "AU33"  |  IOSTANDARD = "LVCMOS18";
+NET RS232_Uart_1_sout LOC = "AU36"  |  IOSTANDARD = "LVCMOS18";
+
+NET sm_fan_pwm_net_vcc LOC = "BA37" | IOSTANDARD = "LVCMOS18";
+
+NET hdmi_clk          LOC = "AU23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_vsync        LOC = "AT22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_hsync        LOC = "AU22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data_e       LOC = "AP21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[0]      LOC = "AM22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[1]      LOC = "AL22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[2]      LOC = "AJ20" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[3]      LOC = "AJ21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[4]      LOC = "AM21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[5]      LOC = "AL21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[6]      LOC = "AK22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[7]      LOC = "AJ22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[8]      LOC = "AL20" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[9]      LOC = "AK20" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[10]     LOC = "AK23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[11]     LOC = "AJ23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[12]     LOC = "AN21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[13]     LOC = "AP22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[14]     LOC = "AP23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[15]     LOC = "AN23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[16]     LOC = "AM23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[17]     LOC = "AN24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[18]     LOC = "AY24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[19]     LOC = "BB22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[20]     LOC = "BA22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[21]     LOC = "BA25" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[22]     LOC = "AY25" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[23]     LOC = "AY22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[24]     LOC = "AY23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[25]     LOC = "AV24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[26]     LOC = "AU24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[27]     LOC = "AW21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[28]     LOC = "AV21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[29]     LOC = "AT24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[30]     LOC = "AR24" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[31]     LOC = "AU21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[32]     LOC = "AT21" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[33]     LOC = "AW22" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[34]     LOC = "AW23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_data[35]     LOC = "AV23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_spdif        LOC = "AR23" | IOSTANDARD = "LVCMOS18";
+NET hdmi_int          LOC = "AM24" | IOSTANDARD = "LVCMOS18";
+
+NET iic_sda           LOC = "AU32" | IOSTANDARD = "LVCMOS18";
+NET iic_scl           LOC = "AT35" | IOSTANDARD = "LVCMOS18";
+NET iic_rstn          LOC = "AY42" | IOSTANDARD = "LVCMOS18";
+
+NET "CLK_P" TNM_NET = "CLK_P";
+TIMESPEC "TS_CLK_P" = PERIOD "CLK_P" 200 MHz;
+NET "CLK_N" TNM_NET = "CLK_N";
+TIMESPEC "TS_CLK_N" = PERIOD "CLK_N" 200 MHz;
+
+TIMESPEC TS_hdmi_2_vdma_1 = FROM "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s_0" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3_0" TIG;
+TIMESPEC TS_hdmi_2_vdma_2 = FROM "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s_0" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TIG;
+TIMESPEC TS_hdmi_2_vdma_3 = FROM "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3_0" TIG;
+TIMESPEC TS_hdmi_2_vdma_4 = FROM "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TIG;
+TIMESPEC TS_vdma_2_hdmi_1 = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3_0" TO "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s_0" TIG;
+TIMESPEC TS_vdma_2_hdmi_2 = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3_0" TO "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s" TIG;
+TIMESPEC TS_vdma_2_hdmi_3 = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TO "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s_0" TIG;
+TIMESPEC TS_vdma_2_hdmi_4 = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TO "axi_clkgen_0_axi_clkgen_0_USER_LOGIC_I_i_clkgen_mmcm_clk_s" TIG;
+
+TIMESPEC TS_spdif_2_up = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT5" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TIG;
+TIMESPEC TS_up_2_spdif = FROM "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT3" TO "clock_generator_0_clock_generator_0_SIG_PLLE0_CLKOUT5" TIG;
+  
