@@ -1,0 +1,42 @@
+#
+# pin constraints
+#
+NET CLK_N LOC = "P3"  |  IOSTANDARD = "DIFF_SSTL15";
+NET CLK_P LOC = "R3"  |  IOSTANDARD = "DIFF_SSTL15";
+NET RESET LOC = "U4"  |  IOSTANDARD = "LVCMOS15";
+NET RS232_Uart_1_sin LOC = "T19"  |  IOSTANDARD = "LVCMOS25";
+NET RS232_Uart_1_sout LOC = "U19"  |  IOSTANDARD = "LVCMOS25";
+
+NET "CLK_P" CLOCK_DEDICATED_ROUTE = BACKBONE;
+PIN "clock_generator_0/clock_generator_0/PLLE0_INST/PLLE2_ADV_inst.CLKIN1" CLOCK_DEDICATED_ROUTE = BACKBONE;
+
+#
+# additional constraints
+#
+
+NET "CLK" TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 200000 kHz;
+
+#
+# FMC pins constraints
+#
+# Location Constraint
+NET "axi_ad7091_0_adc_sdo_i_pin" LOC = "A19";
+NET "axi_ad7091_0_adc_cs_n_o_pin" LOC = "B22";
+NET "axi_ad7091_0_adc_sclk_o_pin" LOC = "A22";
+NET "axi_ad7091_0_adc_cnv_o_pin" LOC = "J18";
+# IOSTANDARD Constraint
+NET "axi_ad7091_0_adc_sdo_i_pin" IOSTANDARD = "LVCMOS33";
+NET "axi_ad7091_0_adc_cs_n_o_pin" IOSTANDARD = "LVCMOS33";
+NET "axi_ad7091_0_adc_sclk_o_pin" IOSTANDARD = "LVCMOS33";
+NET "axi_ad7091_0_adc_cnv_o_pin" IOSTANDARD = "LVCMOS33";
+# IO Drive Constraint
+NET "axi_ad7091_0_adc_sdo_i_pin" DRIVE = 16;
+NET "axi_ad7091_0_adc_cs_n_o_pin" DRIVE = 16;
+NET "axi_ad7091_0_adc_sclk_o_pin" DRIVE = 16;
+NET "axi_ad7091_0_adc_cnv_o_pin" DRIVE = 16;
+# IO Slew Rate Constraint
+NET "axi_ad7091_0_adc_sdo_i_pin" SLEW = FAST;
+NET "axi_ad7091_0_adc_cs_n_o_pin" SLEW = FAST;
+NET "axi_ad7091_0_adc_sclk_o_pin" SLEW = FAST;
+NET "axi_ad7091_0_adc_cnv_o_pin" SLEW = FAST;
