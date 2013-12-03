@@ -1,0 +1,13 @@
+##############################################################################
+## Filename:          D:/Work/Xilinx/Draft/UART_if/ADCDrivers/AD7091/New/Microblaze/pcores/axi_ad7091_v1_00_a/data/axi_ad7091_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Thu Nov 07 17:16:35 2013 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a mem verilog
+lib adi_common_v1_00_a axis_inf verilog
+lib adi_common_v1_00_a dma_core verilog
+lib adi_common_v1_00_a up_axi verilog
+lib adi_common_v1_00_a up_adc_common verilog
+lib axi_ad7091_v1_00_a axi_ad7091_dev_if verilog
+lib axi_ad7091_v1_00_a axi_ad7091 verilog

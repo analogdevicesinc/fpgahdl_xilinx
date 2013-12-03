@@ -1,0 +1,116 @@
+// ***************************************************************************
+// ***************************************************************************
+// Copyright 2011(c) Analog Devices, Inc.
+//
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without modification,
+// are permitted provided that the following conditions are met:
+//     - Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     - Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in
+//       the documentation and/or other materials provided with the
+//       distribution.
+//     - Neither the name of Analog Devices, Inc. nor the names of its
+//       contributors may be used to endorse or promote products derived
+//       from this software without specific prior written permission.
+//     - The use of this software may or may not infringe the patent rights
+//       of one or more patent holders.  This license does not release you
+//       from the requirement that you obtain separate licenses from these
+//       patent holders to use this software.
+//     - Use of the software either in source or binary form, must be run
+//       on or directly connected to an Analog Devices Inc. component.
+//
+// THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+// INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE ARE DISCLAIMED.
+//
+// IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
+// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+// BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+// THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+
+// ---------------------------------------------------------------------------
+// Address
+// QW       Byte    Bits        Type    Description
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 0x00     0x00    [31: 0]     RO      version[31:0]         32'h00040062
+// ---------------------------------------------------------------------------
+// 0x01     0x04    [31: 0]     RO      Instance identifier number
+// 0x02     0x08    [31: 0]     RW      Scratch register
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 0x10     0x40    [1: 1]      RW      MMCM_RSTN       MMCM reset only.
+// Default is IN-RESET (0x0), software must write 0x1 to bring up the core
+//                  [0: 0]      RW      RSTN            Reset, default is
+// IN-RESET, software must write 0x1 to bring up the core.
+// ---------------------------------------------------------------------------
+// 0x11     0x44    [2: 2]      RW      R1_MODE         Select number of RF
+// channels 1 (0x1) or 2 (0x0)
+//                  [1: 1]      RW      DDR_EDGESEL     Select rising edge (0x0)
+// or falling edge (0x1) for the first part of a sample (if applicable)
+// followed by the successive edges for the remaining parts. This only controls
+// how the sample is delineated from the incoming data post DDR registers.
+//                  [0: 0]      RW      PIN_MODE        Select interface pin
+// mode to be clock multiplexed (0x1) or pin multiplexed (0x0). In clock
+// multiplexed mode, samples are received on alternative clock edges. In pin
+// multiplexed mode, samples are interleaved or grouped on the pins at the same
+// clock edge.
+// ---------------------------------------------------------------------------
+// 0x15     0x54    [31: 0]     RO      CLK_FREQ        Interface clock
+// frequency. This is relative to the processor clock and in many cases is
+// 100MHz.
+// ---------------------------------------------------------------------------
+// 0x16     0x58    [31: 0]     RO      CLK_RATIO       Interface clock ratio -
+// as a factor actual received clock.    32'h1
+// ---------------------------------------------------------------------------
+// 0x17     0x5C    [3: 3]      RO      PN_ERR          If set, indicates pn
+// error in one or more channels.
+//                  [2: 2]      RO      PN_OSS          If set, indicates pn
+// oos in one or more channels.
+//                  [1: 1]      RO      OVER_RANGE      If set, indicates over
+// range in one or more channels.
+//                  [0: 0]      RO      STATUS          Interface status, if
+// set indicates no errors. If not set, there are errors, software may try
+// resetting the cores.
+// ---------------------------------------------------------------------------
+// 0x20     0x80    [1: 1]      RW      DMA_STREAM      If set, DMA is in
+// stream mode, data is continously passed to the DMA module, with TLAST
+// asserted every DMA count cycles on the data bus. The ADC interface does not
+// do the actual DMA, so the success of a stream mode (bandwidth effects)
+// depends mainly on the DMA module.
+//                  [0: 0]      RW      DMA_START       A 0x0 to 0x1 transition
+// on this bit initiates DMA.
+// ---------------------------------------------------------------------------
+// 0x21     0x84    [31: 0]     RW      DMA_COUNT       DMA data count, mainly
+// used to assert TLAST. Software must program the DMA controller with the same
+// settings. The count is based on bytes (same as DMA setting), however the
+// value must be an integer multiple of the bus width. In most cases the
+// granularity is 4 bytes.
+// ---------------------------------------------------------------------------
+// 0x22     0x88    [2: 2]      RW1C    DMA_OVF         DMA overflow. If set,
+// indicates an overflow occured during data transfer. Software must write a
+// 0x1 before starting another transfer to clear any left off status from a
+// previous DMA.
+//                  [1: 1]      RW1C    DMA_UNF         DMA underflow. If set,
+// indicates an underflow occured during data transfer. Software must write a
+// 0x1 before starting another transfer to clear any left off status from a
+// previous DMA.
+//                  [0: 0]      RW1C    DMA_STATUS      DMA status. If set,
+// indicates access is pending and transfer is not complete.
+// ---------------------------------------------------------------------------
+// 0x23     0xa0    [31: 0]     RO      DMA_BUSWIDTH    DMA data bus width in
+// number of bytes (the DMA count must be an integer multiple of this bus
+// width).          31'h4
+// ---------------------------------------------------------------------------
+
+// ***************************************************************************
+// ***************************************************************************
