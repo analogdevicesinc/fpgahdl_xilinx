@@ -1,0 +1,2956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <spirit:vendor>xilinx.com</spirit:vendor>
+  <spirit:library>customized_ip</spirit:library>
+  <spirit:name>clock_gen</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>xilinx_anylanguagesynthesis</spirit:name>
+        <spirit:displayName>Synthesis</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:synthesis</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_anylanguagesynthesis_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>customizationCRC</spirit:name>
+            <spirit:value>3580244489</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>customizationCRCversion</spirit:name>
+            <spirit:value>1</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_anylanguagebehavioralsimulation</spirit:name>
+        <spirit:displayName>Simulation</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:simulation</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>customizationCRC</spirit:name>
+            <spirit:value>3580244489</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>customizationCRCversion</spirit:name>
+            <spirit:value>1</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_miscfiles</spirit:name>
+        <spirit:displayName>Miscellaneous</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:misc.files</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_miscfiles_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>customizationCRC</spirit:name>
+            <spirit:value>3580244489</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>customizationCRCversion</spirit:name>
+            <spirit:value>1</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_anylanguageinstantiationtemplate</spirit:name>
+        <spirit:displayName>Instantiation Template</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:synthesis.template</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_anylanguageinstantiationtemplate_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>customizationCRC</spirit:name>
+            <spirit:value>3580244489</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>customizationCRCversion</spirit:name>
+            <spirit:value>1</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>CLK_IN1</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_IN1_P</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_IN1_N</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_IN2</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_IN2_P</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_IN2_N</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_FB_IN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_FB_IN_P</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_FB_IN_N</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DADDR</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">6</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DCLK</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DEN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DIN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">15</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DOUT</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">15</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DRDY</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>DWE</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PROGCLK</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PROGDATA</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PROGEN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PROGDONE</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PSCLK</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PSEN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PSINCDEC</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>PSDONE</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT1</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT2</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT3</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT4</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT5</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT6</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLK_OUT7</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLKFB_OUT</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>RESET</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>POWER_DOWN</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>FREEZE</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>INPUT_CLK_STOPPED</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>CLKFB_STOPPED</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>LOCKED</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>STATUS</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">2</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="INTEGER">
+        <spirit:name>c_clkout2_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_clkout3_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_clkout4_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_clkout5_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_clkout6_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_clkout7_used</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_USED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clkout1_bar</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLKOUT1_BAR">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clkout2_bar</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLKOUT2_BAR">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clkout3_bar</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLKOUT3_BAR">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clkout4_bar</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLKOUT4_BAR">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_component_name</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_COMPONENT_NAME">clk_wiz_v3_6</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_platform</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLATFORM">UNKNOWN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_freq_synth</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_FREQ_SYNTH">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_phase_alignment</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_PHASE_ALIGNMENT">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_prim_in_jitter</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIM_IN_JITTER">0.01</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_secondary_in_jitter</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SECONDARY_IN_JITTER">0.01</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_jitter_sel</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_JITTER_SEL">No_Jitter</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_min_power</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_MIN_POWER">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_min_o_jitter</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_MIN_O_JITTER">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_max_i_jitter</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_MAX_I_JITTER">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_dyn_phase_shift</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_DYN_PHASE_SHIFT">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_inclk_switchover</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_INCLK_SWITCHOVER">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_dyn_reconfig</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_DYN_RECONFIG">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_spread_spectrum</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_SPREAD_SPECTRUM">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_spread_spectrum_1</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_SPREAD_SPECTRUM_1">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_primtype_sel</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIMTYPE_SEL">AUTO</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clk_valid</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLK_VALID">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_prim_in_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIM_IN_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_in_freq_units</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_IN_FREQ_UNITS">UNITS_MHZ</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_secondary_in_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SECONDARY_IN_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_feedback_source</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_FEEDBACK_SOURCE">FDBK_AUTO</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_prim_source</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIM_SOURCE">No_buffer</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_secondary_source</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SECONDARY_SOURCE">No_buffer</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_in_signaling</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_IN_SIGNALING">SINGLE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_reset</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_RESET">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_locked</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_LOCKED">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_inclk_stopped</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_INCLK_STOPPED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_clkfb_stopped</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_CLKFB_STOPPED">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_power_down</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_POWER_DOWN">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_status</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_STATUS">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_use_freeze</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_FREEZE">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_num_out_clks</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_NUM_OUT_CLKS">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_drives</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_DRIVES">BUFG</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_inclk_sum_row0</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="immediate" spirit:id="MODELPARAM_VALUE.C_INCLK_SUM_ROW0">&quot;Input Clock   Freq (MHz)    Input Jitter (UI)&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_inclk_sum_row1</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_INCLK_SUM_ROW1">&quot;primary       100.000        0.010&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_inclk_sum_row2</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_INCLK_SUM_ROW2">&quot;secondary      100.000        0.010&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row0a</spirit:name>
+        <spirit:displayName>C Outclk Sum Row0a</spirit:displayName>
+        <spirit:value spirit:format="string" spirit:resolve="immediate" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW0A">&quot;Output    Output      Phase     Duty      Pk-to-Pk        Phase&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row0b</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="immediate" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW0B">&quot;Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row1</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW1">&quot;no CLK_OUT1 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row2</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW2">&quot;no CLK_OUT2 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row3</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW3">&quot;no CLK_OUT3 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row4</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW4">&quot;no CLK_OUT4 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row5</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW5">&quot;no CLK_OUT5 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row6</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW6">&quot;no CLK_OUT6 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_outclk_sum_row7</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OUTCLK_SUM_ROW7">&quot;no CLK_OUT7 output&quot;</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_requested_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_REQUESTED_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_requested_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_REQUESTED_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_requested_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_REQUESTED_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_out_freq</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_OUT_FREQ">100.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout1_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT1_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout2_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT2_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout3_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT3_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout4_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT4_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout5_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT5_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout6_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT6_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkout7_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKOUT7_DUTY_CYCLE">50.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_notes</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_NOTES">No notes</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_bandwidth</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_BANDWIDTH">OPTIMIZED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkfbout_mult_f</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKFBOUT_MULT_F">1.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkin1_period</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKIN1_PERIOD">1.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkin2_period</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKIN2_PERIOD">1.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout4_cascade</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT4_CASCADE">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clock_hold</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLOCK_HOLD">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_compensation</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_COMPENSATION">ZHOLD</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_divclk_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_DIVCLK_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_ref_jitter1</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_REF_JITTER1">0.010</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_ref_jitter2</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_REF_JITTER2">0.010</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_startup_wait</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_STARTUP_WAIT">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout0_divide_f</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT0_DIVIDE_F">1.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout1_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT1_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout2_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT2_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout3_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT3_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout4_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT4_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout5_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT5_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_mmcm_clkout6_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT6_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout0_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT0_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout1_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT1_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout2_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT2_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout3_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT3_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout4_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT4_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout5_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT5_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout6_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT6_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkfbout_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKFBOUT_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout0_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT0_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout1_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT1_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout2_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT2_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout3_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT3_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout4_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT4_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout5_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT5_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout6_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT6_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkfbout_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKFBOUT_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout0_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT0_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout1_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT1_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout2_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT2_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout3_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT3_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout4_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT4_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout5_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT5_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_mmcm_clkout6_use_fine_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_MMCM_CLKOUT6_USE_FINE_PS">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_notes</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_NOTES">No notes</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_bandwidth</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_BANDWIDTH">OPTIMIZED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clk_feedback</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLK_FEEDBACK">CLKFBOUT</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkfbout_mult</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKFBOUT_MULT">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkin_period</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKIN_PERIOD">1.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_compensation</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_COMPENSATION">SYSTEM_SYNCHRONOUS</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_divclk_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_DIVCLK_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_ref_jitter</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_REF_JITTER">0.010</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout0_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT0_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout1_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT1_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout2_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT2_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout3_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT3_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout4_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT4_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_pll_clkout5_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT5_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout0_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT0_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout1_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT1_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout2_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT2_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout3_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT3_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout4_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT4_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout5_duty_cycle</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT5_DUTY_CYCLE">0.500</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkfbout_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKFBOUT_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout0_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT0_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout1_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT1_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout2_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT2_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout3_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT3_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout4_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT4_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_pll_clkout5_phase</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PLL_CLKOUT5_PHASE">0.000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_notes</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_NOTES">No Notes</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkdv_divide</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKDV_DIVIDE">2.0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_dcm_clkfx_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKFX_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_dcm_clkfx_multiply</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKFX_MULTIPLY">4</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkin_divide_by_2</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKIN_DIVIDE_BY_2">FALSE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkin_period</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKIN_PERIOD">10.0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkout_phase_shift</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKOUT_PHASE_SHIFT">NONE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_feedback</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_FEEDBACK">1X</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_feedback_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_FEEDBACK_PORT">NONE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_deskew_adjust</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_DESKEW_ADJUST">SYSTEM_SYNCHRONOUS</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_dcm_phase_shift</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_PHASE_SHIFT">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_startup_wait</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_STARTUP_WAIT">false</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out1_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT1_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out2_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT2_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out3_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT3_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out4_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT4_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out5_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT5_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clk_out6_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLK_OUT6_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_notes</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_NOTES">No Notes</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clkfxdv_divide</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLKFXDV_DIVIDE">2.0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_dcm_clkgen_clkfx_divide</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLKFX_DIVIDE">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_dcm_clkgen_clkfx_multiply</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLKFX_MULTIPLY">4</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_dfs_bandwidth</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_DFS_BANDWIDTH">OPTIMIZED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_prog_md_bandwidth</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_PROG_MD_BANDWIDTH">OPTIMIZED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clkin_period</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLKIN_PERIOD">10.0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clkfx_md_max</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLKFX_MD_MAX">4.0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_spread_spectrum</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_SPREAD_SPECTRUM">NONE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_startup_wait</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_STARTUP_WAIT">false</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clk_out1_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLK_OUT1_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clk_out2_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLK_OUT2_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_clkgen_clk_out3_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_CLKGEN_CLK_OUT3_PORT">unused</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clock_mgr_type</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLOCK_MGR_TYPE">NA</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_override_mmcm</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OVERRIDE_MMCM">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_override_pll</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OVERRIDE_PLL">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_override_dcm</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OVERRIDE_DCM">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_override_dcm_clkgen</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_OVERRIDE_DCM_CLKGEN">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dcm_pll_cascade</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCM_PLL_CASCADE">NONE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_primary_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIMARY_PORT">CLK_IN1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_secondary_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SECONDARY_PORT">CLK_IN2</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out1_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT1_PORT">CLKOUT1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out2_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT2_PORT">CLKOUT2</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out3_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT3_PORT">CLKOUT3</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out4_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT4_PORT">CLKOUT4</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out5_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT5_PORT">CLKOUT5</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out6_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT6_PORT">CLKOUT6</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_out7_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_OUT7_PORT">CLKOUT7</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_reset_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_RESET_PORT">RESET</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_locked_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_LOCKED_PORT">LOCKED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_in_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_IN_PORT">CLKFB_IN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_in_p_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_IN_P_PORT">CLKFB_IN_P</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_in_n_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_IN_N_PORT">CLKFB_IN_N</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_out_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_OUT_PORT">CLKFB_OUT</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_out_p_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_OUT_P_PORT">CLKFB_OUT_P</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_out_n_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_OUT_N_PORT">CLKFB_OUT_N</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_power_down_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_POWER_DOWN_PORT">POWER_DOWN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_daddr_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DADDR_PORT">DADDR</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dclk_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DCLK_PORT">DCLK</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_drdy_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DRDY_PORT">DRDY</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dwe_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DWE_PORT">DWE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_din_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DIN_PORT">DIN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_dout_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DOUT_PORT">DOUT</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_den_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_DEN_PORT">DEN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_psclk_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PSCLK_PORT">PSCLK</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_psen_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PSEN_PORT">PSEN</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_psincdec_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PSINCDEC_PORT">PSINCDEC</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_psdone_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PSDONE_PORT">PSDONE</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_valid_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_VALID_PORT">CLK_VALID</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_status_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_STATUS_PORT">STATUS</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clk_in_sel_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLK_IN_SEL_PORT">CLK_IN_SEL</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_input_clk_stopped_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_INPUT_CLK_STOPPED_PORT">INPUT_CLK_STOPPED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkfb_stopped_port</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKFB_STOPPED_PORT">CLKFB_STOPPED</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkin1_jitter_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKIN1_JITTER_PS">100</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_clkin2_jitter_ps</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CLKIN2_JITTER_PS">100</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_primitive</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_PRIMITIVE">MMCM</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>c_ss_mode</spirit:name>
+        <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SS_MODE">CENTER_HIGH</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="INTEGER">
+        <spirit:name>c_ss_mod_period</spirit:name>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SS_MOD_PERIOD">10000</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Jitter_Sel</spirit:name>
+      <spirit:enumeration spirit:text="No_Jitter">No_Jitter</spirit:enumeration>
+      <spirit:enumeration spirit:text="Min_O_Jitter">Min_O_Jitter</spirit:enumeration>
+      <spirit:enumeration spirit:text="Max_I_Jitter">Max_I_Jitter</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_In_Freq_Units</spirit:name>
+      <spirit:enumeration spirit:text="Units_MHz">Units_MHz</spirit:enumeration>
+      <spirit:enumeration spirit:text="Units_ns">Units_ns</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_In_Jitter_Units</spirit:name>
+      <spirit:enumeration spirit:text="Units_UI">Units_UI</spirit:enumeration>
+      <spirit:enumeration spirit:text="Units_ps">Units_ps</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Relative_Inclk</spirit:name>
+      <spirit:enumeration spirit:text="REL_PRIMARY">REL_PRIMARY</spirit:enumeration>
+      <spirit:enumeration spirit:text="REL_SECONDARY">REL_SECONDARY</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Jitter_Options</spirit:name>
+      <spirit:enumeration spirit:text="UI">UI</spirit:enumeration>
+      <spirit:enumeration spirit:text="PS">PS</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Prim_Source</spirit:name>
+      <spirit:enumeration spirit:text="Single_ended_clock_capable_pin">Single_ended_clock_capable_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Differential_clock_capable_pin">Differential_clock_capable_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Single_ended_non_clock_pin">Single_ended_non_clock_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Differential_non_clock_pin">Differential_non_clock_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Global_buffer">Global_buffer</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Secondary_Source</spirit:name>
+      <spirit:enumeration spirit:text="Single_ended_clock_capable_pin">Single_ended_clock_capable_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Differential_clock_capable_pin">Differential_clock_capable_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Single_ended_non_clock_pin">Single_ended_non_clock_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Differential_non_clock_pin">Differential_non_clock_pin</spirit:enumeration>
+      <spirit:enumeration spirit:text="Global_buffer">Global_buffer</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout1_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout2_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout3_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout4_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout5_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout6_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkout7_Drives</spirit:name>
+      <spirit:enumeration spirit:text="BUFG">BUFG</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFR">BUFR</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFH">BUFH</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUFGCE">BUFGCE</spirit:enumeration>
+      <spirit:enumeration spirit:text="No_buffer">No_buffer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Feedback_Source</spirit:name>
+      <spirit:enumeration spirit:text="FDBK_AUTO">FDBK_AUTO</spirit:enumeration>
+      <spirit:enumeration spirit:text="FDBK_AUTO_OFFCHIP">FDBK_AUTO_OFFCHIP</spirit:enumeration>
+      <spirit:enumeration spirit:text="FDBK_ONCHIP">FDBK_ONCHIP</spirit:enumeration>
+      <spirit:enumeration spirit:text="FDBK_OFFCHIP">FDBK_OFFCHIP</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Clkfb_In_Signaling</spirit:name>
+      <spirit:enumeration spirit:text="SINGLE">SINGLE</spirit:enumeration>
+      <spirit:enumeration spirit:text="DIFF">DIFF</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Mmcm_Bandwidth</spirit:name>
+      <spirit:enumeration spirit:text="LOW">LOW</spirit:enumeration>
+      <spirit:enumeration spirit:text="HIGH">HIGH</spirit:enumeration>
+      <spirit:enumeration spirit:text="OPTIMIZED">OPTIMIZED</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Mmcm_Compensation</spirit:name>
+      <spirit:enumeration spirit:text="ZHOLD">ZHOLD</spirit:enumeration>
+      <spirit:enumeration spirit:text="CASCADE">CASCADE</spirit:enumeration>
+      <spirit:enumeration spirit:text="EXTERNAL">EXTERNAL</spirit:enumeration>
+      <spirit:enumeration spirit:text="INTERNAL">INTERNAL</spirit:enumeration>
+      <spirit:enumeration spirit:text="BUF_IN">BUF_IN</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkdv_Divide</spirit:name>
+      <spirit:enumeration spirit:text="1.6">1.6</spirit:enumeration>
+      <spirit:enumeration spirit:text="2.0">2.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="2.5">2.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="3.0">3.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="3.5">3.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="4.0">4.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="4.5">4.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="5.0">5.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="5.5">5.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="6.0">6.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="6.5">6.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="7.0">7.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="7.5">7.5</spirit:enumeration>
+      <spirit:enumeration spirit:text="8.0">8.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="9.0">9.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="10.0">10.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="11.0">11.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="12.0">12.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="13.0">13.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="14.0">14.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="15.0">15.0</spirit:enumeration>
+      <spirit:enumeration spirit:text="16.0">16.0</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkout_Phase_Shift</spirit:name>
+      <spirit:enumeration spirit:text="NONE">NONE</spirit:enumeration>
+      <spirit:enumeration spirit:text="FIXED">FIXED</spirit:enumeration>
+      <spirit:enumeration spirit:text="VARIABLE">VARIABLE</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Deskew_Adjust</spirit:name>
+      <spirit:enumeration spirit:text="SYSTEM_SYNCHRONOUS">SYSTEM_SYNCHRONOUS</spirit:enumeration>
+      <spirit:enumeration spirit:text="SOURCE_SYNCHRONOUS">SOURCE_SYNCHRONOUS</spirit:enumeration>
+      <spirit:enumeration spirit:text="0">0</spirit:enumeration>
+      <spirit:enumeration spirit:text="1">1</spirit:enumeration>
+      <spirit:enumeration spirit:text="2">2</spirit:enumeration>
+      <spirit:enumeration spirit:text="3">3</spirit:enumeration>
+      <spirit:enumeration spirit:text="4">4</spirit:enumeration>
+      <spirit:enumeration spirit:text="5">5</spirit:enumeration>
+      <spirit:enumeration spirit:text="6">6</spirit:enumeration>
+      <spirit:enumeration spirit:text="7">7</spirit:enumeration>
+      <spirit:enumeration spirit:text="8">8</spirit:enumeration>
+      <spirit:enumeration spirit:text="9">9</spirit:enumeration>
+      <spirit:enumeration spirit:text="10">10</spirit:enumeration>
+      <spirit:enumeration spirit:text="11">11</spirit:enumeration>
+      <spirit:enumeration spirit:text="12">12</spirit:enumeration>
+      <spirit:enumeration spirit:text="13">13</spirit:enumeration>
+      <spirit:enumeration spirit:text="14">14</spirit:enumeration>
+      <spirit:enumeration spirit:text="15">15</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Feedback</spirit:name>
+      <spirit:enumeration spirit:text="1X">1X</spirit:enumeration>
+      <spirit:enumeration spirit:text="2X">2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="NONE">NONE</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out1_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out2_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out3_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out4_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out5_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clk_Out6_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLK0">CLK0</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK90">CLK90</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK180">CLK180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK270">CLK270</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKDV">CLKDV</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X">CLK2X</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLK2X180">CLK2X180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkgen_Clkfxdv_Divide</spirit:name>
+      <spirit:enumeration spirit:text="2">2</spirit:enumeration>
+      <spirit:enumeration spirit:text="4">4</spirit:enumeration>
+      <spirit:enumeration spirit:text="8">8</spirit:enumeration>
+      <spirit:enumeration spirit:text="16">16</spirit:enumeration>
+      <spirit:enumeration spirit:text="32">32</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkgen_Spread_Spectrum</spirit:name>
+      <spirit:enumeration spirit:text="NONE">NONE</spirit:enumeration>
+      <spirit:enumeration spirit:text="VIDEO_LINK_75_CENTER_SPREAD">VIDEO_LINK_75_CENTER_SPREAD</spirit:enumeration>
+      <spirit:enumeration spirit:text="LOW_EMISSION_24_DOWN_SPREAD">LOW_EMISSION_24_DOWN_SPREAD</spirit:enumeration>
+      <spirit:enumeration spirit:text="VIDEO_LINK_90_CENTER_SPREAD">VIDEO_LINK_90_CENTER_SPREAD</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out1_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFXDV">CLKFXDV</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out2_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFXDV">CLKFXDV</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out3_Port</spirit:name>
+      <spirit:enumeration spirit:text="CLKFX">CLKFX</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFX180">CLKFX180</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKFXDV">CLKFXDV</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Pll_Bandwidth</spirit:name>
+      <spirit:enumeration spirit:text="LOW">LOW</spirit:enumeration>
+      <spirit:enumeration spirit:text="HIGH">HIGH</spirit:enumeration>
+      <spirit:enumeration spirit:text="OPTIMIZED">OPTIMIZED</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Pll_Clk_Feedback</spirit:name>
+      <spirit:enumeration spirit:text="CLKFBOUT">CLKFBOUT</spirit:enumeration>
+      <spirit:enumeration spirit:text="CLKOUT0">CLKOUT0</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>xippack_UserParameter_choiceref_Pll_Compensation</spirit:name>
+      <spirit:enumeration spirit:text="SYSTEM_SYNCHRONOUS">SYSTEM_SYNCHRONOUS</spirit:enumeration>
+      <spirit:enumeration spirit:text="SOURCE_SYNCHRONOUS">SOURCE_SYNCHRONOUS</spirit:enumeration>
+      <spirit:enumeration spirit:text="INTERNAL">INTERNAL</spirit:enumeration>
+      <spirit:enumeration spirit:text="EXTERNAL">EXTERNAL</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>clock_gen/example_design/clock_gen_exdes.ucf</spirit:name>
+        <spirit:userFileType>ucf</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>clock_gen/example_design/clock_gen_exdes.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>clock_gen.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>clock_gen/example_design/clock_gen_exdes.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>clock_gen.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_miscfiles_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>clock_gen.asy</spirit:name>
+        <spirit:userFileType>asy</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>clock_gen.xco</spirit:name>
+        <spirit:userFileType>xco</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_anylanguageinstantiationtemplate_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>clock_gen.vho</spirit:name>
+        <spirit:userFileType>vhdlTemplate</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description> This is Rev2 version of Clocking Wizard v3.6. The Clocking Wizard creates an HDL file (Verilog or VHDL) that contains a clocking circuit customized to the user&apos;s clocking requirements.</spirit:description>
+  <spirit:parameters>
+    <spirit:parameter>
+      <spirit:name>Component_Name</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.COMPONENT_NAME">clock_gen</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Freq_Synth</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_FREQ_SYNTH" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Phase_Alignment</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_PHASE_ALIGNMENT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Min_Power</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_MIN_POWER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Dyn_Phase_Shift</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_DYN_PHASE_SHIFT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Dyn_Reconfig</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_DYN_RECONFIG" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Jitter_Sel</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.JITTER_SEL" spirit:choiceRef="xippack_UserParameter_choiceref_Jitter_Sel" spirit:order="0.0" spirit:configGroups="0 NoDisplay">No_Jitter</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Spread_Spectrum</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_SPREAD_SPECTRUM" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Spread_Spectrum_1</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_SPREAD_SPECTRUM_1" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Prim_In_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PRIM_IN_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>In_Freq_Units</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.IN_FREQ_UNITS" spirit:choiceRef="xippack_UserParameter_choiceref_In_Freq_Units" spirit:order="0.0" spirit:configGroups="0 NoDisplay">Units_MHz</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>In_Jitter_Units</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.IN_JITTER_UNITS" spirit:choiceRef="xippack_UserParameter_choiceref_In_Jitter_Units" spirit:order="0.0" spirit:configGroups="0 NoDisplay">Units_UI</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Relative_Inclk</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.RELATIVE_INCLK" spirit:choiceRef="xippack_UserParameter_choiceref_Relative_Inclk" spirit:order="0.0" spirit:configGroups="0 NoDisplay">REL_PRIMARY</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Secondary_In_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.SECONDARY_IN_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Jitter_Options</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.JITTER_OPTIONS" spirit:choiceRef="xippack_UserParameter_choiceref_Jitter_Options" spirit:order="0.0" spirit:configGroups="0 NoDisplay">UI</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkin1_UI_Jitter</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKIN1_UI_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkin2_UI_Jitter</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKIN2_UI_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Prim_In_Jitter</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PRIM_IN_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Secondary_In_Jitter</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.SECONDARY_IN_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkin1_Jitter_Ps</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKIN1_JITTER_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkin2_Jitter_Ps</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKIN2_JITTER_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout2_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT2_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout3_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT3_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout4_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT4_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout5_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT5_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout6_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT6_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout7_Used</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT7_USED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Num_Out_Clks</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_OUT_CLKS" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="7" spirit:rangeType="long">4</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out1_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT1_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out2_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT2_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out3_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT3_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out4_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT4_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out5_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT5_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out6_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT6_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clk_Out7_Use_Fine_Ps_GUI</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT7_USE_FINE_PS_GUI" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>primary_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PRIMARY_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_IN1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT1_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT1_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT2_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT2_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT2</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT3_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT3_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT3</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT4_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT4_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT4</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT5_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT5_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT5</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT6_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT6_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT6</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_OUT7_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_OUT7_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_OUT7</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DADDR_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DADDR_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DADDR</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DCLK_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCLK_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DCLK</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DRDY_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DRDY_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DRDY</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DWE_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DWE_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DWE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DIN_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DIN_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DIN</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DOUT_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DOUT_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DOUT</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DEN_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DEN_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DEN</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>PSCLK_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PSCLK_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">PSCLK</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>PSEN_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PSEN_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">PSEN</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>PSINCDEC_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PSINCDEC_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">PSINCDEC</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>PSDONE_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PSDONE_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">PSDONE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout1_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT1_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout1_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT1_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout1_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT1_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout2_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT2_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">20.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout2_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT2_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout2_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT2_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout3_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT3_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">40.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout3_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT3_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout3_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT3_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout4_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT4_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout4_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT4_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout4_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT4_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout5_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT5_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout5_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT5_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout5_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT5_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout6_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT6_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout6_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT6_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout6_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT6_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout7_Requested_Out_Freq</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT7_REQUESTED_OUT_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout7_Requested_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT7_REQUESTED_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout7_Requested_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT7_REQUESTED_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">50.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Max_I_Jitter</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_MAX_I_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Min_O_Jitter</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_MIN_O_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Prim_Source</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PRIM_SOURCE" spirit:choiceRef="xippack_UserParameter_choiceref_Prim_Source" spirit:order="0.0" spirit:configGroups="0 NoDisplay">Single_ended_clock_capable_pin</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Inclk_Switchover</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_INCLK_SWITCHOVER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>secondary_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.SECONDARY_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_IN2</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Secondary_Source</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.SECONDARY_SOURCE" spirit:choiceRef="xippack_UserParameter_choiceref_Secondary_Source" spirit:order="0.0" spirit:configGroups="0 NoDisplay">Single_ended_clock_capable_pin</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout1_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT1_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout1_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout2_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT2_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout2_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout3_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT3_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout3_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout4_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT4_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout4_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout5_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT5_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout5_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout6_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT6_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout6_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkout7_Drives</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKOUT7_DRIVES" spirit:choiceRef="xippack_UserParameter_choiceref_Clkout7_Drives" spirit:order="0.0" spirit:configGroups="0 NoDisplay">BUFG</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Feedback_Source</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.FEEDBACK_SOURCE" spirit:choiceRef="xippack_UserParameter_choiceref_Feedback_Source" spirit:order="0.0" spirit:configGroups="0 NoDisplay">FDBK_AUTO</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Clkfb_In_Signaling</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_IN_SIGNALING" spirit:choiceRef="xippack_UserParameter_choiceref_Clkfb_In_Signaling" spirit:order="0.0" spirit:configGroups="0 NoDisplay">SINGLE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_IN_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_IN_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_IN</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_IN_P_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_IN_P_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_IN_P</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_IN_N_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_IN_N_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_IN_N</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_OUT_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_OUT_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_OUT</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_OUT_P_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_OUT_P_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_OUT_P</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_OUT_N_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_OUT_N_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_OUT_N</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Platform</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PLATFORM" spirit:order="0.0" spirit:configGroups="0 NoDisplay">nt64</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Summary_Strings</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.SUMMARY_STRINGS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">empty</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Locked</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_LOCKED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>calc_done</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CALC_DONE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">DONE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Reset</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_RESET" spirit:order="0.0" spirit:configGroups="0 NoDisplay">true</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Power_Down</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_POWER_DOWN" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Status</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_STATUS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Freeze</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_FREEZE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Clk_Valid</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_CLK_VALID" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Inclk_Stopped</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_INCLK_STOPPED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Use_Clkfb_Stopped</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USE_CLKFB_STOPPED" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>RESET_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.RESET_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">RESET</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>LOCKED_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.LOCKED_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">LOCKED</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Power_Down_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.POWER_DOWN_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">POWER_DOWN</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_VALID_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_VALID_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_VALID</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>STATUS_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.STATUS_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">STATUS</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_IN_SEL_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_IN_SEL_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK_IN_SEL</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>INPUT_CLK_STOPPED_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.INPUT_CLK_STOPPED_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">INPUT_CLK_STOPPED</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLKFB_STOPPED_port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.CLKFB_STOPPED_PORT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFB_STOPPED</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Override_Mmcm</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.OVERRIDE_MMCM" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Notes</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_NOTES" spirit:order="0.0" spirit:configGroups="0 NoDisplay">None</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Divclk_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_DIVCLK_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="106" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Bandwidth</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_BANDWIDTH" spirit:choiceRef="xippack_UserParameter_choiceref_Mmcm_Bandwidth" spirit:order="0.0" spirit:configGroups="0 NoDisplay">OPTIMIZED</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkfbout_Mult_F</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKFBOUT_MULT_F" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkfbout_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKFBOUT_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkfbout_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKFBOUT_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkin1_Period</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKIN1_PERIOD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkin2_Period</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKIN2_PERIOD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout4_Cascade</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT4_CASCADE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clock_Hold</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLOCK_HOLD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Compensation</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_COMPENSATION" spirit:choiceRef="xippack_UserParameter_choiceref_Mmcm_Compensation" spirit:order="0.0" spirit:configGroups="0 NoDisplay">ZHOLD</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Ref_Jitter1</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_REF_JITTER1" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Ref_Jitter2</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_REF_JITTER2" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Startup_Wait</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_STARTUP_WAIT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout0_Divide_F</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT0_DIVIDE_F" spirit:order="0.0" spirit:configGroups="0 NoDisplay">100.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout0_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT0_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout0_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT0_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout0_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT0_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout1_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT1_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">50</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout1_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT1_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout1_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT1_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout1_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT1_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout2_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT2_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">25</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout2_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT2_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout2_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT2_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout2_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT2_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout3_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT3_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">10</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout3_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT3_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout3_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT3_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout3_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT3_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout4_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT4_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout4_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT4_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout4_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT4_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout4_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT4_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout5_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT5_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout5_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT5_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout5_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT5_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout5_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT5_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout6_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT6_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout6_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT6_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout6_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT6_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Mmcm_Clkout6_Use_Fine_Ps</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.MMCM_CLKOUT6_USE_FINE_PS" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Override_Dcm</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.OVERRIDE_DCM" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Notes</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_NOTES" spirit:order="0.0" spirit:configGroups="0 NoDisplay">None</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkdv_Divide</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKDV_DIVIDE" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkdv_Divide" spirit:order="0.0" spirit:configGroups="0 NoDisplay">2.0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkfx_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKFX_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="32" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkfx_Multiply</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKFX_MULTIPLY" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="2" spirit:maximum="32" spirit:rangeType="long">4</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkin_Divide_By_2</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKIN_DIVIDE_BY_2" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkin_Period</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKIN_PERIOD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkout_Phase_Shift</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKOUT_PHASE_SHIFT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkout_Phase_Shift" spirit:order="0.0" spirit:configGroups="0 NoDisplay">NONE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Deskew_Adjust</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_DESKEW_ADJUST" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Deskew_Adjust" spirit:order="0.0" spirit:configGroups="0 NoDisplay">SYSTEM_SYNCHRONOUS</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Phase_Shift</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_PHASE_SHIFT" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="0" spirit:maximum="255" spirit:rangeType="long">0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Feedback</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_FEEDBACK" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Feedback" spirit:order="0.0" spirit:configGroups="0 NoDisplay">1X</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Startup_Wait</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_STARTUP_WAIT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out1_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT1_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out1_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out2_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT2_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out2_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out3_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT3_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out3_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out4_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT4_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out4_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out5_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT5_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out5_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clk_Out6_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLK_OUT6_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clk_Out6_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLK0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Override_Dcm_Clkgen</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.OVERRIDE_DCM_CLKGEN" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Notes</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_NOTES" spirit:order="0.0" spirit:configGroups="0 NoDisplay">None</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clkfx_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLKFX_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="256" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clkfx_Multiply</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLKFX_MULTIPLY" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="2" spirit:maximum="256" spirit:rangeType="long">4</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clkfxdv_Divide</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLKFXDV_DIVIDE" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkgen_Clkfxdv_Divide" spirit:order="0.0" spirit:configGroups="0 NoDisplay">2</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clkfx_Md_Max</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLKFX_MD_MAX" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Startup_Wait</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_STARTUP_WAIT" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clkin_Period</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLKIN_PERIOD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Spread_Spectrum</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_SPREAD_SPECTRUM" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkgen_Spread_Spectrum" spirit:order="0.0" spirit:configGroups="0 NoDisplay">NONE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clk_Out1_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLK_OUT1_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out1_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFX</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clk_Out2_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLK_OUT2_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out2_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFX</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Dcm_Clkgen_Clk_Out3_Port</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.DCM_CLKGEN_CLK_OUT3_PORT" spirit:choiceRef="xippack_UserParameter_choiceref_Dcm_Clkgen_Clk_Out3_Port" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFX</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Override_Pll</spirit:name>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.OVERRIDE_PLL" spirit:order="0.0" spirit:configGroups="0 NoDisplay">false</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Notes</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_NOTES" spirit:order="0.0" spirit:configGroups="0 NoDisplay">None</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Bandwidth</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_BANDWIDTH" spirit:choiceRef="xippack_UserParameter_choiceref_Pll_Bandwidth" spirit:order="0.0" spirit:configGroups="0 NoDisplay">OPTIMIZED</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkfbout_Mult</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKFBOUT_MULT" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="64" spirit:rangeType="long">4</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkfbout_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKFBOUT_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clk_Feedback</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLK_FEEDBACK" spirit:choiceRef="xippack_UserParameter_choiceref_Pll_Clk_Feedback" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CLKFBOUT</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Divclk_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_DIVCLK_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="52" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkin_Period</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKIN_PERIOD" spirit:order="0.0" spirit:configGroups="0 NoDisplay">10.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Compensation</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_COMPENSATION" spirit:choiceRef="xippack_UserParameter_choiceref_Pll_Compensation" spirit:order="0.0" spirit:configGroups="0 NoDisplay">SYSTEM_SYNCHRONOUS</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Ref_Jitter</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_REF_JITTER" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.010</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout0_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT0_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout0_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT0_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout0_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT0_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout1_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT1_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout1_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT1_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout1_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT1_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout2_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT2_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout2_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT2_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout2_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT2_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout3_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT3_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout3_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT3_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout3_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT3_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout4_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT4_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout4_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT4_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout4_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT4_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout5_Divide</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT5_DIVIDE" spirit:order="0.0" spirit:configGroups="0 NoDisplay" spirit:minimum="1" spirit:maximum="128" spirit:rangeType="long">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout5_Duty_Cycle</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT5_DUTY_CYCLE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.500</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Pll_Clkout5_Phase</spirit:name>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PLL_CLKOUT5_PHASE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">0.000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>dcm_pll_cascade</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="PARAM_VALUE.DCM_PLL_CASCADE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">NONE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>clock_mgr_type</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="PARAM_VALUE.CLOCK_MGR_TYPE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">MANUAL</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>primtype_sel</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="PARAM_VALUE.PRIMTYPE_SEL" spirit:order="0.0" spirit:configGroups="0 NoDisplay">MMCM_ADV</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>primitive</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="generated" spirit:id="PARAM_VALUE.PRIMITIVE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">MMCM</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>SS_Mode</spirit:name>
+      <spirit:value spirit:format="string" spirit:resolve="user" spirit:id="PARAM_VALUE.SS_MODE" spirit:order="0.0" spirit:configGroups="0 NoDisplay">CENTER_HIGH</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>SS_Mod_Freq</spirit:name>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.SS_MOD_FREQ" spirit:order="0.0" spirit:configGroups="0 NoDisplay">250</spirit:value>
+    </spirit:parameter>
+  </spirit:parameters>
+  <spirit:vendorExtensions>
+    <xilinx:coreProperties>
+      <xilinx:supportedFamilies>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vlx(75|130|195|240|365)t-(1|2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vlx550t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vlx760-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vsx315t-(1|2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vsx475t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vcx(130|195|240)t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex6{xc6vcx75t-(3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vcx75t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex6{xc6vhx(45).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vhx(75|565)t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex6{xc6vhx(75|565)t-(3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QVirtex6{xc6vhx(250|255|380).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex6{xq6v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex6L{xq6v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QSpartan6L{xc6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QSpartan6L{xq6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QSpartan6{xc6slx(16|25|45|75|100|150)-(2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QSpartan6{xc6slx(4|9)-(2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">QSpartan6{xc6slx(25|45|75|100|150)t-(2|3|4).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QSpartan6{xc6slx(4|9)-(4).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QSpartan6{xq6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vlx(75|130|195|240|365)t-(1|2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vlx550t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vlx760-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vsx315t-(1|2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vsx475t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vcx(130|195|240)t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vcx75t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Virtex6{xc6vcx75t-(3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Virtex6{xc6vhx565t-(3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vhx565t-(1|2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vhx255t-(1|2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Virtex6{xc6vhx(45).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6{xc6vhx(250|380).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Virtex6{xq6v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6L{xc6vlx(75|365|550|130|195|240)tl-1.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6L{xc6vlx(760).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex6L{xc6vsx(315|475).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Spartan6{xc6slx(16|25|45|75|100|150)-(2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Spartan6{xc6slx(4|9)-(2).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Spartan6{xc6slx(25|45|75|100|150)t-(2|3|4).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Spartan6{xc6slx(4|9)-(2|3).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Spartan6{xc6slx(4|9)-(4).*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Spartan6L{xc6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Spartan6{xq6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Spartan6L{xq6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">ASpartan6{xa6s.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Virtex7{xc7v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex7{xq7v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Production">Kintex7{xc7k.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QKintex7{xq7k.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Virtex7L{xc7v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QVirtex7L{xq7v.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Kintex7L{xc7k.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QKintex7L{xq7k.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Artix7{xc7a.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Artix7L{xc7a.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QArtix7{xq7a.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QArtix7L{xq7a.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">AArtix7{xa7a.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">Zynq{xc7z.*}</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">QZynq{xq7z.*}</xilinx:family>
+      </xilinx:supportedFamilies>
+      <xilinx:customization>
+        <xilinx:customizer>Spirit</xilinx:customizer>
+        <xilinx:elaborator>Sim</xilinx:elaborator>
+        <xilinx:customizationTarget>clk_wiz_v3.6.class</xilinx:customizationTarget>
+        <xilinx:guiType>Cpp</xilinx:guiType>
+        <xilinx:coreMixedCaseComponentName>false</xilinx:coreMixedCaseComponentName>
+        <xilinx:upgrades>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:3.5</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:3.4</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:3.3</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:3.2</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:3.1</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:2.1</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.8</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.7</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.6</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.5</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.4</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.3</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.2</xilinx:canUpgradeFrom>
+          <xilinx:canUpgradeFrom>xilinx.com:ip:clk_wiz:1.1</xilinx:canUpgradeFrom>
+        </xilinx:upgrades>
+      </xilinx:customization>
+      <xilinx:generation>
+        <xilinx:generationFlow>Spirit</xilinx:generationFlow>
+        <xilinx:disableResourceUtilization>false</xilinx:disableResourceUtilization>
+      </xilinx:generation>
+      <xilinx:display>
+        <xilinx:displayName>Clocking Wizard</xilinx:displayName>
+        <xilinx:ipType>Spirit</xilinx:ipType>
+        <xilinx:coreCreationDateTime>2013-04-03T19:38:03</xilinx:coreCreationDateTime>
+        <xilinx:taxonomies>
+          <xilinx:taxonomy>/FPGA_Features_and_Design/Clocking</xilinx:taxonomy>
+        </xilinx:taxonomies>
+        <xilinx:readMeFile>$corename$/clk_wiz_v3_6_readme.txt</xilinx:readMeFile>
+      </xilinx:display>
+    </xilinx:coreProperties>
+    <xilinx:packagingInfo>
+      <xilinx:xilinxVersion>14.2</xilinx:xilinxVersion>
+    </xilinx:packagingInfo>
+  </spirit:vendorExtensions>
+</spirit:component>

@@ -1,0 +1,9 @@
+run
+-ifmt MIXED
+-top clock_gen_exdes
+-p xc7z020-clg484-1
+-ifn xst.prj
+-ofn clock_gen_exdes
+-keep_hierarchy soft 
+-equivalent_register_removal no 
+-max_fanout 65535
