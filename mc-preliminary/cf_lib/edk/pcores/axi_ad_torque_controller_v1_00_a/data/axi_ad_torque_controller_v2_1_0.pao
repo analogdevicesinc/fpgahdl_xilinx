@@ -1,0 +1,16 @@
+##############################################################################
+## Filename:          pcores/axi_ad_torque_controller_v1_00_a/data/axi_ad_torque_controller_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a mem verilog
+lib adi_common_v1_00_a axis_inf verilog
+lib adi_common_v1_00_a dma_core verilog
+lib adi_common_v1_00_a up_axi verilog
+lib adi_common_v1_00_a up_adc_common verilog
+lib axi_ad_torque_controller_v1_00_a motor_driver verilog
+lib axi_ad_torque_controller_v1_00_a control_registers verilog
+lib axi_ad_torque_controller_v1_00_a oloop_start verilog
+lib axi_ad_torque_controller_v1_00_a bldc_sim_fpga_cw_bb verilog
+lib axi_ad_torque_controller_v1_00_a axi_ad_torque_controller verilog

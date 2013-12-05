@@ -1,0 +1,23 @@
+################################################################################
+##
+## Copyright (c) 1995-2002 Xilinx, Inc.  All rights reserved.  Xilinx, Inc.
+##
+## avb_tx.pao
+##
+## Peripheral Analyze Order
+##
+################################################################################
+#
+#
+#
+#
+#-----  GMII to RGMII COMPONENTS  -----------------------------------------------
+#
+lib my_gmii_to_rgmii_v1_01_a  reset_sync.vhd          vhdl
+lib my_gmii_to_rgmii_v1_01_a  sync_block.vhd          vhdl
+lib my_gmii_to_rgmii_v1_01_a  mdio_interface.vhd      vhdl
+lib my_gmii_to_rgmii_v1_01_a  management.vhd          vhdl
+lib my_gmii_to_rgmii_v1_01_a  gmii_to_rgmii_core.vhd  vhdl
+lib my_gmii_to_rgmii_v1_01_a  my_gmii_to_rgmii.vhd       vhdl  
+#
+# --- End of list ------------------------------

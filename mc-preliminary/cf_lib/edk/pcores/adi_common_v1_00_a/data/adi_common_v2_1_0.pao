@@ -1,0 +1,22 @@
+##############################################################################
+## Filename:          pcores/adi_common_v1_00_a/data/adi_common_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a cf_mem verilog
+lib adi_common_v1_00_a cf_jesd_mon verilog
+lib adi_common_v1_00_a cf_jesd_align_2 verilog
+lib adi_common_v1_00_a cf_jesd_align_1 verilog
+lib adi_common_v1_00_a cf_gtx_es_if verilog
+lib adi_common_v1_00_a cf_gtx_es_wr verilog
+lib adi_common_v1_00_a cf_csc_1_mul verilog
+lib adi_common_v1_00_a cf_csc_1_add verilog
+lib adi_common_v1_00_a cf_csc_1 verilog
+lib adi_common_v1_00_a cf_csc_RGB2CrYCb verilog
+lib adi_common_v1_00_a cf_ss_444to422 verilog
+lib adi_common_v1_00_a cf_csc_CrYCb2RGB verilog
+lib adi_common_v1_00_a cf_ss_422to444 verilog
+lib adi_common_v1_00_a cf_adc_dma verilog
+lib adi_common_v1_00_a cf_adc_regmap verilog
+lib adi_common_v1_00_a cf_jesd_regmap verilog

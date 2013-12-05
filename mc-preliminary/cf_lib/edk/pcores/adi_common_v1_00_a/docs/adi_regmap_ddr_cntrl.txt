@@ -1,0 +1,231 @@
+
+TITLE
+DDR Controller
+ENDTITLE
+
+############################################################################################
+############################################################################################
+
+REG
+0x0010
+REG_RSTN
+DDR Interface Control & Status
+ENDREG
+
+FIELD
+[0]
+RSTN
+RW
+DDR controller reset, software must write 0x1 to bring up the core.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0017
+REG_STATUS
+DDR Interface Control & Status
+ENDREG
+
+FIELD
+[0]
+STATUS
+RO
+Interface status, if set indicates no errors. If not set, there 
+are errors, software may try resetting the cores.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0018
+REG_DDR_CNTRL
+DDR Write Control & Status
+ENDREG
+
+FIELD
+[1]
+DDR_STREAM
+RW
+If set, DDR write is in stream mode, data is continously passed to the DDR module,
+ENDFIELD
+
+FIELD
+[0]
+DDR_START
+RW
+A 0x0 to 0x1 transition on this bit initiates DDR writes.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0019
+REG_DDR_COUNT
+DDR Write Control & Status
+ENDREG
+
+FIELD
+[31:0]
+DDR_COUNT[31:0]
+RW
+DDR data count, usually the final dma data count (see below) in number of bytes.
+The software could program the DDR controller with the same DMA settings. The count 
+is based on bytes, however the value must be an integer multiple of the bus width.
+The value programmed is the actual number of bytes, hence zero is not valid.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001a
+REG_DDR_STATUS
+DDR Write Control & Status
+ENDREG
+
+FIELD
+[2]
+DDR_OVF
+RW1C
+DDR write overflow. If set, indicates an overflow occured during data transfer. Software 
+must write a 0x1 before starting another transfer to clear any left off status 
+from a previous write.
+ENDFIELD
+
+FIELD
+[1]
+DDR_UNF
+RW1C
+DDR write underflow. If set, indicates an underflow occured during data transfer. Software 
+must write a 0x1 before starting another transfer to clear any left off status from 
+a previous write.
+ENDFIELD
+
+FIELD
+[0]
+DDR_STATUS
+RW1C
+DDR write status. If set, indicates access is pending and transfer is not complete.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001b
+REG_DDR_BUSWIDTH
+DDR Write Control & Status
+ENDREG
+
+FIELD
+[31:0]
+DDR_BUSWIDTH
+RO
+DDR data bus width in number of bytes (the DDR count must be an integer multiple
+of this bus width).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0020
+REG_DMA_CNTRL
+DDR Read Control & Status
+ENDREG
+
+FIELD
+[1]
+DMA_STREAM
+RW
+If set, DMA is in stream mode, data is continously passed to the DMA module,
+with TLAST asserted every DMA count cycles on the data bus. The ADC interface
+does not do the actual DMA, so the success of a stream mode (bandwidth effects)
+depends mainly on the DMA module.
+ENDFIELD
+
+FIELD
+[0]
+DMA_START
+RW
+A 0x0 to 0x1 transition on this bit initiates DMA.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0021
+REG_DMA_COUNT
+DDR Read Control & Status
+ENDREG
+
+FIELD
+[31:0]
+DMA_COUNT[31:0]
+RW
+DMA data count, mainly used to assert TLAST. Software must program the DMA
+controller with the same settings. The count is based on bytes (same as DMA setting),
+however the value must be an integer multiple of the bus width. In most cases the
+granularity is 4 bytes. The value programmed is the actual number of bytes,
+hence zero is not valid.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0022
+REG_DMA_STATUS
+DDR Read Control & Status
+ENDREG
+
+FIELD
+[2]
+DMA_OVF
+RW1C
+DMA overflow. If set, indicates an overflow occured during data transfer. Software 
+must write a 0x1 before starting another transfer to clear any left off status 
+from a previous DMA.
+ENDFIELD
+
+FIELD
+[1]
+DMA_UNF
+RW1C
+DMA underflow. If set, indicates an underflow occured during data transfer. Software 
+must write a 0x1 before starting another transfer to clear any left off status from 
+a previous DMA.
+ENDFIELD
+
+FIELD
+[0]
+DMA_STATUS
+RW1C
+DMA status. If set, indicates access is pending and transfer is not complete.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0023
+REG_DMA_BUSWIDTH
+DDR Read Control & Status
+ENDREG
+
+FIELD
+[31:0]
+DMA_BUSWIDTH
+RO
+DMA data bus width in number of bytes (the DMA count must be an integer multiple
+of this bus width).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
