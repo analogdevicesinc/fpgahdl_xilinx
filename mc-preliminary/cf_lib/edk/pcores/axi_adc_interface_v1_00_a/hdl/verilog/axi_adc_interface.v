@@ -171,6 +171,7 @@ wire            adc_status_b_s;
 wire   [15:0]   adc_data_ib_s;
 wire            adc_status_it_s;
 wire   [15:0]   adc_data_it_s;
+wire   [15:0]   adc_data_it_n_s;
 wire            adc_status_vbus_s;
 wire   [15:0]   adc_data_vbus_s ;
 wire            adc_enable_ia;
@@ -224,24 +225,24 @@ begin
                 adc_data_3 <= 48'd0;
                 adc_valid <= 1'b1;
                 adc_data[63:48] <= adc_data_vbus_s;
-                adc_data[47:32] <= adc_data_it_s;
+                adc_data[47:32] <= adc_data_it_n_s;
                 adc_data[31:16] <= adc_data_ib_s;
                 adc_data[15: 0] <= adc_data_ia_s;
             end
             4'b1110: begin
                 adc_data_3[47:32] <= adc_data_vbus_s;
-                adc_data_3[31:16] <= adc_data_it_s;
+                adc_data_3[31:16] <= adc_data_it_n_s;
                 adc_data_3[15: 0] <= adc_data_ib_s;
                 adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
                 case (adc_data_cnt)
                     2'b11: begin
                         adc_data[63:48] <= adc_data_vbus_s;
-                        adc_data[47:32] <= adc_data_it_s;
+                        adc_data[47:32] <= adc_data_it_n_s;
                         adc_data[31:16] <= adc_data_ib_s;
                         adc_data[15: 0] <= adc_data_3[47:32];
                     end
                     2'b10: begin
-                        adc_data[63:48] <= adc_data_it_s;
+                        adc_data[63:48] <= adc_data_it_n_s;
                         adc_data[47:32] <= adc_data_ib_s;
                         adc_data[31:16] <= adc_data_3[47:32];
                         adc_data[15: 0] <= adc_data_3[31:16];
@@ -262,18 +263,18 @@ begin
             end
             4'b1101: begin
                 adc_data_3[47:32] <= adc_data_vbus_s;
-                adc_data_3[31:16] <= adc_data_it_s;
+                adc_data_3[31:16] <= adc_data_it_n_s;
                 adc_data_3[15: 0] <= adc_data_ia_s;
                 adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
                 case (adc_data_cnt)
                     2'b11: begin
                         adc_data[63:48] <= adc_data_vbus_s;
-                        adc_data[47:32] <= adc_data_it_s;
+                        adc_data[47:32] <= adc_data_it_n_s;
                         adc_data[31:16] <= adc_data_ia_s;
                         adc_data[15: 0] <= adc_data_3[47:32];
                     end
                     2'b10: begin
-                        adc_data[63:48] <= adc_data_it_s;
+                        adc_data[63:48] <= adc_data_it_n_s;
                         adc_data[47:32] <= adc_data_ia_s;
                         adc_data[31:16] <= adc_data_3[47:32];
                         adc_data[15: 0] <= adc_data_3[31:16];
@@ -296,7 +297,7 @@ begin
                 adc_data_3 <= 48'd0;
                 adc_valid <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_vbus_s;
-                adc_data[47:32] <= adc_data_it_s;
+                adc_data[47:32] <= adc_data_it_n_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
@@ -357,13 +358,13 @@ begin
                 adc_data[15: 0] <= adc_data[31:16];
             end
             4'b0111: begin
-                adc_data_3[47:32] <= adc_data_it_s;
+                adc_data_3[47:32] <= adc_data_it_n_s;
                 adc_data_3[31:16] <= adc_data_ib_s;
                 adc_data_3[15: 0] <= adc_data_ia_s;
                 adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
                 case (adc_data_cnt)
                     2'b11: begin
-                        adc_data[63:48] <= adc_data_it_s;
+                        adc_data[63:48] <= adc_data_it_n_s;
                         adc_data[47:32] <= adc_data_ib_s;
                         adc_data[31:16] <= adc_data_ia_s;
                         adc_data[15: 0] <= adc_data_3[47:32];
@@ -391,7 +392,7 @@ begin
             4'b0110: begin
                 adc_data_3 <= 48'd0;
                 adc_valid <= adc_data_cnt[0];
-                adc_data[63:48] <= adc_data_it_s;
+                adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data_ib_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
@@ -399,7 +400,7 @@ begin
             4'b0101: begin
                 adc_data_3 <= 48'd0;
                 adc_valid <= adc_data_cnt[0];
-                adc_data[63:48] <= adc_data_it_s;
+                adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data_ia_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
@@ -407,7 +408,7 @@ begin
             4'b0100: begin
                 adc_data_3 <= 48'd0;
                 adc_valid <= adc_data_cnt[1] & adc_data_cnt[0];
-                adc_data[63:48] <= adc_data_it_s;
+                adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data[63:48];
                 adc_data[31:16] <= adc_data[47:32];
                 adc_data[15: 0] <= adc_data[31:16];
@@ -458,6 +459,7 @@ assign i_ready_o = data_rd_ready_ia_s;
 assign ia_o      = adc_data_ia_s;
 assign ib_o      = adc_data_ib_s;
 assign it_o      = adc_data_it_s;
+assign adc_data_it_n_s = 65535 - adc_data_it_s;
 
 // processor read interface
 

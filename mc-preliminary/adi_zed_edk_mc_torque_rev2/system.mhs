@@ -84,6 +84,8 @@
  PORT axi_adc_interface_1_adc_it_dat_i_pin = axi_adc_interface_1_adc_it_dat_i, DIR = I
  PORT axi_adc_interface_1_adc_ib_dat_i_pin = axi_adc_interface_1_adc_ib_dat_i, DIR = I
  PORT axi_adc_interface_1_adc_ia_dat_i_pin = axi_adc_interface_1_adc_ia_dat_i, DIR = I
+ PORT GPOL = gpo_low_o, DIR = O, VEC = [3:0]
+ PORT GPOH = gpo_high_o, DIR = O, VEC = [3:0]
 
 
 BEGIN processing_system7
@@ -590,6 +592,9 @@ BEGIN axi_ad_torque_controller
  PORT pwm_al_o = axi_ad_torque_controller_0_pwm_al_o
  PORT pwm_bh_o = axi_ad_torque_controller_0_pwm_bh_o
  PORT pwm_bl_o = axi_ad_torque_controller_0_pwm_bl_o
+ PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK0
+ PORT ctrl_clk_i = clock_generator_0_CLKOUT1
+ PORT gpo_o = gpo_high_o & 0b000 &gpo_low_o
 END
 
 BEGIN axi_xadc
