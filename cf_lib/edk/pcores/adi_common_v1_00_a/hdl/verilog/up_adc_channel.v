@@ -46,6 +46,7 @@ module up_adc_channel (
   adc_clk,
   adc_rst,
   adc_enable,
+  adc_pn_sel,
   adc_iqcor_enb,
   adc_dcfilt_enb,
   adc_dfmt_se,
@@ -100,6 +101,7 @@ module up_adc_channel (
   input           adc_clk;
   input           adc_rst;
   output          adc_enable;
+  output          adc_pn_sel;
   output          adc_iqcor_enb;
   output          adc_dcfilt_enb;
   output          adc_dfmt_se;
@@ -147,6 +149,7 @@ module up_adc_channel (
 
   // internal registers
 
+  reg             up_adc_pn_sel = 'd0;
   reg             up_adc_iqcor_enb = 'd0;
   reg             up_adc_dcfilt_enb = 'd0;
   reg             up_adc_dfmt_se = 'd0;
@@ -175,6 +178,7 @@ module up_adc_channel (
   reg             adc_enable_m2 = 'd0;
   reg             adc_enable_m3 = 'd0;
   reg             adc_enable = 'd0;
+  reg             adc_pn_sel = 'd0;
   reg             adc_iqcor_enb = 'd0;
   reg             adc_dcfilt_enb = 'd0;
   reg             adc_dfmt_se = 'd0;
@@ -219,6 +223,7 @@ module up_adc_channel (
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
+      up_adc_pn_sel <= 'd0;
       up_adc_iqcor_enb <= 'd0;
       up_adc_dcfilt_enb <= 'd0;
       up_adc_dfmt_se <= 'd0;
@@ -239,6 +244,7 @@ module up_adc_channel (
       up_usr_decimation_n <= 'd0;
     end else begin
       if ((up_wr_s == 1'b1) && (up_addr[3:0] == 4'h0)) begin
+        up_adc_pn_sel <= up_wdata[10];
         up_adc_iqcor_enb <= up_wdata[9];
         up_adc_dcfilt_enb <= up_wdata[8];
         up_adc_dfmt_se <= up_wdata[6];
@@ -279,7 +285,7 @@ module up_adc_channel (
       up_ack <= up_sel_s;
       if (up_sel_s == 1'b1) begin
         case (up_addr[3:0])
-          4'h0: up_rdata <= {22'd0, up_adc_iqcor_enb, up_adc_dcfilt_enb,
+          4'h0: up_rdata <= {21'd0, up_adc_pn_sel, up_adc_iqcor_enb, up_adc_dcfilt_enb,
                               1'd0, up_adc_dfmt_se, up_adc_dfmt_type, up_adc_dfmt_enable,
                               2'd0, up_adc_pn_type, up_adc_enable};
           4'h1: up_rdata <= {29'd0, up_adc_pn_err, up_adc_pn_oos, up_adc_or};
@@ -331,6 +337,7 @@ module up_adc_channel (
     end
     adc_enable <= adc_enable_m3;
     if (adc_up_xfer_toggle_s == 1'b1) begin
+      adc_pn_sel <= up_adc_pn_sel;
       adc_iqcor_enb <= up_adc_iqcor_enb;
       adc_dcfilt_enb <= up_adc_dcfilt_enb;
       adc_dfmt_se <= up_adc_dfmt_se;

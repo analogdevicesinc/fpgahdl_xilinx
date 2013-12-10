@@ -1,0 +1,2653 @@
+<html>
+<head>
+</head>
+<body>
+<table border="1" cellspacing="0" cellpadding="4" width="100%" align="center">
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td width="10%" colspan="2" rowspan="1">Address</td>
+<td width="5%" colspan="1" rowspan="2">Bits</td>
+<td width="30%" colspan="1" rowspan="2">Name</td>
+<td width="5%" colspan="1" rowspan="2">Type</td>
+<td width="50%" colspan="1" rowspan="2">Description</td>
+</tr>
+<tr>
+<td colspan="1">DWORD</td>
+<td colspan="1">BYTE</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>General</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0000</td>
+<td colspan="1" rowspan="1">0x0000</td>
+<td colspan="3" rowspan="1">REG_VERSION</td>
+<td colspan="1" rowspan="1">Version and Scratch Registers</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">VERSION[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Version number.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0001</td>
+<td colspan="1" rowspan="1">0x0004</td>
+<td colspan="3" rowspan="1">REG_ID</td>
+<td colspan="1" rowspan="1">Version and Scratch Registers</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">ID[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Instance identifier number.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0002</td>
+<td colspan="1" rowspan="1">0x0008</td>
+<td colspan="3" rowspan="1">REG_SCRATCH</td>
+<td colspan="1" rowspan="1">Version and Scratch Registers</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">SCRATCH[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Scratch register.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>ADC Common</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">MMCM_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">MMCM reset only (required for DRP access). Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0011</td>
+<td colspan="1" rowspan="1">0x0044</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">R1_MODE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select number of RF channels 1 (0x1) or 2 (0x0).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DDR_EDGESEL</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select rising edge (0x0) or falling edge (0x1) for the first part of a sample (if applicable) followed by the successive edges for  the remaining parts. This only controls how the sample is delineated  from the incoming data post DDR registers.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">PIN_MODE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select interface pin mode to be clock multiplexed (0x1) or pin  multiplexed (0x0). In clock multiplexed mode, samples are received  on alternative clock edges. In pin multiplexed mode, samples are  interleaved or grouped on the pins at the same clock edge.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0015</td>
+<td colspan="1" rowspan="1">0x0054</td>
+<td colspan="3" rowspan="1">REG_CLK_FREQ</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_FREQ[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock frequency. This is relative to the processor clock and in many cases is 100MHz. The number is represented as unsigned 16.16 format. Assuming a 100MHz processor clock the minimum is 1.523kHz and maximum is 6.554THz. The actual interface clock is CLK_FREQ * CLK_RATIO (see below). Note that the actual sampling clock may not be the same as the interface clock- software must consider device specific implementation parameters to calculate the final sampling clock.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0016</td>
+<td colspan="1" rowspan="1">0x0058</td>
+<td colspan="3" rowspan="1">REG_CLK_RATIO</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_RATIO[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock ratio - as a factor actual received clock. This is implementation specific and depends on any serial to parallel conversion and interface type (ddr/sdr/qdr).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="4"></td>
+<td colspan="1" rowspan="1">[3]</td>
+<td colspan="1" rowspan="1">PN_ERR</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set, indicates pn error in one or more channels.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">PN_OOS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set, indicates pn oos in one or more channels.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">OVER_RANGE</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set, indicates over range in one or more channels.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0018</td>
+<td colspan="1" rowspan="1">0x0060</td>
+<td colspan="3" rowspan="1">REG_DELAY_CNTRL</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="4"></td>
+<td colspan="1" rowspan="1">[17]</td>
+<td colspan="1" rowspan="1">DELAY_SEL</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Delay select, a 0x0 to 0x1 transition in this register initiates  a delay access controlled by the registers below.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">DELAY_RWN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Delay read (0x1) or write (0x0), the delay is accessed directly  (no increment or decrement) with an address corresponding to each pin,  and data corresponding to the total delay.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:8]</td>
+<td colspan="1" rowspan="1">DELAY_ADDRESS[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Delay address, the range depends on the interface pins, data pins  are usually at the lower range.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[4:0]</td>
+<td colspan="1" rowspan="1">DELAY_WDATA[4:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Delay write data, a value of 1 corresponds to (1/200)ns for most devices.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0019</td>
+<td colspan="1" rowspan="1">0x0064</td>
+<td colspan="3" rowspan="1">REG_DELAY_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[9]</td>
+<td colspan="1" rowspan="1">DELAY_LOCKED</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Indicates delay locked (0x1) state. If this bit is read 0x0, delay control  has failed to calibrate the elements.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[8]</td>
+<td colspan="1" rowspan="1">DELAY_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set, indicates busy status (access pending). The read data may not be  valid if this bit is set.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[4:0]</td>
+<td colspan="1" rowspan="1">DELAY_RDATA[4:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Delay read data, current delay value in the elements</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001c</td>
+<td colspan="1" rowspan="1">0x0070</td>
+<td colspan="3" rowspan="1">REG_DRP_CNTRL</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[28]</td>
+<td colspan="1" rowspan="1">DRP_RWN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP read (0x1) or write (0x0) select (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[27:16]</td>
+<td colspan="1" rowspan="1">DRP_ADDRESS[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP address, designs that contain more than one DRP accessible primitives  have selects based on the most significant bits (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_WDATA[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP write data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001d</td>
+<td colspan="1" rowspan="1">0x0074</td>
+<td colspan="3" rowspan="1">REG_DRP_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">DRP_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set indicates busy (access pending). The read data may not be valid if  this bit is set (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_RDATA</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DRP read data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0022</td>
+<td colspan="1" rowspan="1">0x0088</td>
+<td colspan="3" rowspan="1">REG_UI_STATUS</td>
+<td colspan="1" rowspan="1">User Interface Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">UI_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">User Interface overflow. If set, indicates an overflow occured during data transfer at the user interface (FIFO interface). Software must write a 0x1 to clear this register bit.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">UI_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">User Interface underflow. If set, indicates an underflow occured during data transfer at the user interface (FIFO interface). Software must write a 0x1 to clear this register bit.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">UI_RESERVED</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">Reserved for backward compatibility.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0028</td>
+<td colspan="1" rowspan="1">0x00a0</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_1</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">USR_CHANMAX[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This indicates the maximum number of inputs for the channel data multiplexers. User may add different processing modules post data capture as another input to this common multiplexer. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0030</td>
+<td colspan="1" rowspan="1">0x00c0</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_1</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">ADC_DP_DISABLE</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">This indicates the data path disable setting of this pcore. If disabled, most of the HDL data path modules are disabled allowing an external core full access to the raw ADC data.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>ADC Channel</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0100</td>
+<td colspan="1" rowspan="1">0x0400</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="8"></td>
+<td colspan="1" rowspan="1">[10]</td>
+<td colspan="1" rowspan="1">PN_SEL</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">if set, enables an additional PN sequence monitor (shares same status signals).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[9]</td>
+<td colspan="1" rowspan="1">IQCOR_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">if set, enables IQ correction. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[8]</td>
+<td colspan="1" rowspan="1">DCFILT_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">if set, enables DC filter (to disable DC offset, set offset value to 0x0). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[6]</td>
+<td colspan="1" rowspan="1">FORMAT_SIGNEXT</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">if set, enables sign extension (applicable only in 2's complement mode). The data is always sign extended to the nearest byte boundary. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[5]</td>
+<td colspan="1" rowspan="1">FORMAT_TYPE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select offset binary (0x1) or 2's complement (0x0) data type. This sets the incoming data type and is required by the post processing modules for any data conversion. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[4]</td>
+<td colspan="1" rowspan="1">FORMAT_ENABLE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Enable data format conversion (see register bits above). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">PN_TYPE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Selects PN type PN9 (0x0) or PN23 (0x1). If software is changing this bit, the OOS/ERR registers must be cleared before checking status again.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">ENABLE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set, enables channel. A 0x0 to 0x1 transition transfers all the control signals to the respective channel processing module. If a channel is part of a complex signal (I/Q), even channel is the master and the odd channel is the slave. Though a single control is used, both must be individually selected. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0101</td>
+<td colspan="1" rowspan="1">0x0404</td>
+<td colspan="3" rowspan="1">REG_CHAN_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">PN_ERR</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">PN errors. If set, indicates spurious mismatches in sync state. This bit is cleared if OOS is set and is only indicates errors when OOS is cleared.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">PN_OOS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">PN Out Of Sync. If set, indicates an OOS status. OOS is set, if 64 consecutive patterns mismatch from the expected pattern. It is cleared, when 16 consecutive patterns match the expected pattern.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">OVER_RANGE</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">If set, indicates over range. Note that over range is independent of the data path, it indicates an over range over a data transfer period. Software must first clear this bit before initiating a transfer and monitor afterwards.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0104</td>
+<td colspan="1" rowspan="1">0x0410</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_1</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">DCFILT_OFFSET[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DC removal (if equipped) offset. This is a 2's complement number added to the incoming data to remove a known DC offset. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DCFILT_COEFF[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DC removal filter (if equipped) coefficient. The format is 1.1.14 (sign, integer and  fractional bits). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0105</td>
+<td colspan="1" rowspan="1">0x0414</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_2</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">IQCOR_COEFF_1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">IQ correction (if equipped) coefficient. If scale & offset is implemented, this is the scale value and the format is 1.1.14 (sign, integer and fractional bits). If matrix multiplication is used, this is the channel I coefficient and the format is 1.1.14 (sign, integer and fractional bits). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">IQCOR_COEFF_2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">IQ correction (if equipped) coefficient. If scale & offset is implemented, this is the offset value and the format is 2's complement. If matrix multiplication is used, this is the channel Q coefficient and the format is 1.1.14 (sign, integer and fractional bits). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0108</td>
+<td colspan="1" rowspan="1">0x0420</td>
+<td colspan="3" rowspan="1">REG_CHAN_USR_CNTRL_1</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="5"></td>
+<td colspan="1" rowspan="1">[25]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_BE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- if set, indicates big endian (default is little endian). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[24]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_SIGNED</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- if set, indicates signed (2's complement) data (default is unsigned). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[23:16]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_SHIFT[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- the amount of right shift for actual samples within the total number of bits. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:8]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_TOTAL_BITS[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- number of total bits used for a sample. The total number of bits must be an integer multiple of 8 (byte aligned). NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_BITS[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- number of bits in a sample. This indicates the actual sample data bits. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0109</td>
+<td colspan="1" rowspan="1">0x0424</td>
+<td colspan="3" rowspan="1">REG_CHAN_USR_CNTRL_2</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">USR_DECIMATION_M[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This holds the user decimation M value of the channel that is currently being selected on  the multiplexer above.  The toal decimation factor is of the form M/N. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">USR_DECIMATION_N[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This holds the user decimation N value of the channel that is currently being selected on  the multiplexer above.  The toal decimation factor is of the form M/N. NOT-APPLICABLE if ADC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0110</td>
+<td colspan="1" rowspan="1">0x0440</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 1, similar to register 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0120</td>
+<td colspan="1" rowspan="1">0x0480</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 2, similar to register 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x01f0</td>
+<td colspan="1" rowspan="1">0x07c0</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 15, similar to register 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>DAC Common</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1010</td>
+<td colspan="1" rowspan="1">0x4040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">MMCM_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">MMCM reset only (required for DRP access). Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1011</td>
+<td colspan="1" rowspan="1">0x4044</td>
+<td colspan="3" rowspan="1">REG_CNTRL_1</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">ENABLE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0 to 1 transition enables all the data channels.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1012</td>
+<td colspan="1" rowspan="1">0x4048</td>
+<td colspan="3" rowspan="1">REG_CNTRL_2</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="5"></td>
+<td colspan="1" rowspan="1">[7]</td>
+<td colspan="1" rowspan="1">PAR_TYPE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select parity even (0x0) or odd (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[6]</td>
+<td colspan="1" rowspan="1">PAR_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select parity (0x1) or frame (0x0) mode.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[5]</td>
+<td colspan="1" rowspan="1">R1_MODE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select number of RF channels 1 (0x1) or 2 (0x0).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[4]</td>
+<td colspan="1" rowspan="1">DATA_FORMAT</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select data format 2's complement (0x0) or offset binary (0x1). NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[3:0]</td>
+<td colspan="1" rowspan="1">DATA_SEL[3:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select dds (4'h0), sed (4'h01) or ddr (4'h02) as dac data.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1013</td>
+<td colspan="1" rowspan="1">0x404c</td>
+<td colspan="3" rowspan="1">REG_RATECNTRL</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">RATE[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The effective dac rate (the maximum possible rate is dependent on the interface clock). The samples are generated at 1/RATE of the interface clock.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1014</td>
+<td colspan="1" rowspan="1">0x4050</td>
+<td colspan="3" rowspan="1">REG_FRAME</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">FRAME</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The use of frame is device specific. Usually a 0 -> 1 transition generates a FRAME (1 DCI clock period) pulse on the interface.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1015</td>
+<td colspan="1" rowspan="1">0x4054</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_FREQ[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock frequency. This is relative to the processor clock and in many cases is 100MHz. The number is represented as unsigned 16.16 format. Assuming a 100MHz processor clock the minimum is 1.523kHz and maximum is 6.554THz. The actual interface clock is CLK_FREQ * CLK_RATIO (see below). Note that the actual sampling clock may not be the same as the interface clock- software must consider device specific implementation parameters to calculate the final sampling clock.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1016</td>
+<td colspan="1" rowspan="1">0x4058</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_RATIO[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock ratio - as a factor actual received clock. This is implementation specific and depends on any serial to parallel conversion and interface type (ddr/sdr/qdr).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1017</td>
+<td colspan="1" rowspan="1">0x405c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x101c</td>
+<td colspan="1" rowspan="1">0x4070</td>
+<td colspan="3" rowspan="1">REG_DRP_CNTRL</td>
+<td colspan="1" rowspan="1">DRP Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[28]</td>
+<td colspan="1" rowspan="1">DRP_RWN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP read (0x1) or write (0x0) select (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[27:16]</td>
+<td colspan="1" rowspan="1">DRP_ADDRESS[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP address, designs that contain more than one DRP accessible primitives  have selects based on the most significant bits (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_WDATA[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP write data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x101d</td>
+<td colspan="1" rowspan="1">0x4074</td>
+<td colspan="3" rowspan="1">REG_DRP_STATUS</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">DRP_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set indicates busy (access pending). The read data may not be valid if  this bit is set (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_RDATA</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DRP read data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1022</td>
+<td colspan="1" rowspan="1">0x4088</td>
+<td colspan="3" rowspan="1">REG_UI_STATUS</td>
+<td colspan="1" rowspan="1">User Interface Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">UI_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">User Interface overflow. If set, indicates an overflow occured during data transfer at the user interface (FIFO interface). Software must write a 0x1 to clear this register bit.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">UI_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">User Interface underflow. If set, indicates an underflow occured during data transfer at the user interface (FIFO interface). Software must write a 0x1 to clear this register bit.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1028</td>
+<td colspan="1" rowspan="1">0x40a0</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_1</td>
+<td colspan="1" rowspan="1">DAC User Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">USR_CHANMAX[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This indicates the maximum number of inputs for the channel data multiplexers. User may add  different processing modules as inputs to the dac. NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0030</td>
+<td colspan="1" rowspan="1">0x00c0</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_1</td>
+<td colspan="1" rowspan="1">DAC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DAC_DP_DISABLE</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">This indicates the data path disable setting of this pcore. If disabled, most of the HDL data path modules are disabled allowing an external core full access to the raw DAC data.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>DAC Channel</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1100</td>
+<td colspan="1" rowspan="1">0x4400</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_1</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[3:0]</td>
+<td colspan="1" rowspan="1">DDS_SCALE_1[3:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS scale for tone 1. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1101</td>
+<td colspan="1" rowspan="1">0x4404</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_2</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">DDS_INIT_1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS phase initialization for tone 1. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DDS_INCR_1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS phase increment for tone 1. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1102</td>
+<td colspan="1" rowspan="1">0x4408</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_3</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[3:0]</td>
+<td colspan="1" rowspan="1">DDS_SCALE_2[3:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS scale for tone 2. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1103</td>
+<td colspan="1" rowspan="1">0x440c</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_4</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">DDS_INIT_2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS phase initialization for tone 2. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DDS_INCR_2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS phase increment for tone 2. The DDS for a channel consists of two tones. The final output is (channel_1 << scale_1) + (channel_2 << scale_2) NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1104</td>
+<td colspan="1" rowspan="1">0x4410</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_5</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">DDS_PATT_2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS data pattern for this channel.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DDS_PATT_1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The DDS data pattern for this channel.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1105</td>
+<td colspan="1" rowspan="1">0x4414</td>
+<td colspan="3" rowspan="1">REG_CHAN_CNTRL_6</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DAC_LB_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set enables loopback of receive data (applicable only on shared interface).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DAC_PN_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set enables PN sequence (DATA_SEL[3:0] must be set to 0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1108</td>
+<td colspan="1" rowspan="1">0x4420</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_3</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="5"></td>
+<td colspan="1" rowspan="1">[25]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_BE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- if set, indicates big endian (default is little endian). NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[24]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_SIGNED</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- if set, indicates signed (2's complement) data (default is unsigned). NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[23:16]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_SHIFT[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- the amount of right shift for actual samples within the total number of bits. NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:8]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_TOTAL_BITS[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- number of total bits used for a sample. The total number of bits must be an integer multiple of 8 (byte aligned). NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">USR_DATATYPE_BITS[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The user data type format- number of bits in a sample. This indicates the actual sample data bits. NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1109</td>
+<td colspan="1" rowspan="1">0x4424</td>
+<td colspan="3" rowspan="1">REG_USR_CNTRL_4</td>
+<td colspan="1" rowspan="1">DAC Channel Control & Status (channel - 0)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">USR_INTERPOLATION_M[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This holds the user interpolation M value of the channel that is currently being selected on  the multiplexer above. The toal interpolation factor is of the form M/N. NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">USR_INTERPOLATION_N[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This holds the user interpolation N value of the channel that is currently being selected on the multiplexer above. The toal interpolation factor is of the form M/N. NOT-APPLICABLE if DAC_DP_DISABLE is set (0x1).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1110</td>
+<td colspan="1" rowspan="1">0x4440</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 1, similar to registers 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1120</td>
+<td colspan="1" rowspan="1">0x4480</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 2, similar to registers 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x11f0</td>
+<td colspan="1" rowspan="1">0x47c0</td>
+<td colspan="3" rowspan="1">REG_*</td>
+<td colspan="1" rowspan="1">Channel 15, similar to registers 0x100 to 0x10f.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>JESD Receive</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">JESD General Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="4"></td>
+<td colspan="1" rowspan="1">[3]</td>
+<td colspan="1" rowspan="1">DRP_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP Reset Only.  Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">IP_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">IP Reset Only.  Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">IP_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Core Reset Only (non-IP). Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">GT_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">GT Reset Only (PLL, PMA and PCS -within the GTX). Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0011</td>
+<td colspan="1" rowspan="1">0x0044</td>
+<td colspan="3" rowspan="1">REG_SYSREF</td>
+<td colspan="1" rowspan="1">JESD General Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">IP_SYSREF</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0 to 1 transition generates a SYSREF pulse for the XIP.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">SYSREF</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0 to 1 transition generates a SYSREF pulse on the interface.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0012</td>
+<td colspan="1" rowspan="1">0x0048</td>
+<td colspan="3" rowspan="1">REG_SYNC</td>
+<td colspan="1" rowspan="1">JESD General Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">SYNC</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The SYNC output is deasserted if this bit and hardware are both set.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0014</td>
+<td colspan="1" rowspan="1">0x0050</td>
+<td colspan="3" rowspan="1">REG_RX_CNTRL_1</td>
+<td colspan="1" rowspan="1">JESD Receive Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="5"></td>
+<td colspan="1" rowspan="1">[18]</td>
+<td colspan="1" rowspan="1">RX_LANESYNC_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive lane synchronization enable.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[17]</td>
+<td colspan="1" rowspan="1">RX_DESCR_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive descrambler enable.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">RX_SYSREF_ENB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive SYESREF enable.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:8]</td>
+<td colspan="1" rowspan="1">RX_MFRM_FRMCNT[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive mult-frame frame count, set to one less than the number of frames in a multi-frame.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">RX_FRM_BYTECNT[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive frame byte count, set to one less than the number of bytes in a frame.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0015</td>
+<td colspan="1" rowspan="1">0x0054</td>
+<td colspan="3" rowspan="1">REG_RX_CNTRL_2</td>
+<td colspan="1" rowspan="1">JESD Receive Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[20]</td>
+<td colspan="1" rowspan="1">RX_ERRRPT_DISB</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive error reporting disable.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[19:16]</td>
+<td colspan="1" rowspan="1">RX_TESTMODE[3:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive test mode.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">RX_BUFDELAY[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive buffer delay.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_RX_LANESEL</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">RX_LANESEL[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Receive lane select, lane information, DRP access and eye scan are per lane and this register  selects the lane.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0018</td>
+<td colspan="1" rowspan="1">0x0060</td>
+<td colspan="3" rowspan="1">REG_RX_STATUS</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RX_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0019</td>
+<td colspan="1" rowspan="1">0x0064</td>
+<td colspan="3" rowspan="1">REG_RX_INIT_DATA_0</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_INIT_DATA_0[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive lane information (collected during ILAS phase).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001a</td>
+<td colspan="1" rowspan="1">0x0068</td>
+<td colspan="3" rowspan="1">REG_RX_INIT_DATA_1</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_INIT_DATA_1[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive lane information (collected during ILAS phase).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001b</td>
+<td colspan="1" rowspan="1">0x006c</td>
+<td colspan="3" rowspan="1">REG_RX_INIT_DATA_2</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_INIT_DATA_2[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive lane information (collected during ILAS phase).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001c</td>
+<td colspan="1" rowspan="1">0x0070</td>
+<td colspan="3" rowspan="1">REG_RX_INIT_DATA_2</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_INIT_DATA_3[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive lane information (collected during ILAS phase).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001d</td>
+<td colspan="1" rowspan="1">0x0074</td>
+<td colspan="3" rowspan="1">REG_RX_BUFCNT</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">RX_BUFCNT[7:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive lane alignment buffer count.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001e</td>
+<td colspan="1" rowspan="1">0x0078</td>
+<td colspan="3" rowspan="1">REG_RX_TEST_MFCNT</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_TEST_MFCNT[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive test multi-frame count.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001f</td>
+<td colspan="1" rowspan="1">0x007c</td>
+<td colspan="3" rowspan="1">REG_RX_TEST_ILACNT</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_TEST_ILACNT[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive test ILAS count.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0020</td>
+<td colspan="1" rowspan="1">0x0080</td>
+<td colspan="3" rowspan="1">REG_RX_TEST_ERRCNT</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">RX_TEST_ERRCNT[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Receive test error count.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0024</td>
+<td colspan="1" rowspan="1">0x0090</td>
+<td colspan="3" rowspan="1">REG_DRP_CNTRL</td>
+<td colspan="1" rowspan="1">JESD, GT DRP Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[28]</td>
+<td colspan="1" rowspan="1">DRP_RWN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP read (0x1) or write (0x0) select.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[27:16]</td>
+<td colspan="1" rowspan="1">DRP_ADDRESS[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP address.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_WDATA[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP write data.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0025</td>
+<td colspan="1" rowspan="1">0x0094</td>
+<td colspan="3" rowspan="1">REG_DRP_STATUS</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">DRP_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set indicates busy (access pending). The read data may not be valid if  this bit is set.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_RDATA</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DRP read data.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0028</td>
+<td colspan="1" rowspan="1">0x00a0</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_CNTRL</td>
+<td colspan="1" rowspan="1">JESD, GT Eye Scan Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">EYESCAN_INIT</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan init - if set, enables initialization of GT. It can be disabled on successive eye scan.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">EYESCAN_STOP</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan stop- a 0x0 to 0x1 transition terminates eye scan on  the selected lane.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">EYESCAN_START</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan start- a 0x0 to 0x1 transition initiates eye scan on  the selected lane. The scan might take a while, software must monitor the  status.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0029</td>
+<td colspan="1" rowspan="1">0x00a4</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_PRESCALE</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[4:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_PRESCALE[4:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan prescale, refer to the Xilinx documentation for details -  the counters are prescaled to 2<sup>(n+1)</sup>.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002a</td>
+<td colspan="1" rowspan="1">0x00a8</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_VOFFSET</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[23:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_VOFFSET_STEP[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan vertical offset step. The value must be set in 2's  complement, refer to the Xilinx documentation for details.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:8]</td>
+<td colspan="1" rowspan="1">EYESCAN_VOFFSET_MAX[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan vertical offset maximum (+128). The value must be  set in 2's complement, refer to the Xilinx documentation for details.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[7:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_VOFFSET_MIN[7:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan vertical offset minimum (-128). The value must be set  in 2's complement, refer to the Xilinx documentation for details.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002b</td>
+<td colspan="1" rowspan="1">0x00ac</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_HOFFSET_1</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[27:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_HOFFSET_MAX[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan horizontal offset maximum. The value depends on the  clock divider, as the eye scan is post CDR and comparison happens on  parallel bus. The value must be set in 2's complement, refer to the Xilinx  documentation for details.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[11:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_HOFFSET_MIN[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan horizontal offset minimum. The value depends on the  clock divider, as the eye scan is post CDR and comparison happens on  parallel bus. The value must be set in 2's complement, refer to the Xilinx  documentation for details.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002c</td>
+<td colspan="1" rowspan="1">0x00b0</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_HOFFSET_2</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[11:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_HOFFSET_STEP[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan horizontal offset step. The value must be set in 2's  complement, refer to the Xilinx documentation for details.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002d</td>
+<td colspan="1" rowspan="1">0x00b4</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_DMA_STARTADDR</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_DMA_STARTADDR[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan DMA start address. The AXI master interface writes eye  scan data starting at this address. The first data written corresponds to  the minimum of horizontal and vertical offsets (UT = 0).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002e</td>
+<td colspan="1" rowspan="1">0x00b8</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_SDATA_1_0</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_SDATA1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan sample data mask word (1) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_SDATA0[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan sample data mask word (0) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x002f</td>
+<td colspan="1" rowspan="1">0x00bc</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_SDATA_3_2</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_SDATA3[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan sample data mask word (3) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_SDATA2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan sample data mask word (2) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0030</td>
+<td colspan="1" rowspan="1">0x00c0</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_SDATA_4</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_SDATA4[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan sample data mask word (0) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0031</td>
+<td colspan="1" rowspan="1">0x00c4</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_QDATA_1_0</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_QDATA1[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan qualifier data mask word (1) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_QDATA0[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan qualifier data mask word (0) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0032</td>
+<td colspan="1" rowspan="1">0x00c8</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_QDATA_3_2</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">EYESCAN_QDATA3[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan qualifier data mask word (3) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_QDATA2[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan qualifier data mask word (2) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0033</td>
+<td colspan="1" rowspan="1">0x00cc</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_QDATA_4</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">EYESCAN_QDATA4[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Eye scan qualifier data mask word (0) (80bits = {4, 3, 2, 1, 0})</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0038</td>
+<td colspan="1" rowspan="1">0x00e0</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_STATUS</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">EYESCAN_DMAERR</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">Eye scan DMA error. If set, indicates a target error on AXI bus.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">EYESCAN_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Eye scan status. If set, indicates the eye scan is running.  Software may still access the data at the destination, but it may not be  complete until this bit is cleared by hardware.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0039</td>
+<td colspan="1" rowspan="1">0x00e4</td>
+<td colspan="3" rowspan="1">REG_EYESCAN_RATE</td>
+<td colspan="1" rowspan="1">JESD, Lane Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">EYESCAN_RATE</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Indicates eye scan rate - 0x1 (-32 to +32), 0x2 (-64 to +64), 0x4 (-128 to +128), 0x8 (-256 to +256), 0x10 (-512 to +512).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>DDR Controller</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">DDR Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DDR controller reset, software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">DDR Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0018</td>
+<td colspan="1" rowspan="1">0x0060</td>
+<td colspan="3" rowspan="1">REG_DDR_CNTRL</td>
+<td colspan="1" rowspan="1">DDR Write Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DDR_STREAM</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set, DDR write is in stream mode, data is continously passed to the DDR module,</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DDR_START</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0x0 to 0x1 transition on this bit initiates DDR writes.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0019</td>
+<td colspan="1" rowspan="1">0x0064</td>
+<td colspan="3" rowspan="1">REG_DDR_COUNT</td>
+<td colspan="1" rowspan="1">DDR Write Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DDR_COUNT[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DDR data count, usually the final dma data count (see below) in number of bytes. The software could program the DDR controller with the same DMA settings. The count  is based on bytes, however the value must be an integer multiple of the bus width. The value programmed is the actual number of bytes, hence zero is not valid.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001a</td>
+<td colspan="1" rowspan="1">0x0068</td>
+<td colspan="3" rowspan="1">REG_DDR_STATUS</td>
+<td colspan="1" rowspan="1">DDR Write Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">DDR_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DDR write overflow. If set, indicates an overflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status  from a previous write.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DDR_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DDR write underflow. If set, indicates an underflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status from  a previous write.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DDR_STATUS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DDR write status. If set, indicates access is pending and transfer is not complete.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001b</td>
+<td colspan="1" rowspan="1">0x006c</td>
+<td colspan="3" rowspan="1">REG_DDR_BUSWIDTH</td>
+<td colspan="1" rowspan="1">DDR Write Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DDR_BUSWIDTH</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DDR data bus width in number of bytes (the DDR count must be an integer multiple of this bus width).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0020</td>
+<td colspan="1" rowspan="1">0x0080</td>
+<td colspan="3" rowspan="1">REG_DMA_CNTRL</td>
+<td colspan="1" rowspan="1">DDR Read Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DMA_STREAM</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set, DMA is in stream mode, data is continously passed to the DMA module, with TLAST asserted every DMA count cycles on the data bus. The ADC interface does not do the actual DMA, so the success of a stream mode (bandwidth effects) depends mainly on the DMA module.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DMA_START</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0x0 to 0x1 transition on this bit initiates DMA.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0021</td>
+<td colspan="1" rowspan="1">0x0084</td>
+<td colspan="3" rowspan="1">REG_DMA_COUNT</td>
+<td colspan="1" rowspan="1">DDR Read Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DMA_COUNT[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DMA data count, mainly used to assert TLAST. Software must program the DMA controller with the same settings. The count is based on bytes (same as DMA setting), however the value must be an integer multiple of the bus width. In most cases the granularity is 4 bytes. The value programmed is the actual number of bytes, hence zero is not valid.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0022</td>
+<td colspan="1" rowspan="1">0x0088</td>
+<td colspan="3" rowspan="1">REG_DMA_STATUS</td>
+<td colspan="1" rowspan="1">DDR Read Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">DMA_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DMA overflow. If set, indicates an overflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status  from a previous DMA.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DMA_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DMA underflow. If set, indicates an underflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status from  a previous DMA.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DMA_STATUS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DMA status. If set, indicates access is pending and transfer is not complete.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0023</td>
+<td colspan="1" rowspan="1">0x008c</td>
+<td colspan="3" rowspan="1">REG_DMA_BUSWIDTH</td>
+<td colspan="1" rowspan="1">DDR Read Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DMA_BUSWIDTH</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DMA data bus width in number of bytes (the DMA count must be an integer multiple of this bus width).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>HDMI Transmit</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, a common reset is used for all the interface modules, The default is reset (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0011</td>
+<td colspan="1" rowspan="1">0x0044</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">FULL_RANGE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If clear (0x0), RGB data is limited to 0x10 to 0xeb.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">CSC_BYPASS</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set (0x1) bypasses color space conversion (if equipped).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0012</td>
+<td colspan="1" rowspan="1">0x0048</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[1:0]</td>
+<td colspan="1" rowspan="1">SOURCE_SEL</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Select the HDMI data source- register constant (0x3), incr-pattern (0x2), input (0x1) or disabled (0x0).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0013</td>
+<td colspan="1" rowspan="1">0x004c</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[23:0]</td>
+<td colspan="1" rowspan="1">CONST_RGB[23:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the RGB value transmitted, if the source is constant (see above).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0015</td>
+<td colspan="1" rowspan="1">0x0054</td>
+<td colspan="3" rowspan="1">REG_CLK_FREQ</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_FREQ[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock frequency. This is relative to the processor clock and in many cases is 100MHz. The number is represented as unsigned 16.16 format. Assuming a 100MHz processor clock the minimum is 1.523kHz and maximum is 6.554THz. The actual interface clock is CLK_FREQ * CLK_RATIO (see below). Note that the actual sampling clock may not be the same as the interface clock- software must consider device specific implementation parameters to calculate the final sampling clock.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0016</td>
+<td colspan="1" rowspan="1">0x0058</td>
+<td colspan="3" rowspan="1">REG_CLK_RATIO</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CLK_RATIO[31:0]</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface clock ratio - as a factor actual received clock. This is implementation specific and depends on any serial to parallel conversion and interface type (ddr/sdr/qdr).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0018</td>
+<td colspan="1" rowspan="1">0x0060</td>
+<td colspan="3" rowspan="1">REG_VDMA_STATUS</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">VDMA_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">If set, indicates vdma overflow.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">VDMA_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">If set, indicates vdma underflow.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0019</td>
+<td colspan="1" rowspan="1">0x0064</td>
+<td colspan="3" rowspan="1">REG_TPM_STATUS</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">HDMI_TPM_OOS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">If set, indicates TPM OOS at the HDMI interface.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">VDMA_TPM_OOS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">If set, indicates TPM OOS at the VDMA interface.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0100</td>
+<td colspan="1" rowspan="1">0x0400</td>
+<td colspan="3" rowspan="1">REG_HSYNC_1</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">H_LINE_ACTIVE[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the horizontal line active pixel width (active resolution length). e.g. 1920 (1080p)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">H_LINE_WIDTH[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the horizontal line width (no. of pixel clocks per line). e.g. 2200 (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0101</td>
+<td colspan="1" rowspan="1">0x0404</td>
+<td colspan="3" rowspan="1">REG_HSYNC_2</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">H_SYNC_WIDTH[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the horizontal sync width (no. of pixel clocks). e.g. 44 (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0102</td>
+<td colspan="1" rowspan="1">0x0408</td>
+<td colspan="3" rowspan="1">REG_HSYNC_3</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">H_ENABLE_MAX[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the horizontal data enable maximum. It is the sum of H_ENABLE_MIN and the active pixel width. e.g. 2112 (192 + 1920) (1080p)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">H_ENABLE_MIN[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the horizontal data enable minimum. It is the sum of horizontal back porch (number of clock cycles between the falling edge of HSYNC to the rising edge of DE) and the sync width. e.g. 192 (44 + 148) (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0110</td>
+<td colspan="1" rowspan="1">0x0440</td>
+<td colspan="3" rowspan="1">REG_VSYNC_1</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">V_FRAME_ACTIVE[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the vertical frame active line width (active resolution height). e.g. 1080 (1080p)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">V_FRAME_WIDTH[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the vertical frame width (no. of lines per frame). e.g. 1125 (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0111</td>
+<td colspan="1" rowspan="1">0x0444</td>
+<td colspan="3" rowspan="1">REG_VSYNC_2</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">V_SYNC_WIDTH[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the vertical sync width (no. of lines). e.g. 5 (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0112</td>
+<td colspan="1" rowspan="1">0x0448</td>
+<td colspan="3" rowspan="1">REG_VSYNC_3</td>
+<td colspan="1" rowspan="1">HDMI Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[31:16]</td>
+<td colspan="1" rowspan="1">V_ENABLE_MAX[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the vertical data enable maximum. It is the sum of V_ENABLE_MIN and the active pixel height. e.g. 1121 (41 + 1080) (1080p)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">V_ENABLE_MIN[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the vertical data enable minimum. It is the sum of vertical back porch (number of lines between the falling edge of VSYNC to the rising edge of DE) and the sync width. e.g. 41 (36 + 5) (1080p)</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>Clock Generator</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">MMCM_RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">MMCM reset (required for DRP access). Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001c</td>
+<td colspan="1" rowspan="1">0x0070</td>
+<td colspan="3" rowspan="1">REG_DRP_CNTRL</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="3"></td>
+<td colspan="1" rowspan="1">[28]</td>
+<td colspan="1" rowspan="1">DRP_RWN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP read (0x1) or write (0x0) select (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[27:16]</td>
+<td colspan="1" rowspan="1">DRP_ADDRESS[11:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP address, designs that contain more than one DRP accessible primitives  have selects based on the most significant bits (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_WDATA[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DRP write data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x001d</td>
+<td colspan="1" rowspan="1">0x0074</td>
+<td colspan="3" rowspan="1">REG_DRP_STATUS</td>
+<td colspan="1" rowspan="1">ADC Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">DRP_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">If set indicates busy (access pending). The read data may not be valid if  this bit is set (does not include GTX lanes).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">DRP_RDATA</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DRP read data (does not include GTX lanes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>FFT Common</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">FFT Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0011</td>
+<td colspan="1" rowspan="1">0x0044</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">FFT Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">CFG_DATA[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The configuration data is passed as it is to the FFT core. The format is dependent on the Xilinx's IP core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0012</td>
+<td colspan="1" rowspan="1">0x0048</td>
+<td colspan="3" rowspan="1">REG_CNTRL</td>
+<td colspan="1" rowspan="1">FFT Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[16]</td>
+<td colspan="1" rowspan="1">ENABLE</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">The H. window enable (requires 0->1 transition).</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[15:0]</td>
+<td colspan="1" rowspan="1">INCR[15:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This is the window phase increment function - cos(phase).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0017</td>
+<td colspan="1" rowspan="1">0x005c</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">FFT Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">Interface status, if set indicates no errors. If not set, there  are errors, software may try resetting the cores.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0018</td>
+<td colspan="1" rowspan="1">0x0060</td>
+<td colspan="3" rowspan="1">REG_STATUS</td>
+<td colspan="1" rowspan="1">FFT Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[19:0]</td>
+<td colspan="1" rowspan="1">STATUS</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">The FFT status is passed to the software through this register. The fields are controlled by the Xilinx's IP core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>AXIS Receive</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0010</td>
+<td colspan="1" rowspan="1">0x0040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0020</td>
+<td colspan="1" rowspan="1">0x0080</td>
+<td colspan="3" rowspan="1">REG_DMA_CNTRL</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">DMA_STREAM</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">If set, DMA is in stream mode, data is continously passed to the DMA module, with TLAST asserted every DMA count cycles on the data bus. The ADC interface does not do the actual DMA, so the success of a stream mode (bandwidth effects) depends mainly on the DMA module.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DMA_START</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">A 0x0 to 0x1 transition on this bit initiates DMA.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0021</td>
+<td colspan="1" rowspan="1">0x0084</td>
+<td colspan="3" rowspan="1">REG_DMA_COUNT</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DMA_COUNT[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">DMA data count, mainly used to assert TLAST. Software must program the DMA controller with the same settings. The count is based on bytes (same as DMA setting), however the value must be an integer multiple of the bus width. In most cases the granularity is 4 bytes. The value programmed is the actual number of bytes, hence zero is not valid.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0022</td>
+<td colspan="1" rowspan="1">0x0088</td>
+<td colspan="3" rowspan="1">REG_DMA_STATUS</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[2]</td>
+<td colspan="1" rowspan="1">DMA_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">DMA overflow. If set, indicates an overflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status  from a previous DMA.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">DMA_STATUS</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DMA status. If set, indicates access is pending and transfer is not complete. NOT-APPLICABLE (Moved to new AXIS pcore).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x0023</td>
+<td colspan="1" rowspan="1">0x008c</td>
+<td colspan="3" rowspan="1">REG_DMA_BUSWIDTH</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">DMA_BUSWIDTH</td>
+<td colspan="1" rowspan="1">RO</td>
+<td colspan="1" rowspan="1">DMA data bus width in number of bytes (the DMA count must be an integer multiple of this bus width).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:12px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1"><b>AXIS Transmit</b></td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1010</td>
+<td colspan="1" rowspan="1">0x4040</td>
+<td colspan="3" rowspan="1">REG_RSTN</td>
+<td colspan="1" rowspan="1">AXIS Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">RSTN</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1021</td>
+<td colspan="1" rowspan="1">0x4084</td>
+<td colspan="3" rowspan="1">REG_VDMA_FRMCNT</td>
+<td colspan="1" rowspan="1">VDMA Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="1"></td>
+<td colspan="1" rowspan="1">[31:0]</td>
+<td colspan="1" rowspan="1">VDMA_FRMCNT[31:0]</td>
+<td colspan="1" rowspan="1">RW</td>
+<td colspan="1" rowspan="1">This register controls the frame sync assertion to VDMA. This can be set to any count greater than the actual frame length (in bytes).</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="1" rowspan="1">0x1022</td>
+<td colspan="1" rowspan="1">0x4088</td>
+<td colspan="3" rowspan="1">REG_VDMA_STATUS</td>
+<td colspan="1" rowspan="1">VDMA Interface Control & Status</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#e0f2f7">
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="1" rowspan="1">[1]</td>
+<td colspan="1" rowspan="1">VDMA_OVF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">VDMA overflow. If set, indicates an overflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status  from a previous VDMA.</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">[0]</td>
+<td colspan="1" rowspan="1">VDMA_UNF</td>
+<td colspan="1" rowspan="1">RW1C</td>
+<td colspan="1" rowspan="1">VDMA underflow. If set, indicates an underflow occured during data transfer. Software  must write a 0x1 before starting another transfer to clear any left off status from  a previous VDMA.</td>
+</tr>
+</tbody>
+<tbody align="left" valign="top" style="font-family:verdana; font-size:10px; background-color:#81f7f3">
+<tr>
+<td colspan="6" rowspan="1">Tue Nov 26 10:04:57 2013</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

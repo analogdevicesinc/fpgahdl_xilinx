@@ -673,9 +673,7 @@ module axi_ad9361_dev_if (
     .IB (rx_clk_in_n),
     .O (clk_ibuf_s));
 
-  BUFR #(.BUFR_DIVIDE("BYPASS")) i_clk_rbuf (
-    .CLR (1'b0),
-    .CE (1'b1),
+  BUFG i_clk_gbuf (
     .I (clk_ibuf_s),
     .O (clk));
 

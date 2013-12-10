@@ -1,0 +1,15 @@
+##############################################################################
+## Filename:          D:/AD/SVN/ML605/ML605_SPDIF_Rx/microblaze/pcores/axi_spdif_rx_v1_00_a/data/axi_spdif_rx_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Thu Dec 15 12:04:13 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a  all 
+lib axi_lite_ipif_v1_01_a  all 
+lib axi_spdif_rx_v1_00_a user_logic vhdl
+lib axi_spdif_rx_v1_00_a axi_spdif_rx vhdl
+lib axi_spdif_rx_v1_00_a rx_status_reg vhdl
+lib axi_spdif_rx_v1_00_a rx_cap_reg vhdl
+lib axi_spdif_rx_v1_00_a rx_phase_det vhdl
+lib axi_spdif_rx_v1_00_a rx_decode vhdl
+lib axi_spdif_rx_v1_00_a rx_package vhdl

@@ -112,7 +112,7 @@ module ad_ss_444to422 (
     end
   end
 
-  // get the average 0.4*s(n-1) + 0.2*s(n) + 0.2*s(n+1)
+  // get the average 0.25*s(n-1) + 0.5*s(n) + 0.25*s(n+1)
 
   assign cr_s = {2'd0, s444_data_d[23:16]} +
                 {2'd0, s444_data_3d[23:16]} +

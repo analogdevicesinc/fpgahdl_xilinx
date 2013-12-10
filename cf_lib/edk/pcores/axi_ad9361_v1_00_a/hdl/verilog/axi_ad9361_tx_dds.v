@@ -62,6 +62,10 @@ module axi_ad9361_tx_dds (
   dac_dds_incr_2,
   dac_dds_scale_2);
 
+  // parameters
+
+  parameter DP_DISABLE = 0;
+
   // dac interface
 
   input           dac_clk;
@@ -168,19 +172,31 @@ module axi_ad9361_tx_dds (
 
   // dds
 
+  generate
+  if (DP_DISABLE == 1) begin
+  assign dac_dds_sine_1_s = 16'd0;
+  end else begin
   ad_dds_1 i_ad_dds_1_1 (
     .clk (dac_clk),
     .sclr (dac_rst),
     .phase_in (dac_dds_phase_1),
     .sine (dac_dds_sine_1_s));
+  end
+  endgenerate
 
   // dds
 
+  generate
+  if (DP_DISABLE == 1) begin
+  assign dac_dds_sine_2_s = 16'd0;
+  end else begin
   ad_dds_1 i_ad_dds_1_2 (
     .clk (dac_clk),
     .sclr (dac_rst),
     .phase_in (dac_dds_phase_2),
     .sine (dac_dds_sine_2_s));
+  end
+  endgenerate
   
 endmodule
 

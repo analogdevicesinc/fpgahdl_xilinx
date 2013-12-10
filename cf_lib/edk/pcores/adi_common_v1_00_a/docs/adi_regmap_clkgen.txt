@@ -1,0 +1,102 @@
+TITLE
+Clock Generator
+ENDTITLE
+
+############################################################################################
+############################################################################################
+
+REG
+0x0010
+REG_RSTN
+Interface Control & Status
+ENDREG
+
+FIELD
+[1]
+MMCM_RSTN
+RW
+MMCM reset (required for DRP access).
+Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.
+ENDFIELD
+
+FIELD
+[0]
+RSTN
+RW
+Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0017
+REG_STATUS
+ADC Interface Control & Status
+ENDREG
+
+FIELD
+[0]
+STATUS
+RO
+Interface status, if set indicates no errors. If not set, there 
+are errors, software may try resetting the cores.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001c
+REG_DRP_CNTRL
+ADC Interface Control & Status
+ENDREG
+
+FIELD
+[28]
+DRP_RWN
+RW
+DRP read (0x1) or write (0x0) select (does not include GTX lanes).
+ENDFIELD
+
+FIELD
+[27:16]
+DRP_ADDRESS[11:0]
+RW
+DRP address, designs that contain more than one DRP accessible primitives 
+have selects based on the most significant bits (does not include GTX lanes).
+ENDFIELD
+
+FIELD
+[15:0]
+DRP_WDATA[15:0]
+RW
+DRP write data (does not include GTX lanes).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001d
+REG_DRP_STATUS
+ADC Interface Control & Status
+ENDREG
+
+FIELD
+[16]
+DRP_STATUS
+RO
+If set indicates busy (access pending). The read data may not be valid if 
+this bit is set (does not include GTX lanes).
+ENDFIELD
+
+FIELD
+[15:0]
+DRP_RDATA
+RO
+DRP read data (does not include GTX lanes).
+ENDFIELD
+
+############################################################################################
+############################################################################################

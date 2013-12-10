@@ -1,0 +1,97 @@
+TITLE
+FFT Common
+ENDTITLE
+
+############################################################################################
+############################################################################################
+
+REG
+0x0010
+REG_RSTN
+FFT Interface Control & Status
+ENDREG
+
+FIELD
+[0]
+RSTN
+RW
+Reset, default is IN-RESET (0x0), software must write 0x1 to bring up the core.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0011
+REG_CNTRL
+FFT Interface Control & Status
+ENDREG
+
+FIELD
+[31:0]
+CFG_DATA[31:0]
+RW
+The configuration data is passed as it is to the FFT core.
+The format is dependent on the Xilinx's IP core.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0012
+REG_CNTRL
+FFT Interface Control & Status
+ENDREG
+
+FIELD
+[16]
+ENABLE
+RW
+The H. window enable (requires 0->1 transition).
+ENDFIELD
+
+FIELD
+[15:0]
+INCR[15:0]
+RW
+This is the window phase increment function - cos(phase).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0017
+REG_STATUS
+FFT Interface Control & Status
+ENDREG
+
+FIELD
+[0]
+STATUS
+RO
+Interface status, if set indicates no errors. If not set, there 
+are errors, software may try resetting the cores.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0018
+REG_STATUS
+FFT Interface Control & Status
+ENDREG
+
+FIELD
+[19:0]
+STATUS
+RW1C
+The FFT status is passed to the software through this register.
+The fields are controlled by the Xilinx's IP core.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+

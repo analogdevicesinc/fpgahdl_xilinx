@@ -53,6 +53,8 @@ module up_dac_channel (
   dac_dds_incr_2,
   dac_dds_patt_1,
   dac_dds_patt_2,
+  dac_lb_enb,
+  dac_pn_enb,
 
   // user controls
 
@@ -98,6 +100,8 @@ module up_dac_channel (
   output  [15:0]  dac_dds_incr_2;
   output  [15:0]  dac_dds_patt_1;
   output  [15:0]  dac_dds_patt_2;
+  output          dac_lb_enb;
+  output          dac_pn_enb;
 
   // user controls
 
@@ -137,6 +141,8 @@ module up_dac_channel (
   reg     [15:0]  up_dac_dds_incr_2 = 'd0;
   reg     [15:0]  up_dac_dds_patt_2 = 'd0;
   reg     [15:0]  up_dac_dds_patt_1 = 'd0;
+  reg             up_dac_lb_enb = 'd0;
+  reg             up_dac_pn_enb = 'd0;
   reg             up_usr_datatype_be = 'd0;
   reg             up_usr_datatype_signed = 'd0;
   reg     [ 7:0]  up_usr_datatype_shift = 'd0;
@@ -146,6 +152,7 @@ module up_dac_channel (
   reg     [15:0]  up_usr_interpolation_n = 'd0;
   reg             up_ack = 'd0;
   reg     [31:0]  up_rdata = 'd0;
+  reg     [ 5:0]  up_xfer_count = 'd0;
   reg             up_xfer_toggle = 'd0;
   reg             dac_up_xfer_toggle_m1 = 'd0;
   reg             dac_up_xfer_toggle_m2 = 'd0;
@@ -158,6 +165,8 @@ module up_dac_channel (
   reg     [15:0]  dac_dds_incr_2 = 'd0;
   reg     [15:0]  dac_dds_patt_1 = 'd0;
   reg     [15:0]  dac_dds_patt_2 = 'd0;
+  reg             dac_lb_enb = 'd0;
+  reg             dac_pn_enb = 'd0;
 
   // internal signals
 
@@ -182,6 +191,8 @@ module up_dac_channel (
       up_dac_dds_incr_2 <= 'd0;
       up_dac_dds_patt_2 <= 'd0;
       up_dac_dds_patt_1 <= 'd0;
+      up_dac_lb_enb <= 'd0;
+      up_dac_pn_enb <= 'd0;
       up_usr_datatype_be <= 'd0;
       up_usr_datatype_signed <= 'd0;
       up_usr_datatype_shift <= 'd0;
@@ -207,6 +218,10 @@ module up_dac_channel (
       if ((up_wr_s == 1'b1) && (up_addr[3:0] == 4'h4)) begin
         up_dac_dds_patt_2 <= up_wdata[31:16];
         up_dac_dds_patt_1 <= up_wdata[15:0];
+      end
+      if ((up_wr_s == 1'b1) && (up_addr[3:0] == 4'h5)) begin
+        up_dac_lb_enb <= up_wdata[1];
+        up_dac_pn_enb <= up_wdata[0];
       end
       if ((up_wr_s == 1'b1) && (up_addr[3:0] == 4'h8)) begin
         up_usr_datatype_be <= up_wdata[25];
@@ -237,6 +252,7 @@ module up_dac_channel (
           4'h2: up_rdata <= {28'd0, up_dac_dds_scale_2};
           4'h3: up_rdata <= {up_dac_dds_init_2, up_dac_dds_incr_2};
           4'h4: up_rdata <= {up_dac_dds_patt_2, up_dac_dds_patt_1};
+          4'h5: up_rdata <= {30'd0, up_dac_lb_enb, up_dac_pn_enb};
           4'h8: up_rdata <= {6'd0, dac_usr_datatype_be, dac_usr_datatype_signed,
                               dac_usr_datatype_shift, dac_usr_datatype_total_bits,
                               dac_usr_datatype_bits};
@@ -253,9 +269,11 @@ module up_dac_channel (
 
   always @(negedge up_rstn or posedge up_clk) begin
     if (up_rstn == 0) begin
+      up_xfer_count <= 'd0;
       up_xfer_toggle <= 'd0;
     end else begin
-      if (up_wr_s == 1'b1) begin
+      up_xfer_count <= up_xfer_count + 1'b1;
+      if (up_xfer_count == 6'd0) begin
         up_xfer_toggle <= ~up_xfer_toggle;
       end
     end
@@ -284,6 +302,8 @@ module up_dac_channel (
       dac_dds_incr_2 <= up_dac_dds_incr_2;
       dac_dds_patt_1 <= up_dac_dds_patt_1;
       dac_dds_patt_2 <= up_dac_dds_patt_2;
+      dac_lb_enb <= up_dac_lb_enb;
+      dac_pn_enb <= up_dac_pn_enb;
     end
   end
 

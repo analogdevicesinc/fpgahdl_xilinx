@@ -1,0 +1,153 @@
+
+BEGIN axi_dmac
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+OPTION IP_GROUP = MICROBLAZE:USER
+OPTION DESC = AXIDMAC_
+OPTION ARCH_SUPPORT_MAP = (others=DEVELOPMENT)
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+BUS_INTERFACE BUS = M_DEST_AXI, BUS_STD = AXI, BUS_TYPE = MASTER, ISVALID = (C_DMA_TYPE_DEST == 0)
+BUS_INTERFACE BUS = M_SRC_AXI, BUS_STD = AXI, BUS_TYPE = MASTER, ISVALID = (C_DMA_TYPE_SRC == 0)
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET, ISVALID = (C_DMA_TYPE_SRC == 1)
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_DMA_TYPE_DEST == 1)
+
+IO_INTERFACE IO_IF = FIFO_RD, IO_TYPE = FIFO, ISVALID = (C_DMA_TYPE_DEST == 2)
+IO_INTERFACE IO_IF = FIFO_WR, IO_TYPE = FIFO, ISVALID = (C_DMA_TYPE_SRC == 2)
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector, MIN_SIZE = 0x100, PAIR = C_HIGHADDR, ADDRESS = BASE, BUS = S_AXI, DESC = AXI base address
+PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector, PAIR = C_BASEADDR, ADDRESS = HIGH, BUS = S_AXI, DESC = AXI high address
+PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
+
+PARAMETER C_M_DEST_AXI_PROTOCOL = AXI4, DT = STRING, BUS = M_DEST_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_DEST_AXI_DATA_WIDTH = 64, DT = INTEGER, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_SUPPORTS_NARROW_BURST = 0, DT = INTEGER, TYPE = NON_HDL, BUS = M_DEST_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_INTERCONNECT_M_DEST_AXI_WRITE_ISSUING = 4, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_SUPPORTS_READ = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_SUPPORTS_WRITE = 1, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_THREAD_ID_WIDTH = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_SUPPORTS_THREADS = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
+
+PARAMETER C_M_SRC_AXI_PROTOCOL = AXI4, DT = STRING, BUS = M_SRC_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_SRC_AXI_DATA_WIDTH = 64, DT = INTEGER, BUS = M_SRC_AXI, TYPE = NON_HDL
+PARAMETER C_M_SRC_AXI_SUPPORTS_NARROW_BURST = 0, DT = INTEGER, TYPE = NON_HDL, BUS = M_SRC_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_INTERCONNECT_M_SRC_AXI_READ_ISSUING = 4, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_SRC_AXI
+PARAMETER C_M_SRC_AXI_SUPPORTS_READ = 1, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_SRC_AXI
+PARAMETER C_M_SRC_AXI_SUPPORTS_WRITE = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_SRC_AXI
+PARAMETER C_M_SRC_AXI_THREAD_ID_WIDTH = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_SRC_AXI
+PARAMETER C_M_SRC_AXI_SUPPORTS_THREADS = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_SRC_AXI
+
+PARAMETER C_CLKS_ASYNC_REQ_SRC = 1, DT = INTEGER, RANGE = [0:1], DESC = Request interface clock and data source clock asynchronous
+PARAMETER C_CLKS_ASYNC_SRC_DEST = 1, DT = INTEGER, RANGE = [0:1], DESC = Data source clock and data destination clock asynchronous
+PARAMETER C_CLKS_ASYNC_DEST_REQ = 1, DT = INTEGER, RANGE = [0:1], DESC = Request interface clock and data destination clock asynchronous
+
+## 0 = AXI MM, 1 = AXI STREAM, 2 = FIFO
+PARAMETER C_DMA_TYPE_DEST = 0, DT = INTEGER, RANGE = (0,1,2), VALUES = (0 = Memory mapped AXI, 1 = Streaming AXI, 2 = FIFO), DESC = DMA data destination interface type
+PARAMETER C_DMA_TYPE_SRC = 0, DT = INTEGER, RANGE = (0,1,2), VALUES = (0 = Memory mapped AXI, 1 = Streaming AXI, 2 = FIFO), DESC = DMA data source interface type
+
+PARAMETER C_AXI_SLICE_DEST = 0, DT = INTEGER, RANGE = [0:1], DESC = Insert AXI slice on the DMA destination path
+PARAMETER C_AXI_SLICE_SRC = 0, DT = INTEGER, RANGE = [0:1], DESC = Insert AXI slice on the DMA source path
+PARAMETER C_SYNC_ON_USER = 0, DT = INTEGER, RANGE = [0:1], DESC = Synchronize start of transfer to tuser[0], ISVALID = (C_DMA_TYPE_SRC == 1)
+PARAMETER C_2D_TRANSFER = 0, DT = INTEGER, RANGE = [0:1], DESC = Enable support for 2D transfers
+PARAMETER C_CYCLIC = 0, DT = INTEGER, RANGE = [0:1], DESC = Enable cyclic transfers
+
+PARAMETER PCORE_ID = 0, DT = INTEGER
+
+PARAMETER C_DMA_LENGTH_WIDTH = 24, DT = INTEGER, RANGE = [8:32], DESC = DMA transfer length register width
+
+## Slave AXI interface for registers
+PORT s_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI
+PORT s_axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI
+PORT s_axi_awaddr = AWADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_awvalid = AWVALID, DIR = I, BUS = S_AXI
+PORT s_axi_wdata = WDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_wstrb = WSTRB, DIR = I, VEC = [3:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_wvalid = WVALID, DIR = I, BUS = S_AXI
+PORT s_axi_bready = BREADY, DIR = I, BUS = S_AXI
+PORT s_axi_araddr = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_arvalid = ARVALID, DIR = I, BUS = S_AXI
+PORT s_axi_rready = RREADY, DIR = I, BUS = S_AXI
+PORT s_axi_arready = ARREADY, DIR = O, BUS = S_AXI
+PORT s_axi_rdata = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_rvalid = RVALID, DIR = O, BUS = S_AXI
+PORT s_axi_wready = WREADY, DIR = O, BUS = S_AXI
+PORT s_axi_bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_bvalid = BVALID, DIR = O, BUS = S_AXI
+PORT s_axi_awready = AWREADY, DIR = O, BUS = S_AXI
+
+## Master AXI interface for memory transfers
+PORT m_dest_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = M_DEST_AXI
+PORT m_dest_axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_DEST_AXI
+
+PORT m_axi_awaddr = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_axi_awlen = AWLEN, DIR = O, VEC = [7:0], BUS = M_DEST_AXI
+PORT m_axi_awsize = AWSIZE, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
+PORT m_axi_awburst = AWBURST, DIR = O, VEC = [1:0], BUS = M_DEST_AXI
+PORT m_axi_awprot = AWPROT, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
+PORT m_axi_awcache = AWCACHE, DIR = O, VEC = [3:0], BUS = M_DEST_AXI
+PORT m_axi_awvalid = AWVALID, DIR = O, BUS = M_DEST_AXI
+PORT m_axi_awready = AWREADY, DIR = I, BUS = M_DEST_AXI
+
+PORT m_axi_wdata = WDATA, DIR = O, VEC = [63:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_axi_wstrb = WSTRB, DIR = O, VEC = [7:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_axi_wready = WREADY, DIR = I, BUS = M_DEST_AXI
+PORT m_axi_wvalid = WVALID, DIR = O, BUS = M_DEST_AXI
+PORT m_axi_wlast = WLAST, DIR = O, BUS = M_DEST_AXI
+
+PORT m_axi_bready = BREADY, DIR = O, BUS = M_DEST_AXI
+PORT m_axi_bresp = BRESP, DIR = I, VEC = [1:0], BUS = M_DEST_AXI
+PORT m_axi_bvalid = BVALID, DIR = I, BUS = M_DEST_AXI
+
+PORT m_src_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = M_SRC_AXI
+PORT m_src_axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_SRC_AXI
+
+PORT m_axi_araddr = ARADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
+PORT m_axi_arlen = ARLEN, DIR = O, VEC = [7:0], BUS = M_SRC_AXI
+PORT m_axi_arsize = ARSIZE, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
+PORT m_axi_arburst = ARBURST, DIR = O, VEC = [1:0], BUS = M_SRC_AXI
+PORT m_axi_arprot = ARPROT, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
+PORT m_axi_arcache = ARCACHE, DIR = O, VEC = [3:0], BUS = M_SRC_AXI
+PORT m_axi_arready = ARREADY, DIR = I, BUS = M_SRC_AXI
+PORT m_axi_arvalid = ARVALID, DIR = O, BUS = M_SRC_AXI
+PORT m_axi_rresp = RRESP, DIR = I, VEC = [1:0], BUS = M_SRC_AXI
+
+PORT m_axi_rdata = RDATA, DIR = I, VEC = [63:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
+PORT m_axi_rready = RREADY, DIR = O, BUS = M_SRC_AXI
+PORT m_axi_rvalid = RVALID, DIR = I, BUS = M_SRC_AXI
+
+## Interrupt
+PORT irq = "", DIR = O, SIGIS = INTERRUPT, SENSITIVITY = LEVEL_HIGH,
+
+# Stream AXI slave interface (incomming)
+PORT s_axis_aclk = ACLK, DIR = I, BUS = S_AXIS, SIGIS = CLK
+PORT s_axis_ready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_valid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_data = TDATA, DIR = I, VEC = [63:0], BUS = S_AXIS
+PORT s_axis_user = TUSER, DIR = I, VEC = [0:0], BUS = S_AXIS
+
+# Stream AXI master interface (outgoing)
+PORT m_axis_aclk = ACLK, DIR = I, BUS = M_AXIS, SIGIS = CLK
+PORT m_axis_ready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_valid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_data = TDATA, DIR = O, VEC = [63:0], BUS = M_AXIS
+
+# FIFO write interface (incomming)
+PORT fifo_wr_clk = "", DIR = I, IO_IF=FIFO_WR, SIGIS = CLK
+PORT fifo_wr_en = "", DIR = I, IO_IF=FIFO_WR
+PORT fifo_wr_din = "", DIR = I, VEC = [63:0], IO_IF=FIFO_WR
+PORT fifo_wr_overflow = "", DIR = O, IO_IF=FIFO_WR
+
+# FIFO read interface (outgoing)
+PORT fifo_rd_clk = "", DIR = I, IO_IF=FIFO_RD, SIGIS = CLK
+PORT fifo_rd_en = "", DIR = I, IO_IF=FIFO_RD
+PORT fifo_rd_dout = "", DIR = O, VEC = [63:0], IO_IF=FIFO_RD
+PORT fifo_rd_valid = "", DIR = O, IO_IF=FIFO_RD
+PORT fifo_rd_underflow = "", DIR = O, IO_IF=FIFO_RD
+
+END

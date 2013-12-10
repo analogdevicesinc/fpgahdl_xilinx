@@ -63,28 +63,14 @@ module axi_ad9361 (
 
   delay_clk,
 
-  // common clock
-
-  clk,
-
   // dma interface
 
-  s_axis_s2mm_clk,
-  s_axis_s2mm_tvalid,
-  s_axis_s2mm_tdata,
-  s_axis_s2mm_tkeep,
-  s_axis_s2mm_tlast,
-  s_axis_s2mm_tready,
-
-  // vdma interface
-
-  m_axis_mm2s_clk,
-  m_axis_mm2s_fsync,
-  m_axis_mm2s_tvalid,
-  m_axis_mm2s_tdata,
-  m_axis_mm2s_tkeep,
-  m_axis_mm2s_tlast,
-  m_axis_mm2s_tready,
+  clk,
+  adc_dvalid,
+  adc_ddata,
+  dac_drd,
+  dac_dvalid,
+  dac_ddata,
 
   // axi interface
 
@@ -118,8 +104,11 @@ module axi_ad9361 (
   // parameters
 
   parameter   PCORE_ID = 0;
+  parameter   PCORE_VERSION = 32'h00060061;
   parameter   PCORE_BUFTYPE = 0;
   parameter   PCORE_IODELAY_GROUP = "dev_if_delay_group";
+  parameter   PCORE_DAC_DP_DISABLE = 0;
+  parameter   PCORE_ADC_DP_DISABLE = 0;
   parameter   C_S_AXI_MIN_SIZE = 32'hffff;
   parameter   C_BASEADDR = 32'hffffffff;
   parameter   C_HIGHADDR = 32'h00000000;
@@ -146,28 +135,14 @@ module axi_ad9361 (
 
   input           delay_clk;
 
-  // common clock
-
-  output          clk;
-
   // dma interface
 
-  input           s_axis_s2mm_clk;
-  output          s_axis_s2mm_tvalid;
-  output  [63:0]  s_axis_s2mm_tdata;
-  output  [ 7:0]  s_axis_s2mm_tkeep;
-  output          s_axis_s2mm_tlast;
-  input           s_axis_s2mm_tready;
-
-  // vdma interface
-
-  input           m_axis_mm2s_clk;
-  output          m_axis_mm2s_fsync;
-  input           m_axis_mm2s_tvalid;
-  input   [63:0]  m_axis_mm2s_tdata;
-  input   [ 7:0]  m_axis_mm2s_tkeep;
-  input           m_axis_mm2s_tlast;
-  output          m_axis_mm2s_tready;
+  output          clk;
+  output          adc_dvalid;
+  output  [63:0]  adc_ddata;
+  output          dac_drd;
+  input           dac_dvalid;
+  input   [63:0]  dac_ddata;
 
   // axi interface
 
@@ -207,8 +182,6 @@ module axi_ad9361 (
 
   wire            up_clk;
   wire            up_rstn;
-  wire            dma_clk;
-  wire            vdma_clk;
   wire            delay_rst;
 
   // internal signals
@@ -254,14 +227,6 @@ module axi_ad9361 (
   wire            adc_pn_err_i2_s;
   wire            adc_pn_oos_q2_s;
   wire            adc_pn_err_q2_s;
-  wire            dma_valid_s;
-  wire            dma_last_s;
-  wire    [63:0]  dma_data_s;
-  wire            dma_ready_s;
-  wire            vdma_fs_s;
-  wire            vdma_valid_s;
-  wire    [63:0]  vdma_data_s;
-  wire            vdma_ready_s;
   wire            up_sel_s;
   wire            up_wr_s;
   wire    [13:0]  up_addr_s;
@@ -275,19 +240,6 @@ module axi_ad9361 (
 
   assign up_clk = s_axi_aclk;
   assign up_rstn = s_axi_aresetn;
-
-  assign dma_clk = s_axis_s2mm_clk;
-  assign dma_ready_s = s_axis_s2mm_tready;
-  assign s_axis_s2mm_tvalid = dma_valid_s;
-  assign s_axis_s2mm_tdata  = dma_data_s;
-  assign s_axis_s2mm_tlast = dma_last_s;
-  assign s_axis_s2mm_tkeep = 8'hff;
-
-  assign vdma_clk = m_axis_mm2s_clk;
-  assign vdma_valid_s = m_axis_mm2s_tvalid;
-  assign vdma_data_s = m_axis_mm2s_tdata;
-  assign m_axis_mm2s_fsync = vdma_fs_s;
-  assign m_axis_mm2s_tready = vdma_ready_s; 
 
   // processor read interface
 
@@ -383,7 +335,11 @@ module axi_ad9361 (
 
   // receive
 
-  axi_ad9361_rx i_rx (
+  axi_ad9361_rx #(
+    .PCORE_ID (PCORE_ID),
+    .PCORE_VERSION (PCORE_VERSION),
+    .DP_DISABLE (PCORE_ADC_DP_DISABLE)
+  ) i_rx (
     .adc_clk (clk),
     .adc_valid (adc_valid_s),
     .adc_pn_oos_i1 (adc_pn_oos_i1_s),
@@ -409,11 +365,8 @@ module axi_ad9361 (
     .delay_rdata (delay_rdata_s),
     .delay_ack_t (delay_ack_t_s),
     .delay_locked (delay_locked_s),
-    .dma_clk (dma_clk),
-    .dma_valid (dma_valid_s),
-    .dma_last (dma_last_s),
-    .dma_data (dma_data_s),
-    .dma_ready (dma_ready_s),
+    .adc_dvalid (adc_dvalid),
+    .adc_ddata (adc_ddata),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel_s),
@@ -427,7 +380,11 @@ module axi_ad9361 (
 
   // transmit
 
-  axi_ad9361_tx i_tx (
+  axi_ad9361_tx #(
+    .PCORE_ID (PCORE_ID),
+    .PCORE_VERSION (PCORE_VERSION),
+    .DP_DISABLE (PCORE_DAC_DP_DISABLE)
+  ) i_tx (
     .dac_clk (clk),
     .dac_valid (dac_valid_pl_s),
     .dac_lb_enb_i1 (dac_lb_enb_i1_s),
@@ -443,11 +400,9 @@ module axi_ad9361 (
     .dac_pn_enb_q2 (dac_pn_enb_q2_s),
     .dac_data_q2 (dac_data_pl_q2_s),
     .dac_r1_mode (dac_r1_mode_s),
-    .vdma_clk (vdma_clk),
-    .vdma_fs (vdma_fs_s),
-    .vdma_valid (vdma_valid_s),
-    .vdma_data (vdma_data_s),
-    .vdma_ready (vdma_ready_s),
+    .dac_drd (dac_drd),
+    .dac_dvalid (dac_dvalid),
+    .dac_ddata (dac_ddata),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel_s),

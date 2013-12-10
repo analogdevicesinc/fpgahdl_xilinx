@@ -142,9 +142,6 @@ TIMESPEC TS_ps7_fclk_clk0 = PERIOD "ps7_fclk_clk0" 100 MHz;
 NET "processing_system7_0_FCLK_CLK1" TNM_NET = "ps7_fclk_clk1";
 TIMESPEC TS_ps7_fclk_clk1 = PERIOD "ps7_fclk_clk1" 200 MHz;
 
-NET "processing_system7_0_FCLK_CLK2" TNM_NET = "ps7_fclk_clk2";
-TIMESPEC TS_ps7_fclk_clk2 = PERIOD "ps7_fclk_clk2" 125 MHz;
-
 NET "rx_clk_in_p" TNM_NET = "rx_clk_in_p";
 TIMESPEC "TS_rx_clk_in_p" = PERIOD "rx_clk_in_p" 250 MHz;
 NET "rx_clk_in_n" TNM_NET = "rx_clk_in_n";

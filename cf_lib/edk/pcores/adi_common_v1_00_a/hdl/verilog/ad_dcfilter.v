@@ -73,6 +73,7 @@ module ad_dcfilter (
   // internal registers
 
   reg     [15:0]  dc_offset = 'd0;
+  reg     [32:0]  dc_offset_33 = 'd0;
   reg             valid_d = 'd0;
   reg     [15:0]  data_d = 'd0;
   reg             valid_out = 'd0;
@@ -86,6 +87,7 @@ module ad_dcfilter (
 
   always @(posedge clk) begin
     dc_offset <= dc_offset_33_s[32:17];
+    dc_offset_33 <= dc_offset_33_s;
     valid_d <= valid;
     if (valid == 1'b1) begin
       data_d <= data + dcfilt_offset;
@@ -103,8 +105,8 @@ module ad_dcfilter (
     .clk (clk),
     .d (data_d),
     .b (dcfilt_coeff),
-    .a (dc_offset_33_s[32:17]),
-    .c (dc_offset_33_s[32:17]),
+    .a (dc_offset_33[32:17]),
+    .c (dc_offset_33[32:17]),
     .p (dc_offset_33_s));
 
 endmodule

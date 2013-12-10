@@ -71,6 +71,7 @@
  PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO, DIR = IO, VEC = [31:0]
  PORT xcomm_iic_scl = axi_iic_1_Scl, DIR = IO
  PORT xcomm_iic_sda = axi_iic_1_Sda, DIR = IO
+ PORT axi_ad9643_0_s_axis_s2mm_clk_pin = net_axi_ad9643_0_s_axis_s2mm_clk_pin, DIR = I, SIGIS = CLK
 
 
 BEGIN processing_system7
@@ -80,7 +81,7 @@ BEGIN processing_system7
  PARAMETER C_EN_EMIO_CAN0 = 0
  PARAMETER C_EN_EMIO_CAN1 = 0
  PARAMETER C_EN_EMIO_ENET0 = 0
- PARAMETER C_EN_EMIO_ENET1 = 0
+ PARAMETER C_EN_EMIO_ENET1 = 1
  PARAMETER C_EN_EMIO_I2C0 = 0
  PARAMETER C_EN_EMIO_I2C1 = 0
  PARAMETER C_EN_EMIO_PJTAG = 0
@@ -102,7 +103,7 @@ BEGIN processing_system7
  PARAMETER C_EN_CAN0 = 0
  PARAMETER C_EN_CAN1 = 0
  PARAMETER C_EN_ENET0 = 1
- PARAMETER C_EN_ENET1 = 0
+ PARAMETER C_EN_ENET1 = 1
  PARAMETER C_EN_I2C0 = 0
  PARAMETER C_EN_I2C1 = 0
  PARAMETER C_EN_PJTAG = 0
@@ -130,9 +131,7 @@ BEGIN processing_system7
  PARAMETER C_USE_S_AXI_HP1 = 0
  PARAMETER C_USE_S_AXI_HP2 = 1
  PARAMETER C_USE_S_AXI_HP3 = 1
- PARAMETER C_INTERCONNECT_S_AXI_HP0_MASTERS = axi_vdma_0.M_AXI_MM2S
- PARAMETER C_INTERCONNECT_S_AXI_HP2_MASTERS = axi_vdma_1.M_AXI_MM2S
- PARAMETER C_INTERCONNECT_S_AXI_HP3_MASTERS = axi_dma_1.M_AXI_SG & axi_dma_1.M_AXI_S2MM
+ PARAMETER C_INTERCONNECT_S_AXI_HP2_MASTERS = axi_dmac_0.M_DEST_AXI
  PARAMETER C_EN_GPIO = 1
  PARAMETER C_INTERCONNECT_S_AXI_HP2_AW_REGISTER = 1
  PARAMETER C_INTERCONNECT_S_AXI_HP2_AR_REGISTER = 1
@@ -151,10 +150,12 @@ BEGIN processing_system7
  PARAMETER C_USE_DMA2 = 1
  PARAMETER C_EN_EMIO_GPIO = 1
  PARAMETER C_EMIO_GPIO_WIDTH = 32
+ PARAMETER C_INTERCONNECT_S_AXI_HP3_MASTERS = axi_dmac_1.M_SRC_AXI
+ PARAMETER C_INTERCONNECT_S_AXI_HP0_MASTERS = axi_vdma_0.M_AXI_MM2S
  BUS_INTERFACE M_AXI_GP0 = axi_interconnect_0
- BUS_INTERFACE S_AXI_HP0 = axi_interconnect_1
  BUS_INTERFACE S_AXI_HP2 = axi_interconnect_3
  BUS_INTERFACE S_AXI_HP3 = axi_interconnect_4
+ BUS_INTERFACE S_AXI_HP0 = axi_interconnect_1
  PORT MIO = processing_system7_0_MIO
  PORT PS_SRSTB = processing_system7_0_PS_SRSTB
  PORT PS_CLK = processing_system7_0_PS_CLK
@@ -185,7 +186,7 @@ BEGIN processing_system7
  PORT S_AXI_HP0_ACLK = processing_system7_0_FCLK_CLK0
  PORT S_AXI_HP2_ACLK = processing_system7_0_FCLK_CLK1
  PORT S_AXI_HP3_ACLK = processing_system7_0_FCLK_CLK1
- PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_vdma_1_mm2s_introut & axi_dma_1_s2mm_introut & axi_iic_1_IIC2INTC_Irpt & axi_spi_0_IP2INTC_Irpt & axi_spi_1_IP2INTC_Irpt & int_1 & int_2 & int_3 & int_4
+ PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_dmac_0_irq & axi_dmac_1_irq & axi_iic_1_IIC2INTC_Irpt & axi_spi_0_IP2INTC_Irpt & axi_spi_1_IP2INTC_Irpt & int_1 & int_2 & int_3 & int_4
  PORT USB0_VBUS_PWRFAULT = util_vector_logic_0_Res
  PORT GPIO = processing_system7_0_GPIO
  PORT DMA0_DATYPE = processing_system7_0_DMA0_DATYPE
@@ -254,10 +255,10 @@ BEGIN axi_vdma
  PARAMETER C_M_AXI_MM2S_DATA_WIDTH = 64
  PARAMETER C_M_AXIS_MM2S_TDATA_WIDTH = 64
  PARAMETER C_MM2S_LINEBUFFER_THRESH = 8
- PARAMETER C_BASEADDR = 0x43020000
- PARAMETER C_HIGHADDR = 0x4302ffff
  PARAMETER C_NUM_FSTORES = 1
  PARAMETER C_MM2S_SOF_ENABLE = 0
+ PARAMETER C_BASEADDR = 0x43020000
+ PARAMETER C_HIGHADDR = 0x4302ffff
  BUS_INTERFACE S_AXI_LITE = axi_interconnect_0
  BUS_INTERFACE M_AXI_MM2S = axi_interconnect_1
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
@@ -282,9 +283,9 @@ END
 BEGIN axi_spdif_tx
  PARAMETER INSTANCE = axi_spdif_tx_0
  PARAMETER HW_VER = 1.00.a
+ PARAMETER C_DMA_TYPE = 1
  PARAMETER C_BASEADDR = 0x75c00000
  PARAMETER C_HIGHADDR = 0x75c0ffff
- PARAMETER C_DMA_TYPE = 1
  BUS_INTERFACE S_AXI = axi_interconnect_0
  PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
  PORT spdif_tx_o = axi_spdif_tx_0_spdif_tx_o
@@ -344,11 +345,11 @@ END
 BEGIN axi_i2s_adi
  PARAMETER INSTANCE = axi_i2s_adi_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_BASEADDR = 0x77600000
- PARAMETER C_HIGHADDR = 0x7760FFFF
  PARAMETER C_BCLK_POL = 0
  PARAMETER C_LRCLK_POL = 0
  PARAMETER C_DMA_TYPE = 1
+ PARAMETER C_BASEADDR = 0x77600000
+ PARAMETER C_HIGHADDR = 0x7760ffff
  BUS_INTERFACE S_AXI = axi_interconnect_0
  PORT DATA_CLK_I = clock_generator_0_CLKOUT0
  PORT BCLK_O = axi_i2s_adi_0_BCLK_O
@@ -409,13 +410,12 @@ END
 
 BEGIN axi_ad9122
  PARAMETER INSTANCE = axi_ad9122_0
- PARAMETER HW_VER = 1.00.a
+ PARAMETER HW_VER = 6.00.a
  PARAMETER PCORE_ID = 0
  PARAMETER PCORE_DEVICE_TYPE = 0
  PARAMETER C_BASEADDR = 0x74200000
  PARAMETER C_HIGHADDR = 0x7420ffff
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE M_AXIS_MM2S = axi_vdma_1_M_AXIS_MM2S
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT dac_clk_in_p = axi_ad9122_0_dac_clk_in_p
  PORT dac_clk_in_n = axi_ad9122_0_dac_clk_in_n
@@ -426,32 +426,11 @@ BEGIN axi_ad9122
  PORT dac_data_out_p = axi_ad9122_0_dac_data_out_p
  PORT dac_data_out_n = axi_ad9122_0_dac_data_out_n
  PORT dac_enable_in = 0b0
- PORT m_axis_mm2s_fsync = axi_ad9122_0_m_axis_mm2s_fsync
- PORT m_axis_mm2s_clk = processing_system7_0_FCLK_CLK1
-END
-
-BEGIN axi_vdma
- PARAMETER INSTANCE = axi_vdma_1
- PARAMETER HW_VER = 5.04.a
- PARAMETER C_INCLUDE_S2MM = 0
- PARAMETER C_USE_FSYNC = 1
- PARAMETER C_M_AXI_MM2S_DATA_WIDTH = 64
- PARAMETER C_M_AXIS_MM2S_TDATA_WIDTH = 64
- PARAMETER C_MM2S_LINEBUFFER_THRESH = 8
- PARAMETER C_DYNAMIC_RESOLUTION = 0
- PARAMETER C_MM2S_SOF_ENABLE = 0
- PARAMETER C_MM2S_GENLOCK_MODE = 0
- PARAMETER C_BASEADDR = 0x43000000
- PARAMETER C_HIGHADDR = 0x4300ffff
- PARAMETER C_NUM_FSTORES = 1
- BUS_INTERFACE S_AXI_LITE = axi_interconnect_0
- BUS_INTERFACE M_AXI_MM2S = axi_interconnect_3
- BUS_INTERFACE M_AXIS_MM2S = axi_vdma_1_M_AXIS_MM2S
- PORT s_axi_lite_aclk = processing_system7_0_FCLK_CLK0
- PORT m_axi_mm2s_aclk = processing_system7_0_FCLK_CLK1
- PORT m_axis_mm2s_aclk = processing_system7_0_FCLK_CLK1
- PORT mm2s_introut = axi_vdma_1_mm2s_introut
- PORT mm2s_fsync = axi_ad9122_0_m_axis_mm2s_fsync
+ PORT dac_div_clk = axi_ad9122_0_dac_div_clk
+ PORT dac_drd = axi_ad9122_0_dac_drd
+ PORT dac_ddata = axi_dmac_1_fifo_rd_dout
+ PORT dac_dvalid = axi_dmac_1_fifo_rd_valid
+ PORT dac_underflow = axi_dmac_1_fifo_rd_underflow
 END
 
 BEGIN axi_interconnect
@@ -464,16 +443,14 @@ END
 
 BEGIN axi_ad9643
  PARAMETER INSTANCE = axi_ad9643_0
- PARAMETER HW_VER = 1.00.a
+ PARAMETER HW_VER = 6.00.a
  PARAMETER PCORE_ID = 0
  PARAMETER PCORE_DEVICE_TYPE = 0
  PARAMETER PCORE_IODELAY_GROUP = axi_ad9643_0_delay_group
  PARAMETER C_BASEADDR = 0x79020000
  PARAMETER C_HIGHADDR = 0x7902ffff
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE S_AXIS_S2MM = axi_dma_1_S_AXIS_S2MM
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
- PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK1
  PORT adc_clk_in_p = axi_ad9643_0_adc_clk_in_p
  PORT adc_clk_in_n = axi_ad9643_0_adc_clk_in_n
  PORT adc_data_in_p = axi_ad9643_0_adc_data_in_p
@@ -486,35 +463,9 @@ BEGIN axi_ad9643
  PORT adc_clk = axi_ad9643_0_adc_clk
  PORT adc_mon_valid = axi_ad9643_0_adc_mon_valid
  PORT adc_mon_data = axi_ad9643_0_adc_mon_data
-END
-
-BEGIN axi_dma
- PARAMETER INSTANCE = axi_dma_1
- PARAMETER HW_VER = 5.00.a
- PARAMETER C_M_AXI_S2MM_DATA_WIDTH = 64
- PARAMETER C_INCLUDE_SG = 1
- PARAMETER C_INCLUDE_MM2S = 0
- PARAMETER C_S_AXIS_S2MM_TDATA_WIDTH = 64
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_WRITE_FIFO_DEPTH = 512
- PARAMETER C_S2MM_BURST_SIZE = 256
- PARAMETER C_SG_LENGTH_WIDTH = 23
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_AW_REGISTER = 7
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_AR_REGISTER = 7
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_W_REGISTER = 7
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_R_REGISTER = 7
- PARAMETER C_INTERCONNECT_M_AXI_S2MM_B_REGISTER = 7
- PARAMETER C_SG_INCLUDE_STSCNTRL_STRM = 0
- PARAMETER C_SG_USE_STSAPP_LENGTH = 0
- PARAMETER C_BASEADDR = 0x40420000
- PARAMETER C_HIGHADDR = 0x4042ffff
- BUS_INTERFACE S_AXI_LITE = axi_interconnect_0
- BUS_INTERFACE M_AXI_S2MM = axi_interconnect_4
- BUS_INTERFACE S_AXIS_S2MM = axi_dma_1_S_AXIS_S2MM
- BUS_INTERFACE M_AXI_SG = axi_interconnect_4
- PORT s_axi_lite_aclk = processing_system7_0_FCLK_CLK0
- PORT m_axi_s2mm_aclk = processing_system7_0_FCLK_CLK1
- PORT s2mm_introut = axi_dma_1_s2mm_introut
- PORT m_axi_sg_aclk = processing_system7_0_FCLK_CLK1
+ PORT adc_dvalid = axi_ad9643_0_adc_dvalid
+ PORT adc_ddata = axi_ad9643_0_adc_ddata
+ PORT adc_overflow = axi_dmac_0_fifo_wr_overflow
 END
 
 BEGIN axi_interconnect
@@ -595,5 +546,44 @@ BEGIN axi_spi
  PORT MOSI = axi_spi_1_MOSI
  PORT SS = axi_spi_1_SS
  PORT IP2INTC_Irpt = axi_spi_1_IP2INTC_Irpt
+END
+
+BEGIN axi_dmac
+ PARAMETER INSTANCE = axi_dmac_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_DMA_TYPE_SRC = 2
+ PARAMETER C_BASEADDR = 0x7c400000
+ PARAMETER C_HIGHADDR = 0x7c40ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ BUS_INTERFACE M_DEST_AXI = axi_interconnect_3
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT irq = axi_dmac_0_irq
+ PORT m_dest_axi_aclk = processing_system7_0_FCLK_CLK1
+ PORT s_axis_aclk = processing_system7_0_FCLK_CLK1
+ PORT fifo_wr_clk = axi_ad9643_0_adc_clk
+ PORT fifo_wr_en = axi_ad9643_0_adc_dvalid
+ PORT fifo_wr_din = axi_ad9643_0_adc_ddata
+ PORT fifo_wr_overflow = axi_dmac_0_fifo_wr_overflow
+END
+
+BEGIN axi_dmac
+ PARAMETER INSTANCE = axi_dmac_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_DMA_TYPE_SRC = 0
+ PARAMETER C_BASEADDR = 0x7c420000
+ PARAMETER C_HIGHADDR = 0x7c42ffff
+ PARAMETER C_DMA_TYPE_DEST = 2
+ PARAMETER C_CYCLIC = 1
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ BUS_INTERFACE M_SRC_AXI = axi_interconnect_4
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT m_dest_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT irq = axi_dmac_1_irq
+ PORT m_src_axi_aclk = processing_system7_0_FCLK_CLK1
+ PORT fifo_rd_clk = axi_ad9122_0_dac_div_clk
+ PORT fifo_rd_en = axi_ad9122_0_dac_drd
+ PORT fifo_rd_dout = axi_dmac_1_fifo_rd_dout
+ PORT fifo_rd_valid = axi_dmac_1_fifo_rd_valid
+ PORT fifo_rd_underflow = axi_dmac_1_fifo_rd_underflow
 END
 

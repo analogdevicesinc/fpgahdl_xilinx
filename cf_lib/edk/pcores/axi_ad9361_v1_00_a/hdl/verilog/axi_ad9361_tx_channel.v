@@ -70,6 +70,7 @@ module axi_ad9361_tx_channel (
   // parameters
 
   parameter CHID = 32'h0;
+  parameter DP_DISABLE = 0;
 
   // dac interface
 
@@ -110,7 +111,7 @@ module axi_ad9361_tx_channel (
 
   // single channel dds
 
-  axi_ad9361_tx_dds i_tx_dds (
+  axi_ad9361_tx_dds #(.DP_DISABLE(DP_DISABLE)) i_tx_dds (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_dds_data (dac_dds_data),

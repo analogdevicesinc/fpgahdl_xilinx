@@ -1,0 +1,17 @@
+##############################################################################
+## Filename:          pcores/axi_ad9361_v1_00_a/data/axi_ad9361_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a ad_mem verilog
+lib adi_common_v1_00_a ad_axis_inf_rx verilog
+lib adi_common_v1_00_a ad_axis_dma_rx verilog
+lib adi_common_v1_00_a ad_axis_dma_tx verilog
+lib adi_common_v1_00_a up_axi verilog
+lib adi_common_v1_00_a up_axis_dma_rx verilog
+lib adi_common_v1_00_a up_axis_dma_tx verilog
+lib axi_axis_xx_v1_00_a axi_axis_rx_core verilog
+lib axi_axis_xx_v1_00_a axi_axis_tx_core verilog
+lib axi_axis_xx_v1_00_a axi_axis_xx verilog
+

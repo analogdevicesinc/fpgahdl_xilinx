@@ -22,19 +22,17 @@ OPTION PLATGEN_SYSLEVEL_UPDATE_PROC = run_coregen
 
 ## Bus Interfaces
 BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
-BUS_INTERFACE BUS = M_AXIS_MM2S, BUS_STD = AXIS, BUS_TYPE = TARGET
-BUS_INTERFACE BUS = S_AXIS_S2MM, BUS_STD = AXIS, BUS_TYPE = INITIATOR
 
 ## Generics for VHDL or Parameters for Verilog
 PARAMETER PCORE_ID = 0, DT = INTEGER
 PARAMETER PCORE_BUFTYPE = 0, DT = INTEGER
+PARAMETER PCORE_DAC_DP_DISABLE = 0, DT = INTEGER
+PARAMETER PCORE_ADC_DP_DISABLE = 0, DT = INTEGER
 PARAMETER PCORE_IODELAY_GROUP = adc_if_delay_group, DT = STRING
 PARAMETER C_S_AXI_MIN_SIZE = 0x0000ffff, DT = std_logic_vector, BUS = S_AXI
 PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector, PAIR = C_HIGHADDR, ADDRESS = BASE, BUS = S_AXI, MIN_SIZE = 0x100
 PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector, PAIR = C_BASEADDR, ADDRESS = HIGH, BUS = S_AXI
 PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
-PARAMETER C_S_AXIS_S2MM_PROTOCOL = XIL_AXI_STREAM_ETH_DATA, DT = STRING, BUS = S_AXIS_S2MM, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
-PARAMETER C_M_AXIS_MM2S_PROTOCOL = XIL_AXI_STREAM_VID_DATA, DT = STRING, BUS = M_AXIS_MM2S, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
 
 ## Device Interface
 PORT rx_clk_in_p = "", DIR = I, SIGIS = CLK
@@ -61,21 +59,11 @@ PORT adc_mon_valid = "", DIR = O, VEC = [1:0]
 PORT adc_mon_data = "", DIR = O, VEC = [116:0]
 
 ## DMA Interface
-PORT s_axis_s2mm_clk = "", DIR = I, SIGIS=CLK, BUS=S_AXIS_S2MM
-PORT s_axis_s2mm_tvalid = TVALID, DIR = O, BUS=S_AXIS_S2MM
-PORT s_axis_s2mm_tdata = TDATA, DIR = O, VEC = [63:0], BUS=S_AXIS_S2MM
-PORT s_axis_s2mm_tkeep = TKEEP, DIR = O, VEC = [7:0], BUS=S_AXIS_S2MM
-PORT s_axis_s2mm_tlast = TLAST, DIR = O, BUS=S_AXIS_S2MM
-PORT s_axis_s2mm_tready = TREADY, DIR = I, BUS=S_AXIS_S2MM
-
-## VDMA Interface
-PORT m_axis_mm2s_clk = "", DIR = I, SIGIS = CLK
-PORT m_axis_mm2s_fsync = "", DIR = O
-PORT m_axis_mm2s_tvalid = TVALID, DIR = I, BUS=M_AXIS_MM2S
-PORT m_axis_mm2s_tkeep = TKEEP, DIR = I, VEC = [7:0], BUS=M_AXIS_MM2S
-PORT m_axis_mm2s_tdata = TDATA, DIR = I, VEC = [63:0], BUS=M_AXIS_MM2S
-PORT m_axis_mm2s_tlast = TLAST, DIR = I, BUS=M_AXIS_MM2S
-PORT m_axis_mm2s_tready = TREADY, DIR = O, BUS=M_AXIS_MM2S
+PORT adc_dvalid = "", DIR = O
+PORT adc_ddata = "", DIR = O, VEC = [63:0]
+PORT dac_drd = "", DIR = O
+PORT dac_dvalid = "", DIR = I
+PORT dac_ddata = "", DIR = I, VEC = [63:0]
 
 ## AXI Interface
 PORT s_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI

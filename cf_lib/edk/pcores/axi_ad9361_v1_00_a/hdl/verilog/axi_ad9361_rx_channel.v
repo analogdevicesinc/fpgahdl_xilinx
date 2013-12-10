@@ -83,6 +83,7 @@ module axi_ad9361_rx_channel (
 
   parameter IQSEL = 0;
   parameter CHID = 0;
+  parameter DP_DISABLE = 0;
 
   // adc interface
 
@@ -163,6 +164,11 @@ module axi_ad9361_rx_channel (
   end
   endgenerate
 
+  generate
+  if (DP_DISABLE == 1) begin
+  assign adc_dfmt_valid_s = adc_valid;
+  assign adc_dfmt_data_s = adc_data;
+  end else begin
   ad_datafmt #(.DATA_WIDTH(12)) i_ad_datafmt (
     .clk (adc_clk),
     .valid (adc_valid),
@@ -172,7 +178,14 @@ module axi_ad9361_rx_channel (
     .dfmt_enable (adc_dfmt_enable_s),
     .dfmt_type (adc_dfmt_type_s),
     .dfmt_se (adc_dfmt_se_s));
+  end
+  endgenerate
 
+  generate
+  if (DP_DISABLE == 1) begin
+  assign adc_dcfilter_valid_s = adc_dfmt_valid_s;
+  assign adc_dcfilter_data_out = adc_dfmt_data_s;
+  end else begin
   ad_dcfilter i_ad_dcfilter (
     .clk (adc_clk),
     .valid (adc_dfmt_valid_s),
@@ -182,7 +195,14 @@ module axi_ad9361_rx_channel (
     .dcfilt_enb (adc_dcfilt_enb_s),
     .dcfilt_coeff (adc_dcfilt_coeff_s),
     .dcfilt_offset (adc_dcfilt_offset_s));
+  end
+  endgenerate
 
+  generate
+  if (DP_DISABLE == 1) begin
+  assign adc_iqcor_valid = adc_dcfilter_valid_s;
+  assign adc_iqcor_data = (IQSEL == 1) ? adc_dcfilter_data_q_s : adc_dcfilter_data_i_s;
+  end else begin
   ad_iqcor #(.IQSEL(IQSEL)) i_ad_iqcor (
     .clk (adc_clk),
     .valid (adc_dcfilter_valid_s),
@@ -193,6 +213,8 @@ module axi_ad9361_rx_channel (
     .iqcor_enable (adc_iqcor_enb_s),
     .iqcor_coeff_1 (adc_iqcor_coeff_1_s),
     .iqcor_coeff_2 (adc_iqcor_coeff_2_s));
+  end
+  endgenerate
 
   up_adc_channel #(.PCORE_ADC_CHID(CHID)) i_up_adc_channel (
     .adc_clk (adc_clk),

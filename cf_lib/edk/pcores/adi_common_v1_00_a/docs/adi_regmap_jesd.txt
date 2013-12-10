@@ -1,0 +1,691 @@
+
+TITLE
+JESD Receive
+ENDTITLE
+
+############################################################################################
+############################################################################################
+
+REG
+0x0010
+REG_RSTN
+JESD General Control & Status
+ENDREG
+
+FIELD
+[3]
+DRP_RSTN
+RW
+DRP Reset Only. 
+Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.
+ENDFIELD
+
+FIELD
+[2]
+IP_RSTN
+RW
+IP Reset Only. 
+Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.
+ENDFIELD
+
+FIELD
+[1]
+IP_RSTN
+RW
+Core Reset Only (non-IP).
+Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.
+ENDFIELD
+
+FIELD
+[0]
+GT_RSTN
+RW
+GT Reset Only (PLL, PMA and PCS -within the GTX).
+Reset, default is IN-RESET (0x0), software must write a 0x1 to bring up the interface.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0011
+REG_SYSREF
+JESD General Control & Status
+ENDREG
+
+FIELD
+[1]
+IP_SYSREF
+RW
+A 0 to 1 transition generates a SYSREF pulse for the XIP.
+ENDFIELD
+
+FIELD
+[0]
+SYSREF
+RW
+A 0 to 1 transition generates a SYSREF pulse on the interface.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0012
+REG_SYNC
+JESD General Control & Status
+ENDREG
+
+FIELD
+[0]
+SYNC
+RW
+The SYNC output is deasserted if this bit and hardware are both set.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0014
+REG_RX_CNTRL_1
+JESD Receive Control & Status
+ENDREG
+
+FIELD
+[18]
+RX_LANESYNC_ENB
+RW
+Receive lane synchronization enable.
+ENDFIELD
+
+FIELD
+[17]
+RX_DESCR_ENB
+RW
+Receive descrambler enable.
+ENDFIELD
+
+FIELD
+[16]
+RX_SYSREF_ENB
+RW
+Receive SYESREF enable.
+ENDFIELD
+
+FIELD
+[15:8]
+RX_MFRM_FRMCNT[7:0]
+RW
+Receive mult-frame frame count, set to one less than the number of frames in a multi-frame.
+ENDFIELD
+
+FIELD
+[7:0]
+RX_FRM_BYTECNT[7:0]
+RW
+Receive frame byte count, set to one less than the number of bytes in a frame.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0015
+REG_RX_CNTRL_2
+JESD Receive Control & Status
+ENDREG
+
+FIELD
+[20]
+RX_ERRRPT_DISB
+RW
+Receive error reporting disable.
+ENDFIELD
+
+FIELD
+[19:16]
+RX_TESTMODE[3:0]
+RW
+Receive test mode.
+ENDFIELD
+
+FIELD
+[15:0]
+RX_BUFDELAY[15:0]
+RW
+Receive buffer delay.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0017
+REG_RX_LANESEL
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[7:0]
+RX_LANESEL[7:0]
+RW
+Receive lane select, lane information, DRP access and eye scan are per lane and this register 
+selects the lane.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0018
+REG_RX_STATUS
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[0]
+RX_STATUS
+RO
+Interface status, if set indicates no errors. If not set, there 
+are errors, software may try resetting the cores.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0019
+REG_RX_INIT_DATA_0
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_INIT_DATA_0[31:0]
+RO
+Receive lane information (collected during ILAS phase).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001a
+REG_RX_INIT_DATA_1
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_INIT_DATA_1[31:0]
+RO
+Receive lane information (collected during ILAS phase).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001b
+REG_RX_INIT_DATA_2
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_INIT_DATA_2[31:0]
+RO
+Receive lane information (collected during ILAS phase).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001c
+REG_RX_INIT_DATA_2
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_INIT_DATA_3[31:0]
+RO
+Receive lane information (collected during ILAS phase).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001d
+REG_RX_BUFCNT
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[7:0]
+RX_BUFCNT[7:0]
+RO
+Receive lane alignment buffer count.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001e
+REG_RX_TEST_MFCNT
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_TEST_MFCNT[31:0]
+RO
+Receive test multi-frame count.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x001f
+REG_RX_TEST_ILACNT
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_TEST_ILACNT[31:0]
+RO
+Receive test ILAS count.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0020
+REG_RX_TEST_ERRCNT
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+RX_TEST_ERRCNT[31:0]
+RO
+Receive test error count.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0024
+REG_DRP_CNTRL
+JESD, GT DRP Control & Status
+ENDREG
+
+FIELD
+[28]
+DRP_RWN
+RW
+DRP read (0x1) or write (0x0) select.
+ENDFIELD
+
+FIELD
+[27:16]
+DRP_ADDRESS[11:0]
+RW
+DRP address.
+ENDFIELD
+
+FIELD
+[15:0]
+DRP_WDATA[15:0]
+RW
+DRP write data.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0025
+REG_DRP_STATUS
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[16]
+DRP_STATUS
+RO
+If set indicates busy (access pending). The read data may not be valid if 
+this bit is set.
+ENDFIELD
+
+FIELD
+[15:0]
+DRP_RDATA
+RO
+DRP read data.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0028
+REG_EYESCAN_CNTRL
+JESD, GT Eye Scan Control & Status
+ENDREG
+
+FIELD
+[2]
+EYESCAN_INIT
+RW
+Eye scan init - if set, enables initialization of GT. It can be disabled on
+successive eye scan.
+ENDFIELD
+
+FIELD
+[1]
+EYESCAN_STOP
+RW
+Eye scan stop- a 0x0 to 0x1 transition terminates eye scan on 
+the selected lane.
+ENDFIELD
+
+FIELD
+[0]
+EYESCAN_START
+RW
+Eye scan start- a 0x0 to 0x1 transition initiates eye scan on 
+the selected lane. The scan might take a while, software must monitor the 
+status.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0029
+REG_EYESCAN_PRESCALE
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[4:0]
+EYESCAN_PRESCALE[4:0]
+RW
+Eye scan prescale, refer to the Xilinx documentation for details - 
+the counters are prescaled to 2<sup>(n+1)</sup>.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002a
+REG_EYESCAN_VOFFSET
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[23:16]
+EYESCAN_VOFFSET_STEP[7:0]
+RW
+Eye scan vertical offset step. The value must be set in 2's 
+complement, refer to the Xilinx documentation for details.
+ENDFIELD
+
+FIELD
+[15:8]
+EYESCAN_VOFFSET_MAX[7:0]
+RW
+Eye scan vertical offset maximum (+128). The value must be 
+set in 2's complement, refer to the Xilinx documentation for details.
+ENDFIELD
+
+FIELD
+[7:0]
+EYESCAN_VOFFSET_MIN[7:0]
+RW
+Eye scan vertical offset minimum (-128). The value must be set 
+in 2's complement, refer to the Xilinx documentation for details.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002b
+REG_EYESCAN_HOFFSET_1
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[27:16]
+EYESCAN_HOFFSET_MAX[11:0]
+RW
+Eye scan horizontal offset maximum. The value depends on the 
+clock divider, as the eye scan is post CDR and comparison happens on 
+parallel bus. The value must be set in 2's complement, refer to the Xilinx 
+documentation for details.
+ENDFIELD
+
+FIELD
+[11:0]
+EYESCAN_HOFFSET_MIN[11:0]
+RW
+Eye scan horizontal offset minimum. The value depends on the 
+clock divider, as the eye scan is post CDR and comparison happens on 
+parallel bus. The value must be set in 2's complement, refer to the Xilinx 
+documentation for details.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002c
+REG_EYESCAN_HOFFSET_2
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[11:0]
+EYESCAN_HOFFSET_STEP[11:0]
+RW
+Eye scan horizontal offset step. The value must be set in 2's 
+complement, refer to the Xilinx documentation for details.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002d
+REG_EYESCAN_DMA_STARTADDR
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:0]
+EYESCAN_DMA_STARTADDR[31:0]
+RW
+Eye scan DMA start address. The AXI master interface writes eye 
+scan data starting at this address. The first data written corresponds to 
+the minimum of horizontal and vertical offsets (UT = 0).
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002e
+REG_EYESCAN_SDATA_1_0
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:16]
+EYESCAN_SDATA1[15:0]
+RW
+Eye scan sample data mask word (1) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+FIELD
+[15:0]
+EYESCAN_SDATA0[15:0]
+RW
+Eye scan sample data mask word (0) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x002f
+REG_EYESCAN_SDATA_3_2
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:16]
+EYESCAN_SDATA3[15:0]
+RW
+Eye scan sample data mask word (3) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+FIELD
+[15:0]
+EYESCAN_SDATA2[15:0]
+RW
+Eye scan sample data mask word (2) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0030
+REG_EYESCAN_SDATA_4
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[15:0]
+EYESCAN_SDATA4[15:0]
+RW
+Eye scan sample data mask word (0) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0031
+REG_EYESCAN_QDATA_1_0
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:16]
+EYESCAN_QDATA1[15:0]
+RW
+Eye scan qualifier data mask word (1) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+FIELD
+[15:0]
+EYESCAN_QDATA0[15:0]
+RW
+Eye scan qualifier data mask word (0) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0032
+REG_EYESCAN_QDATA_3_2
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[31:16]
+EYESCAN_QDATA3[15:0]
+RW
+Eye scan qualifier data mask word (3) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+FIELD
+[15:0]
+EYESCAN_QDATA2[15:0]
+RW
+Eye scan qualifier data mask word (2) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0033
+REG_EYESCAN_QDATA_4
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[15:0]
+EYESCAN_QDATA4[15:0]
+RW
+Eye scan qualifier data mask word (0) (80bits = {4, 3, 2, 1, 0})
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0038
+REG_EYESCAN_STATUS
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[1]
+EYESCAN_DMAERR
+RW1C
+Eye scan DMA error. If set, indicates a target error on AXI bus.
+ENDFIELD
+
+FIELD
+[0]
+EYESCAN_STATUS
+RO
+Eye scan status. If set, indicates the eye scan is running. 
+Software may still access the data at the destination, but it may not be 
+complete until this bit is cleared by hardware.
+ENDFIELD
+
+############################################################################################
+############################################################################################
+
+REG
+0x0039
+REG_EYESCAN_RATE
+JESD, Lane Control & Status
+ENDREG
+
+FIELD
+[1]
+EYESCAN_RATE
+RO
+Indicates eye scan rate - 0x1 (-32 to +32), 0x2 (-64 to +64), 0x4 (-128 to +128),
+0x8 (-256 to +256), 0x10 (-512 to +512).
+ENDFIELD
+
+############################################################################################
+############################################################################################

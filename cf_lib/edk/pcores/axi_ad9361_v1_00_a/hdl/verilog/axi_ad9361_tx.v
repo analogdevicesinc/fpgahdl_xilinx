@@ -59,13 +59,11 @@ module axi_ad9361_tx (
   dac_data_q2,
   dac_r1_mode,
 
-  // vdma interface
+  // dma interface
 
-  vdma_clk,
-  vdma_fs,
-  vdma_valid,
-  vdma_data,
-  vdma_ready,
+  dac_drd,
+  dac_dvalid,
+  dac_ddata,
 
   // processor interface
 
@@ -77,6 +75,12 @@ module axi_ad9361_tx (
   up_wdata,
   up_rdata,
   up_ack);
+
+  // parameters
+
+  parameter   DP_DISABLE = 0;
+  parameter   PCORE_ID = 0;
+  parameter   PCORE_VERSION = 32'h00060061;
 
   // dac interface
 
@@ -96,13 +100,11 @@ module axi_ad9361_tx (
   output  [11:0]  dac_data_q2;
   output          dac_r1_mode;
 
-  // vdma interface
+  // dma interface
 
-  input           vdma_clk;
-  output          vdma_fs;
-  input           vdma_valid;
-  input   [63:0]  vdma_data;
-  output          vdma_ready;
+  output          dac_drd;
+  input           dac_dvalid;
+  input   [63:0]  dac_ddata;
 
   // processor interface
 
@@ -121,12 +123,12 @@ module axi_ad9361_tx (
   reg             dac_dds_enable = 'd0;
   reg             dac_dds_data_enable = 'd0;
   reg             dac_dds_data_enable_toggle = 'd0;
-  reg             dac_vdma_rd = 'd0;
-  reg     [63:0]  dac_vdma_data = 'd0;
-  reg     [15:0]  dac_vdma_data_0 = 'd0;
-  reg     [15:0]  dac_vdma_data_1 = 'd0;
-  reg     [15:0]  dac_vdma_data_2 = 'd0;
-  reg     [15:0]  dac_vdma_data_3 = 'd0;
+  reg             dac_drd = 'd0;
+  reg     [63:0]  dac_dma_data = 'd0;
+  reg     [15:0]  dac_dma_data_0 = 'd0;
+  reg     [15:0]  dac_dma_data_1 = 'd0;
+  reg     [15:0]  dac_dma_data_2 = 'd0;
+  reg     [15:0]  dac_dma_data_3 = 'd0;
   reg             dac_valid = 'd0;
   reg     [11:0]  dac_data_i1 = 'd0;
   reg     [11:0]  dac_data_q1 = 'd0;
@@ -138,7 +140,6 @@ module axi_ad9361_tx (
   // internal clock and resets
 
   wire            dac_rst;
-  wire            vdma_rst;
 
   // internal signals
 
@@ -150,11 +151,6 @@ module axi_ad9361_tx (
   wire    [15:0]  dac_dds_data_1_s;
   wire    [15:0]  dac_dds_data_2_s;
   wire    [15:0]  dac_dds_data_3_s;
-  wire            dac_vdma_valid_s;
-  wire    [63:0]  dac_vdma_data_s;
-  wire            vdma_ovf_s;
-  wire            vdma_unf_s;
-  wire    [31:0]  vdma_frmcnt_s;
   wire    [31:0]  up_rdata_0_s;
   wire            up_ack_0_s;
   wire    [31:0]  up_rdata_1_s;
@@ -182,36 +178,36 @@ module axi_ad9361_tx (
     end
   end
 
-  // vdma interface
+  // dma interface
 
   always @(posedge dac_clk) begin
     if (dac_dds_data_enable == 1'b1) begin
       dac_dds_data_enable_toggle <= ~dac_dds_data_enable_toggle;
     end
     if (dac_r1_mode == 1'b1) begin
-      dac_vdma_rd <= dac_dds_data_enable & dac_dds_data_enable_toggle;
+      dac_drd <= dac_dds_data_enable & dac_dds_data_enable_toggle;
     end else begin
-      dac_vdma_rd <= dac_dds_data_enable;
+      dac_drd <= dac_dds_data_enable;
     end
-    if (dac_vdma_valid_s == 1'b1) begin
-      dac_vdma_data <= dac_vdma_data_s;
+    if (dac_dvalid == 1'b1) begin
+      dac_dma_data <= dac_ddata;
     end
     if (dac_dds_data_enable == 1'b1) begin
       if (dac_r1_mode == 1'b0) begin
-        dac_vdma_data_0 <= dac_vdma_data[15: 0];
-        dac_vdma_data_1 <= dac_vdma_data[31:16];
-        dac_vdma_data_2 <= dac_vdma_data[47:32];
-        dac_vdma_data_3 <= dac_vdma_data[63:48];
+        dac_dma_data_0 <= dac_dma_data[15: 0];
+        dac_dma_data_1 <= dac_dma_data[31:16];
+        dac_dma_data_2 <= dac_dma_data[47:32];
+        dac_dma_data_3 <= dac_dma_data[63:48];
       end else if (dac_dds_data_enable_toggle == 1'b1) begin
-        dac_vdma_data_0 <= dac_vdma_data_s[47:32];
-        dac_vdma_data_1 <= dac_vdma_data_s[63:48];
-        dac_vdma_data_2 <= 16'd0;
-        dac_vdma_data_3 <= 16'd0;
+        dac_dma_data_0 <= dac_dma_data[47:32];
+        dac_dma_data_1 <= dac_dma_data[63:48];
+        dac_dma_data_2 <= 16'd0;
+        dac_dma_data_3 <= 16'd0;
       end else begin
-        dac_vdma_data_0 <= dac_vdma_data_s[15: 0];
-        dac_vdma_data_1 <= dac_vdma_data_s[31:16];
-        dac_vdma_data_2 <= 16'd0;
-        dac_vdma_data_3 <= 16'd0;
+        dac_dma_data_0 <= dac_dma_data[15: 0];
+        dac_dma_data_1 <= dac_dma_data[31:16];
+        dac_dma_data_2 <= 16'd0;
+        dac_dma_data_3 <= 16'd0;
       end
     end
   end
@@ -221,10 +217,10 @@ module axi_ad9361_tx (
   always @(posedge dac_clk) begin
     dac_valid <= dac_dds_data_enable;
     if (dac_datasel_s[3:1] == 3'd1) begin
-      dac_data_i1 <= dac_vdma_data_0[15:4];
-      dac_data_q1 <= dac_vdma_data_1[15:4];
-      dac_data_i2 <= dac_vdma_data_2[15:4];
-      dac_data_q2 <= dac_vdma_data_3[15:4];
+      dac_data_i1 <= dac_dma_data_0[15:4];
+      dac_data_q1 <= dac_dma_data_1[15:4];
+      dac_data_i2 <= dac_dma_data_2[15:4];
+      dac_data_q2 <= dac_dma_data_3[15:4];
     end else begin
       dac_data_i1 <= dac_dds_data_0_s[15:4];
       dac_data_q1 <= dac_dds_data_1_s[15:4];
@@ -255,7 +251,10 @@ module axi_ad9361_tx (
 
   // dac channel
   
-  axi_ad9361_tx_channel #(.CHID(0)) i_tx_channel_0 (
+  axi_ad9361_tx_channel #(
+    .CHID(0),
+    .DP_DISABLE (DP_DISABLE))
+  i_tx_channel_0 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_dds_data (dac_dds_data_0_s),
@@ -276,7 +275,10 @@ module axi_ad9361_tx (
 
   // dac channel
   
-  axi_ad9361_tx_channel #(.CHID(1)) i_tx_channel_1 (
+  axi_ad9361_tx_channel #(
+    .CHID(1),
+    .DP_DISABLE (DP_DISABLE))
+  i_tx_channel_1 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_dds_data (dac_dds_data_1_s),
@@ -297,7 +299,10 @@ module axi_ad9361_tx (
 
   // dac channel
   
-  axi_ad9361_tx_channel #(.CHID(2)) i_tx_channel_2 (
+  axi_ad9361_tx_channel #(
+    .CHID(2),
+    .DP_DISABLE (DP_DISABLE))
+  i_tx_channel_2 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_dds_data (dac_dds_data_2_s),
@@ -318,7 +323,10 @@ module axi_ad9361_tx (
 
   // dac channel
   
-  axi_ad9361_tx_channel #(.CHID(3)) i_tx_channel_3 (
+  axi_ad9361_tx_channel #(
+    .CHID(3),
+    .DP_DISABLE (DP_DISABLE)
+  ) i_tx_channel_3 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_dds_data (dac_dds_data_3_s),
@@ -337,27 +345,12 @@ module axi_ad9361_tx (
     .up_rdata (up_rdata_3_s),
     .up_ack (up_ack_3_s));
 
-  // dac vdma
-
-  vdma_core #(.DATA_WIDTH(64)) i_vdma_core (
-    .vdma_clk (vdma_clk),
-    .vdma_rst (vdma_rst),
-    .vdma_fs (vdma_fs),
-    .vdma_valid (vdma_valid),
-    .vdma_data (vdma_data),
-    .vdma_ready (vdma_ready),
-    .vdma_ovf (vdma_ovf_s),
-    .vdma_unf (vdma_unf_s),
-    .dac_clk (dac_clk),
-    .dac_rst (dac_rst),
-    .dac_rd (dac_vdma_rd),
-    .dac_valid (dac_vdma_valid_s),
-    .dac_data (dac_vdma_data_s),
-    .vdma_frmcnt (vdma_frmcnt_s));
-
   // dac common processor interface
 
-  up_dac_common i_up_dac_common (
+  up_dac_common #(
+    .PCORE_ID (PCORE_ID),
+    .PCORE_VERSION (PCORE_VERSION)
+  ) i_up_dac_common (
     .mmcm_rst (),
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
@@ -379,11 +372,11 @@ module axi_ad9361_tx (
     .drp_wdata (),
     .drp_rdata (16'd0),
     .drp_ack_t (1'd0),
-    .vdma_clk (vdma_clk),
-    .vdma_rst (vdma_rst),
-    .vdma_frmcnt (vdma_frmcnt_s),
-    .vdma_ovf (vdma_ovf_s),
-    .vdma_unf (vdma_unf_s),
+    .vdma_clk (dac_clk),
+    .vdma_rst (),
+    .vdma_frmcnt (),
+    .vdma_ovf (1'd0),
+    .vdma_unf (1'd0),
     .up_usr_chanmax (),
     .dac_usr_chanmax (8'd3),
     .up_rstn (up_rstn),
