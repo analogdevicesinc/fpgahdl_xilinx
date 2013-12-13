@@ -45,7 +45,7 @@ module dmac_request_arb (
 	input [31:C_ADDR_ALIGN_BITS] req_dest_address,
 	input [31:C_ADDR_ALIGN_BITS] req_src_address,
 	input [C_DMA_LENGTH_WIDTH-1:0] req_length,
-	input req_sync_on_user,
+	input req_sync_transfer_start,
 
 	output reg eot,
 
@@ -114,6 +114,7 @@ module dmac_request_arb (
 	input                               fifo_wr_en,
 	input  [C_M_AXI_DATA_WIDTH-1:0]     fifo_wr_din,
 	output                              fifo_wr_overflow,
+	input                               fifo_wr_sync,
 
 	// Input FIFO interface
 	input                               fifo_rd_clk,
@@ -220,7 +221,7 @@ wire src_req_ready;
 wire [DMA_ADDR_WIDTH-1:0] src_req_address;
 wire [3:0] src_req_last_burst_length;
 wire [2:0] src_req_last_beat_bytes;
-wire src_req_sync_on_user;
+wire src_req_sync_transfer_start;
 
 wire src_response_valid;
 wire src_response_ready;
@@ -595,7 +596,7 @@ dmac_src_axi_stream #(
 	.req_valid(src_req_valid),
 	.req_ready(src_req_ready),
 	.req_last_burst_length(src_req_last_burst_length),
-	.req_sync_on_user(src_req_sync_on_user),
+	.req_sync_transfer_start(src_req_sync_transfer_start),
 
 	.request_id(src_request_id),
 	.response_id(src_response_id),
@@ -633,6 +634,7 @@ dmac_src_fifo_inf #(
 	.req_valid(src_req_valid),
 	.req_ready(src_req_ready),
 	.req_last_burst_length(src_req_last_burst_length),
+	.req_sync_transfer_start(src_req_sync_transfer_start),
 
 	.request_id(src_request_id),
 	.response_id(src_response_id),
@@ -645,7 +647,8 @@ dmac_src_fifo_inf #(
 
 	.en(fifo_wr_en),
 	.din(fifo_wr_din),
-	.overflow(fifo_wr_overflow)
+	.overflow(fifo_wr_overflow),
+	.sync(fifo_wr_sync)
 );
 
 end endgenerate
@@ -811,7 +814,7 @@ axi_fifo #(
 		req_src_address,
 		req_last_burst_length,
 		req_last_beat_bytes,
-		req_sync_on_user
+		req_sync_transfer_start
 	}),
 	.m_axis_aclk(src_clk),
 	.m_axis_aresetn(src_resetn),
@@ -821,7 +824,7 @@ axi_fifo #(
 		src_req_address,
 		src_req_last_burst_length,
 		src_req_last_beat_bytes,
-		src_req_sync_on_user
+		src_req_sync_transfer_start
 	})
 );
 

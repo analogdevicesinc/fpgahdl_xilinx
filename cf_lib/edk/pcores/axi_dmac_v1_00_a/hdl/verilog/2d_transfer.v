@@ -49,7 +49,7 @@ module dmac_2d_transfer (
 	input [C_DMA_LENGTH_WIDTH-1:0] req_y_length,
 	input [C_DMA_LENGTH_WIDTH-1:0] req_dest_stride,
 	input [C_DMA_LENGTH_WIDTH-1:0] req_src_stride,
-	input req_sync_on_user,
+	input req_sync_transfer_start,
 	output reg req_eot,
 	
 	output reg out_req_valid,
@@ -57,7 +57,7 @@ module dmac_2d_transfer (
 	output [31:C_ADDR_ALIGN_BITS] out_req_dest_address,
 	output [31:C_ADDR_ALIGN_BITS] out_req_src_address,
 	output [C_DMA_LENGTH_WIDTH-1:0] out_req_length,
-	output reg out_req_sync_on_user,
+	output reg out_req_sync_transfer_start,
 	input out_eot
 );
 
@@ -109,7 +109,7 @@ begin
 		src_stride <= 'h00;
 		req_ready <= 1'b1;
 		out_req_valid <= 1'b0;
-		out_req_sync_on_user <= 1'b0;
+		out_req_sync_transfer_start <= 1'b0;
 	end else begin
 		if (req_ready) begin
 			if (req_valid) begin
@@ -119,7 +119,7 @@ begin
 				y_length <= req_y_length;
 				dest_stride <= req_dest_stride;
 				src_stride <= req_src_stride;
-				out_req_sync_on_user <= req_sync_on_user;
+				out_req_sync_transfer_start <= req_sync_transfer_start;
 				req_ready <= 1'b0;
 				out_req_valid <= 1'b1;
 			end
@@ -128,7 +128,7 @@ begin
 				dest_address <= dest_address + dest_stride[C_DMA_LENGTH_WIDTH-1:C_ADDR_ALIGN_BITS];
 				src_address <= src_address + src_stride[C_DMA_LENGTH_WIDTH-1:C_ADDR_ALIGN_BITS];
 				y_length <= y_length - 1'b1;
-				out_req_sync_on_user <= 1'b0;
+				out_req_sync_transfer_start <= 1'b0;
 				if (y_length == 0) begin
 					out_req_valid <= 1'b0;
 					req_ready <= 1'b1;

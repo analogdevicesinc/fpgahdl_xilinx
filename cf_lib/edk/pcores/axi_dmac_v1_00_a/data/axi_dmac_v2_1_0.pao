@@ -1,4 +1,3 @@
-lib adi_common_v1_00_a sync_flag verilog
 lib adi_common_v1_00_a sync_bits verilog
 lib adi_common_v1_00_a sync_gray verilog
 lib adi_common_v1_00_a up_axi verilog

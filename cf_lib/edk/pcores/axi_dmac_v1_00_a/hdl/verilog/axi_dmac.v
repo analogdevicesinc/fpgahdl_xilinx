@@ -63,74 +63,75 @@ module axi_dmac (
 	output reg irq,
 
 	// Master AXI interface
-	input                               m_dest_axi_aclk,
-	input                               m_dest_axi_aresetn,
-	input                               m_src_axi_aclk,
-	input                               m_src_axi_aresetn,
+	input                                    m_dest_axi_aclk,
+	input                                    m_dest_axi_aresetn,
+	input                                    m_src_axi_aclk,
+	input                                    m_src_axi_aresetn,
 
 	// Write address
-	output [31:0]                       m_axi_awaddr,
-	output [ 7:0]                       m_axi_awlen,
-	output [ 2:0]                       m_axi_awsize,
-	output [ 1:0]                       m_axi_awburst,
-	output [ 2:0]                       m_axi_awprot,
-	output [ 3:0]                       m_axi_awcache,
-	output                              m_axi_awvalid,
-	input                               m_axi_awready,
+	output [31:0]                            m_axi_awaddr,
+	output [ 7:0]                            m_axi_awlen,
+	output [ 2:0]                            m_axi_awsize,
+	output [ 1:0]                            m_axi_awburst,
+	output [ 2:0]                            m_axi_awprot,
+	output [ 3:0]                            m_axi_awcache,
+	output                                   m_axi_awvalid,
+	input                                    m_axi_awready,
 
 	// Write data
 	output [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_axi_wdata,
 	output [(C_M_DEST_AXI_DATA_WIDTH/8)-1:0] m_axi_wstrb,
-	input                               m_axi_wready,
-	output                              m_axi_wvalid,
-	output                              m_axi_wlast,
+	input                                    m_axi_wready,
+	output                                   m_axi_wvalid,
+	output                                   m_axi_wlast,
 
 	// Write response
-	input                               m_axi_bvalid,
-	input  [ 1:0]                       m_axi_bresp,
-	output                              m_axi_bready,
+	input                                    m_axi_bvalid,
+	input  [ 1:0]                            m_axi_bresp,
+	output                                   m_axi_bready,
 
 	// Read address
-	input                               m_axi_arready,
-	output                              m_axi_arvalid,
-	output [31:0]                       m_axi_araddr,
-	output [ 7:0]                       m_axi_arlen,
-	output [ 2:0]                       m_axi_arsize,
-	output [ 1:0]                       m_axi_arburst,
-	output [ 2:0]                       m_axi_arprot,
-	output [ 3:0]                       m_axi_arcache,
+	input                                    m_axi_arready,
+	output                                   m_axi_arvalid,
+	output [31:0]                            m_axi_araddr,
+	output [ 7:0]                            m_axi_arlen,
+	output [ 2:0]                            m_axi_arsize,
+	output [ 1:0]                            m_axi_arburst,
+	output [ 2:0]                            m_axi_arprot,
+	output [ 3:0]                            m_axi_arcache,
 
 	// Read data and response
 	input  [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_axi_rdata,
-	output                              m_axi_rready,
-	input                               m_axi_rvalid,
-	input  [ 1:0]                       m_axi_rresp,
+	output                                   m_axi_rready,
+	input                                    m_axi_rvalid,
+	input  [ 1:0]                            m_axi_rresp,
 
 	// Slave streaming AXI interface
-	input                               s_axis_aclk,
-	output                              s_axis_ready,
-	input                               s_axis_valid,
+	input                                    s_axis_aclk,
+	output                                   s_axis_ready,
+	input                                    s_axis_valid,
 	input  [C_M_DEST_AXI_DATA_WIDTH-1:0]     s_axis_data,
-	input  [0:0]                        s_axis_user,
+	input  [0:0]                             s_axis_user,
 
 	// Master streaming AXI interface
-	input                               m_axis_aclk,
-	input                               m_axis_ready,
-	output                              m_axis_valid,
+	input                                    m_axis_aclk,
+	input                                    m_axis_ready,
+	output                                   m_axis_valid,
 	output [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_axis_data,
 
 	// Input FIFO interface
-	input                               fifo_wr_clk,
-	input                               fifo_wr_en,
+	input                                    fifo_wr_clk,
+	input                                    fifo_wr_en,
 	input  [C_M_DEST_AXI_DATA_WIDTH-1:0]     fifo_wr_din,
-	output                              fifo_wr_overflow,
+	output                                   fifo_wr_overflow,
+	input                                    fifo_wr_sync,
 
 	// Input FIFO interface
-	input                               fifo_rd_clk,
-	input                               fifo_rd_en,
-	output                              fifo_rd_valid,
+	input                                    fifo_rd_clk,
+	input                                    fifo_rd_en,
+	output                                   fifo_rd_valid,
 	output [C_M_DEST_AXI_DATA_WIDTH-1:0]     fifo_rd_dout,
-	output                              fifo_rd_underflow
+	output                                   fifo_rd_underflow
 );
 
 parameter PCORE_ID = 0;
@@ -148,7 +149,7 @@ parameter C_CLKS_ASYNC_DEST_REQ = 1;
 
 parameter C_AXI_SLICE_DEST = 0;
 parameter C_AXI_SLICE_SRC = 0;
-parameter C_SYNC_ON_USER = 0;
+parameter C_SYNC_TRANSFER_START = 0;
 parameter C_CYCLIC = 1;
 
 parameter C_DMA_TYPE_DEST = DMA_TYPE_AXI_MM;
@@ -204,7 +205,7 @@ reg [C_DMA_LENGTH_WIDTH-1:0] up_dma_x_length = 'h00;
 reg [C_DMA_LENGTH_WIDTH-1:0] up_dma_y_length = 'h00;
 reg [C_DMA_LENGTH_WIDTH-1:0] up_dma_src_stride = 'h00;
 reg [C_DMA_LENGTH_WIDTH-1:0] up_dma_dest_stride = 'h00;
-wire up_dma_sync_on_user = C_SYNC_ON_USER ? 1'b1 : 1'b0;
+wire up_dma_sync_transfer_start = C_SYNC_TRANSFER_START ? 1'b1 : 1'b0;
 
 // ID signals from the DMAC, just for debugging
 wire [2:0] dest_request_id;
@@ -374,7 +375,7 @@ wire [31:C_ADDR_ALIGN_BITS] dma_req_dest_address;
 wire [31:C_ADDR_ALIGN_BITS] dma_req_src_address;
 wire [C_DMA_LENGTH_WIDTH-1:0] dma_req_length;
 wire dma_req_eot;
-wire dma_req_sync_on_user;
+wire dma_req_sync_transfer_start;
 wire up_req_eot;
 
 assign up_sot = C_CYCLIC ? 1'b0 : up_dma_req_valid & up_dma_req_ready;
@@ -400,14 +401,14 @@ dmac_2d_transfer #(
 	.req_y_length(up_dma_y_length),
 	.req_dest_stride(up_dma_dest_stride),
 	.req_src_stride(up_dma_src_stride),
-	.req_sync_on_user(up_dma_sync_on_user),
+	.req_sync_transfer_start(up_dma_sync_transfer_start),
 
 	.out_req_valid(dma_req_valid),
 	.out_req_ready(dma_req_ready),
 	.out_req_dest_address(dma_req_dest_address),
 	.out_req_src_address(dma_req_src_address),
 	.out_req_length(dma_req_length),
-	.out_req_sync_on_user(dma_req_sync_on_user),
+	.out_req_sync_transfer_start(dma_req_sync_transfer_start),
 	.out_eot(dma_req_eot)
 );
 
@@ -418,7 +419,7 @@ assign up_dma_req_ready = dma_req_ready;
 assign dma_req_dest_address = up_dma_dest_address;
 assign dma_req_src_address = up_dma_src_address;
 assign dma_req_length = up_dma_x_length;
-assign dma_req_sync_on_user = up_dma_sync_on_user;
+assign dma_req_sync_transfer_start = up_dma_sync_transfer_start;
 assign up_req_eot = dma_req_eot;
 
 end endgenerate
@@ -447,7 +448,7 @@ dmac_request_arb #(
 	.req_dest_address(dma_req_dest_address),
 	.req_src_address(dma_req_src_address),
 	.req_length(dma_req_length),
-	.req_sync_on_user(dma_req_sync_on_user),
+	.req_sync_transfer_start(dma_req_sync_transfer_start),
 
 	.eot(dma_req_eot),
 
@@ -513,6 +514,7 @@ dmac_request_arb #(
 	.fifo_wr_en(fifo_wr_en),
 	.fifo_wr_din(fifo_wr_din),
 	.fifo_wr_overflow(fifo_wr_overflow),
+	.fifo_wr_sync(fifo_wr_sync),
 
 	
 	.fifo_rd_clk(fifo_rd_clk),
