@@ -4,12 +4,10 @@
 ## Date:              Fri Aug 26 11:12:50 2011 (by Create and Import Peripheral Wizard)
 ##############################################################################
 
-lib adi_common_v1_00_a mem verilog
 lib adi_common_v1_00_a ad_dds_1 verilog
 lib adi_common_v1_00_a ad_mmcm_drp verilog
 lib adi_common_v1_00_a ad_serdes_out verilog
 lib adi_common_v1_00_a ad_serdes_clk verilog
-lib adi_common_v1_00_a vdma_core verilog
 lib adi_common_v1_00_a up_axi verilog
 lib adi_common_v1_00_a up_dac_common verilog
 lib adi_common_v1_00_a up_dac_channel verilog

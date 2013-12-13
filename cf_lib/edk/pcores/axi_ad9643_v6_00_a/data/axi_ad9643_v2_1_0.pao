@@ -1,7 +1,4 @@
-lib adi_common_v1_00_a mem verilog
 lib adi_common_v1_00_a mul_u16 verilog
-lib adi_common_v1_00_a axis_inf verilog
-lib adi_common_v1_00_a dma_core verilog
 lib adi_common_v1_00_a up_axi verilog
 lib adi_common_v1_00_a up_adc_common verilog
 lib adi_common_v1_00_a up_adc_channel verilog
