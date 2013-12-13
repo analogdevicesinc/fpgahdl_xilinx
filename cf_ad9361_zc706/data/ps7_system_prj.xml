@@ -19,6 +19,7 @@
   <set param="PCW::ENET0::PERIPHERAL::FREQMHZ" value="100 Mbps" />
   <set param="PCW::ENET0::RESET::ENABLE" value="1" />
   <set param="PCW::ENET0::RESET::IO" value="MIO 47" />
+  <set param="PCW::ENET1::PERIPHERAL::ENABLE" value="0" />
   <set param="PCW::ENET1::RESET::IO" value="-1" />
   <set param="PCW::FPGA0::PERIPHERAL::FREQMHZ" value="100.000000" />
   <set param="PCW::FPGA1::PERIPHERAL::FREQMHZ" value="200.000000" />

@@ -137,8 +137,8 @@ BEGIN processing_system7
  PARAMETER C_INTERCONNECT_S_AXI_HP3_MASTERS = axi_dmac_1.M_SRC_AXI
  PARAMETER C_INTERCONNECT_S_AXI_HP0_MASTERS = axi_vdma_0.M_AXI_MM2S
  BUS_INTERFACE M_AXI_GP0 = axi_interconnect_0
- BUS_INTERFACE S_AXI_HP2 = axi_interconnect_3
- BUS_INTERFACE S_AXI_HP3 = axi_interconnect_4
+ BUS_INTERFACE S_AXI_HP2 = axi_interconnect_2
+ BUS_INTERFACE S_AXI_HP3 = axi_interconnect_3
  BUS_INTERFACE S_AXI_HP0 = axi_interconnect_1
  PORT MIO = processing_system7_0_MIO
  PORT PS_SRSTB = processing_system7_0_PS_SRSTB
@@ -183,13 +183,17 @@ BEGIN processing_system7
  PORT DMA0_DRLAST = axi_spdif_tx_0_DMA_REQ_DRLAST
  PORT DMA0_DAREADY = axi_spdif_tx_0_DMA_REQ_DAREADY
  PORT FCLK_CLK3 = processing_system7_0_FCLK_CLK3
+ PORT M_AXI_GP0_ARESETN = processing_system7_0_M_AXI_GP0_ARESETN
+ PORT S_AXI_HP0_ARESETN = processing_system7_0_S_AXI_HP0_ARESETN
+ PORT S_AXI_HP2_ARESETN = processing_system7_0_S_AXI_HP2_ARESETN
+ PORT S_AXI_HP3_ARESETN = processing_system7_0_S_AXI_HP3_ARESETN
 END
 
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_0
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
- PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET0_N
+ PORT INTERCONNECT_ARESETN = processing_system7_0_M_AXI_GP0_ARESETN
  PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK0
 END
 
@@ -242,7 +246,7 @@ BEGIN axi_interconnect
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
  PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK0
- PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET0_N
+ PORT INTERCONNECT_ARESETN = processing_system7_0_S_AXI_HP0_ARESETN
 END
 
 BEGIN axi_spdif_tx
@@ -325,11 +329,11 @@ BEGIN axi_ad9122
 END
 
 BEGIN axi_interconnect
- PARAMETER INSTANCE = axi_interconnect_3
+ PARAMETER INSTANCE = axi_interconnect_2
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
  PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK1
- PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET1_N
+ PORT INTERCONNECT_ARESETN = processing_system7_0_S_AXI_HP2_ARESETN
 END
 
 BEGIN axi_ad9643
@@ -360,11 +364,11 @@ BEGIN axi_ad9643
 END
 
 BEGIN axi_interconnect
- PARAMETER INSTANCE = axi_interconnect_4
+ PARAMETER INSTANCE = axi_interconnect_3
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
  PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK1
- PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET1_N
+ PORT INTERCONNECT_ARESETN = processing_system7_0_S_AXI_HP3_ARESETN
 END
 
 BEGIN chipscope_ila
@@ -415,7 +419,7 @@ BEGIN axi_dmac
  PARAMETER C_BASEADDR = 0x7c400000
  PARAMETER C_HIGHADDR = 0x7c40ffff
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE M_DEST_AXI = axi_interconnect_3
+ BUS_INTERFACE M_DEST_AXI = axi_interconnect_2
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT m_dest_axi_aclk = processing_system7_0_FCLK_CLK1
  PORT irq = axi_dmac_0_irq
@@ -434,7 +438,7 @@ BEGIN axi_dmac
  PARAMETER C_HIGHADDR = 0x7c42ffff
  PARAMETER C_DMA_TYPE_SRC = 0
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE M_SRC_AXI = axi_interconnect_4
+ BUS_INTERFACE M_SRC_AXI = axi_interconnect_3
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT m_src_axi_aclk = processing_system7_0_FCLK_CLK1
  PORT irq = axi_dmac_1_irq

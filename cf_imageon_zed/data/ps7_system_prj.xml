@@ -22,6 +22,7 @@
   <set param="PCW::GPIO::EMIO_GPIO::ENABLE" value="1" />
   <set param="PCW::GPIO::EMIO_GPIO::IO" value="32" />
   <set param="PCW::GPIO::GPIO::IO" value="MIO" />
+  <set param="PCW::GPIO::MIO_GPIO::ENABLE" value="1" />
   <set param="PCW::GPIO::PERIPHERAL::ENABLE" value="1" />
   <set param="PCW::GPIO::V2.00.A::C_EN_EMIO_GPIO" value="1" />
   <set param="PCW::I2C0::PERIPHERAL::ENABLE" value="0" />
