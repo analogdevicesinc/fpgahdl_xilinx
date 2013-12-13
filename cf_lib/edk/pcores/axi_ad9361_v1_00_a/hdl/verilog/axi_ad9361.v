@@ -68,9 +68,12 @@ module axi_ad9361 (
   clk,
   adc_dvalid,
   adc_ddata,
+  adc_doverflow,
+  adc_dsync,
   dac_drd,
   dac_dvalid,
   dac_ddata,
+  dac_dunderflow,
 
   // axi interface
 
@@ -140,9 +143,12 @@ module axi_ad9361 (
   output          clk;
   output          adc_dvalid;
   output  [63:0]  adc_ddata;
+  input           adc_doverflow;
+  output          adc_dsync;
   output          dac_drd;
   input           dac_dvalid;
   input   [63:0]  dac_ddata;
+  input           dac_dunderflow;
 
   // axi interface
 
@@ -367,6 +373,8 @@ module axi_ad9361 (
     .delay_locked (delay_locked_s),
     .adc_dvalid (adc_dvalid),
     .adc_ddata (adc_ddata),
+    .adc_doverflow (adc_doverflow),
+    .adc_dsync (adc_dsync),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel_s),
@@ -403,6 +411,7 @@ module axi_ad9361 (
     .dac_drd (dac_drd),
     .dac_dvalid (dac_dvalid),
     .dac_ddata (dac_ddata),
+    .dac_dunderflow (dac_dunderflow),
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_sel (up_sel_s),

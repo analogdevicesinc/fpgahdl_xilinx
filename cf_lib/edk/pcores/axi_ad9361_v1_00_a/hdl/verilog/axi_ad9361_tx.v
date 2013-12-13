@@ -64,6 +64,7 @@ module axi_ad9361_tx (
   dac_drd,
   dac_dvalid,
   dac_ddata,
+  dac_dunderflow,
 
   // processor interface
 
@@ -105,6 +106,7 @@ module axi_ad9361_tx (
   output          dac_drd;
   input           dac_dvalid;
   input   [63:0]  dac_ddata;
+  input           dac_dunderflow;
 
   // processor interface
 
@@ -376,7 +378,7 @@ module axi_ad9361_tx (
     .vdma_rst (),
     .vdma_frmcnt (),
     .vdma_ovf (1'd0),
-    .vdma_unf (1'd0),
+    .vdma_unf (dac_dunderflow),
     .up_usr_chanmax (),
     .dac_usr_chanmax (8'd3),
     .up_rstn (up_rstn),

@@ -77,6 +77,8 @@ module axi_ad9361_rx (
 
   adc_dvalid,
   adc_ddata,
+  adc_doverflow,
+  adc_dsync,
 
   // processor interface
 
@@ -135,6 +137,8 @@ module axi_ad9361_rx (
 
   output          adc_dvalid;
   output  [63:0]  adc_ddata;
+  input           adc_doverflow;
+  output          adc_dsync;
 
   // processor interface
 
@@ -161,6 +165,8 @@ module axi_ad9361_rx (
   reg     [47:0]  adc_iqcor_data_3_0111 = 'd0;
   reg             adc_iqcor_valid = 'd0;
   reg             adc_iqcor_valid_3 = 'd0;
+  reg             adc_iqcor_sync = 'd0;
+  reg             adc_iqcor_sync_3 = 'd0;
   reg     [63:0]  adc_iqcor_data = 'd0;
   reg     [63:0]  adc_iqcor_data_1110 = 'd0;
   reg     [63:0]  adc_iqcor_data_1101 = 'd0;
@@ -243,6 +249,7 @@ module axi_ad9361_rx (
   // adc channels - dma interface
 
   assign adc_dvalid = adc_iqcor_valid;
+  assign adc_dsync = adc_iqcor_sync;
   assign adc_ddata = adc_iqcor_data;
 
   assign adc_iqcor_valid_s = adc_iqcor_valid_0_s & adc_iqcor_valid_1_s &
@@ -250,7 +257,8 @@ module axi_ad9361_rx (
 
   always @(posedge adc_clk) begin
     if (adc_iqcor_valid_s == 1'b1) begin
-      adc_iqcor_valid_3 <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];        
+      adc_iqcor_valid_3 <= adc_iqcor_data_cnt[0] | adc_iqcor_data_cnt[1];
+      adc_iqcor_sync_3 <= adc_iqcor_data_cnt == 1'b01;
       adc_iqcor_data_3_1110[47:32] <= adc_iqcor_data_3_s;
       adc_iqcor_data_3_1110[31:16] <= adc_iqcor_data_2_s;
       adc_iqcor_data_3_1110[15: 0] <= adc_iqcor_data_1_s;
@@ -345,20 +353,24 @@ module axi_ad9361_rx (
       case ({adc_enable_3_s, adc_enable_2_s, adc_enable_1_s, adc_enable_0_s})
         4'b1111: begin
           adc_iqcor_valid <= 1'b1;
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
           adc_iqcor_data[31:16] <= adc_iqcor_data_1_s;
           adc_iqcor_data[15: 0] <= adc_iqcor_data_0_s;
         end
         4'b1110: begin
+          adc_iqcor_sync <= adc_iqcor_sync_3;
           adc_iqcor_valid <= adc_iqcor_valid_3;
           adc_iqcor_data  <= adc_iqcor_data_1110;
         end
         4'b1101: begin
+          adc_iqcor_sync <= adc_iqcor_sync_3;
           adc_iqcor_valid <= adc_iqcor_valid_3;
           adc_iqcor_data  <= adc_iqcor_data_1101;
         end
         4'b1100: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_2_s;
@@ -366,10 +378,12 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b1011: begin
+          adc_iqcor_sync <= adc_iqcor_sync_3;
           adc_iqcor_valid <= adc_iqcor_valid_3;
           adc_iqcor_data  <= adc_iqcor_data_1011;
         end
         4'b1010: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
@@ -377,6 +391,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b1001: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
@@ -384,6 +399,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b1000: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_3_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
@@ -391,10 +407,12 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
         end
         4'b0111: begin
+          adc_iqcor_sync <= adc_iqcor_sync_3;
           adc_iqcor_valid <= adc_iqcor_valid_3;
           adc_iqcor_data  <= adc_iqcor_data_0111;
         end
         4'b0110: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_1_s;
@@ -402,6 +420,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b0101: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
@@ -409,6 +428,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b0100: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_2_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
@@ -416,6 +436,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
         end
         4'b0011: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data_0_s;
@@ -423,6 +444,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[47:32];
         end
         4'b0010: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_1_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
@@ -430,6 +452,7 @@ module axi_ad9361_rx (
           adc_iqcor_data[15: 0] <= adc_iqcor_data[31:16];
         end
         4'b0001: begin
+          adc_iqcor_sync <= 1'b1;
           adc_iqcor_valid <= adc_iqcor_data_cnt[1] & adc_iqcor_data_cnt[0];
           adc_iqcor_data[63:48] <= adc_iqcor_data_0_s;
           adc_iqcor_data[47:32] <= adc_iqcor_data[63:48];
@@ -658,7 +681,7 @@ module axi_ad9361_rx (
     .dma_start (),
     .dma_stream (),
     .dma_count (),
-    .dma_ovf (1'd0),
+    .dma_ovf (adc_doverflow),
     .dma_unf (1'd0),
     .dma_status (1'd0),
     .dma_bw (32'd8),

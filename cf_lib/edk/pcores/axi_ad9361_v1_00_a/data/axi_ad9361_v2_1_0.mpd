@@ -61,9 +61,12 @@ PORT adc_mon_data = "", DIR = O, VEC = [116:0]
 ## DMA Interface
 PORT adc_dvalid = "", DIR = O
 PORT adc_ddata = "", DIR = O, VEC = [63:0]
+PORT adc_doverflow = "", DIR = I
+PORT adc_dsync = "", DIR = O
 PORT dac_drd = "", DIR = O
 PORT dac_dvalid = "", DIR = I
 PORT dac_ddata = "", DIR = I, VEC = [63:0]
+PORT dac_dunderflow = "", DIR = I
 
 ## AXI Interface
 PORT s_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI
