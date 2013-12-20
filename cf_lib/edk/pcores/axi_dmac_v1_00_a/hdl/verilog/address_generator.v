@@ -73,7 +73,7 @@ localparam MAX_BURST_SIZE_BEATS = 2**(C_BURST_ALIGN_BITS-C_ADDR_ALIGN_BITS);
 `include "inc_id.v"
 
 assign burst = 2'b01;
-assign prot = 3'b111;
+assign prot = 3'b000;
 assign cache = 4'b0011;
 assign len = eot ? req_last_burst_length : MAX_BURST_SIZE_BEATS - 1;
 assign size = 3'b011;
