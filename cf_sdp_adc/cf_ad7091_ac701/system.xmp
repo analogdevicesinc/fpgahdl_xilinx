@@ -3,7 +3,7 @@ XmpVersion: 14.6
 VerMgmt: 14.6
 IntStyle: default
 Flow: ise
-ModuleSearchPath: ../cf_lib/
+ModuleSearchPath: ../../cf_lib/
 MHS File: system.mhs
 Architecture: artix7
 Device: xc7a200t
