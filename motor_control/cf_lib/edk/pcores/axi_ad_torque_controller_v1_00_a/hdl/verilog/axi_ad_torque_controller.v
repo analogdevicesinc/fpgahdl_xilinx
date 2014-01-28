@@ -49,8 +49,6 @@ module axi_ad_torque_controller
 
 (
     input           ref_clk,       // 100 MHz
-    input           pwm_clk_i,     // 40 MHz
-    input           ctrl_clk_i,    // 10 MHz
 // physical interface
     input           fmc_m1_fault_i,
     output          fmc_m1_en_o,
@@ -119,8 +117,11 @@ reg             adc_valid       = 'd0;
 reg     [31:0]  adc_data        = 'd0;
 reg     [31:0]  up_rdata        = 'd0;
 reg             up_ack          = 'd0;
-reg     [15:0]  ce_clk_reg      = 'd0;
-reg             ce_cntrl_reg    = 'd0;
+reg     [15:0]  tmr_dv_reg      = 'd0;
+reg             datavalid_reg   = 'd0;
+reg     [15:0]  tmr_ctrl_reg   = 'd0;
+reg             pwm_gen_clk     = 'd0;
+reg             ctrl_gen_clk    = 'd0;
 reg             one_chan_reg    = 'd0;
 
 //------------------------------------------------------------------------------
@@ -206,22 +207,39 @@ assign adc_mon_data =  32'h0;
 assign pid_s = 32'd0;
 
 assign fmc_m1_en_o  = run_s;
-assign pwm_s        = oloop_matlab_s ? pwm_controller_s[10:0]: pwm_open_s ;
+assign pwm_s        = oloop_matlab_s ? pwm_controller_s[10:0] : pwm_open_s ;
 assign position_s   = sensors_o == 2'b01 ? position_start : position_i;
+
+// clock generation for controller
+
+always @(posedge ref_clk)
+begin
+    pwm_gen_clk <= ~pwm_gen_clk; // generate 50 MHz clk
+
+    if (tmr_ctrl_reg == 16'd4)  // generate 10 MHz clk
+    begin
+        tmr_ctrl_reg <= 16'd0;
+        ctrl_gen_clk <= ~ctrl_gen_clk;
+    end
+    else
+    begin
+        tmr_ctrl_reg <= tmr_ctrl_reg + 16'd1;
+    end
+end
 
 // CE generation for controller
 
 always @(posedge ref_clk)
 begin
-    if (ce_clk_reg == 16'd999)
+    if (tmr_dv_reg == 16'd999)
     begin
-        ce_cntrl_reg    <= 1'b1;
-        ce_clk_reg      <= 16'd0;
+        datavalid_reg   <= 1'b1;
+        tmr_dv_reg      <= 16'd0;
     end
     else
     begin
-        ce_cntrl_reg    <= 1'b0;
-        ce_clk_reg      <= ce_clk_reg + 16'd1;
+        datavalid_reg   <= 1'b0;
+        tmr_dv_reg      <= tmr_dv_reg + 16'd1;
     end
 end
 
@@ -229,7 +247,7 @@ end
 
 always @(posedge ref_clk)
 begin
-    if (ce_cntrl_reg == 1)
+    if (datavalid_reg == 1)
     begin
         case ({enable_actual_speed_s , enable_ref_speed_s})
             2'b11:
@@ -305,7 +323,7 @@ motor_driver
 motor_driver_inst
 (
     .clk_i(ref_clk),
-    .pwm_clk_i(pwm_clk_i),
+    .pwm_clk_i(pwm_gen_clk),
     .rst_n_i(up_rstn) ,
     .run_i(run_s),
     .star_delta_i(1'b0),
@@ -350,8 +368,8 @@ control_registers control_reg_inst
 bldc_sim_fpga_cw torque_controller 
 (
     .ce(1'b1),
-    .clk(ctrl_clk_i),
-    .clk_x0(ctrl_clk_i),
+    .clk(ctrl_gen_clk),
+    .clk_x0(ctrl_gen_clk),
     .it({16'h0,it_i}),
     .kd1(kd1_s),
     .ki(ki_s),

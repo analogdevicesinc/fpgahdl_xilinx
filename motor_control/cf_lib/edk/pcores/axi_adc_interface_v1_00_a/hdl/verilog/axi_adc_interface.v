@@ -1,9 +1,9 @@
 // ***************************************************************************
 // ***************************************************************************
 // Copyright 2013(c) Analog Devices, Inc.
-// 
+//
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
 //     - Redistributions of source code must retain the above copyright
@@ -28,16 +28,16 @@
 //
 // IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 // EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
-// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
 // BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ***************************************************************************
 // ***************************************************************************
 
 `timescale 1ns/100ps
 
-module axi_adc_interface 
+module axi_adc_interface
 #(
 
     parameter PCORE_ID = 0,
@@ -109,15 +109,25 @@ module axi_adc_interface
 //----------- Registers Declarations -------------------------------------------
 //------------------------------------------------------------------------------
 
-reg             adc_start_out = 'd0;
-reg             adc_valid = 'd0;
-reg     [63:0]  adc_data ;
-reg     [47:0]  adc_data_3 ;
-reg     [31:0]  up_rdata = 'd0;
-reg             up_ack = 'd0;
-reg     [1:0]   adc_data_cnt;
-reg     [9:0]   adc_clk_cnt;        // used to generate 10 MHz clock for ADCs
-reg             adc_clk_reg;        // used to generate 10 MHz clock for ADCs
+reg             adc_valid       = 'd0;
+reg     [63:0]  adc_data        = 'd0;
+reg     [47:0]  adc_data_3      = 'd0;
+reg     [31:0]  up_rdata        = 'd0;
+reg             up_ack          = 'd0;
+reg     [1:0]   adc_data_cnt    = 'd0;
+reg     [9:0]   adc_clk_cnt     = 'd0;  // used to generate 10 MHz clock for ADCs
+reg             adc_clk_reg     = 'd0;  // used to generate 10 MHz clock for ADCs
+
+reg             acq_run_reg     = 'd0;  // register used for synchronizing data acquisition
+reg             adc_valid_3     = 'd0;
+reg     [47:0]  adc_data_3_1110 = 'd0;
+reg     [47:0]  adc_data_3_1101 = 'd0;
+reg     [47:0]  adc_data_3_1011 = 'd0;
+reg     [47:0]  adc_data_3_0111 = 'd0;
+reg     [63:0]  adc_data_1110   = 'd0;
+reg     [63:0]  adc_data_1101   = 'd0;
+reg     [63:0]  adc_data_1011   = 'd0;
+reg     [63:0]  adc_data_0111   = 'd0;
 
 //------------------------------------------------------------------------------
 //----------- Wires Declarations -----------------------------------------------
@@ -133,10 +143,6 @@ wire            up_clk;
 
 // internal signals
 
-wire    [15:0]  adc_dcfilter_data_a_s;
-wire    [15:0]  adc_dcfilter_data_b_s;
-wire            adc_enable_s;
-wire            adc_status_s;
 wire            dma_valid_s;
 wire            dma_last_s;
 wire    [63:0]  dma_data_s;
@@ -153,27 +159,25 @@ wire    [13:0]  up_addr_s;
 wire    [31:0]  up_wdata_s;
 wire    [31:0]  up_adc_common_rdata_s;
 wire            up_adc_common_ack_s;
-wire     [31:0] up_rdata_0_s ;
-wire     [31:0] up_rdata_1_s ;
-wire     [31:0] up_rdata_2_s ;
-wire     [31:0] up_rdata_3_s ;
+wire    [31:0]  up_rdata_0_s ;
+wire    [31:0]  up_rdata_1_s ;
+wire    [31:0]  up_rdata_2_s ;
+wire    [31:0]  up_rdata_3_s ;
 wire            up_ack_0_s ;
 wire            up_ack_1_s ;
 wire            up_ack_2_s ;
 wire            up_ack_3_s ;
-wire    [31:0]  pid_s;
-wire            adc_data_valid;
 
 wire            adc_status_a_s;
-wire   [15:0]   adc_data_ia_s ;
+wire    [15:0]  adc_data_ia_s ;
 wire            data_rd_ready_ia_s;
 wire            adc_status_b_s;
-wire   [15:0]   adc_data_ib_s;
+wire    [15:0]  adc_data_ib_s;
 wire            adc_status_it_s;
-wire   [15:0]   adc_data_it_s;
-wire   [15:0]   adc_data_it_n_s;
+wire    [15:0]  adc_data_it_s;
+wire    [15:0]  adc_data_it_n_s;
 wire            adc_status_vbus_s;
-wire   [15:0]   adc_data_vbus_s ;
+wire    [15:0]  adc_data_vbus_s ;
 wire            adc_enable_ia;
 wire            adc_enable_ib;
 wire            adc_enable_it;
@@ -185,20 +189,28 @@ wire            adc_enable_vbus;
 
 // signal name changes
 
-assign up_clk = s_axi_aclk;
-assign up_rstn = s_axi_aresetn;
-assign dma_clk = s_axis_s2mm_clk;
-assign dma_ready_s = s_axis_s2mm_tready;
-assign s_axis_s2mm_tvalid = dma_valid_s;
-assign s_axis_s2mm_tdata  = dma_data_s;
-assign s_axis_s2mm_tlast = dma_last_s;
-assign s_axis_s2mm_tkeep = 8'hff;
+assign up_clk               = s_axi_aclk;
+assign up_rstn              = s_axi_aresetn;
+assign dma_clk              = s_axis_s2mm_clk;
+assign dma_ready_s          = s_axis_s2mm_tready;
+assign s_axis_s2mm_tvalid   = dma_valid_s;
+assign s_axis_s2mm_tdata    = dma_data_s;
+assign s_axis_s2mm_tlast    = dma_last_s;
+assign s_axis_s2mm_tkeep    = 8'hff;
 
 // monitor signals
 
-assign adc_mon_valid = data_rd_ready_ia_s;
-assign adc_mon_data[15: 0] = adc_data[15:0];
-assign adc_mon_data[31:16] = {adc_enable_vbus,adc_enable_it,adc_enable_ib, adc_enable_ia, 12'h0};
+assign adc_mon_valid        = data_rd_ready_ia_s;
+assign adc_mon_data[15: 0]  = adc_data[15:0];
+assign adc_mon_data[31:16]  = {adc_enable_vbus,adc_enable_it,adc_enable_ib, adc_enable_ia, 12'h0};
+
+// current outputs
+
+assign i_ready_o = data_rd_ready_ia_s;
+assign ia_o      = adc_data_ia_s;
+assign ib_o      = adc_data_ib_s;
+assign it_o      = adc_data_it_s;
+assign adc_data_it_n_s = 65535 - adc_data_it_s;
 
 // ADC clock generation
 
@@ -217,257 +229,288 @@ end
 
 // adc channels - dma interface
 
-always @(posedge ref_clk) 
+always @(posedge ref_clk)
 begin
-    if (data_rd_ready_ia_s == 1'b1) begin
+    if(data_rd_ready_ia_s == 1'b1)
+    begin
+        adc_valid_3             <= adc_data_cnt[0] | adc_data_cnt[1];
+        adc_data_3_1110[47:32]  <= adc_data_vbus_s;
+        adc_data_3_1110[31:16]  <= adc_data_it_n_s;
+        adc_data_3_1110[15:0]   <= adc_data_ib_s;
+        adc_data_3_1101[47:32]  <= adc_data_vbus_s;
+        adc_data_3_1101[31:16]  <= adc_data_it_n_s;
+        adc_data_3_1101[15:0]   <= adc_data_ia_s;
+        adc_data_3_1011[47:32]  <= adc_data_vbus_s;
+        adc_data_3_1011[31:16]  <= adc_data_ib_s;
+        adc_data_3_1011[15:0]   <= adc_data_ia_s;
+        adc_data_3_0111[47:32]  <= adc_data_it_n_s;
+        adc_data_3_0111[31:16]  <= adc_data_ib_s;
+        adc_data_3_0111[15:0]   <= adc_data_ia_s;
+        case(adc_data_cnt)
+            2'b11:
+            begin
+                adc_data_1110[63:48]    <= adc_data_vbus_s;
+                adc_data_1110[47:32]    <= adc_data_it_n_s;
+                adc_data_1110[31:16]    <= adc_data_ib_s;
+                adc_data_1110[15:0]     <= adc_data_3_1110[47:32];
+                adc_data_1101[63:48]    <= adc_data_vbus_s;
+                adc_data_1101[47:32]    <= adc_data_it_n_s;
+                adc_data_1101[31:16]    <= adc_data_ia_s;
+                adc_data_1101[15:0]     <= adc_data_3_1101[47:32];
+                adc_data_1011[63:48]    <= adc_data_vbus_s;
+                adc_data_1011[47:32]    <= adc_data_ib_s;
+                adc_data_1011[31:16]    <= adc_data_ia_s;
+                adc_data_1011[15:0]     <= adc_data_3_1011[47:32];
+                adc_data_0111[63:48]    <= adc_data_it_n_s;
+                adc_data_0111[47:32]    <= adc_data_ib_s;
+                adc_data_0111[31:16]    <= adc_data_ia_s;
+                adc_data_0111[15:0]     <= adc_data_3_0111[47:32];
+            end
+            2'b10:
+            begin
+                adc_data_1110[63:48]    <= adc_data_it_n_s;
+                adc_data_1110[47:32]    <= adc_data_ib_s;
+                adc_data_1110[31:16]    <= adc_data_3_1110[47:32];
+                adc_data_1110[15:0]     <= adc_data_3_1110[31:16];
+                adc_data_1101[63:48]    <= adc_data_it_n_s;
+                adc_data_1101[47:32]    <= adc_data_ia_s;
+                adc_data_1101[31:16]    <= adc_data_3_1101[47:32];
+                adc_data_1101[15:0]     <= adc_data_3_1101[31:16];
+                adc_data_1011[63:48]    <= adc_data_ib_s;
+                adc_data_1011[47:32]    <= adc_data_ia_s;
+                adc_data_1011[31:16]    <= adc_data_3_1011[47:32];
+                adc_data_1011[15:0]     <= adc_data_3_1011[31:16];
+                adc_data_0111[63:48]    <= adc_data_ib_s;
+                adc_data_0111[47:32]    <= adc_data_ia_s;
+                adc_data_0111[31:16]    <= adc_data_3_0111[47:32];
+                adc_data_0111[15:0]     <= adc_data_3_0111[31:16];
+            end
+            2'b01:
+            begin
+                adc_data_1110[63:48]    <= adc_data_ib_s;
+                adc_data_1110[47:32]    <= adc_data_3_1110[47:32];
+                adc_data_1110[31:16]    <= adc_data_3_1110[31:16];
+                adc_data_1110[15:0]     <= adc_data_3_1110[15:0];
+                adc_data_1101[63:48]    <= adc_data_ia_s;
+                adc_data_1101[47:32]    <= adc_data_3_1101[47:32];
+                adc_data_1101[31:16]    <= adc_data_3_1101[31:16];
+                adc_data_1101[15:0]     <= adc_data_3_1101[15:0];
+                adc_data_1011[63:48]    <= adc_data_ia_s;
+                adc_data_1011[47:32]    <= adc_data_3_1011[47:32];
+                adc_data_1011[31:16]    <= adc_data_3_1011[31:16];
+                adc_data_1011[15:0]     <= adc_data_3_1011[15:0];
+                adc_data_0111[63:48]    <= adc_data_ia_s;
+                adc_data_0111[47:32]    <= adc_data_3_0111[47:32];
+                adc_data_0111[31:16]    <= adc_data_3_0111[31:16];
+                adc_data_0111[15:0]     <= adc_data_3_0111[15:0];
+            end
+            2'b00:
+            begin
+                adc_data_1110[63:48]    <= 16'hdead;
+                adc_data_1110[47:32]    <= 16'hdead;
+                adc_data_1110[31:16]    <= 16'hdead;
+                adc_data_1110[15:0]     <= 16'hdead;
+                adc_data_1101[63:48]    <= 16'hdead;
+                adc_data_1101[47:32]    <= 16'hdead;
+                adc_data_1101[31:16]    <= 16'hdead;
+                adc_data_1101[15:0]     <= 16'hdead;
+                adc_data_1011[63:48]    <= 16'hdead;
+                adc_data_1011[47:32]    <= 16'hdead;
+                adc_data_1011[31:16]    <= 16'hdead;
+                adc_data_1011[15:0]     <= 16'hdead;
+                adc_data_0111[63:48]    <= 16'hdead;
+                adc_data_0111[47:32]    <= 16'hdead;
+                adc_data_0111[31:16]    <= 16'hdead;
+                adc_data_0111[15:0]     <= 16'hdead;
+            end
+        endcase
+    end
+end
+
+always @(posedge ref_clk)
+begin
+    if (data_rd_ready_ia_s == 1'b1)
+    begin
         case ({adc_enable_vbus, adc_enable_it, adc_enable_ib, adc_enable_ia})
-            4'b1111: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= 1'b1;
+            4'b1111:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= 1'b1;
                 adc_data[63:48] <= adc_data_vbus_s;
                 adc_data[47:32] <= adc_data_it_n_s;
                 adc_data[31:16] <= adc_data_ib_s;
                 adc_data[15: 0] <= adc_data_ia_s;
             end
-            4'b1110: begin
-                adc_data_3[47:32] <= adc_data_vbus_s;
-                adc_data_3[31:16] <= adc_data_it_n_s;
-                adc_data_3[15: 0] <= adc_data_ib_s;
-                adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
-                case (adc_data_cnt)
-                    2'b11: begin
-                        adc_data[63:48] <= adc_data_vbus_s;
-                        adc_data[47:32] <= adc_data_it_n_s;
-                        adc_data[31:16] <= adc_data_ib_s;
-                        adc_data[15: 0] <= adc_data_3[47:32];
-                    end
-                    2'b10: begin
-                        adc_data[63:48] <= adc_data_it_n_s;
-                        adc_data[47:32] <= adc_data_ib_s;
-                        adc_data[31:16] <= adc_data_3[47:32];
-                        adc_data[15: 0] <= adc_data_3[31:16];
-                    end
-                    2'b01: begin
-                        adc_data[63:48] <= adc_data_ib_s;
-                        adc_data[47:32] <= adc_data_3[47:32];
-                        adc_data[31:16] <= adc_data_3[31:16];
-                        adc_data[15: 0] <= adc_data_3[15: 0];
-                    end
-                    default:begin
-                        adc_data[63:48] <= 16'hdead;
-                        adc_data[47:32] <= 16'hdead;
-                        adc_data[31:16] <= 16'hdead;
-                        adc_data[15: 0] <= 16'hdead;
-                    end
-                endcase
+            4'b1110:
+            begin
+                adc_valid       <= adc_valid_3;
+                adc_data        <= adc_data_1110;
             end
-            4'b1101: begin
-                adc_data_3[47:32] <= adc_data_vbus_s;
-                adc_data_3[31:16] <= adc_data_it_n_s;
-                adc_data_3[15: 0] <= adc_data_ia_s;
-                adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
-                case (adc_data_cnt)
-                    2'b11: begin
-                        adc_data[63:48] <= adc_data_vbus_s;
-                        adc_data[47:32] <= adc_data_it_n_s;
-                        adc_data[31:16] <= adc_data_ia_s;
-                        adc_data[15: 0] <= adc_data_3[47:32];
-                    end
-                    2'b10: begin
-                        adc_data[63:48] <= adc_data_it_n_s;
-                        adc_data[47:32] <= adc_data_ia_s;
-                        adc_data[31:16] <= adc_data_3[47:32];
-                        adc_data[15: 0] <= adc_data_3[31:16];
-                    end
-                    2'b01: begin
-                        adc_data[63:48] <= adc_data_ia_s;
-                        adc_data[47:32] <= adc_data_3[47:32];
-                        adc_data[31:16] <= adc_data_3[31:16];
-                        adc_data[15: 0] <= adc_data_3[15: 0];
-                    end
-                    default:begin
-                        adc_data[63:48] <= 16'hdead;
-                        adc_data[47:32] <= 16'hdead;
-                        adc_data[31:16] <= 16'hdead;
-                        adc_data[15: 0] <= 16'hdead;
-                    end
-                endcase
+            4'b1101:
+            begin
+                adc_valid       <= adc_valid_3;
+                adc_data        <= adc_data_1101;
             end
-            4'b1100: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b1100:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_vbus_s;
                 adc_data[47:32] <= adc_data_it_n_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b1011: begin
-                adc_data_3[47:32] <= adc_data_vbus_s;
-                adc_data_3[31:16] <= adc_data_ib_s;
-                adc_data_3[15: 0] <= adc_data_ia_s;
-                adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
-                case (adc_data_cnt)
-                    2'b11: begin
-                        adc_data[63:48] <= adc_data_vbus_s;
-                        adc_data[47:32] <= adc_data_ib_s;
-                        adc_data[31:16] <= adc_data_ia_s;
-                        adc_data[15: 0] <= adc_data_3[47:32];
-                    end
-                    2'b10: begin
-                        adc_data[63:48] <= adc_data_ib_s;
-                        adc_data[47:32] <= adc_data_ia_s;
-                        adc_data[31:16] <= adc_data_3[47:32];
-                        adc_data[15: 0] <= adc_data_3[31:16];
-                    end
-                    2'b01: begin
-                        adc_data[63:48] <= adc_data_ia_s;
-                        adc_data[47:32] <= adc_data_3[47:32];
-                        adc_data[31:16] <= adc_data_3[31:16];
-                        adc_data[15: 0] <= adc_data_3[15: 0];
-                    end
-                    default:begin
-                        adc_data[63:48] <= 16'hdead;
-                        adc_data[47:32] <= 16'hdead;
-                        adc_data[31:16] <= 16'hdead;
-                        adc_data[15: 0] <= 16'hdead;
-                    end
-                endcase
+            4'b1011:
+            begin
+                adc_valid       <= adc_valid_3;
+                adc_data        <= adc_data_1011;
             end
-            4'b1010: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b1010:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_vbus_s;
                 adc_data[47:32] <= adc_data_ib_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b1001: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b1001:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_vbus_s;
                 adc_data[47:32] <= adc_data_ia_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b1000: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[1] & adc_data_cnt[0];
+            4'b1000:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[1] & adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_vbus_s;
                 adc_data[47:32] <= adc_data[63:48];
                 adc_data[31:16] <= adc_data[47:32];
                 adc_data[15: 0] <= adc_data[31:16];
             end
-            4'b0111: begin
-                adc_data_3[47:32] <= adc_data_it_n_s;
-                adc_data_3[31:16] <= adc_data_ib_s;
-                adc_data_3[15: 0] <= adc_data_ia_s;
-                adc_valid <= adc_data_cnt[0] | adc_data_cnt[1];
-                case (adc_data_cnt)
-                    2'b11: begin
-                        adc_data[63:48] <= adc_data_it_n_s;
-                        adc_data[47:32] <= adc_data_ib_s;
-                        adc_data[31:16] <= adc_data_ia_s;
-                        adc_data[15: 0] <= adc_data_3[47:32];
-                    end
-                    2'b10: begin
-                        adc_data[63:48] <= adc_data_ib_s;
-                        adc_data[47:32] <= adc_data_ia_s;
-                        adc_data[31:16] <= adc_data_3[47:32];
-                        adc_data[15: 0] <= adc_data_3[31:16];
-                    end
-                    2'b01: begin
-                        adc_data[63:48] <= adc_data_ia_s;
-                        adc_data[47:32] <= adc_data_3[47:32];
-                        adc_data[31:16] <= adc_data_3[31:16];
-                        adc_data[15: 0] <= adc_data_3[15: 0];
-                    end
-                    default:begin
-                        adc_data[63:48] <= 16'hdead;
-                        adc_data[47:32] <= 16'hdead;
-                        adc_data[31:16] <= 16'hdead;
-                        adc_data[15: 0] <= 16'hdead;
-                    end
-                endcase
+            4'b0111:
+            begin
+                adc_valid       <= adc_valid_3;
+                adc_data        <= adc_data_0111;
             end
-            4'b0110: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b0110:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data_ib_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b0101: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b0101:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data_ia_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b0100: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[1] & adc_data_cnt[0];
+            4'b0100:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[1] & adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_it_n_s;
                 adc_data[47:32] <= adc_data[63:48];
                 adc_data[31:16] <= adc_data[47:32];
                 adc_data[15: 0] <= adc_data[31:16];
             end
-            4'b0011: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[0];
+            4'b0011:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_ib_s;
                 adc_data[47:32] <= adc_data_ia_s;
                 adc_data[31:16] <= adc_data[63:48];
                 adc_data[15: 0] <= adc_data[47:32];
             end
-            4'b0010: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[1] & adc_data_cnt[0];
+            4'b0010:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[1] & adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_ib_s;
                 adc_data[47:32] <= adc_data[63:48];
                 adc_data[31:16] <= adc_data[47:32];
                 adc_data[15: 0] <= adc_data[31:16];
             end
-            4'b0001: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= adc_data_cnt[1] & adc_data_cnt[0];
+            4'b0001:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= adc_data_cnt[1] & adc_data_cnt[0];
                 adc_data[63:48] <= adc_data_ia_s;
                 adc_data[47:32] <= adc_data[63:48];
                 adc_data[31:16] <= adc_data[47:32];
                 adc_data[15: 0] <= adc_data[31:16];
             end
-            default: begin
-                adc_data_3 <= 48'd0;
-                adc_valid <= 1'b1;
+            default:
+            begin
+                adc_data_3      <= 48'd0;
+                adc_valid       <= 1'b1;
                 adc_data[63:48] <= 16'hdead;
                 adc_data[47:32] <= 16'hdead;
                 adc_data[31:16] <= 16'hdead;
                 adc_data[15: 0] <= 16'hdead;
             end
         endcase
-        adc_data_cnt <= adc_data_cnt + 1'b1;
-    end else begin
-        adc_data_3 <= 48'd0;
-        adc_valid <= 1'b0;
-        adc_data <= adc_data;
-        adc_data_cnt <= adc_data_cnt;
+    end
+    else
+    begin
+        adc_valid       <= 1'b0;
+        adc_data        <= adc_data;
     end
 end
 
-assign i_ready_o = data_rd_ready_ia_s;
-assign ia_o      = adc_data_ia_s;
-assign ib_o      = adc_data_ib_s;
-assign it_o      = adc_data_it_s;
-assign adc_data_it_n_s = 65535 - adc_data_it_s;
+// the following 2 processe are used for synchronizing the moment 
+// data is sent to DMA core so that the first two bytes represent 
+// the first channel acquired
+always @(posedge ref_clk)
+begin
+    if (acq_run_reg == 1'b0)
+    begin
+        adc_data_cnt <= 2'h0;
+    end
+    else
+    begin
+        if (data_rd_ready_ia_s == 1'b1 )
+        begin
+            adc_data_cnt <= adc_data_cnt + 2'b1;
+        end
+    end
+end
+
+always @(posedge ref_clk)
+begin
+    if (dma_start_s == 1'b1)
+    begin
+        acq_run_reg <= 1'b1;
+    end
+    if (dma_last_s == 1'b1)
+    begin
+        acq_run_reg <= 1'b0;
+    end
+end
+
 
 // processor read interface
 
-always @(negedge up_rstn or posedge up_clk) begin
-    if (up_rstn == 0) begin
+always @(negedge up_rstn or posedge up_clk)
+begin
+    if (up_rstn == 0)
+    begin
         up_rdata  <= 'd0;
         up_ack    <= 'd0;
-    end else begin
+    end
+    else
+    begin
         up_rdata  <= up_adc_common_rdata_s | up_rdata_0_s | up_rdata_1_s | up_rdata_2_s | up_rdata_3_s ;
         up_ack    <= up_adc_common_ack_s | up_ack_0_s | up_ack_1_s | up_ack_2_s | up_ack_3_s ;
     end
@@ -691,7 +734,7 @@ up_adc_channel #(.PCORE_ADC_CHID(3)) i_up_adc_channel_vbus (
     .up_ack (up_ack_3_s));
 
 
-// dma transfer 
+// dma transfer
 dma_core #(.DATA_WIDTH(64)) i_dma_core (
     .dma_clk (dma_clk),
     .dma_rst (dma_rst),

@@ -1,0 +1,9 @@
+d ../cf_lib/edk/pcores/ pcores/ \
+    adi_common_v1_00_a/hdl/verilog/ad_mmcm_drp.v \
+    adi_common_v1_00_a/hdl/verilog/up_clkgen.v \
+    adi_common_v1_00_a/hdl/verilog/up_axi.v
+
+d ../cf_lib/edk/pcores pcores/ \
+    axi_clkgen_v2_00_a/data/axi_clkgen_v2_1_0.mpd \
+    axi_clkgen_v2_00_a/data/axi_clkgen_v2_1_0.pao \
+    axi_clkgen_v2_00_a/hdl/verilog/axi_clkgen.v

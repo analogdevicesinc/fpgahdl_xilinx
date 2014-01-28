@@ -34,8 +34,6 @@ PARAMETER C_S_AXIS_S2MM_PROTOCOL = XIL_AXI_STREAM_ETH_DATA, DT = STRING, BUS = S
 
 ## ADC Interface
 PORT ref_clk    = "", DIR = I, SIGIS = CLK
-PORT ctrl_clk_i = "", DIR = I, SIGIS = CLK
-PORT pwm_clk_i  = "", DIR = I, SIGIS = CLK
 
 PORT fmc_m1_fault_i = "", DIR = I
 PORT fmc_m1_en_o    = "", DIR = O

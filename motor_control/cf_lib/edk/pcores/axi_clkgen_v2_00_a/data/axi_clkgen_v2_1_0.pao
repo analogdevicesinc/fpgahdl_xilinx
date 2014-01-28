@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          pcores/axi_clkgen_v1_00_a/data/axi_clkgen_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Wed Sep 14 19:23:59 2011 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib adi_common_v1_00_a ad_mmcm_drp verilog
+lib adi_common_v1_00_a up_clkgen verilog
+lib adi_common_v1_00_a up_axi verilog
+lib axi_clkgen_v2_00_a axi_clkgen verilog
