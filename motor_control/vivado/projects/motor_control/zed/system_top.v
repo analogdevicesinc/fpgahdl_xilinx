@@ -71,7 +71,6 @@ module system_top (
   hdmi_hsync,
   hdmi_data_e,
   hdmi_data,
-  hdmi_int,
   adc_ia_clk_d_o,
   adc_ia_clk_o,
   adc_ia_dat_d_i,
@@ -147,7 +146,6 @@ module system_top (
   output          hdmi_hsync;
   output          hdmi_data_e;
   output  [15:0]  hdmi_data;
-  input           hdmi_int;
 
   output          adc_ia_clk_d_o;
   output          adc_ia_clk_o;
