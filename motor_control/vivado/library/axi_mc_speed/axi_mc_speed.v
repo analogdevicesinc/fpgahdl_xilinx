@@ -162,12 +162,12 @@ assign s_axis_s2mm_tkeep = 4'hf;
 // monitor signals
 
 assign adc_mon_valid = new_speed_s;
-assign adc_mon_data = { 20'h0, bemf_multiplex_s, bemf_s, bemf_delayed_s, position_s };
+assign adc_mon_data     = { 20'h0, bemf_multiplex_s, bemf_s, bemf_delayed_s, position_s };
 
 assign bemf_multiplex_s = (MOTOR_CONTROL_REVISION == 2) ? position_i : bemf_i;
-assign position_o =  (hall_bemf_i == 2'b01) ? bemf_delayed_s :  position_s;
-assign new_speed_o = new_speed_s;
-assign speed_o     = speed_data_s;
+assign position_o       = (hall_bemf_i == 2'b01) ? bemf_delayed_s :  position_s;
+assign new_speed_o      = new_speed_s;
+assign speed_o          = speed_data_s;
 
 // adc channels - dma interface
 
@@ -179,11 +179,14 @@ end
 
 // processor read interface
 
-always @(negedge up_rstn or posedge up_clk) begin
-    if (up_rstn == 0) begin
+always @(negedge up_rstn or posedge up_clk) 
+begin
+    if (up_rstn == 0) 
+    begin
         up_rdata  <= 'd0;
         up_ack    <= 'd0;
-    end else begin
+    end else 
+    begin
         up_rdata  <= up_adc_common_rdata_s;
         up_ack    <= up_adc_common_ack_s;
     end
@@ -268,7 +271,7 @@ speed_detector
     (
         .clk_i(ref_clk),
         .rst_i(adc_rst),
-        .position_i(position_s),
+        .position_i(position_o),
         .new_speed_o(new_speed_s),
         .speed_o(speed_data_s)
     );

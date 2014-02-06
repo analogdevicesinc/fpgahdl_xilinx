@@ -96,7 +96,7 @@ module axi_mc_matlab_ctrl
     input           s_axi_rready,
 // debug signals
     output          adc_mon_valid,
-    output  [323:0] adc_mon_data
+    output  [31:0]  adc_mon_data
 );
 
 //------------------------------------------------------------------------------
@@ -113,9 +113,15 @@ reg             up_ack          = 'd0;
 reg             ctrl_clk_s      = 'h0;    // 50 MHz
 reg             derived_clk     = 'h0;
 reg             derived_clk_d1  = 'h0;
+reg             derived_clk_d2  = 'h0;
+reg             derived_clk_d3  = 'h0;
+reg             derived_clk_d4  = 'h0;
 reg     [31:0]  clk_div_cnt     = 'h0;
 reg     [17:0]  adc_current_0_s = 'h0;
 reg     [17:0]  adc_current_1_s = 'h0;
+
+reg     [15:0]  phase_voltage_a_r;
+reg     [15:0]  phase_voltage_b_r;
 
 //------------------------------------------------------------------------------
 //----------- Wires Declarations -----------------------------------------------
@@ -200,13 +206,11 @@ assign s_axis_s2mm_tkeep = 4'hf;
 
 // monitor signals
 
-assign adc_mon_valid = i_ready_i;
-assign adc_mon_data = 'h0 ;
+assign adc_mon_valid    = i_ready_i;
+assign adc_mon_data     = 'h0 ;
 
-// multiple instances synchronization
-
+// Assign outputs
 assign fmc_m1_en_o  = run_s;
-
 assign pwm_ah_o = inverter_enable_a_s ? pwm_a_s  : 1'b0;
 assign pwm_al_o = inverter_enable_a_s ? ~pwm_a_s : 1'b0;
 assign pwm_bh_o = inverter_enable_b_s ? pwm_b_s  : 1'b0;
@@ -214,7 +218,7 @@ assign pwm_bl_o = inverter_enable_b_s ? ~pwm_b_s : 1'b0;
 assign pwm_ch_o = inverter_enable_c_s ? pwm_c_s  : 1'b0;
 assign pwm_cl_o = inverter_enable_c_s ? ~pwm_c_s : 1'b0;
 
-
+// change current representation from 16 bits to 18 bits
 always @(posedge ref_clk)
 begin
     if (i_ready_i == 1'b1)
@@ -224,7 +228,7 @@ begin
     end
 end
 
-
+// Generate 50 MHz clock
 always @(posedge ref_clk)
 begin
     ctrl_clk_s <= ~ctrl_clk_s;
@@ -255,18 +259,46 @@ end
 
 always @(posedge ref_clk)
 begin
-    adc_data  <= {phase_voltage_b_s[19:4],phase_voltage_a_s[19:4]};
-    derived_clk_d1  <= derived_clk;
+
+    adc_data        <= {phase_voltage_b_r,phase_voltage_a_r};
     adc_valid       <= derived_clk & ~derived_clk_d1;
+    // create several delay registers
+    derived_clk_d1  <= derived_clk;
+    derived_clk_d2  <= derived_clk_d1;
+    derived_clk_d3  <= derived_clk_d2;
+    derived_clk_d4  <= derived_clk_d3;
+
+    //convert data from sfix20_en12 to 16 bits values
+    if(phase_voltage_a_s[19] == 1'b1 && derived_clk_d4 == 1'b1)
+    begin
+        phase_voltage_a_r <= 16'h8000 - phase_voltage_a_s[19:4] ;
+    end
+    else
+    begin
+        phase_voltage_a_r <= phase_voltage_a_s[19:4] + 16'h8000;
+    end
+
+    if(phase_voltage_b_s[19] == 1'b1 && derived_clk_d4 == 1'b1)
+    begin
+        phase_voltage_b_r <= 16'h8000 - phase_voltage_b_s[19:4] ;
+    end
+    else
+    begin
+        phase_voltage_b_r <= phase_voltage_b_s[19:4] + 16'h8000;
+    end
+
 end
 
 // processor read interface
 
-always @(negedge up_rstn or posedge up_clk) begin
-    if (up_rstn == 0) begin
+always @(negedge up_rstn or posedge up_clk) 
+begin
+    if (up_rstn == 0)
+    begin
         up_rdata  <= 'd0;
         up_ack    <= 'd0;
-    end else begin
+    end else
+    begin
         up_rdata  <= up_control_rdata_s | up_adc_common_rdata_s ;
         up_ack    <= up_control_ack_s | up_adc_common_ack_s;
     end
@@ -274,7 +306,7 @@ end
 
 // main (device interface)
 
-control_registers control_reg_inst
+control_registers_adv control_reg_inst
 (
 //bus interface
     .up_rstn(up_rstn),

@@ -200,10 +200,37 @@ module system_top (
   wire    [ 1:0]  iic_mux_sda_o_s;
   wire            iic_mux_sda_t_s;
 
+  wire            fmc_m1_en_o_0;
+  wire            fmc_m1_en_o_1;
+  wire            pwm_ah_o_0;
+  wire            pwm_ah_o_1;
+  wire            pwm_al_o_0;
+  wire            pwm_al_o_1;
+  wire            pwm_bh_o_0;
+  wire            pwm_bh_o_1;
+  wire            pwm_bl_o_0;
+  wire            pwm_bl_o_1;
+  wire            pwm_ch_o_0;
+  wire            pwm_ch_o_1;
+  wire            pwm_cl_o_0;
+  wire            pwm_cl_o_1;
+  wire   [7:0]    gpo_o_0;
+  wire   [7:0]    gpo_o_1;
+
   IOBUF i_iic_mux_scl_0 (.I(iic_mux_scl_o_s[0]), .O(iic_mux_scl_i_s[0]), .T(iic_mux_scl_t_s), .IO(iic_mux_scl[0]));
   IOBUF i_iic_mux_scl_1 (.I(iic_mux_scl_o_s[1]), .O(iic_mux_scl_i_s[1]), .T(iic_mux_scl_t_s), .IO(iic_mux_scl[1]));
   IOBUF i_iic_mux_sda_0 (.I(iic_mux_sda_o_s[0]), .O(iic_mux_sda_i_s[0]), .T(iic_mux_sda_t_s), .IO(iic_mux_sda[0]));
   IOBUF i_iic_mux_sda_1 (.I(iic_mux_sda_o_s[1]), .O(iic_mux_sda_i_s[1]), .T(iic_mux_sda_t_s), .IO(iic_mux_sda[1]));
+
+  assign pwm_ah_o = fmc_m1_en_o_0 ? pwm_ah_o_0 : fmc_m1_en_o_1 ? pwm_ah_o_1 : 1'b0;
+  assign pwm_bh_o = fmc_m1_en_o_0 ? pwm_bh_o_0 : fmc_m1_en_o_1 ? pwm_bh_o_1 : 1'b0;
+  assign pwm_ch_o = fmc_m1_en_o_0 ? pwm_ch_o_0 : fmc_m1_en_o_1 ? pwm_ch_o_1 : 1'b0;
+  assign pwm_al_o = fmc_m1_en_o_0 ? pwm_al_o_0 : fmc_m1_en_o_1 ? pwm_al_o_1 : 1'b0;
+  assign pwm_bl_o = fmc_m1_en_o_0 ? pwm_bl_o_0 : fmc_m1_en_o_1 ? pwm_bl_o_1 : 1'b0;
+  assign pwm_cl_o = fmc_m1_en_o_0 ? pwm_cl_o_0 : fmc_m1_en_o_1 ? pwm_cl_o_1 : 1'b0;
+  assign gpo_o    = gpo_o_0 | gpo_o_1;
+  assign fmc_m1_en_o = fmc_m1_en_o_0 | fmc_m1_en_o_1;
+
 
   system_wrapper i_system_wrapper (
     .DDR_addr (DDR_addr),
@@ -252,16 +279,24 @@ module system_top (
     .adc_it_dat_i(adc_it_dat_i),
     .adc_vbus_clk_o(adc_vbus_clk_o),
     .adc_vbus_dat_i(adc_vbus_dat_i),
-    .fmc_m1_en_o(fmc_m1_en_o),
+    .fmc_m1_en_o_0(fmc_m1_en_o_0),
+    .fmc_m1_en_o_1(fmc_m1_en_o_1),
     .fmc_m1_fault_i(fmc_m1_fault_i),
-    .gpo_o(gpo_o),
+    .gpo_o_0(gpo_o_0),
+    .gpo_o_1(gpo_o_1),
     .position_i(position_i),
-    .pwm_ah_o(pwm_ah_o),
-    .pwm_al_o(pwm_al_o),
-    .pwm_bh_o(pwm_bh_o),
-    .pwm_bl_o(pwm_bl_o),
-    .pwm_ch_o(pwm_ch_o),
-    .pwm_cl_o(pwm_cl_o),
+    .pwm_ah_o_0(pwm_ah_o_0),
+    .pwm_al_o_0(pwm_al_o_0),
+    .pwm_bh_o_0(pwm_bh_o_0),
+    .pwm_bl_o_0(pwm_bl_o_0),
+    .pwm_ch_o_0(pwm_ch_o_0),
+    .pwm_cl_o_0(pwm_cl_o_0),
+    .pwm_ah_o_1(pwm_ah_o_1),
+    .pwm_al_o_1(pwm_al_o_1),
+    .pwm_bh_o_1(pwm_bh_o_1),
+    .pwm_bl_o_1(pwm_bl_o_1),
+    .pwm_ch_o_1(pwm_ch_o_1),
+    .pwm_cl_o_1(pwm_cl_o_1),
     .iic_mux_scl_I (iic_mux_scl_i_s),
     .iic_mux_scl_O (iic_mux_scl_o_s),
     .iic_mux_scl_T (iic_mux_scl_t_s),

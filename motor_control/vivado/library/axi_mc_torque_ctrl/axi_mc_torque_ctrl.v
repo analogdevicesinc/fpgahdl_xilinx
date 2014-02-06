@@ -130,8 +130,6 @@ wire            up_clk;
 
 // internal signals
 
-wire            adc_enable_s;
-wire            adc_status_s;
 wire            dma_valid_s;
 wire            dma_last_s;
 wire    [31:0]  dma_data_s;

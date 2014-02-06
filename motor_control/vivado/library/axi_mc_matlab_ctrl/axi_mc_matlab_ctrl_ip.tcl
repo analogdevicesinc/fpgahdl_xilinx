@@ -14,7 +14,7 @@ adi_ip_files axi_mc_matlab_ctrl [list \
   "../common/up_adc_channel.v" \
   "controllerPeripheralHdlAdi.ngc" \
   "controllerPeripheralHdlAdi_bb.v" \
-  "control_registers.v" \
+  "control_registers_adv.v" \
   "axi_mc_matlab_ctrl.v" ]
 
 adi_ip_properties axi_mc_matlab_ctrl

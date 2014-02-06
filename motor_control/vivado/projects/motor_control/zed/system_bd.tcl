@@ -1,5 +1,5 @@
 
-set NUM_EXTRA_INTERRUPTS 4
+set NUM_EXTRA_INTERRUPTS 5
 set NUM_EXTRA_AXI_SLAVES 9
 set NUM_EXTRA_GPIOS 0
 
@@ -24,16 +24,25 @@ set adc_ib_clk_d_o [ create_bd_port -dir O adc_ib_clk_d_o ]
 set adc_it_clk_d_o [ create_bd_port -dir O adc_it_clk_d_o ]
 
 set fmc_m1_fault_i [ create_bd_port -dir I fmc_m1_fault_i ]
-set fmc_m1_en_o [ create_bd_port -dir O fmc_m1_en_o ]
+set fmc_m1_en_o_0 [ create_bd_port -dir O fmc_m1_en_o_0 ]
+set fmc_m1_en_o_1 [ create_bd_port -dir O fmc_m1_en_o_1 ]
 
-set pwm_al_o [ create_bd_port -dir O pwm_al_o ]
-set pwm_ah_o [ create_bd_port -dir O pwm_ah_o ]
-set pwm_cl_o [ create_bd_port -dir O pwm_cl_o ]
-set pwm_ch_o [ create_bd_port -dir O pwm_ch_o ]
-set pwm_bl_o [ create_bd_port -dir O pwm_bl_o ]
-set pwm_bh_o [ create_bd_port -dir O pwm_bh_o ]
+set pwm_al_o_0 [ create_bd_port -dir O pwm_al_o_0 ]
+set pwm_ah_o_0 [ create_bd_port -dir O pwm_ah_o_0 ]
+set pwm_cl_o_0 [ create_bd_port -dir O pwm_cl_o_0 ]
+set pwm_ch_o_0 [ create_bd_port -dir O pwm_ch_o_0 ]
+set pwm_bl_o_0 [ create_bd_port -dir O pwm_bl_o_0 ]
+set pwm_bh_o_0 [ create_bd_port -dir O pwm_bh_o_0 ]
 
-set gpo_o [ create_bd_port -dir O -from 7 -to 0 gpo_o ]
+set pwm_al_o_1 [ create_bd_port -dir O pwm_al_o_1]
+set pwm_ah_o_1 [ create_bd_port -dir O pwm_ah_o_1]
+set pwm_cl_o_1 [ create_bd_port -dir O pwm_cl_o_1]
+set pwm_ch_o_1 [ create_bd_port -dir O pwm_ch_o_1]
+set pwm_bl_o_1 [ create_bd_port -dir O pwm_bl_o_1]
+set pwm_bh_o_1 [ create_bd_port -dir O pwm_bh_o_1]
+
+set gpo_o_0 [ create_bd_port -dir O -from 7 -to 0 gpo_o_0 ]
+set gpo_o_1 [ create_bd_port -dir O -from 7 -to 0 gpo_o_1 ]
 
 set vp_in [ create_bd_port -dir I vp_in ]
 set vn_in [ create_bd_port -dir I vn_in ]
@@ -45,6 +54,7 @@ set muxaddr_out [ create_bd_port -dir O -from 4 -to 0 muxaddr_out ]
 
 # instance: processing_system7_1
 
+set_property -dict [ list CONFIG.PCW_USE_M_AXI_GP1 {1} ] $processing_system7_1
 set_property -dict [ list CONFIG.PCW_USE_S_AXI_HP1 {1} ] $processing_system7_1
 
 
@@ -52,6 +62,8 @@ set axi_mc_current_monitor_1 [ create_bd_cell -type ip -vlnv analog.com:user:axi
 set axi_mc_current_monitor_2 [ create_bd_cell -type ip -vlnv analog.com:user:axi_mc_current_monitor:1.0 axi_mc_current_monitor_2 ]
 set axi_mc_speed_1 [ create_bd_cell -type ip -vlnv analog.com:user:axi_mc_speed:1.0 axi_mc_speed_1 ]
 set axi_mc_matlab_ctrl_1 [ create_bd_cell -type ip -vlnv analog.com:user:axi_mc_matlab_ctrl:1.0 axi_mc_matlab_ctrl_1 ]
+set axi_mc_torque_ctrl_1 [ create_bd_cell -type ip -vlnv analog.com:user:axi_mc_torque_ctrl:1.0 axi_mc_torque_ctrl_1 ]
+
 
 set axi_dma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.0 axi_dma_0 ]
 set_property -dict [ list CONFIG.c_include_sg {0} CONFIG.c_sg_length_width {23} CONFIG.c_include_mm2s {0} CONFIG.c_m_axi_s2mm_data_width {64} CONFIG.c_s_axis_s2mm_tdata_width {64} CONFIG.c_s2mm_burst_size {256}  ] $axi_dma_0
@@ -65,8 +77,14 @@ set_property -dict [ list CONFIG.c_include_sg {0} CONFIG.c_sg_length_width {23} 
 set axi_dma_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.0 axi_dma_3 ]
 set_property -dict [ list CONFIG.c_include_sg {0} CONFIG.c_sg_length_width {23} CONFIG.c_include_mm2s {0} CONFIG.c_m_axi_s2mm_data_width {64} CONFIG.c_s_axis_s2mm_tdata_width {64} CONFIG.c_s2mm_burst_size {256}  ] $axi_dma_3
 
+set axi_dma_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.0 axi_dma_4 ]
+  set_property -dict [ list CONFIG.c_include_sg {0} CONFIG.c_sg_length_width {23} CONFIG.c_include_mm2s {0} CONFIG.c_s2mm_burst_size {256}  ] $axi_dma_4
+
 set axi_mem_intercon [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.0 axi_mem_intercon ]
-set_property -dict [ list CONFIG.NUM_SI {4} CONFIG.NUM_MI {1}  ] $axi_mem_intercon
+set_property -dict [ list CONFIG.NUM_SI {5} CONFIG.NUM_MI {1}  ] $axi_mem_intercon
+
+set axi_interconnect_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.0 axi_interconnect_3 ]
+  set_property -dict [ list CONFIG.NUM_SI {1} CONFIG.NUM_MI {2}  ] $axi_interconnect_3
 
 set xadc_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xadc_wiz:3.0 xadc_wiz_1 ]
 set_property -dict [ list CONFIG.XADC_STARUP_SELECTION {simultaneous_sampling} ] $xadc_wiz_1
@@ -99,6 +117,11 @@ connect_bd_intf_net -intf_net axi_mc_current_monitor_1_s_axis_s2mm [get_bd_intf_
 connect_bd_intf_net -intf_net axi_mc_matlab_ctrl_1_s_axis_s2mm [get_bd_intf_pins axi_mc_matlab_ctrl_1/s_axis_s2mm] [get_bd_intf_pins axi_dma_1/S_AXIS_S2MM]
 connect_bd_intf_net -intf_net axi_mc_current_monitor_2_s_axis_s2mm [get_bd_intf_pins axi_mc_current_monitor_2/s_axis_s2mm] [get_bd_intf_pins axi_dma_3/S_AXIS_S2MM]
 
+connect_bd_intf_net -intf_net axi_mc_torque_ctrl_1_s_axis_s2mm [get_bd_intf_pins axi_mc_torque_ctrl_1/s_axis_s2mm] [get_bd_intf_pins axi_dma_4/S_AXIS_S2MM]
+connect_bd_intf_net -intf_net s04_axi_1 [get_bd_intf_pins axi_mem_intercon/S04_AXI] [get_bd_intf_pins axi_dma_4/M_AXI_S2MM]
+connect_bd_intf_net -intf_net processing_system7_1_m_axi_gp1 [get_bd_intf_pins processing_system7_1/M_AXI_GP1] [get_bd_intf_pins axi_interconnect_3/S00_AXI]
+connect_bd_intf_net -intf_net axi_interconnect_3_m00_axi [get_bd_intf_pins axi_interconnect_3/M00_AXI] [get_bd_intf_pins axi_mc_torque_ctrl_1/s_axi]
+connect_bd_intf_net -intf_net axi_interconnect_3_m01_axi [get_bd_intf_pins axi_dma_4/S_AXI_LITE] [get_bd_intf_pins axi_interconnect_3/M01_AXI]
 
 # interface connections
 
@@ -139,7 +162,18 @@ connect_bd_intf_net -intf_net axi_mc_current_monitor_2_s_axis_s2mm [get_bd_intf_
  [get_bd_pins axi_mc_current_monitor_2/s_axis_s2mm_clk] \
  [get_bd_pins axi_mc_current_monitor_2/ref_clk] \
  [get_bd_pins xadc_wiz_1/s_axi_aclk] \
- [get_bd_pins axi_interconnect_1/M14_ACLK]
+ [get_bd_pins axi_interconnect_1/M14_ACLK]\
+ [get_bd_pins axi_mc_torque_ctrl_1/ref_clk]\
+ [get_bd_pins axi_mc_torque_ctrl_1/s_axis_s2mm_clk]\
+ [get_bd_pins axi_mc_torque_ctrl_1/s_axi_aclk]\
+ [get_bd_pins processing_system7_1/M_AXI_GP1_ACLK]\
+ [get_bd_pins axi_dma_4/s_axi_lite_aclk]\
+ [get_bd_pins axi_dma_4/m_axi_s2mm_aclk]\
+ [get_bd_pins axi_mem_intercon/S04_ACLK]\
+ [get_bd_pins axi_interconnect_3/ACLK]\
+ [get_bd_pins axi_interconnect_3/S00_ACLK]\
+ [get_bd_pins axi_interconnect_3/M00_ACLK]\
+ [get_bd_pins axi_interconnect_3/M01_ACLK]
 
 connect_bd_net -net processing_system7_1_fclk_reset0_n \
   [get_bd_pins processing_system7_1/FCLK_RESET0_N] \
@@ -167,15 +201,22 @@ connect_bd_net -net processing_system7_1_fclk_reset0_n \
   [get_bd_pins axi_dma_3/axi_resetn] \
   [get_bd_pins axi_mc_current_monitor_2/s_axi_aresetn] \
   [get_bd_pins xadc_wiz_1/s_axi_aresetn] \
-  [get_bd_pins axi_interconnect_1/M14_ARESETN]
+  [get_bd_pins axi_interconnect_1/M14_ARESETN]\
+  [get_bd_pins axi_mc_torque_ctrl_1/s_axi_aresetn]\
+  [get_bd_pins axi_dma_4/axi_resetn]\
+  [get_bd_pins axi_mem_intercon/S04_ARESETN]\
+  [get_bd_pins axi_interconnect_3/M00_ARESETN]\
+  [get_bd_pins axi_interconnect_3/ARESETN]\
+  [get_bd_pins axi_interconnect_3/S00_ARESETN]\
+  [get_bd_pins axi_interconnect_3/M01_ARESETN]
 
 
-connect_bd_net -net axi_mc_speed_1_position_o [get_bd_pins axi_mc_speed_1/position_o] [get_bd_pins axi_mc_matlab_ctrl_1/position_i]
-connect_bd_net -net axi_mc_speed_1_new_speed_o [get_bd_pins axi_mc_speed_1/new_speed_o] [get_bd_pins axi_mc_matlab_ctrl_1/new_speed_i]
-connect_bd_net -net axi_mc_speed_1_speed_o [get_bd_pins axi_mc_speed_1/speed_o] [get_bd_pins axi_mc_matlab_ctrl_1/speed_i]
+connect_bd_net -net axi_mc_speed_1_position_o [get_bd_pins axi_mc_speed_1/position_o] [get_bd_pins axi_mc_matlab_ctrl_1/position_i] [get_bd_pins axi_mc_torque_ctrl_1/position_i]
+connect_bd_net -net axi_mc_speed_1_new_speed_o [get_bd_pins axi_mc_speed_1/new_speed_o] [get_bd_pins axi_mc_matlab_ctrl_1/new_speed_i] [get_bd_pins axi_mc_torque_ctrl_1/new_speed_i]
+connect_bd_net -net axi_mc_speed_1_speed_o [get_bd_pins axi_mc_speed_1/speed_o] [get_bd_pins axi_mc_matlab_ctrl_1/speed_i] [get_bd_pins axi_mc_torque_ctrl_1/speed_i]
+
 connect_bd_net -net position_i_1 [get_bd_ports position_i] [get_bd_pins axi_mc_speed_1/position_i] [get_bd_pins axi_mc_speed_1/bemf_i]
 
-connect_bd_net -net axi_mc_matlab_ctrl_1_sensors_o [get_bd_pins axi_mc_matlab_ctrl_1/sensors_o] [get_bd_pins axi_mc_speed_1/hall_bemf_i]
 connect_bd_net -net adc_ia_dat_i_1 [get_bd_ports adc_ia_dat_i] [get_bd_pins axi_mc_current_monitor_1/adc_ia_dat_i]
 connect_bd_net -net adc_ib_dat_i_1 [get_bd_ports adc_ib_dat_i] [get_bd_pins axi_mc_current_monitor_1/adc_ib_dat_i]
 connect_bd_net -net adc_it_dat_i_1 [get_bd_ports adc_it_dat_i] [get_bd_pins axi_mc_current_monitor_1/adc_it_dat_i]
@@ -184,21 +225,22 @@ connect_bd_net -net adc_vbus_dat_i_1 [get_bd_ports adc_vbus_dat_i] [get_bd_pins 
 
 connect_bd_net -net axi_mc_current_monitor_1_ia_o [get_bd_pins axi_mc_current_monitor_1/ia_o] [get_bd_pins axi_mc_matlab_ctrl_1/ia_i]
 connect_bd_net -net axi_mc_current_monitor_1_ib_o [get_bd_pins axi_mc_current_monitor_1/ib_o] [get_bd_pins axi_mc_matlab_ctrl_1/ib_i]
-connect_bd_net -net axi_mc_current_monitor_1_i_ready_o [get_bd_pins axi_mc_current_monitor_1/i_ready_o] [get_bd_pins axi_mc_matlab_ctrl_1/i_ready_i]
+connect_bd_net -net axi_mc_current_monitor_1_i_ready_o [get_bd_pins axi_mc_current_monitor_1/i_ready_o] [get_bd_pins axi_mc_matlab_ctrl_1/i_ready_i] [get_bd_pins axi_mc_torque_ctrl_1/i_ready_i]
 connect_bd_net -net axi_mc_current_monitor_1_adc_ia_clk_o [get_bd_ports adc_ia_clk_o] [get_bd_pins axi_mc_current_monitor_1/adc_ia_clk_o]
 connect_bd_net -net axi_mc_current_monitor_1_adc_ib_clk_o [get_bd_ports adc_ib_clk_o] [get_bd_pins axi_mc_current_monitor_1/adc_ib_clk_o]
 connect_bd_net -net axi_mc_current_monitor_1_adc_it_clk_o [get_bd_ports adc_it_clk_o] [get_bd_pins axi_mc_current_monitor_1/adc_it_clk_o]
 connect_bd_net -net axi_mc_current_monitor_1_adc_vbus_clk_o [get_bd_ports adc_vbus_clk_o] [get_bd_pins axi_mc_current_monitor_1/adc_vbus_clk_o]
 
-connect_bd_net -net fmc_m1_fault_i_1 [get_bd_ports fmc_m1_fault_i] [get_bd_pins axi_mc_matlab_ctrl_1/fmc_m1_fault_i]
+connect_bd_net -net fmc_m1_fault_i_1 [get_bd_ports fmc_m1_fault_i] [get_bd_pins axi_mc_matlab_ctrl_1/fmc_m1_fault_i] [get_bd_pins axi_mc_torque_ctrl_1/fmc_m1_fault_i]
 
-connect_bd_net -net axi_mc_matlab_ctrl_1_fmc_m1_en_o [get_bd_ports fmc_m1_en_o] [get_bd_pins axi_mc_matlab_ctrl_1/fmc_m1_en_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_al_o [get_bd_ports pwm_al_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_al_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_ah_o [get_bd_ports pwm_ah_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_ah_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_cl_o [get_bd_ports pwm_cl_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_cl_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_ch_o [get_bd_ports pwm_ch_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_ch_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_bl_o [get_bd_ports pwm_bl_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_bl_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_bh_o [get_bd_ports pwm_bh_o] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_bh_o]
+
+connect_bd_net -net axi_mc_matlab_ctrl_1_fmc_m1_en_o [get_bd_ports fmc_m1_en_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/fmc_m1_en_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_al_o [get_bd_ports pwm_al_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_al_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_ah_o [get_bd_ports pwm_ah_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_ah_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_cl_o [get_bd_ports pwm_cl_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_cl_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_ch_o [get_bd_ports pwm_ch_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_ch_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_bl_o [get_bd_ports pwm_bl_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_bl_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_pwm_bh_o [get_bd_ports pwm_bh_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/pwm_bh_o]
 
 connect_bd_net -net adc_ia_dat_d_i [get_bd_ports adc_ia_dat_d_i] [get_bd_pins axi_mc_current_monitor_2/adc_ia_dat_i]
 connect_bd_net -net axi_mc_current_monitor_2_adc_ia_clk_o [get_bd_ports adc_ia_clk_d_o] [get_bd_pins axi_mc_current_monitor_2/adc_ia_clk_o]
@@ -206,7 +248,7 @@ connect_bd_net -net adc_ib_dat_d_i [get_bd_ports adc_ib_dat_d_i] [get_bd_pins ax
 connect_bd_net -net axi_mc_current_monitor_2_adc_ib_clk_o [get_bd_ports adc_ib_clk_d_o] [get_bd_pins axi_mc_current_monitor_2/adc_ib_clk_o]
 connect_bd_net -net adc_it_dat_d_i [get_bd_ports adc_it_dat_d_i] [get_bd_pins axi_mc_current_monitor_2/adc_it_dat_i]
 connect_bd_net -net axi_mc_current_monitor_2_adc_it_clk_o [get_bd_ports adc_it_clk_d_o] [get_bd_pins axi_mc_current_monitor_2/adc_it_clk_o]
-connect_bd_net -net axi_mc_matlab_ctrl_1_gpo_o [get_bd_ports gpo_o] [get_bd_pins axi_mc_matlab_ctrl_1/gpo_o]
+connect_bd_net -net axi_mc_matlab_ctrl_1_gpo_o [get_bd_ports gpo_o_0] [get_bd_pins axi_mc_matlab_ctrl_1/gpo_o]
 
 connect_bd_net -net axi_dma_0_s2mm_introut [get_bd_pins axi_dma_0/s2mm_introut] [get_bd_pins xlconcat_1/In2]
 connect_bd_net -net axi_dma_1_s2mm_introut [get_bd_pins axi_dma_1/s2mm_introut] [get_bd_pins xlconcat_1/In3]
@@ -221,6 +263,18 @@ connect_bd_net -net vauxp8_1 [get_bd_ports vauxp8] [get_bd_pins xadc_wiz_1/vauxp
 connect_bd_net -net vauxn8_1 [get_bd_ports vauxn8] [get_bd_pins xadc_wiz_1/vauxn8]
 connect_bd_net -net xadc_wiz_1_muxaddr_out [get_bd_ports muxaddr_out] [get_bd_pins xadc_wiz_1/muxaddr_out]
 
+connect_bd_net -net axi_mc_current_monitor_1_it_o [get_bd_pins axi_mc_current_monitor_1/it_o] [get_bd_pins axi_mc_torque_ctrl_1/it_i]
+connect_bd_net -net axi_dma_4_s2mm_introut [get_bd_pins axi_dma_4/s2mm_introut] [get_bd_pins xlconcat_1/In6]
+connect_bd_net -net axi_mc_torque_ctrl_1_fmc_m1_en_o [get_bd_ports fmc_m1_en_o_1] [get_bd_pins axi_mc_torque_ctrl_1/fmc_m1_en_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_al_o [get_bd_ports pwm_al_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_al_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_ah_o [get_bd_ports pwm_ah_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_ah_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_cl_o [get_bd_ports pwm_cl_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_cl_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_ch_o [get_bd_ports pwm_ch_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_ch_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_bl_o [get_bd_ports pwm_bl_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_bl_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_pwm_bh_o [get_bd_ports pwm_bh_o_1] [get_bd_pins axi_mc_torque_ctrl_1/pwm_bh_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_gpo_o [get_bd_ports gpo_o_1] [get_bd_pins axi_mc_torque_ctrl_1/gpo_o]
+connect_bd_net -net axi_mc_torque_ctrl_1_sensors_o [get_bd_pins axi_mc_torque_ctrl_1/sensors_o] [get_bd_pins axi_mc_speed_1/hall_bemf_i]
+
 # address map
 
 create_bd_addr_seg -range 0x10000 -offset 0x40400000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs axi_dma_0/S_AXI_LITE/Reg] SEG4
@@ -232,8 +286,12 @@ create_bd_addr_seg -range 0x10000 -offset 0x40540000 [get_bd_addr_spaces process
 create_bd_addr_seg -range 0x10000 -offset 0x40580000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs axi_mc_speed_1/s_axi/axi_lite] SEG2
 create_bd_addr_seg -range 0x10000 -offset 0x405C0000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs axi_mc_current_monitor_2/s_axi/axi_lite] SEG11
 create_bd_addr_seg -range 0x10000 -offset 0x43200000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs xadc_wiz_1/s_axi_lite/Reg] SEG12
+create_bd_addr_seg -range 0x10000 -offset 0x80400000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs axi_dma_4/S_AXI_LITE/Reg] SEG16
+create_bd_addr_seg -range 0x10000 -offset 0x80500000 [get_bd_addr_spaces processing_system7_1/Data] [get_bd_addr_segs axi_mc_torque_ctrl_1/s_axi/axi_lite] SEG17
 create_bd_addr_seg -range 0x20000000 -offset 0x0 [get_bd_addr_spaces axi_dma_0/Data_S2MM] [get_bd_addr_segs processing_system7_1/S_AXI_HP1/HP1_DDR_LOWOCM] SEG1
 create_bd_addr_seg -range 0x20000000 -offset 0x0 [get_bd_addr_spaces axi_dma_1/Data_S2MM] [get_bd_addr_segs processing_system7_1/S_AXI_HP1/HP1_DDR_LOWOCM] SEG1
 create_bd_addr_seg -range 0x20000000 -offset 0x0 [get_bd_addr_spaces axi_dma_2/Data_S2MM] [get_bd_addr_segs processing_system7_1/S_AXI_HP1/HP1_DDR_LOWOCM] SEG2
 create_bd_addr_seg -range 0x20000000 -offset 0x0 [get_bd_addr_spaces axi_dma_3/Data_S2MM] [get_bd_addr_segs processing_system7_1/S_AXI_HP1/HP1_DDR_LOWOCM] SEG1
+create_bd_addr_seg -range 0x20000000 -offset 0x0 [get_bd_addr_spaces axi_dma_4/Data_S2MM] [get_bd_addr_segs processing_system7_1/S_AXI_HP1/HP1_DDR_LOWOCM] SEG1
+
 
