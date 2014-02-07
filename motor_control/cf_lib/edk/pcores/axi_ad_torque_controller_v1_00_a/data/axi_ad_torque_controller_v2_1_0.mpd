@@ -37,12 +37,6 @@ PORT ref_clk    = "", DIR = I, SIGIS = CLK
 
 PORT fmc_m1_fault_i = "", DIR = I
 PORT fmc_m1_en_o    = "", DIR = O
-PORT fmc_m1_in_a_o  = "", DIR = O
-PORT fmc_m1_in_b_o  = "", DIR = O
-PORT fmc_m1_in_c_o  = "", DIR = O
-PORT fmc_m1_en_a_o  = "", DIR = O
-PORT fmc_m1_en_b_o  = "", DIR = O
-PORT fmc_m1_en_c_o  = "", DIR = O
 
 PORT pwm_ah_o= "", DIR = O
 PORT pwm_al_o= "", DIR = O
@@ -51,7 +45,7 @@ PORT pwm_bl_o= "", DIR = O
 PORT pwm_ch_o= "", DIR = O
 PORT pwm_cl_o= "", DIR = O
 
-PORT gpo_o          = "", DIR = O, VEC = [ 10:0 ]
+PORT gpo_o          = "", DIR = O, VEC = [ 7:0 ]
 PORT sensors_o      = "", DIR = O, VEC = [ 1:0 ]
 PORT position_i     = "", DIR = I, VEC = [ 2:0 ]
 PORT speed_i        = "", DIR = I, VEC = [ 31:0 ]
@@ -61,8 +55,7 @@ PORT i_ready_i      = "", DIR = I
 
 ## Monitor Interface
 PORT adc_mon_valid = "", DIR = O
-PORT adc_mon_data = "", DIR = O, VEC = [323:0]
-PORT cntrl_input_i = "", DIR = I, VEC = [145:0]
+PORT adc_mon_data = "", DIR = O, VEC = [31:0]
 
 ## DMA Interface
 PORT s_axis_s2mm_clk = "", DIR = I, SIGIS=CLK, BUS=S_AXIS_S2MM

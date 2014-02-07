@@ -1,9 +1,9 @@
 // ***************************************************************************
 // ***************************************************************************
 // Copyright 2013(c) Analog Devices, Inc.
-// 
+//
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
 //     - Redistributions of source code must retain the above copyright
@@ -28,9 +28,9 @@
 //
 // IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 // EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
-// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+// RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
 // BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ***************************************************************************
 // ***************************************************************************
@@ -48,7 +48,7 @@ module control_registers
     output reg         up_ack,
 //control
     input  [31:0]  err_i,
-    output [10:0]  pwm_open_o,
+    output [31:0]  pwm_open_o,
     output [31:0]  reference_speed_o,
     output [31:0]  kp_o,
     output [31:0]  ki_o,
@@ -99,12 +99,12 @@ assign up_wr_s = up_sel_s & up_wr;
 assign run_o                    = control_r[0];     // Run the motor
 assign break_o                  = control_r[2];     // Activate the Break circuit
 assign star_delta_o             = control_r[4];     // Select between star [0] or delta [1] controller
-assign sensors_o                = control_r[9:8];   // Select between Hall[00] and BEMF[01] sensors 
+assign sensors_o                = control_r[9:8];   // Select between Hall[00] and BEMF[01] sensors
 assign calibrate_adcs_o         = control_r[16];
 assign oloop_matlab_o           = control_r[12];   // Select between open loop control [0] and matlab control [1]
 assign gpo_o                    = control_r[30:20];
 
-assign pwm_open_o               = pwm_open_r[10:0];       // PWM value, for open loop control
+assign pwm_open_o               = pwm_open_r;       // PWM value, for open loop control
 assign reference_speed_o        = reference_speed_r;
 assign kp_o                     = kp_r;
 assign ki_o                     = ki_r;
@@ -117,7 +117,7 @@ assign ki1_o                    = ki1_r;
 
 always @(negedge up_rstn or posedge up_clk)
 begin
-   if (up_rstn == 0) 
+   if (up_rstn == 0)
    begin
        control_r            <= 'h0;
        reference_speed_r    <= 'd1000;
@@ -185,7 +185,7 @@ end
 
 // processor read interface
 //
-always @(negedge up_rstn or posedge up_clk) 
+always @(negedge up_rstn or posedge up_clk)
 begin
     if (up_rstn == 0) begin
         up_ack <= 'd0;
@@ -211,8 +211,8 @@ begin
                 4'hf: up_rdata <= err_i;
                 default: up_rdata <= 0;
             endcase
-        end 
-        else 
+        end
+        else
         begin
             up_rdata <= 32'd0;
         end

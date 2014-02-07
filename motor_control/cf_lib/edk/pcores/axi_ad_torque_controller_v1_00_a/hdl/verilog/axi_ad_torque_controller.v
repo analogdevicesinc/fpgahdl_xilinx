@@ -52,19 +52,13 @@ module axi_ad_torque_controller
 // physical interface
     input           fmc_m1_fault_i,
     output          fmc_m1_en_o,
-    output          fmc_m1_in_a_o,
-    output          fmc_m1_in_b_o,
-    output          fmc_m1_in_c_o,
-    output          fmc_m1_en_a_o,
-    output          fmc_m1_en_b_o,
-    output          fmc_m1_en_c_o,
     output          pwm_ah_o,
     output          pwm_al_o,
     output          pwm_bh_o,
     output          pwm_bl_o,
     output          pwm_ch_o,
     output          pwm_cl_o,
-    output  [10:0]  gpo_o,
+    output  [7:0]   gpo_o,
 
 // interconnection with other modules
     output  [1:0]   sensors_o,
@@ -103,9 +97,8 @@ module axi_ad_torque_controller
     output  [31:0]  s_axi_rdata,
     input           s_axi_rready,
 // debug signals
-    input   [145:0] cntrl_input_i,
     output          adc_mon_valid,
-    output  [323:0] adc_mon_data
+    output  [31:0]  adc_mon_data
 );
 
 //------------------------------------------------------------------------------
@@ -182,26 +175,26 @@ wire    [31:0]  speed_rpm_s;            // speed in RPM from the controller
 
 wire            enable_ref_speed_s;
 wire            enable_actual_speed_s;
-
+wire        [10:0] gpo_s;
 //------------------------------------------------------------------------------
 //----------- Assign/Always Blocks ---------------------------------------------
 //------------------------------------------------------------------------------
 
 // signal name changes
 
-assign up_clk = s_axi_aclk;
-assign up_rstn = s_axi_aresetn;
-assign dma_clk = s_axis_s2mm_clk;
-assign dma_ready_s = s_axis_s2mm_tready;
-assign s_axis_s2mm_tvalid = dma_valid_s;
-assign s_axis_s2mm_tdata  = dma_data_s;
-assign s_axis_s2mm_tlast = dma_last_s;
-assign s_axis_s2mm_tkeep = 4'hf;
+assign up_clk               = s_axi_aclk;
+assign up_rstn              = s_axi_aresetn;
+assign dma_clk              = s_axis_s2mm_clk;
+assign dma_ready_s          = s_axis_s2mm_tready;
+assign s_axis_s2mm_tvalid   = dma_valid_s;
+assign s_axis_s2mm_tdata    = dma_data_s;
+assign s_axis_s2mm_tlast    = dma_last_s;
+assign s_axis_s2mm_tkeep    = 4'hf;
 
 // monitor signals
 
-assign adc_mon_valid = i_ready_i;
-assign adc_mon_data =  32'h0;
+assign adc_mon_valid    = i_ready_i;
+assign adc_mon_data     =  {25'h0 ,fmc_m1_en_o, pwm_ah_o, pwm_al_o, pwm_bh_o, pwm_bl_o, pwm_ch_o, pwm_cl_o};
 
 // multiple instances synchronization
 assign pid_s = 32'd0;
@@ -210,6 +203,7 @@ assign fmc_m1_en_o  = run_s;
 assign pwm_s        = oloop_matlab_s ? pwm_controller_s[10:0] : pwm_open_s ;
 assign position_s   = sensors_o == 2'b01 ? position_start : position_i;
 
+assign gpo_o    = {gpo_s[10:7],gpo_s[3:0]};
 // clock generation for controller
 
 always @(posedge ref_clk)
@@ -297,11 +291,14 @@ end
 
 // processor read interface
 
-always @(negedge up_rstn or posedge up_clk) begin
-    if (up_rstn == 0) begin
+always @(negedge up_rstn or posedge up_clk) 
+begin
+    if (up_rstn == 0)
+    begin
         up_rdata  <= 'd0;
         up_ack    <= 'd0;
-    end else begin
+    end else
+    begin
         up_rdata  <= up_control_rdata_s | up_adc_common_rdata_s | rdata_ref_speed_s | rdata_actual_speed_s ;
         up_ack    <= up_control_ack_s | up_adc_common_ack_s | ack_ref_speed_s | ack_actual_speed_s;
     end
@@ -358,7 +355,7 @@ control_registers control_reg_inst
     .kp1_o (kp1_s),
     .ki1_o (ki1_s),
     .kd1_o (kd1_s),
-    .gpo_o (gpo_o),
+    .gpo_o (gpo_s),
     .reference_speed_o(reference_speed_s),
     .oloop_matlab_o (oloop_matlab_s),
     .err_i (err_s),

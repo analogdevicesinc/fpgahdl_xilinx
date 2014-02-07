@@ -48,15 +48,7 @@
  PORT FMC_VBUS_DAT = axi_adc_interface_0_adc_vbus_dat_i, DIR = I
  PORT FMC_VBUS_CLK = axi_adc_interface_0_adc_vbus_clk_o, DIR = O, SIGIS = CLK
  PORT processing_system7_0_GPIO_pin = processing_system7_0_GPIO, DIR = IO, VEC = [27:0]
- PORT FMC_M_FAULT_pin = axi_ad_torque_controller_0_fmc_m1_fault_i, DIR = I
- PORT FMC_PWM_EN_pin = axi_ad_torque_controller_0_fmc_m1_en_o, DIR = O
  PORT FMC_M1_SENSOR_pin = axi_ad_speed_0_position_i, DIR = I, VEC = [2:0]
- PORT FMC_PWM_CH = axi_ad_torque_controller_0_pwm_ch_o, DIR = O
- PORT FMC_PWM_AH = axi_ad_torque_controller_0_pwm_ah_o, DIR = O
- PORT FMC_PWM_CL = axi_ad_torque_controller_0_pwm_cl_o, DIR = O
- PORT FMC_PWM_AL = axi_ad_torque_controller_0_pwm_al_o, DIR = O
- PORT FMC_PWM_BH = axi_ad_torque_controller_0_pwm_bh_o, DIR = O
- PORT FMC_PWM_BL = axi_ad_torque_controller_0_pwm_bl_o, DIR = O
  PORT axi_xadc_0_VAUXP0_pin = axi_xadc_0_VAUXP0, DIR = I
  PORT axi_xadc_0_VAUXP8_pin = axi_xadc_0_VAUXP8, DIR = I
  PORT axi_xadc_0_VAUXN0_pin = axi_xadc_0_VAUXN0, DIR = I
@@ -79,13 +71,20 @@
  PORT axi_adc_interface_1_adc_it_dat_i_pin = axi_adc_interface_1_adc_it_dat_i, DIR = I
  PORT axi_adc_interface_1_adc_ib_dat_i_pin = axi_adc_interface_1_adc_ib_dat_i, DIR = I
  PORT axi_adc_interface_1_adc_ia_dat_i_pin = axi_adc_interface_1_adc_ia_dat_i, DIR = I
- PORT GPOL = gpo_low_o, DIR = O, VEC = [3:0]
- PORT GPOH = gpo_high_o, DIR = O, VEC = [3:0]
+ PORT GPO = controller_gpo_o, DIR = O, VEC = [7:0]
  PORT hdmi_data = axi_hdmi_tx_0_hdmi_16_data, DIR = O, VEC = [15:0]
  PORT hdmi_data_e = axi_hdmi_tx_0_hdmi_16_data_e, DIR = O
  PORT hdmi_clk = axi_hdmi_tx_0_hdmi_out_clk, DIR = O, SIGIS = CLK
  PORT hdmi_vsync = axi_hdmi_tx_0_hdmi_16_vsync, DIR = O
  PORT hdmi_hsync = axi_hdmi_tx_0_hdmi_16_hsync, DIR = O
+ PORT FMC_PWM_AL = controller_pwm_al_o, DIR = O
+ PORT FMC_PWM_CL = controller_pwm_cl_o, DIR = O
+ PORT FMC_PWM_CH = controller_pwm_ch_o, DIR = O
+ PORT FMC_PWM_BH = controller_pwm_bh_o, DIR = O
+ PORT FMC_PWM_AH = controller_pwm_ah_o, DIR = O
+ PORT FMC_PWM_BL = controller_pwm_bl_o, DIR = O
+ PORT FMC_PWM_EN_pin = controller_fmc_m1_en_o, DIR = O
+ PORT FMC_M_FAULT_pin = axi_adv_controller_0_fmc_m1_fault_i, DIR = I
 
 
 BEGIN processing_system7
@@ -138,8 +137,8 @@ BEGIN processing_system7
  PARAMETER C_EN_DDR = 1
  PARAMETER C_FCLK_CLK0_FREQ = 100000000
  PARAMETER C_FCLK_CLK1_FREQ = 200000000
- PARAMETER C_FCLK_CLK2_FREQ = 200000000
- PARAMETER C_FCLK_CLK3_FREQ = 40000000
+ PARAMETER C_FCLK_CLK2_FREQ = 40000000
+ PARAMETER C_FCLK_CLK3_FREQ = 50000000
  PARAMETER C_USE_M_AXI_GP0 = 1
  PARAMETER C_USE_S_AXI_HP0 = 1
  PARAMETER C_USE_S_AXI_HP2 = 0
@@ -152,16 +151,18 @@ BEGIN processing_system7
  PARAMETER C_USE_DMA0 = 1
  PARAMETER C_USE_DMA1 = 1
  PARAMETER C_USE_DMA2 = 1
- PARAMETER C_NUM_F2P_INTR_INPUTS = 14
+ PARAMETER C_NUM_F2P_INTR_INPUTS = 8
  PARAMETER C_USE_S_AXI_HP1 = 1
  PARAMETER C_S_AXI_HP1_DATA_WIDTH = 64
- PARAMETER C_INTERCONNECT_S_AXI_HP1_MASTERS = axi_dma_0.M_AXI_S2MM & axi_dma_1.M_AXI_S2MM & axi_dma_2.M_AXI_S2MM & axi_dma_3.M_AXI_S2MM
+ PARAMETER C_INTERCONNECT_S_AXI_HP1_MASTERS = axi_dma_0.M_AXI_S2MM & axi_dma_1.M_AXI_S2MM & axi_dma_2.M_AXI_S2MM & axi_dma_3.M_AXI_S2MM & axi_dma_4.M_AXI_S2MM
  PARAMETER C_USE_DMA3 = 0
+ PARAMETER C_USE_M_AXI_GP1 = 1
  PARAMETER C_EN_EMIO_GPIO = 1
  PARAMETER C_EMIO_GPIO_WIDTH = 28
  BUS_INTERFACE M_AXI_GP0 = axi_interconnect_1
  BUS_INTERFACE S_AXI_HP0 = axi_interconnect_2
  BUS_INTERFACE S_AXI_HP1 = axi_interconnect_3
+ BUS_INTERFACE M_AXI_GP1 = axi_interconnect_4
  PORT MIO = processing_system7_0_MIO
  PORT PS_SRSTB = processing_system7_0_PS_SRSTB
  PORT PS_CLK = processing_system7_0_PS_CLK
@@ -185,12 +186,11 @@ BEGIN processing_system7
  PORT DDR_VRP = processing_system7_0_DDR_VRP
  PORT FCLK_CLK0 = processing_system7_0_FCLK_CLK0
  PORT FCLK_CLK1 = processing_system7_0_FCLK_CLK1
- PORT FCLK_CLK2 = processing_system7_0_FCLK_CLK2
  PORT FCLK_RESET0_N = processing_system7_0_FCLK_RESET0_N
  PORT FCLK_RESET1_N = processing_system7_0_FCLK_RESET1_N
  PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
  PORT S_AXI_HP0_ACLK = processing_system7_0_FCLK_CLK0
- PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_dma_0_s2mm_introut & axi_dma_1_s2mm_introut & axi_dma_2_s2mm_introut & axi_dma_3_s2mm_introut
+ PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_dma_0_s2mm_introut & axi_dma_1_s2mm_introut & axi_dma_2_s2mm_introut & axi_dma_3_s2mm_introut & axi_dma_4_s2mm_introut
  PORT USB0_VBUS_PWRFAULT = util_vector_logic_0_Res
  PORT DMA0_ACLK = processing_system7_0_FCLK_CLK0
  PORT DMA0_RSTN = processing_system7_0_DMA0_RSTN
@@ -240,7 +240,7 @@ BEGIN processing_system7
  PORT ENET1_MDIO_T = processing_system7_0_ENET1_MDIO_T
  PORT ENET1_MDIO_O = processing_system7_0_ENET1_MDIO_O
  PORT ENET1_MDIO_MDC = processing_system7_0_ENET1_MDIO_MDC
- PORT FCLK_CLK3 = processing_system7_0_FCLK_CLK3
+ PORT M_AXI_GP1_ACLK = processing_system7_0_FCLK_CLK0
 END
 
 BEGIN axi_vdma
@@ -430,6 +430,8 @@ BEGIN axi_adc_interface
  PORT adc_vbus_clk_o = axi_adc_interface_0_adc_vbus_clk_o
  PORT adc_mon_valid = axi_adc_interface_0_adc_mon_valid
  PORT adc_mon_data = axi_adc_interface_0_adc_mon_data
+ PORT ia_o = axi_adc_interface_0_ia_o
+ PORT ib_o = axi_adc_interface_0_ib_o
  PORT it_o = axi_adc_interface_0_it_o
  PORT i_ready_o = axi_adc_interface_0_i_ready_o
 END
@@ -460,13 +462,13 @@ BEGIN axi_ad_speed
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT ref_clk = processing_system7_0_FCLK_CLK0
  PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK0
- PORT hall_bemf_i = axi_ad_speed_0_hall_bemf_i_0
- PORT new_speed_o = axi_ad_speed_0_new_speed_o
- PORT speed_o = axi_ad_speed_0_speed_o
  PORT position_i = axi_ad_speed_0_position_i
- PORT position_o = axi_ad_speed_0_position_o
  PORT adc_mon_valid = axi_ad_speed_0_adc_mon_valid
  PORT adc_mon_data = axi_ad_speed_0_adc_mon_data
+ PORT hall_bemf_i = axi_ad_speed_0_hall_bemf_i
+ PORT new_speed_o = axi_ad_speed_0_new_speed_o
+ PORT position_o = axi_ad_speed_0_position_o
+ PORT speed_o = axi_ad_speed_0_speed_o
 END
 
 BEGIN axi_dma
@@ -483,7 +485,7 @@ BEGIN axi_dma
  PARAMETER C_HIGHADDR = 0x4044ffff
  BUS_INTERFACE S_AXI_LITE = axi_interconnect_1
  BUS_INTERFACE M_AXI_S2MM = axi_interconnect_3
- BUS_INTERFACE S_AXIS_S2MM = axi_ad_torque_controller_0_S_AXIS_S2MM
+ BUS_INTERFACE S_AXIS_S2MM = axi_adv_controller_0_S_AXIS_S2MM
  PORT m_axi_s2mm_aclk = processing_system7_0_FCLK_CLK0
  PORT s_axi_lite_aclk = processing_system7_0_FCLK_CLK0
  PORT mm2s_introut = axi_dma_1_mm2s_introut
@@ -535,39 +537,12 @@ BEGIN axi_dma
  PORT s2mm_introut = axi_dma_2_s2mm_introut
 END
 
-BEGIN axi_ad_torque_controller
- PARAMETER INSTANCE = axi_ad_torque_controller_0
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_BASEADDR = 0x40540000
- PARAMETER C_HIGHADDR = 0x4054ffff
- BUS_INTERFACE S_AXI = axi_interconnect_1
- BUS_INTERFACE S_AXIS_S2MM = axi_ad_torque_controller_0_S_AXIS_S2MM
- PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
- PORT ref_clk = processing_system7_0_FCLK_CLK0
- PORT fmc_m1_fault_i = axi_ad_torque_controller_0_fmc_m1_fault_i
- PORT fmc_m1_en_o = axi_ad_torque_controller_0_fmc_m1_en_o
- PORT sensors_o = axi_ad_speed_0_hall_bemf_i_0
- PORT position_i = axi_ad_speed_0_position_o
- PORT speed_i = axi_ad_speed_0_speed_o
- PORT new_speed_i = axi_ad_speed_0_new_speed_o
- PORT it_i = axi_adc_interface_0_it_o
- PORT i_ready_i = axi_adc_interface_0_i_ready_o
- PORT pwm_ch_o = axi_ad_torque_controller_0_pwm_ch_o
- PORT pwm_ah_o = axi_ad_torque_controller_0_pwm_ah_o
- PORT pwm_cl_o = axi_ad_torque_controller_0_pwm_cl_o
- PORT pwm_al_o = axi_ad_torque_controller_0_pwm_al_o
- PORT pwm_bh_o = axi_ad_torque_controller_0_pwm_bh_o
- PORT pwm_bl_o = axi_ad_torque_controller_0_pwm_bl_o
- PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK0
- PORT gpo_o = gpo_high_o & 0b000 &gpo_low_o
-END
-
 BEGIN axi_xadc
  PARAMETER INSTANCE = axi_xadc_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_INCLUDE_INTR = 0
  PARAMETER C_BASEADDR = 0x43200000
- PARAMETER C_HIGHADDR = 0x4320FFFF
+ PARAMETER C_HIGHADDR = 0x4320ffff
  BUS_INTERFACE S_AXI = axi_interconnect_1
  PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
  PORT VAUXP = 0b0000000 & axi_xadc_0_VAUXP8 & 0b0000000 & axi_xadc_0_VAUXP0
@@ -659,8 +634,8 @@ END
 BEGIN axi_hdmi_tx
  PARAMETER INSTANCE = axi_hdmi_tx_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_BASEADDR = 0x70E00000
- PARAMETER C_HIGHADDR = 0x70E0FFFF
+ PARAMETER C_BASEADDR = 0x70e00000
+ PARAMETER C_HIGHADDR = 0x70e0ffff
  BUS_INTERFACE M_AXIS_MM2S = axi_vdma_0_M_AXIS_MM2S
  BUS_INTERFACE S_AXI = axi_interconnect_1
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
@@ -685,5 +660,113 @@ BEGIN axi_clkgen
  PORT clk = processing_system7_0_FCLK_CLK1
  PORT clk_0 = axi_hdmi_tx_0_hdmi_clk
  PORT drp_clk = processing_system7_0_FCLK_CLK0
+END
+
+BEGIN axi_adv_controller
+ PARAMETER INSTANCE = axi_adv_controller_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x40540000
+ PARAMETER C_HIGHADDR = 0x4054ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_1
+ BUS_INTERFACE S_AXIS_S2MM = axi_adv_controller_0_S_AXIS_S2MM
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT ia_i = axi_adc_interface_0_ia_o
+ PORT new_speed_i = axi_ad_speed_0_new_speed_o
+ PORT speed_i = axi_ad_speed_0_speed_o
+ PORT ib_i = axi_adc_interface_0_ib_o
+ PORT position_i = axi_ad_speed_0_position_o
+ PORT ref_clk = processing_system7_0_FCLK_CLK0
+ PORT i_ready_i = axi_adc_interface_0_i_ready_o
+ PORT pwm_ch_o = axi_adv_controller_0_pwm_ch_o
+ PORT fmc_m1_en_o = axi_adv_controller_0_fmc_m1_en_o
+ PORT fmc_m1_fault_i = axi_adv_controller_0_fmc_m1_fault_i
+ PORT pwm_bh_o = axi_adv_controller_0_pwm_bh_o
+ PORT pwm_cl_o = axi_adv_controller_0_pwm_cl_o
+ PORT pwm_bl_o = axi_adv_controller_0_pwm_bl_o
+ PORT pwm_al_o = axi_adv_controller_0_pwm_al_o
+ PORT pwm_ah_o = axi_adv_controller_0_pwm_ah_o
+ PORT gpo_o = axi_adv_controller_0_gpo_o
+ PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK0
+END
+
+BEGIN axi_ad_torque_controller
+ PARAMETER INSTANCE = axi_ad_torque_controller_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x80500000
+ PARAMETER C_HIGHADDR = 0x8050FFFF
+ BUS_INTERFACE S_AXI = axi_interconnect_4
+ BUS_INTERFACE S_AXIS_S2MM = axi_ad_torque_controller_0_S_AXIS_S2MM
+ PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
+ PORT s_axis_s2mm_clk = processing_system7_0_FCLK_CLK0
+ PORT ref_clk = processing_system7_0_FCLK_CLK0
+ PORT pwm_ah_o = axi_ad_torque_controller_0_pwm_ah_o
+ PORT i_ready_i = axi_adc_interface_0_i_ready_o
+ PORT sensors_o = axi_ad_speed_0_hall_bemf_i
+ PORT it_i = axi_adc_interface_0_it_o
+ PORT pwm_bh_o = axi_ad_torque_controller_0_pwm_bh_o
+ PORT pwm_ch_o = axi_ad_torque_controller_0_pwm_ch_o
+ PORT pwm_al_o = axi_ad_torque_controller_0_pwm_al_o
+ PORT speed_i = axi_ad_speed_0_speed_o
+ PORT pwm_cl_o = axi_ad_torque_controller_0_pwm_cl_o
+ PORT gpo_o = axi_ad_torque_controller_0_gpo_o
+ PORT new_speed_i = axi_ad_speed_0_new_speed_o
+ PORT pwm_bl_o = axi_ad_torque_controller_0_pwm_bl_o
+ PORT position_i = axi_ad_speed_0_position_o
+ PORT fmc_m1_fault_i = axi_adv_controller_0_fmc_m1_fault_i
+ PORT fmc_m1_en_o = axi_ad_torque_controller_0_fmc_m1_en_o
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_4
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK0
+ PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET0_N
+END
+
+BEGIN axi_dma
+ PARAMETER INSTANCE = axi_dma_4
+ PARAMETER HW_VER = 6.03.a
+ PARAMETER C_INCLUDE_SG = 0
+ PARAMETER C_SG_LENGTH_WIDTH = 23
+ PARAMETER C_INCLUDE_MM2S = 0
+ PARAMETER C_BASEADDR = 0x80400000
+ PARAMETER C_HIGHADDR = 0x8040FFFF
+ BUS_INTERFACE S_AXI_LITE = axi_interconnect_4
+ BUS_INTERFACE S_AXIS_S2MM = axi_ad_torque_controller_0_S_AXIS_S2MM
+ BUS_INTERFACE M_AXI_S2MM = axi_interconnect_3
+ PORT m_axi_s2mm_aclk = processing_system7_0_FCLK_CLK0
+ PORT s_axi_lite_aclk = processing_system7_0_FCLK_CLK0
+ PORT mm2s_introut = axi_dma_4_mm2s_introut
+ PORT s2mm_introut = axi_dma_4_s2mm_introut
+END
+
+BEGIN util_multiplexer
+ PARAMETER INSTANCE = util_multiplexer_0
+ PARAMETER HW_VER = 1.00.a
+ PORT pwm_al_0_i = axi_adv_controller_0_pwm_al_o
+ PORT pwm_ah_0_i = axi_adv_controller_0_pwm_ah_o
+ PORT pwm_cl_0_i = axi_adv_controller_0_pwm_cl_o
+ PORT pwm_bh_0_i = axi_adv_controller_0_pwm_bh_o
+ PORT pwm_ch_0_i = axi_adv_controller_0_pwm_ch_o
+ PORT pwm_ah_1_i = axi_ad_torque_controller_0_pwm_ah_o
+ PORT pwm_al_1_i = axi_ad_torque_controller_0_pwm_al_o
+ PORT pwm_bl_1_i = axi_ad_torque_controller_0_pwm_bl_o
+ PORT pwm_bh_1_i = axi_ad_torque_controller_0_pwm_bh_o
+ PORT pwm_ch_1_i = axi_ad_torque_controller_0_pwm_ch_o
+ PORT pwm_cl_1_i = axi_ad_torque_controller_0_pwm_cl_o
+ PORT fmc_en_0_i = axi_adv_controller_0_fmc_m1_en_o
+ PORT fmc_en_1_i = axi_ad_torque_controller_0_fmc_m1_en_o
+ PORT gpo_0_i = axi_adv_controller_0_gpo_o
+ PORT gpo_1_i = axi_ad_torque_controller_0_gpo_o
+ PORT pwm_ah_o = controller_pwm_ah_o
+ PORT pwm_al_o = controller_pwm_al_o
+ PORT pwm_bh_o = controller_pwm_bh_o
+ PORT pwm_bl_o = controller_pwm_bl_o
+ PORT pwm_ch_o = controller_pwm_ch_o
+ PORT pwm_cl_o = controller_pwm_cl_o
+ PORT fmc_en_o = controller_fmc_m1_en_o
+ PORT gpo_o = controller_gpo_o
+ PORT pwm_bl_0_i = axi_adv_controller_0_pwm_bl_o
 END
 

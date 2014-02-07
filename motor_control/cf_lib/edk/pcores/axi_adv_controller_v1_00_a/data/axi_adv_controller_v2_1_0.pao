@@ -9,9 +9,6 @@ lib adi_common_v1_00_a axis_inf verilog
 lib adi_common_v1_00_a dma_core verilog
 lib adi_common_v1_00_a up_axi verilog
 lib adi_common_v1_00_a up_adc_common verilog
-lib axi_adv_controller_v1_00_a motor_driver verilog
-lib axi_adv_controller_v1_00_a control_registers verilog
-lib axi_adv_controller_v1_00_a oloop_start verilog
+lib axi_adv_controller_v1_00_a control_registers_adv verilog
 lib axi_adv_controller_v1_00_a controllerPeripheralHdlAdi_bb verilog
-lib axi_adv_controller_v1_00_a encoder_stub verilog
 lib axi_adv_controller_v1_00_a axi_adv_controller verilog
