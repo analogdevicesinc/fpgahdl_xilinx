@@ -131,7 +131,7 @@
 			};
 		};
 
-		ad-mc-adc@40500000 {
+		ad-mc-adc-ctrl@40500000 {
 			compatible = "xlnx,axi-ad-mc-adc-1.00.a";
 			reg = <0x40500000 0x1000>;
 			dmas = <0xb 0x0>;
@@ -206,7 +206,7 @@
 			};
 		};
 
-		ad-mc-adc-2@405c0000 {
+		ad-mc-adc-lpd@405c0000 {
 			compatible = "xlnx,axi-ad-mc-adc-1.00.a";
 			reg = <0x405c0000 0x1000>;
 			dmas = <0xe 0x0>;
