@@ -5,10 +5,13 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="sim" num="991" delta="new" >The project IP instance &apos;<arg fmt="%s" index="1">chipscope_ila2</arg>&apos; for IP &apos;<arg fmt="%s" index="2">ILA (ChipScope Pro - Integrated Logic Analyzer) v1.05.a</arg>&apos; was generated with a different version of the IP than is currently in the IP Catalog. It was originally generated using IP with the packaged timestamp &apos;<arg fmt="%s" index="3">2012-12-18+02:47</arg>&apos;; the IP in the current catalog has a different packaged timestamp &apos;<arg fmt="%s" index="4">2013-06-08+17:29</arg>&apos;. This mismatch is due to changes made to the IP in the user repositories. It may affect some functionality of the IP, if there are differences between these two versions of the IP.
+</msg>
+
 <msg type="info" file="sim" num="172" delta="old" >Generating IP...
 </msg>
 
-<msg type="warning" file="sim" num="89" delta="new" >A core named &lt;<arg fmt="%s" index="1">chipscope_ila</arg>&gt; already exists in the output directory. Output products for this core may be overwritten.
+<msg type="warning" file="sim" num="89" delta="new" >A core named &lt;<arg fmt="%s" index="1">chipscope_ila2</arg>&gt; already exists in the output directory. Output products for this core may be overwritten.
 </msg>
 
 <msg type="info" file="sim" num="949" delta="old" >Finished generation of ASY schematic symbol.

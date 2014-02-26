@@ -38,29 +38,13 @@
 // MODULE NAME : freq_divider
 // AUTHOR : ACostina
 // AUTHOR’S EMAIL : adrian.costina@analog.com
-// -----------------------------------------------------------------------------
-// SVN REVISION: $WCREV$
-// -----------------------------------------------------------------------------
-// KEYWORDS :
-// -----------------------------------------------------------------------------
-// PURPOSE : Clock divider, with 50% duty cycle
-// -----------------------------------------------------------------------------
-// REUSE ISSUES
-// Reset Strategy      :
-// Clock Domains       :
-// Critical Timing     :
-// Test Features       :
-// Asynchronous I/F    :
-// Instantiations      :
-// Synthesizable (y/n) :
-// Target Device       :
-// Other               :
+//
 // -----------------------------------------------------------------------------
 
 `timescale 1ns / 1ps
 
 module freq_divider
-//----------- Paramters Declarations -------------------------------------------
+//----------- Parameters Declarations -------------------------------------------
 #(
     DIVIDE_BY   = 10
 )

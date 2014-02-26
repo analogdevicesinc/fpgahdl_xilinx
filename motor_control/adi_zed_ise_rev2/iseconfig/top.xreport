@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2013-12-05T17:18:49</DateModified>
+  <DateModified>2014-02-26T16:33:08</DateModified>
   <ModuleName>top</ModuleName>
   <SummaryTimeStamp>2013-12-05T16:56:15</SummaryTimeStamp>
-  <SavedFilePath>D:/AD/AnalogSVN/MotorControl_rev2/FPGA_Projects/adi_zed_ise_rev2/iseconfig/top.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>D:/AD/AnalogSVN/MotorControl_rev2/FPGA_Projects/adi_zed_ise_rev2\</ImplementationReportsDirectory>
+  <SavedFilePath>D:/GIT/fpgahdl_xilinx/motor_control/adi_zed_ise_rev2/iseconfig/top.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>D:/GIT/fpgahdl_xilinx/motor_control/adi_zed_ise_rev2\</ImplementationReportsDirectory>
   <DateInitialized>2013-02-26T09:11:05</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

@@ -38,25 +38,7 @@
 // MODULE NAME : AD7401
 // AUTHOR : acostina
 // AUTHOR’S EMAIL : adrian.costina@analog.com
-// -----------------------------------------------------------------------------
-// SVN REVISION: $WCREV$
-// -----------------------------------------------------------------------------
-// KEYWORDS : AD7401
-// -----------------------------------------------------------------------------
-// PURPOSE : Driver for the AD7401
-// -----------------------------------------------------------------------------
-// REUSE ISSUES
-// Reset Strategy      : Active low reset signal
-// Clock Domains       : The design considered an 100 MHz input clock for
-// fpga_clk_i and 20MHz clock from ADC_CLK_I pin
-// Critical Timing     : N/A
-// Test Features       : N/A
-// Asynchronous I/F    : N/A
-// Instantiations      : N/A
-// Synthesizable (y/n) : Y
-// Target Device       : AD7401
-// Other               : 
-// -----------------------------------------------------------------------------
+//
 // -----------------------------------------------------------------------------
 
 `timescale 1 ns / 100 ps //Use a timescale that is best for simulation.
@@ -117,7 +99,7 @@ localparam WAIT_DATA_RDY_LOW_STATE  = 5'b10000;
 //------------------------------------------------------------------------------
 //----------- Assign/Always Blocks ---------------------------------------------
 //------------------------------------------------------------------------------
-assign adc_mclkin_o             = adc_clk_i;                        // use clock signal for driver and for ADC
+assign adc_mclkin_o = adc_clk_i; // use clock signal for driver and for ADC
 
 always @(posedge fpga_clk_i )   // synchronize data on fpga_clk_i
 begin

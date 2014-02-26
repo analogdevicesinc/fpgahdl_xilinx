@@ -1,33 +1,45 @@
 ----------------------------------------------------------------------------------
--- Company:
--- Engineer:
+-- Copyright 2014(c) Analog Devices, Inc.
 --
--- Create Date:    15:34:00 02/25/2013
--- Design Name:
--- Module Name:    top - Behavioral
--- Project Name:
--- Target Devices:
--- Tool versions:
--- Description:
+-- All rights reserved.
 --
--- Dependencies:
+-- Redistribution and use in source and binary forms, with or without modification,
+-- are permitted provided that the following conditions are met:
+--  - Redistributions of source code must retain the above copyright
+--    notice, this list of conditions and the following disclaimer.
+--  - Redistributions in binary form must reproduce the above copyright
+--    notice, this list of conditions and the following disclaimer in
+--    the documentation and/or other materials provided with the
+--    distribution.
+--  - Neither the name of Analog Devices, Inc. nor the names of its
+--    contributors may be used to endorse or promote products derived
+--    from this software without specific prior written permission.
+--  - The use of this software may or may not infringe the patent rights
+--    of one or more patent holders.  This license does not release you
+--    from the requirement that you obtain separate licenses from these
+--    patent holders to use this software.
+--  - Use of the software either in source or binary form, must be run
+--    on or directly connected to an Analog Devices Inc. component.
 --
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
+-- THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED
+-- WARRANTIES, INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY
+-- AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+-- IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+-- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+-- INTELLECTUAL PROPERTY RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+-- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+-- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+-- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+-- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --
+-- -----------------------------------------------------------------------------
+-- FILE NAME :  top.vhd
+-- MODULE NAME : top
+-- AUTHOR : acozma
+-- AUTHOR'S EMAIL : andrei.cozma@analog.com
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity top is
 port
@@ -42,9 +54,6 @@ port
     FMC_PWM_CH          : out std_logic;
     FMC_PWM_CL          : out std_logic;
     FMC_M1_SENSOR       : in std_logic_vector(2 downto 0);
-    FMC_M1_BEMF_A       : in std_logic;
-    FMC_M1_BEMF_B       : in std_logic;
-    FMC_M1_BEMF_C       : in std_logic;    
 	FMC_IA_CLK    		: inout std_logic;
     FMC_IB_CLK    		: inout std_logic;
     FMC_IT_CLK    		: inout std_logic;    
@@ -74,7 +83,8 @@ architecture Structural of top is
     signal trigb                        : STD_LOGIC_VECTOR(0 DOWNTO 0);
     signal run_motor_s                  : STD_LOGIC;
     signal star_delta_s                 : STD_LOGIC;
-    signal position_s                   : STD_LOGIC_VECTOR(2 downto 0);
+    signal dir_s                 		: STD_LOGIC;
+	signal position_s                   : STD_LOGIC_VECTOR(2 downto 0);
     signal pwm_reg_s                    : STD_LOGIC_VECTOR(31 downto 0);
     signal pwm_sig_s                    : STD_LOGIC_VECTOR(31 downto 0);
     signal motor_speed_s                : STD_LOGIC_VECTOR(31 downto 0);
@@ -117,15 +127,6 @@ architecture Structural of top is
     signal motor_ds_ib_drv_s            : STD_LOGIC;
     signal motor_ds_it_drv_s            : STD_LOGIC;
 
-----------------------------------------------------------------------------------
-------------SELECT HERE BETWEEN AD7400 AND AD7401---------------------------------
-----------------------------------------------------------------------------------
--- For AD7401, the variable should be 7401. Else, the project will be compiled for AD7400
-    shared variable adc_type_var               : integer := 7401;
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-
     component chipscope_icon
     PORT (
         CONTROL0 : INOUT STD_LOGIC_VECTOR(35 DOWNTO 0);
@@ -152,7 +153,7 @@ architecture Structural of top is
     PORT (
 		CONTROL : INOUT STD_LOGIC_VECTOR(35 DOWNTO 0);
 		CLK     : IN STD_LOGIC;
-		DATA    : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+		DATA    : IN STD_LOGIC_VECTOR(34 DOWNTO 0);
 		TRIG0   : IN STD_LOGIC_VECTOR(0 TO 0));
     end component;
 	
@@ -181,6 +182,7 @@ architecture Structural of top is
         rst_n_i     : in std_logic;
         run_i       : in std_logic;
         star_delta_i: in std_logic;
+		dir_i		: in std_logic;
         position_i  : in std_logic_vector(2 downto 0);
         pwm_duty_i  : in std_logic_vector(PWM_BITS-1 downto 0);
         AH_o      : out std_logic;
@@ -270,8 +272,9 @@ begin
     pwm_reg_s                   <= vio_out_s(31 downto 0);
     run_motor_s                 <= vio_out_s(32);
     star_delta_s                <= vio_out_s(33);
-	GPO(10 downto 7)			<= vio_out_s(37 downto 34);
-	GPO(3 downto 0)				<= vio_out_s(41 downto 38);
+	dir_s						<= vio_out_s(34);
+	GPO(10 downto 7)			<= vio_out_s(38 downto 35);
+	GPO(3 downto 0)				<= vio_out_s(42 downto 39);
 
     pwm_sig_s <= pwm_reg_s;
 
@@ -305,7 +308,7 @@ begin
 	(
 		CONTROL => CONTROL2_s,
 		CLK => CLK_IN_100MHZ,
-		DATA => motor_speed_s,
+		DATA => position_s & motor_speed_s,
 		TRIG0 => triga
 	);
 
@@ -333,7 +336,8 @@ begin
         rst_n_i     => ipif_Bus2IP_Resetn,
         run_i       => run_motor_s,
         star_delta_i=> star_delta_s,
-        position_i  => position_s,
+        dir_i		=> dir_s,
+		position_i  => position_s,
         pwm_duty_i  => pwm_sig_s(10 downto 0),
         AH_o      => motor_in_a_s,
         BH_o      => motor_in_b_s,
@@ -410,98 +414,96 @@ begin
         speed_o     => motor_speed_s
     );
 
-    AD7401:if (adc_type_var=7401) generate
-    begin
-        current_sensor_ia: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_ia_s,
-            data_rd_ready_o => current_sense_ia_data_ready_s,
-            adc_mdata_i     => motor_ds_ia_s,
-            adc_mclkin_o    => motor_clockout_ia_s
-        );
 
-        current_sensor_ib: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_ib_s,
-            data_rd_ready_o => current_sense_ib_data_ready_s,
-            adc_mdata_i     => motor_ds_ib_s,
-            adc_mclkin_o    => motor_clockout_ib_s
-        );
-        current_sensor_it: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_it_s,
-            data_rd_ready_o => current_sense_it_data_ready_s,
-            adc_mdata_i     => motor_ds_it_s,
-            adc_mclkin_o    => motor_clockout_it_s
-        );
+	current_sensor_ia: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_ia_s,
+		data_rd_ready_o => current_sense_ia_data_ready_s,
+		adc_mdata_i     => motor_ds_ia_s,
+		adc_mclkin_o    => motor_clockout_ia_s
+	);
 
-        current_sensor_vb: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_vb_s,
-            data_rd_ready_o => current_sense_vb_data_ready_s,
-            adc_mdata_i     => FMC_VBUS_DAT,
-            adc_mclkin_o    => FMC_VBUS_CLK
-        );
-        FMC_IA_CLK <= motor_clockout_ia_s;
-        FMC_IB_CLK <= motor_clockout_ib_s;
-        FMC_IT_CLK <= motor_clockout_it_s;
-		  
-		current_sensor_ia_drv: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_ia_drv_s,
-            data_rd_ready_o => current_sense_ia_drv_data_ready_s,
-            adc_mdata_i     => motor_ds_ia_drv_s,
-            adc_mclkin_o    => motor_clockout_ia_drv_s
-        );
+	current_sensor_ib: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_ib_s,
+		data_rd_ready_o => current_sense_ib_data_ready_s,
+		adc_mdata_i     => motor_ds_ib_s,
+		adc_mclkin_o    => motor_clockout_ib_s
+	);
+	current_sensor_it: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_it_s,
+		data_rd_ready_o => current_sense_it_data_ready_s,
+		adc_mdata_i     => motor_ds_it_s,
+		adc_mclkin_o    => motor_clockout_it_s
+	);
 
-        current_sensor_ib_drv: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_ib_drv_s,
-            data_rd_ready_o => current_sense_ib_drv_data_ready_s,
-            adc_mdata_i     => motor_ds_ib_drv_s,
-            adc_mclkin_o    => motor_clockout_ib_drv_s
-        );
-        current_sensor_it_drv: ad7401_c2
-        port map
-        (
-            fpga_clk_i      => CLK_IN_10MHZ,
-            adc_clk_i       => CLK_IN_10MHZ,
-            reset_n_i       => ipif_Bus2IP_Resetn,
-            data_o          => current_sense_it_drv_s,
-            data_rd_ready_o => current_sense_it_drv_data_ready_s,
-            adc_mdata_i     => motor_ds_it_drv_s,
-            adc_mclkin_o    => motor_clockout_it_drv_s
-        );
+	current_sensor_vb: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_vb_s,
+		data_rd_ready_o => current_sense_vb_data_ready_s,
+		adc_mdata_i     => FMC_VBUS_DAT,
+		adc_mclkin_o    => FMC_VBUS_CLK
+	);
+	FMC_IA_CLK <= motor_clockout_ia_s;
+	FMC_IB_CLK <= motor_clockout_ib_s;
+	FMC_IT_CLK <= motor_clockout_it_s;
+	  
+	current_sensor_ia_drv: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_ia_drv_s,
+		data_rd_ready_o => current_sense_ia_drv_data_ready_s,
+		adc_mdata_i     => motor_ds_ia_drv_s,
+		adc_mclkin_o    => motor_clockout_ia_drv_s
+	);
+
+	current_sensor_ib_drv: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_ib_drv_s,
+		data_rd_ready_o => current_sense_ib_drv_data_ready_s,
+		adc_mdata_i     => motor_ds_ib_drv_s,
+		adc_mclkin_o    => motor_clockout_ib_drv_s
+	);
+	current_sensor_it_drv: ad7401_c2
+	port map
+	(
+		fpga_clk_i      => CLK_IN_10MHZ,
+		adc_clk_i       => CLK_IN_10MHZ,
+		reset_n_i       => ipif_Bus2IP_Resetn,
+		data_o          => current_sense_it_drv_s,
+		data_rd_ready_o => current_sense_it_drv_data_ready_s,
+		adc_mdata_i     => motor_ds_it_drv_s,
+		adc_mclkin_o    => motor_clockout_it_drv_s
+	);
+	  
+	GPO(4) <= motor_clockout_ia_drv_s;
+	GPO(5) <= motor_clockout_ib_drv_s;
+	GPO(6) <= motor_clockout_it_drv_s;
 		  
-		GPO(4) <= motor_clockout_ia_drv_s;
-        GPO(5) <= motor_clockout_ib_drv_s;
-        GPO(6) <= motor_clockout_it_drv_s;
-		  
-    end generate AD7401;
 
     FMC_PWM_AH         <= motor_in_a_s;
     FMC_PWM_BH         <= motor_in_b_s;

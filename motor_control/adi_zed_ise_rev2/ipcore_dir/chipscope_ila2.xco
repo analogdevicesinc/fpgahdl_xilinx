@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 14.4
-# Date: Thu Dec 05 14:20:23 2013
+# Xilinx Core Generator version 14.6
+# Date: Wed Feb 26 15:43:42 2014
 #
 ##############################################################
 #
@@ -58,7 +58,7 @@ CSET counter_width_6=Disabled
 CSET counter_width_7=Disabled
 CSET counter_width_8=Disabled
 CSET counter_width_9=Disabled
-CSET data_port_width=32
+CSET data_port_width=35
 CSET data_same_as_trigger=false
 CSET disable_save_keep=false
 CSET enable_storage_qualification=true
@@ -135,7 +135,7 @@ CSET trigger_port_width_9=8
 CSET use_rpms=false
 # END Parameters
 # BEGIN Extra information
-MISC pkg_timestamp=2012-12-18T02:47:40Z
+MISC pkg_timestamp=2013-06-08T17:29:07Z
 # END Extra information
 GENERATE
-# CRC: fd31164d
+# CRC:  f1c5906

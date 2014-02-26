@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 //
-// Copyright 2013(c) Analog Devices, Inc.
+// Copyright 2014(c) Analog Devices, Inc.
 //
 // All rights reserved.
 //
@@ -38,29 +38,13 @@
 // MODULE NAME : speed_detector
 // AUTHOR : ACostina
 // AUTHOR’S EMAIL : adrian.costina@analog.com
-// -----------------------------------------------------------------------------
-// SVN REVISION: $WCREV$
-// -----------------------------------------------------------------------------
-// KEYWORDS :
-// -----------------------------------------------------------------------------
-// PURPOSE : Detects the speed of rotation of a motor
-// -----------------------------------------------------------------------------
-// REUSE ISSUES
-// Reset Strategy      :
-// Clock Domains       :
-// Critical Timing     :
-// Test Features       :
-// Asynchronous I/F    :
-// Instantiations      :
-// Synthesizable (y/n) :
-// Target Device       :
-// Other               :
+//
 // -----------------------------------------------------------------------------
 
 `timescale 1ns / 1ps
 
 module speed_detector
-//----------- Paramters Declarations -------------------------------------------
+//----------- Parameters Declarations -------------------------------------------
 #(
     parameter   AVERAGE_WINDOW   = 32,       // Averages data on the latest samples
     parameter   LOG_2_AW         = 5,
@@ -122,6 +106,7 @@ begin
     end
 end
 
+// Filter the output data
 always @(posedge clk_i)
 begin
 	if (rst_n_i == 1'b0)

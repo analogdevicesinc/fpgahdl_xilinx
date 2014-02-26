@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 //
-// Copyright 2012(c) Analog Devices, Inc.
+// Copyright 2014(c) Analog Devices, Inc.
 //
 // All rights reserved.
 //
@@ -38,23 +38,7 @@
 // MODULE NAME : dec256sinc24b
 // AUTHOR : ACostina
 // AUTHOR’S EMAIL : adrian.costina@analog.com
-// -----------------------------------------------------------------------------
-// SVN REVISION: $WCREV$
-// -----------------------------------------------------------------------------
-// KEYWORDS : AD7400A, sigma-delta modulator
-// -----------------------------------------------------------------------------
-// PURPOSE : Implements a SINC filter for a sigma-delta modulator
-// -----------------------------------------------------------------------------
-// REUSE ISSUES
-// Reset Strategy      :
-// Clock Domains       :
-// Critical Timing     :
-// Test Features       :
-// Asynchronous I/F    :
-// Instantiations      :
-// Synthesizable (y/n) :
-// Target Device       :
-// Other               :
+//
 // -----------------------------------------------------------------------------
 
 `timescale 1 ns / 100 ps //Use a timescale that is best for simulation.

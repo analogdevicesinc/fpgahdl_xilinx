@@ -1,14 +1,14 @@
 -------------------------------------------------------------------------------
--- Copyright (c) 2013 Xilinx, Inc.
+-- Copyright (c) 2014 Xilinx, Inc.
 -- All Rights Reserved
 -------------------------------------------------------------------------------
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor     : Xilinx
--- \   \   \/     Version    : 14.4
+-- \   \   \/     Version    : 14.6
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : chipscope_ila2.vho
--- /___/   /\     Timestamp  : Thu Dec 05 16:22:23 GTB Standard Time 2013
+-- /___/   /\     Timestamp  : Wed Feb 26 17:45:47 E. Europe Standard Time 2014
 -- \   \  /  \
 --  \___\/\___\
 --
@@ -22,7 +22,7 @@ component chipscope_ila2
   PORT (
     CONTROL : INOUT STD_LOGIC_VECTOR(35 DOWNTO 0);
     CLK : IN STD_LOGIC;
-    DATA : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DATA : IN STD_LOGIC_VECTOR(34 DOWNTO 0);
     TRIG0 : IN STD_LOGIC_VECTOR(0 TO 0));
 
 end component;

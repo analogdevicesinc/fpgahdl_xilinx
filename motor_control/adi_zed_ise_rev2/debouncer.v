@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 //
-// Copyright 2013(c) Analog Devices, Inc.
+// Copyright 2014(c) Analog Devices, Inc.
 //
 // All rights reserved.
 //
@@ -38,29 +38,13 @@
 // MODULE NAME : debouncer
 // AUTHOR : ACozma
 // AUTHOR’S EMAIL : andrei.cozma@analog.com
-// -----------------------------------------------------------------------------
-// SVN REVISION: $WCREV$
-// -----------------------------------------------------------------------------
-// KEYWORDS :
-// -----------------------------------------------------------------------------
-// PURPOSE : Module used for debouncing input signals
-// -----------------------------------------------------------------------------
-// REUSE ISSUES
-// Reset Strategy      :
-// Clock Domains       :
-// Critical Timing     :
-// Test Features       :
-// Asynchronous I/F    :
-// Instantiations      :
-// Synthesizable (y/n) : y
-// Target Device       :
-// Other               :
+//
 // -----------------------------------------------------------------------------
 
 `timescale 1ns / 1ps
 
 module debouncer
-//----------- Paramters Declarations -------------------------------------------
+//----------- Parameters Declarations -------------------------------------------
 #(
     parameter DEBOUNCER_LEN = 4
 )

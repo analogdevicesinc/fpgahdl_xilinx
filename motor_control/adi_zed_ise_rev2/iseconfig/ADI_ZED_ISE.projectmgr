@@ -30,15 +30,22 @@
          <ClosedNode>/top - Structural D:|AD|SVN|AdReferenceProjects|MotorControl|ADI_ZED_ISE_TORQUE_ADIBOARD|top.vhd/current_sensor_it - current_sensor</ClosedNode>
          <ClosedNode>/top - Structural D:|AD|SVN|AdReferenceProjects|MotorControl|ADI_ZED_ISE_TORQUE_ADIBOARD|top.vhd/current_sensor_it - current_sensor_c2</ClosedNode>
          <ClosedNode>/top - Structural D:|AD|SVN|AdReferenceProjects|MotorControl|ADI_ZED_ISE_TORQUE_ADIBOARD|top.vhd/current_sensor_vb - current_sensor</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_ia - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_ia_drv - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_ib - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_ib_drv - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_it - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_it_drv - ad7401_c2</ClosedNode>
+         <ClosedNode>/top - Structural D:|GIT|fpgahdl_xilinx|motor_control|adi_zed_ise_rev2|top.vhd/current_sensor_vb - ad7401_c2</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>top - Structural (D:/AD/AnalogSVN/MotorControl_rev2/FPGA_Projects/adi_zed_ise_rev2/top.vhd)</SelectedItem>
+         <SelectedItem>top - Structural (D:/GIT/fpgahdl_xilinx/motor_control/adi_zed_ise_rev2/top.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >6</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000187000000020000000000000000000000000200000064ffffffff000000810000000300000002000001870000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>top - Structural (D:/AD/AnalogSVN/MotorControl_rev2/FPGA_Projects/adi_zed_ise_rev2/top.vhd)</CurrentItem>
+      <CurrentItem>top - Structural (D:/GIT/fpgahdl_xilinx/motor_control/adi_zed_ise_rev2/top.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -46,13 +53,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000209000000010000000100000000000000000000000064ffffffff000000810000000000000001000002090000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
@@ -87,13 +94,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000209000000010000000100000000000000000000000064ffffffff000000810000000000000001000002090000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000018f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000018f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VHDL_ARCHITECTURE" guiview="Process" >
       <ClosedNodes>
@@ -107,13 +114,13 @@
          <ClosedNode>Synthesize - XST</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem>Generate Programming File</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000209000000010000000100000000000000000000000064ffffffff000000810000000000000001000002090000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000017e000000010000000100000000000000000000000064ffffffff0000008100000000000000010000017e0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>
@@ -124,7 +131,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000209000000010000000100000000000000000000000064ffffffff000000810000000000000001000002090000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000018f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000018f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem></CurrentItem>
    </ItemView>
@@ -141,7 +148,7 @@
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>View HDL Instantiation Template</CurrentItem>
    </ItemView>
-   <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
+   <SourceProcessView>000000ff00000000000000020000017d000000f001000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>
@@ -152,7 +159,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000209000000010000000100000000000000000000000064ffffffff000000810000000000000001000002090000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000018f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000018f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem></CurrentItem>
    </ItemView>

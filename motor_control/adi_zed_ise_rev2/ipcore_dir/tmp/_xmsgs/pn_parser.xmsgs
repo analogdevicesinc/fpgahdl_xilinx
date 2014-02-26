@@ -5,10 +5,10 @@
 <!--     behavior or data corruption.  It is strongly advised that -->
 <!--     users do not edit the contents of this file.              -->
 <!--                                                               -->
-<!-- Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.    -->
+<!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/AD/AnalogSVN/MotorControl_rev2/FPGA_Projects/adi_zed_ise_rev2/ipcore_dir/chipscope_ila2.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/GIT/fpgahdl_xilinx/motor_control/adi_zed_ise_rev2/ipcore_dir/chipscope_ila2.vhd&quot; into library work</arg>
 </msg>
 
 </messages>
