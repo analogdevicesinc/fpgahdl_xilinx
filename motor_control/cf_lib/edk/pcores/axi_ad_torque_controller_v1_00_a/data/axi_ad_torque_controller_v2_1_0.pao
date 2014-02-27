@@ -12,6 +12,5 @@ lib adi_common_v1_00_a up_adc_common verilog
 lib adi_common_v1_00_a up_adc_channel verilog
 lib axi_ad_torque_controller_v1_00_a motor_driver verilog
 lib axi_ad_torque_controller_v1_00_a control_registers verilog
-lib axi_ad_torque_controller_v1_00_a oloop_start verilog
 lib axi_ad_torque_controller_v1_00_a bldc_sim_fpga_cw_bb verilog
 lib axi_ad_torque_controller_v1_00_a axi_ad_torque_controller verilog

@@ -16,7 +16,6 @@ adi_ip_files axi_mc_torque_ctrl [list \
   "bldc_sim_fpga_cw.xdc" \
   "motor_driver.v" \
   "control_registers.v" \
-  "oloop_start.v" \
   "bldc_sim_fpga_cw_bb.v" \
   "axi_mc_torque_ctrl.v" ]
 
