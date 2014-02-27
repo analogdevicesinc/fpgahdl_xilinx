@@ -199,7 +199,7 @@ assign pid_s = 32'd0;
 
 assign fmc_m1_en_o  = run_s;
 assign pwm_s        = oloop_matlab_s ? pwm_controller_s[10:0] : pwm_open_s ;
-assign position_s   = sensors_o == 2'b01 ? position_start : position_i;
+assign position_s   = position_i;
 
 assign gpo_o    = {gpo_s[10:7],gpo_s[3:0]};
 // clock generation for controller
