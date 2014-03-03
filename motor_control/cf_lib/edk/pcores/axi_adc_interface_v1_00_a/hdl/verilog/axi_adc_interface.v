@@ -209,7 +209,7 @@ assign adc_mon_data[31:16]  = {adc_enable_vbus,adc_enable_it,adc_enable_ib, adc_
 assign i_ready_o = data_rd_ready_ia_s;
 assign ia_o      = adc_data_ia_s;
 assign ib_o      = adc_data_ib_s;
-assign it_o      = adc_data_it_s;
+assign it_o      = adc_data_it_n_s;
 assign adc_data_it_n_s = 65535 - adc_data_it_s;
 
 // ADC clock generation
