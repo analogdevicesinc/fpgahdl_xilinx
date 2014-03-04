@@ -1,0 +1,145 @@
+
+NET ddr_a13 LOC = J15 | IOSTANDARD = SSTL15 | TIG;
+
+NET RESET   LOC = "H10"  |  IOSTANDARD = "SSTL15"  |  TIG;
+
+NET CLK_P   LOC = "J9"  |  DIFF_TERM = "TRUE"  |  IOSTANDARD = "LVDS_25";
+NET CLK_N   LOC = "H9"  |  DIFF_TERM = "TRUE"  |  IOSTANDARD = "LVDS_25";
+
+NET Ethernet_Lite_PHY_RST_N LOC = "AH13"  |  IOSTANDARD = "LVCMOS25"  |  TIG;
+NET Ethernet_Lite_COL       LOC = "AK13"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_CRS       LOC = "AL13"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_MDC       LOC = "AP14"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_MDIO      LOC = "AN14"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_CLK    LOC = "AP11"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_DV     LOC = "AM13"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RX_ER     LOC = "AG12"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[0]    LOC = "AN13"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[1]    LOC = "AF14"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[2]    LOC = "AE14"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_RXD[3]    LOC = "AN12"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TX_CLK    LOC = "AD12"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TX_EN     LOC = "AJ10"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[0]    LOC = "AM11"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[1]    LOC = "AL11"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[2]    LOC = "AG10"  |  IOSTANDARD = "LVCMOS25";
+NET Ethernet_Lite_TXD[3]    LOC = "AG11"  |  IOSTANDARD = "LVCMOS25";
+
+NET RS232_Uart_1_sin      LOC = "J24"  |  IOSTANDARD = "LVCMOS25";
+NET RS232_Uart_1_sout     LOC = "J25"  |  IOSTANDARD = "LVCMOS25";
+
+#NET "rx_clk_in_p" CLOCK_DEDICATED_ROUTE = FALSE;
+#INST "ibufgds_1" LOC = "BUFGCTRL_X0Y16";
+
+NET rx_clk_in_p         LOC = AF20   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G6   FMC_HPC_LA00_CC_P
+NET rx_clk_in_n         LOC = AF21   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G7   FMC_HPC_LA00_CC_N
+NET rx_frame_in_p       LOC = AK19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D8   FMC_HPC_LA01_CC_P
+NET rx_frame_in_n       LOC = AL19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D9   FMC_HPC_LA01_CC_N
+NET rx_data_in_p[0]     LOC = AC20   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H7   FMC_HPC_LA02_P
+NET rx_data_in_n[0]     LOC = AD20   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H8   FMC_HPC_LA02_N
+NET rx_data_in_p[1]     LOC = AC19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G9   FMC_HPC_LA03_P
+NET rx_data_in_n[1]     LOC = AD19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## G10  FMC_HPC_LA03_N
+NET rx_data_in_p[2]     LOC = AF19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H10  FMC_HPC_LA04_P
+NET rx_data_in_n[2]     LOC = AE19   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H11  FMC_HPC_LA04_N
+NET rx_data_in_p[3]     LOC = AG22   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D11  FMC_HPC_LA05_P
+NET rx_data_in_n[3]     LOC = AH22   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## D12  FMC_HPC_LA05_N
+NET rx_data_in_p[4]     LOC = AG20   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## C10  FMC_HPC_LA06_P
+NET rx_data_in_n[4]     LOC = AG21   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## C11  FMC_HPC_LA06_N
+NET rx_data_in_p[5]     LOC = AK21   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H13  FMC_HPC_LA07_P
+NET rx_data_in_n[5]     LOC = AJ21   |  IOSTANDARD = LVDS_25  | DIFF_TERM = TRUE; ## H14  FMC_HPC_LA07_N
+NET tx_clk_out_p        LOC = AK22   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G12  FMC_HPC_LA08_P
+NET tx_clk_out_n        LOC = AJ22   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G13  FMC_HPC_LA08_N
+NET tx_frame_out_p      LOC = AM18   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D14  FMC_HPC_LA09_P
+NET tx_frame_out_n      LOC = AL18   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D15  FMC_HPC_LA09_N
+NET tx_data_out_p[0]    LOC = AM22   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H16  FMC_HPC_LA11_P
+NET tx_data_out_n[0]    LOC = AN22   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H17  FMC_HPC_LA11_N
+NET tx_data_out_p[1]    LOC = AM21   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G15  FMC_HPC_LA12_P
+NET tx_data_out_n[1]    LOC = AL21   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## G16  FMC_HPC_LA12_N
+NET tx_data_out_p[2]    LOC = AP19   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D17  FMC_HPC_LA13_P
+NET tx_data_out_n[2]    LOC = AN18   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## D18  FMC_HPC_LA13_N
+NET tx_data_out_p[3]    LOC = AM20   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C14  FMC_HPC_LA10_P
+NET tx_data_out_n[3]    LOC = AL20   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C15  FMC_HPC_LA10_N
+NET tx_data_out_p[4]    LOC = AN19   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C18  FMC_HPC_LA14_P
+NET tx_data_out_n[4]    LOC = AN20   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## C19  FMC_HPC_LA14_N
+NET tx_data_out_p[5]    LOC = AM23   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H19  FMC_HPC_LA15_P
+NET tx_data_out_n[5]    LOC = AL23   |  IOSTANDARD = LVDS_25  | SLEW = FAST;      ## H20  FMC_HPC_LA15_N
+#NET enable              LOC = G18  |  IOSTANDARD = LVCMOS25 | SLEW = FAST;      ##  A33 FMC_LPC_LA16_P
+#NET txnrx               LOC = G19  |  IOSTANDARD = LVCMOS25 | SLEW = FAST;      ##  B33 FMC_LPC_LA16_N
+
+NET spi_csn             LOC = AM25  |  IOSTANDARD = LVCMOS25;                    ## D26 FMC_HPC_LA26_P
+NET spi_clk             LOC = AL25  |  IOSTANDARD = LVCMOS25;                    ## D27 FMC_HPC_LA26_N
+NET spi_mosi            LOC = AP30  |  IOSTANDARD = LVCMOS25;                    ## C26 FMC_HPC_LA27_P
+NET spi_miso            LOC = AP31  |  IOSTANDARD = LVCMOS25;                    ## C27 FMC_HPC_LA27_N
+
+NET ctrl_out[0]         LOC = AK23  |  IOSTANDARD = LVCMOS25;                    ## G21 FMC_HPC_LA20_P
+NET ctrl_out[1]         LOC = AL24  |  IOSTANDARD = LVCMOS25;                    ## G22 FMC_HPC_LA20_N
+NET ctrl_out[2]         LOC = AN29  |  IOSTANDARD = LVCMOS25;                    ## H25 FMC_HPC_LA21_P
+NET ctrl_out[3]         LOC = AP29  |  IOSTANDARD = LVCMOS25;                    ## H26 FMC_HPC_LA21_N
+NET ctrl_out[4]         LOC = AP27  |  IOSTANDARD = LVCMOS25;                    ## G24 FMC_HPC_LA22_P
+NET ctrl_out[5]         LOC = AP26  |  IOSTANDARD = LVCMOS25;                    ## G25 FMC_HPC_LA22_N
+NET ctrl_out[6]         LOC = AL26  |  IOSTANDARD = LVCMOS25;                    ## D23 FMC_HPC_LA23_P
+NET ctrl_out[7]         LOC = AM26  |  IOSTANDARD = LVCMOS25;                    ## D24 FMC_HPC_LA23_N
+
+NET ctrl_in[0]          LOC = AN30  |  IOSTANDARD = LVCMOS25;                    ## H28 FMC_HPC_LA24_P
+NET ctrl_in[1]          LOC = AM30  |  IOSTANDARD = LVCMOS25;                    ## H29 FMC_HPC_LA24_N
+NET ctrl_in[2]          LOC = AN28  |  IOSTANDARD = LVCMOS25;                    ## G27 FMC_HPC_LA25_P
+NET ctrl_in[3]          LOC = AM28  |  IOSTANDARD = LVCMOS25;                    ## G28 FMC_HPC_LA25_N
+NET ctrl_in[4]          LOC = AN25  |  IOSTANDARD = LVCMOS25; ## EN_AGC          ## H22 FMC_HPC_LA19_P
+NET ctrl_in[5]          LOC = AN24  |  IOSTANDARD = LVCMOS25; ## SYNC_IN         ## H23 FMC_HPC_LA19_N
+
+
+NET iic_scl  LOC = "AF13" | IOSTANDARD = "LVCMOS25";
+NET iic_sda  LOC = "AG13" | IOSTANDARD = "LVCMOS25";
+
+NET lcd[6] LOC = "AK12" | IOSTANDARD = "LVCMOS25";  ## lcd_e
+NET lcd[5] LOC = "T28"  | IOSTANDARD = "LVCMOS25";  ## lcd_rs
+NET lcd[4] LOC = "AC14" | IOSTANDARD = "LVCMOS25";  ## lcd_rw
+NET lcd[3] LOC = "AE12" | IOSTANDARD = "LVCMOS25";  ## lcd_db[7]
+NET lcd[2] LOC = "AJ11" | IOSTANDARD = "LVCMOS25";  ## lcd_db[6]
+NET lcd[1] LOC = "AK11" | IOSTANDARD = "LVCMOS25";  ## lcd_db[5]
+NET lcd[0] LOC = "AD14" | IOSTANDARD = "LVCMOS25";  ## lcd_db[4]
+
+NET sw[0]  LOC = "D22"  | IOSTANDARD = "LVCMOS15";
+NET sw[1]  LOC = "C22"  | IOSTANDARD = "LVCMOS15";
+NET sw[2]  LOC = "L21"  | IOSTANDARD = "LVCMOS15";
+NET sw[3]  LOC = "L20"  | IOSTANDARD = "LVCMOS15";
+NET sw[4]  LOC = "C18"  | IOSTANDARD = "LVCMOS15";
+NET sw[5]  LOC = "B18"  | IOSTANDARD = "LVCMOS15";
+NET sw[6]  LOC = "K22"  | IOSTANDARD = "LVCMOS15";
+NET sw[7]  LOC = "K21"  | IOSTANDARD = "LVCMOS15";
+NET sw[8]  LOC = "G26"  | IOSTANDARD = "LVCMOS15";
+NET sw[9]  LOC = "A19"  | IOSTANDARD = "LVCMOS15";
+NET sw[10] LOC = "G17"  | IOSTANDARD = "LVCMOS15";
+NET sw[11] LOC = "A18"  | IOSTANDARD = "LVCMOS15";
+NET sw[12] LOC = "H17"  | IOSTANDARD = "LVCMOS15";
+
+NET led[0]  LOC = "AC22"  |  IOSTANDARD = "LVCMOS25";
+NET led[1]  LOC = "AC24"  |  IOSTANDARD = "LVCMOS25";
+NET led[2]  LOC = "AE22"  |  IOSTANDARD = "LVCMOS25";
+NET led[3]  LOC = "AE23"  |  IOSTANDARD = "LVCMOS25";
+NET led[4]  LOC = "AB23"  |  IOSTANDARD = "LVCMOS25";
+NET led[5]  LOC = "AG23"  |  IOSTANDARD = "LVCMOS25";
+NET led[6]  LOC = "AE24"  |  IOSTANDARD = "LVCMOS25";
+NET led[7]  LOC = "AD24"  |  IOSTANDARD = "LVCMOS25";
+NET led[8]  LOC = "AP24"  |  IOSTANDARD = "LVCMOS25";
+NET led[9]  LOC = "AE21"  |  IOSTANDARD = "LVCMOS25";
+NET led[10] LOC = "AH27"  |  IOSTANDARD = "LVCMOS25";
+NET led[11] LOC = "AH28"  |  IOSTANDARD = "LVCMOS25";
+NET led[12] LOC = "AD21"  |  IOSTANDARD = "LVCMOS25";
+
+NET "CLK_P" TNM_NET = "CLK_P";
+TIMESPEC "TS_CLK_P" = PERIOD "CLK_P" 200 MHz;
+NET "CLK_N" TNM_NET = "CLK_N";
+TIMESPEC "TS_CLK_N" = PERIOD "CLK_N" 200 MHz;
+
+NET "rx_clk_in_p" TNM_NET = "rx_clk_in_p";
+TIMESPEC "TS_rx_clk_in_p" = PERIOD "rx_clk_in_p" 250 MHz;
+NET "rx_clk_in_n" TNM_NET = "rx_clk_in_n";
+TIMESPEC "TS_rx_clk_in_n" = PERIOD "rx_clk_in_n" 250 MHz;
+
+OFFSET = IN BEFORE "rx_clk_in_p" RISING;
+OFFSET = IN BEFORE "rx_clk_in_p" FALLING;
+
+OFFSET = OUT AFTER "rx_clk_in_p" REFERENCE_PIN "tx_clk_out_p" RISING;
+OFFSET = OUT AFTER "rx_clk_in_p" REFERENCE_PIN "tx_clk_out_p" FALLING;
+
