@@ -69,42 +69,42 @@ module axi_dmac (
 	input                                    m_src_axi_aresetn,
 
 	// Write address
-	output [31:0]                            m_axi_awaddr,
-	output [ 7:0]                            m_axi_awlen,
-	output [ 2:0]                            m_axi_awsize,
-	output [ 1:0]                            m_axi_awburst,
-	output [ 2:0]                            m_axi_awprot,
-	output [ 3:0]                            m_axi_awcache,
-	output                                   m_axi_awvalid,
-	input                                    m_axi_awready,
+	output [31:0]                            m_dest_axi_awaddr,
+	output [ 7:0]                            m_dest_axi_awlen,
+	output [ 2:0]                            m_dest_axi_awsize,
+	output [ 1:0]                            m_dest_axi_awburst,
+	output [ 2:0]                            m_dest_axi_awprot,
+	output [ 3:0]                            m_dest_axi_awcache,
+	output                                   m_dest_axi_awvalid,
+	input                                    m_dest_axi_awready,
 
 	// Write data
-	output [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_axi_wdata,
-	output [(C_M_DEST_AXI_DATA_WIDTH/8)-1:0] m_axi_wstrb,
-	input                                    m_axi_wready,
-	output                                   m_axi_wvalid,
-	output                                   m_axi_wlast,
+	output [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_dest_axi_wdata,
+	output [(C_M_DEST_AXI_DATA_WIDTH/8)-1:0] m_dest_axi_wstrb,
+	input                                    m_dest_axi_wready,
+	output                                   m_dest_axi_wvalid,
+	output                                   m_dest_axi_wlast,
 
 	// Write response
-	input                                    m_axi_bvalid,
-	input  [ 1:0]                            m_axi_bresp,
-	output                                   m_axi_bready,
+	input                                    m_dest_axi_bvalid,
+	input  [ 1:0]                            m_dest_axi_bresp,
+	output                                   m_dest_axi_bready,
 
 	// Read address
-	input                                    m_axi_arready,
-	output                                   m_axi_arvalid,
-	output [31:0]                            m_axi_araddr,
-	output [ 7:0]                            m_axi_arlen,
-	output [ 2:0]                            m_axi_arsize,
-	output [ 1:0]                            m_axi_arburst,
-	output [ 2:0]                            m_axi_arprot,
-	output [ 3:0]                            m_axi_arcache,
+	input                                    m_src_axi_arready,
+	output                                   m_src_axi_arvalid,
+	output [31:0]                            m_src_axi_araddr,
+	output [ 7:0]                            m_src_axi_arlen,
+	output [ 2:0]                            m_src_axi_arsize,
+	output [ 1:0]                            m_src_axi_arburst,
+	output [ 2:0]                            m_src_axi_arprot,
+	output [ 3:0]                            m_src_axi_arcache,
 
 	// Read data and response
-	input  [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_axi_rdata,
-	output                                   m_axi_rready,
-	input                                    m_axi_rvalid,
-	input  [ 1:0]                            m_axi_rresp,
+	input  [C_M_DEST_AXI_DATA_WIDTH-1:0]     m_src_axi_rdata,
+	output                                   m_src_axi_rready,
+	input                                    m_src_axi_rvalid,
+	input  [ 1:0]                            m_src_axi_rresp,
 
 	// Slave streaming AXI interface
 	input                                    s_axis_aclk,
@@ -340,8 +340,8 @@ begin
 		12'h10a: up_rdata <= up_transfer_done_bitmap;
 		12'h10b: up_rdata <= up_transfer_id_eot;
 		12'h10c: up_rdata <= 'h00; // Status
-		12'h10d: up_rdata <= m_axi_awaddr; //HAS_DEST_ADDR ? 'h00 : 'h00; // Current dest address
-		12'h10e: up_rdata <= m_axi_araddr; //HAS_SRC_ADDR ? 'h00 : 'h00; // Current src address
+		12'h10d: up_rdata <= m_dest_axi_awaddr; //HAS_DEST_ADDR ? 'h00 : 'h00; // Current dest address
+		12'h10e: up_rdata <= m_src_axi_araddr; //HAS_SRC_ADDR ? 'h00 : 'h00; // Current src address
 		12'h10f: up_rdata <= {src_response_id, 1'b0, src_data_id, 1'b0, src_address_id, 1'b0, src_request_id,
 							1'b0, dest_response_id, 1'b0, dest_data_id, 1'b0, dest_address_id, 1'b0, dest_request_id};
 		12'h110: up_rdata <= {dbg_status};
@@ -459,42 +459,42 @@ dmac_request_arb #(
 	.m_src_axi_aresetn(m_src_axi_aresetn),
 
 	
-	.m_axi_awaddr(m_axi_awaddr),
-	.m_axi_awlen(m_axi_awlen),
-	.m_axi_awsize(m_axi_awsize),
-	.m_axi_awburst(m_axi_awburst),
-	.m_axi_awprot(m_axi_awprot),
-	.m_axi_awcache(m_axi_awcache),
-	.m_axi_awvalid(m_axi_awvalid),
-	.m_axi_awready(m_axi_awready),
+	.m_axi_awaddr(m_dest_axi_awaddr),
+	.m_axi_awlen(m_dest_axi_awlen),
+	.m_axi_awsize(m_dest_axi_awsize),
+	.m_axi_awburst(m_dest_axi_awburst),
+	.m_axi_awprot(m_dest_axi_awprot),
+	.m_axi_awcache(m_dest_axi_awcache),
+	.m_axi_awvalid(m_dest_axi_awvalid),
+	.m_axi_awready(m_dest_axi_awready),
 
 	
-	.m_axi_wdata(m_axi_wdata),
-	.m_axi_wstrb(m_axi_wstrb),
-	.m_axi_wready(m_axi_wready),
-	.m_axi_wvalid(m_axi_wvalid),
-	.m_axi_wlast(m_axi_wlast),
+	.m_axi_wdata(m_dest_axi_wdata),
+	.m_axi_wstrb(m_dest_axi_wstrb),
+	.m_axi_wready(m_dest_axi_wready),
+	.m_axi_wvalid(m_dest_axi_wvalid),
+	.m_axi_wlast(m_dest_axi_wlast),
 
 	
-	.m_axi_bvalid(m_axi_bvalid),
-	.m_axi_bresp(m_axi_bresp),
-	.m_axi_bready(m_axi_bready),
+	.m_axi_bvalid(m_dest_axi_bvalid),
+	.m_axi_bresp(m_dest_axi_bresp),
+	.m_axi_bready(m_dest_axi_bready),
 
 	
-	.m_axi_arready(m_axi_arready),
-	.m_axi_arvalid(m_axi_arvalid),
-	.m_axi_araddr(m_axi_araddr),
-	.m_axi_arlen(m_axi_arlen),
-	.m_axi_arsize(m_axi_arsize),
-	.m_axi_arburst(m_axi_arburst),
-	.m_axi_arprot(m_axi_arprot),
-	.m_axi_arcache(m_axi_arcache),
+	.m_axi_arready(m_src_axi_arready),
+	.m_axi_arvalid(m_src_axi_arvalid),
+	.m_axi_araddr(m_src_axi_araddr),
+	.m_axi_arlen(m_src_axi_arlen),
+	.m_axi_arsize(m_src_axi_arsize),
+	.m_axi_arburst(m_src_axi_arburst),
+	.m_axi_arprot(m_src_axi_arprot),
+	.m_axi_arcache(m_src_axi_arcache),
 
 	
-	.m_axi_rdata(m_axi_rdata),
-	.m_axi_rready(m_axi_rready),
-	.m_axi_rvalid(m_axi_rvalid),
-	.m_axi_rresp(m_axi_rresp),
+	.m_axi_rdata(m_src_axi_rdata),
+	.m_axi_rready(m_src_axi_rready),
+	.m_axi_rvalid(m_src_axi_rvalid),
+	.m_axi_rresp(m_src_axi_rresp),
 
 	
 	.s_axis_aclk(s_axis_aclk),

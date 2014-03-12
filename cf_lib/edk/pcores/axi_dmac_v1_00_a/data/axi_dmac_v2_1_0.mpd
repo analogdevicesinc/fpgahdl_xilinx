@@ -85,41 +85,41 @@ PORT s_axi_awready = AWREADY, DIR = O, BUS = S_AXI
 PORT m_dest_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = M_DEST_AXI
 PORT m_dest_axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_DEST_AXI
 
-PORT m_axi_awaddr = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
-PORT m_axi_awlen = AWLEN, DIR = O, VEC = [7:0], BUS = M_DEST_AXI
-PORT m_axi_awsize = AWSIZE, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
-PORT m_axi_awburst = AWBURST, DIR = O, VEC = [1:0], BUS = M_DEST_AXI
-PORT m_axi_awprot = AWPROT, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
-PORT m_axi_awcache = AWCACHE, DIR = O, VEC = [3:0], BUS = M_DEST_AXI
-PORT m_axi_awvalid = AWVALID, DIR = O, BUS = M_DEST_AXI
-PORT m_axi_awready = AWREADY, DIR = I, BUS = M_DEST_AXI
+PORT m_dest_axi_awaddr = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_dest_axi_awlen = AWLEN, DIR = O, VEC = [7:0], BUS = M_DEST_AXI
+PORT m_dest_axi_awsize = AWSIZE, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
+PORT m_dest_axi_awburst = AWBURST, DIR = O, VEC = [1:0], BUS = M_DEST_AXI
+PORT m_dest_axi_awprot = AWPROT, DIR = O, VEC = [2:0], BUS = M_DEST_AXI
+PORT m_dest_axi_awcache = AWCACHE, DIR = O, VEC = [3:0], BUS = M_DEST_AXI
+PORT m_dest_axi_awvalid = AWVALID, DIR = O, BUS = M_DEST_AXI
+PORT m_dest_axi_awready = AWREADY, DIR = I, BUS = M_DEST_AXI
 
-PORT m_axi_wdata = WDATA, DIR = O, VEC = [63:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
-PORT m_axi_wstrb = WSTRB, DIR = O, VEC = [7:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
-PORT m_axi_wready = WREADY, DIR = I, BUS = M_DEST_AXI
-PORT m_axi_wvalid = WVALID, DIR = O, BUS = M_DEST_AXI
-PORT m_axi_wlast = WLAST, DIR = O, BUS = M_DEST_AXI
+PORT m_dest_axi_wdata = WDATA, DIR = O, VEC = [63:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_dest_axi_wstrb = WSTRB, DIR = O, VEC = [7:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_dest_axi_wready = WREADY, DIR = I, BUS = M_DEST_AXI
+PORT m_dest_axi_wvalid = WVALID, DIR = O, BUS = M_DEST_AXI
+PORT m_dest_axi_wlast = WLAST, DIR = O, BUS = M_DEST_AXI
 
-PORT m_axi_bready = BREADY, DIR = O, BUS = M_DEST_AXI
-PORT m_axi_bresp = BRESP, DIR = I, VEC = [1:0], BUS = M_DEST_AXI
-PORT m_axi_bvalid = BVALID, DIR = I, BUS = M_DEST_AXI
+PORT m_dest_axi_bready = BREADY, DIR = O, BUS = M_DEST_AXI
+PORT m_dest_axi_bresp = BRESP, DIR = I, VEC = [1:0], BUS = M_DEST_AXI
+PORT m_dest_axi_bvalid = BVALID, DIR = I, BUS = M_DEST_AXI
 
 PORT m_src_axi_aclk = ACLK, DIR = I, SIGIS = CLK, BUS = M_SRC_AXI
 PORT m_src_axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_SRC_AXI
 
-PORT m_axi_araddr = ARADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
-PORT m_axi_arlen = ARLEN, DIR = O, VEC = [7:0], BUS = M_SRC_AXI
-PORT m_axi_arsize = ARSIZE, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
-PORT m_axi_arburst = ARBURST, DIR = O, VEC = [1:0], BUS = M_SRC_AXI
-PORT m_axi_arprot = ARPROT, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
-PORT m_axi_arcache = ARCACHE, DIR = O, VEC = [3:0], BUS = M_SRC_AXI
-PORT m_axi_arready = ARREADY, DIR = I, BUS = M_SRC_AXI
-PORT m_axi_arvalid = ARVALID, DIR = O, BUS = M_SRC_AXI
-PORT m_axi_rresp = RRESP, DIR = I, VEC = [1:0], BUS = M_SRC_AXI
+PORT m_src_axi_araddr = ARADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
+PORT m_src_axi_arlen = ARLEN, DIR = O, VEC = [7:0], BUS = M_SRC_AXI
+PORT m_src_axi_arsize = ARSIZE, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
+PORT m_src_axi_arburst = ARBURST, DIR = O, VEC = [1:0], BUS = M_SRC_AXI
+PORT m_src_axi_arprot = ARPROT, DIR = O, VEC = [2:0], BUS = M_SRC_AXI
+PORT m_src_axi_arcache = ARCACHE, DIR = O, VEC = [3:0], BUS = M_SRC_AXI
+PORT m_src_axi_arready = ARREADY, DIR = I, BUS = M_SRC_AXI
+PORT m_src_axi_arvalid = ARVALID, DIR = O, BUS = M_SRC_AXI
+PORT m_src_axi_rresp = RRESP, DIR = I, VEC = [1:0], BUS = M_SRC_AXI
 
-PORT m_axi_rdata = RDATA, DIR = I, VEC = [63:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
-PORT m_axi_rready = RREADY, DIR = O, BUS = M_SRC_AXI
-PORT m_axi_rvalid = RVALID, DIR = I, BUS = M_SRC_AXI
+PORT m_src_axi_rdata = RDATA, DIR = I, VEC = [63:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
+PORT m_src_axi_rready = RREADY, DIR = O, BUS = M_SRC_AXI
+PORT m_src_axi_rvalid = RVALID, DIR = I, BUS = M_SRC_AXI
 
 ## Interrupt
 PORT irq = "", DIR = O, SIGIS = INTERRUPT, SENSITIVITY = LEVEL_HIGH,
