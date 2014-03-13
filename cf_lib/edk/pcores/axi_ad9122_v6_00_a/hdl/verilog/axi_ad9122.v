@@ -102,6 +102,7 @@ module axi_ad9122 (
   parameter   C_S_AXI_MIN_SIZE = 32'hffff;
   parameter   C_BASEADDR = 32'hffffffff;
   parameter   C_HIGHADDR = 32'h00000000;
+  parameter   C_DMA_BUS_WIDTH = 64;
 
   // dac interface
 
@@ -122,7 +123,7 @@ module axi_ad9122 (
   // dma interface
 
   output          dac_drd;
-  input   [63:0]  dac_ddata;
+  input [C_DMA_BUS_WIDTH-1:0] dac_ddata;
   input           dac_dvalid;
   input           dac_underflow;
 
@@ -274,7 +275,10 @@ module axi_ad9122 (
 
   // core
 
-  axi_ad9122_core #(.PCORE_ID(PCORE_ID)) i_core (
+  axi_ad9122_core #(
+    .PCORE_ID(PCORE_ID),
+    .C_DMA_BUS_WIDTH(C_DMA_BUS_WIDTH)
+  ) i_core (
     .dac_div_clk (dac_div_clk),
     .dac_rst (dac_rst),
     .dac_frame_i0 (dac_frame_i0_s),

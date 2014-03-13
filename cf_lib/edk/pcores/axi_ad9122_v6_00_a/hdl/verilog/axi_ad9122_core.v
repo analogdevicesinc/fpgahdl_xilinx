@@ -103,6 +103,7 @@ module axi_ad9122_core (
   // parameters
 
   parameter   PCORE_ID = 0;
+  parameter   C_DMA_BUS_WIDTH = 64;
 
   // dac interface
 
@@ -135,7 +136,7 @@ module axi_ad9122_core (
 
   output          dac_drd;
   input           dac_dvalid;
-  input   [63:0]  dac_ddata;
+  input [C_DMA_BUS_WIDTH-1:0] dac_ddata;
   input           dac_underflow;
 
   // mmcm reset
@@ -228,14 +229,25 @@ module axi_ad9122_core (
   always @(posedge dac_div_clk) begin
     if (dac_datasel_s[3:1] == 3'd1) begin
       if (dac_dvalid) begin
-        dac_data_i0 <= dac_ddata[15: 0];
-        dac_data_i1 <= dac_ddata[15: 0];
-        dac_data_i2 <= dac_ddata[47:32];
-        dac_data_i3 <= dac_ddata[47:32];
-        dac_data_q0 <= dac_ddata[31:16];
-        dac_data_q1 <= dac_ddata[31:16];
-        dac_data_q2 <= dac_ddata[63:48];
-        dac_data_q3 <= dac_ddata[63:48];
+        if (C_DMA_BUS_WIDTH == 128) begin
+          dac_data_i0 <= dac_ddata[15: 0];
+          dac_data_q0 <= dac_ddata[31:16];
+          dac_data_i1 <= dac_ddata[47:32];
+          dac_data_q1 <= dac_ddata[63:48];
+          dac_data_i2 <= dac_ddata[79:64];
+          dac_data_q2 <= dac_ddata[95:80];
+          dac_data_i3 <= dac_ddata[111:96];
+          dac_data_q3 <= dac_ddata[127:112];
+        end else if (C_DMA_BUS_WIDTH == 64) begin
+          dac_data_i0 <= dac_ddata[15: 0];
+          dac_data_i1 <= dac_ddata[15: 0];
+          dac_data_q0 <= dac_ddata[31:16];
+          dac_data_q1 <= dac_ddata[31:16];
+          dac_data_i2 <= dac_ddata[47:32];
+          dac_data_i3 <= dac_ddata[47:32];
+          dac_data_q2 <= dac_ddata[63:48];
+          dac_data_q3 <= dac_ddata[63:48];
+        end
       end
     end else begin
       dac_data_i0 <= dac_dds_data_0_0_s;

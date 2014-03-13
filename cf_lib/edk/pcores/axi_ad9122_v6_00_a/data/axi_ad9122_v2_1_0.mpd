@@ -33,6 +33,7 @@ PARAMETER C_S_AXI_MIN_SIZE = 0x0000ffff, DT = std_logic_vector, BUS = S_AXI
 PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector, PAIR = C_HIGHADDR, ADDRESS = BASE, BUS = S_AXI, MIN_SIZE = 0x100
 PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector, PAIR = C_BASEADDR, ADDRESS = HIGH, BUS = S_AXI
 PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
+PARAMETER C_DMA_BUS_WIDTH = 64, DT = INTEGER, RANGE = (64,128)
 
 ## Device Interface
 PORT dac_clk_in_p = "", DIR = I, SIGIS = CLK
@@ -56,7 +57,7 @@ PORT dac_dbg_data = "", DIR = O, VEC = [135:0]
 ## DMA Inteface
 PORT dac_drd = "", DIR = O
 PORT dac_dvalid = "", DIR = I
-PORT dac_ddata = "", DIR = I, VEC = [63:0]
+PORT dac_ddata = "", DIR = I, VEC = [C_DMA_BUS_WIDTH-1:0]
 PORT dac_underflow = "", DIR = I
 
 ## AXI Interface
