@@ -11,6 +11,7 @@ lib axi_dmac_v1_00_a request_arb verilog
 lib axi_dmac_v1_00_a request_generator verilog
 lib axi_dmac_v1_00_a response_handler verilog
 lib axi_dmac_v1_00_a axi_register_slice verilog
+lib axi_dmac_v1_00_a axi_repack verilog
 lib axi_dmac_v1_00_a 2d_transfer verilog
 lib axi_dmac_v1_00_a dest_axi_mm verilog
 lib axi_dmac_v1_00_a dest_axi_stream verilog

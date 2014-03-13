@@ -45,7 +45,7 @@ module dmac_request_generator (
 
 	input req_valid,
 	output reg req_ready,
-	input [BURST_COUNT_WIDTH:0] req_burst_count,
+	input [C_BURSTS_PER_TRANSFER_WIDTH-1:0] req_burst_count,
 
 	input enable,
 	input pause,
@@ -54,10 +54,7 @@ module dmac_request_generator (
 );
 
 parameter C_ID_WIDTH = 3;
-parameter C_ADDR_ALIGN_BITS = 3;
-parameter C_BURST_ALIGN_BITS = 7;
-parameter C_DMA_LENGTH_WIDTH = 24;
-localparam BURST_COUNT_WIDTH = C_DMA_LENGTH_WIDTH - C_BURST_ALIGN_BITS;
+parameter C_BURSTS_PER_TRANSFER_WIDTH = 17;
 
 `include "inc_id.v"
 
@@ -68,7 +65,7 @@ localparam BURST_COUNT_WIDTH = C_DMA_LENGTH_WIDTH - C_BURST_ALIGN_BITS;
  * care that only the requested ammount of bytes is transfered.
  */
 
-reg [BURST_COUNT_WIDTH-1:0] burst_count = 'h00;
+reg [C_BURSTS_PER_TRANSFER_WIDTH-1:0] burst_count = 'h00;
 reg [C_ID_WIDTH-1:0] id;
 wire [C_ID_WIDTH-1:0] id_next = inc_id(id);
 

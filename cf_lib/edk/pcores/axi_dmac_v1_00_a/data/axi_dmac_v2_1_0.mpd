@@ -25,7 +25,7 @@ PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector, PAIR = C_BASEADDR, ADD
 PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
 
 PARAMETER C_M_DEST_AXI_PROTOCOL = AXI3, DT = STRING, BUS = M_DEST_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
-PARAMETER C_M_DEST_AXI_DATA_WIDTH = 64, DT = INTEGER, BUS = M_DEST_AXI
+PARAMETER C_M_DEST_AXI_DATA_WIDTH = 64, DT = INTEGER, BUS = M_DEST_AXI, TYPE = NON_HDL
 PARAMETER C_M_DEST_AXI_SUPPORTS_NARROW_BURST = 0, DT = INTEGER, TYPE = NON_HDL, BUS = M_DEST_AXI, ASSIGNMENT = CONSTANT
 PARAMETER C_INTERCONNECT_M_DEST_AXI_WRITE_ISSUING = 8, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
 PARAMETER C_M_DEST_AXI_SUPPORTS_READ = 0, DT = INTEGER, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = M_DEST_AXI
@@ -49,6 +49,8 @@ PARAMETER C_CLKS_ASYNC_DEST_REQ = 1, DT = INTEGER, RANGE = [0:1], DESC = Request
 ## 0 = AXI MM, 1 = AXI STREAM, 2 = FIFO
 PARAMETER C_DMA_TYPE_DEST = 0, DT = INTEGER, RANGE = (0,1,2), VALUES = (0 = Memory mapped AXI, 1 = Streaming AXI, 2 = FIFO), DESC = DMA data destination interface type
 PARAMETER C_DMA_TYPE_SRC = 0, DT = INTEGER, RANGE = (0,1,2), VALUES = (0 = Memory mapped AXI, 1 = Streaming AXI, 2 = FIFO), DESC = DMA data source interface type
+PARAMETER C_DMA_DATA_WIDTH_DEST = 64, DT = INTEGER, RANGE = (8,16,32,64,128,256,512), DESC = DMA data destination bus width
+PARAMETER C_DMA_DATA_WIDTH_SRC = 64, DT = INTEGER, RANGE = (8,16,32,64,128,256,512), DESC = DMA data source bus width
 
 PARAMETER C_AXI_SLICE_DEST = 0, DT = INTEGER, RANGE = [0:1], DESC = Insert AXI slice on the DMA destination path
 PARAMETER C_AXI_SLICE_SRC = 0, DT = INTEGER, RANGE = [0:1], DESC = Insert AXI slice on the DMA source path
@@ -94,7 +96,7 @@ PORT m_dest_axi_awcache = AWCACHE, DIR = O, VEC = [3:0], BUS = M_DEST_AXI
 PORT m_dest_axi_awvalid = AWVALID, DIR = O, BUS = M_DEST_AXI
 PORT m_dest_axi_awready = AWREADY, DIR = I, BUS = M_DEST_AXI
 
-PORT m_dest_axi_wdata = WDATA, DIR = O, VEC = [63:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
+PORT m_dest_axi_wdata = WDATA, DIR = O, VEC = [C_DMA_DATA_WIDTH_DEST-1:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
 PORT m_dest_axi_wstrb = WSTRB, DIR = O, VEC = [7:0], ENDIAN = LITTLE, BUS = M_DEST_AXI
 PORT m_dest_axi_wready = WREADY, DIR = I, BUS = M_DEST_AXI
 PORT m_dest_axi_wvalid = WVALID, DIR = O, BUS = M_DEST_AXI
@@ -117,7 +119,7 @@ PORT m_src_axi_arready = ARREADY, DIR = I, BUS = M_SRC_AXI
 PORT m_src_axi_arvalid = ARVALID, DIR = O, BUS = M_SRC_AXI
 PORT m_src_axi_rresp = RRESP, DIR = I, VEC = [1:0], BUS = M_SRC_AXI
 
-PORT m_src_axi_rdata = RDATA, DIR = I, VEC = [63:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
+PORT m_src_axi_rdata = RDATA, DIR = I, VEC = [C_DMA_DATA_WIDTH_SRC-1:0], ENDIAN = LITTLE, BUS = M_SRC_AXI
 PORT m_src_axi_rready = RREADY, DIR = O, BUS = M_SRC_AXI
 PORT m_src_axi_rvalid = RVALID, DIR = I, BUS = M_SRC_AXI
 
@@ -128,26 +130,26 @@ PORT irq = "", DIR = O, SIGIS = INTERRUPT, SENSITIVITY = LEVEL_HIGH,
 PORT s_axis_aclk = ACLK, DIR = I, BUS = S_AXIS, SIGIS = CLK
 PORT s_axis_ready = TREADY, DIR = O, BUS = S_AXIS
 PORT s_axis_valid = TVALID, DIR = I, BUS = S_AXIS
-PORT s_axis_data = TDATA, DIR = I, VEC = [63:0], BUS = S_AXIS
+PORT s_axis_data = TDATA, DIR = I, VEC = [C_DMA_DATA_WIDTH_SRC-1:0], BUS = S_AXIS
 PORT s_axis_user = TUSER, DIR = I, VEC = [0:0], BUS = S_AXIS
 
 # Stream AXI master interface (outgoing)
 PORT m_axis_aclk = ACLK, DIR = I, BUS = M_AXIS, SIGIS = CLK
 PORT m_axis_ready = TREADY, DIR = I, BUS = M_AXIS
 PORT m_axis_valid = TVALID, DIR = O, BUS = M_AXIS
-PORT m_axis_data = TDATA, DIR = O, VEC = [63:0], BUS = M_AXIS
+PORT m_axis_data = TDATA, DIR = O, VEC = [C_DMA_DATA_WIDTH_DEST-1:0], BUS = M_AXIS
 
 # FIFO write interface (incomming)
 PORT fifo_wr_clk = "", DIR = I, IO_IF=FIFO_WR, SIGIS = CLK
 PORT fifo_wr_en = "", DIR = I, IO_IF=FIFO_WR
-PORT fifo_wr_din = "", DIR = I, VEC = [63:0], IO_IF=FIFO_WR
+PORT fifo_wr_din = "", DIR = I, VEC = [C_DMA_DATA_WIDTH_SRC-1:0], IO_IF=FIFO_WR
 PORT fifo_wr_overflow = "", DIR = O, IO_IF=FIFO_WR
 PORT fifo_wr_sync = "", DIR = I, IO_IF=FIFO_WR, ISVALID=(C_SYNC_TRANSFER_START == 1)
 
 # FIFO read interface (outgoing)
 PORT fifo_rd_clk = "", DIR = I, IO_IF=FIFO_RD, SIGIS = CLK
 PORT fifo_rd_en = "", DIR = I, IO_IF=FIFO_RD
-PORT fifo_rd_dout = "", DIR = O, VEC = [63:0], IO_IF=FIFO_RD
+PORT fifo_rd_dout = "", DIR = O, VEC = [C_DMA_DATA_WIDTH_DEST-1:0], IO_IF=FIFO_RD
 PORT fifo_rd_valid = "", DIR = O, IO_IF=FIFO_RD
 PORT fifo_rd_underflow = "", DIR = O, IO_IF=FIFO_RD
 
