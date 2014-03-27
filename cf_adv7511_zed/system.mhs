@@ -101,7 +101,7 @@ BEGIN processing_system7
  PARAMETER C_EN_WDT = 0
  PARAMETER C_EN_DDR = 1
  PARAMETER C_FCLK_CLK0_FREQ = 100000000
- PARAMETER C_FCLK_CLK1_FREQ = 142857132
+ PARAMETER C_FCLK_CLK1_FREQ = 200000000
  PARAMETER C_FCLK_CLK2_FREQ = 200000000
  PARAMETER C_FCLK_CLK3_FREQ = 50000000
  PARAMETER C_USE_M_AXI_GP0 = 1
@@ -148,7 +148,7 @@ BEGIN processing_system7
  PORT FCLK_RESET0_N = processing_system7_0_FCLK_RESET0_N
  PORT FCLK_RESET1_N = processing_system7_0_FCLK_RESET1_N
  PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
- PORT S_AXI_HP0_ACLK = processing_system7_0_FCLK_CLK1
+ PORT S_AXI_HP0_ACLK = processing_system7_0_FCLK_CLK0
  PORT IRQ_F2P = axi_vdma_0_mm2s_introut & axi_iic_0_IIC2INTC_Irpt & axi_iic_1_IIC2INTC_Irpt & int_1 & int_2 & int_3 & int_4
  PORT USB0_VBUS_PWRFAULT = util_vector_logic_0_Res
  PORT DMA0_ACLK = processing_system7_0_FCLK_CLK0
@@ -223,7 +223,7 @@ BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_2
  PARAMETER HW_VER = 1.06.a
  PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
- PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK1
+ PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK0
  PORT INTERCONNECT_ARESETN = processing_system7_0_S_AXI_HP0_ARESETN
 END
 
@@ -293,7 +293,7 @@ BEGIN axi_clkgen
  BUS_INTERFACE S_AXI = axi_interconnect_1
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT drp_clk = processing_system7_0_FCLK_CLK0
- PORT clk = processing_system7_0_FCLK_CLK2
+ PORT clk = processing_system7_0_FCLK_CLK1
  PORT clk_0 = axi_hdmi_tx_0_hdmi_clk
 END
 
@@ -304,7 +304,7 @@ BEGIN clock_generator
  PARAMETER C_CLKOUT0_FREQ = 12288135
  PORT RST = net_gnd
  PORT CLKOUT0 = clock_generator_0_CLKOUT0
- PORT CLKIN = processing_system7_0_FCLK_CLK2
+ PORT CLKIN = processing_system7_0_FCLK_CLK1
 END
 
 BEGIN util_vector_logic
