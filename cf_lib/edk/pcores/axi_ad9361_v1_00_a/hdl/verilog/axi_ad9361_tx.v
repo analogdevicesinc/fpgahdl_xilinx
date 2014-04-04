@@ -125,6 +125,7 @@ module axi_ad9361_tx (
   reg             dac_dds_enable = 'd0;
   reg             dac_dds_data_enable = 'd0;
   reg             dac_dds_data_enable_toggle = 'd0;
+  reg             dac_dds_data_load_toggle = 'd0;
   reg             dac_drd = 'd0;
   reg     [63:0]  dac_dma_data = 'd0;
   reg     [15:0]  dac_dma_data_0 = 'd0;
@@ -194,13 +195,20 @@ module axi_ad9361_tx (
     if (dac_dvalid == 1'b1) begin
       dac_dma_data <= dac_ddata;
     end
+	
+    if (dac_dvalid == 1'b1) begin
+      dac_dds_data_load_toggle <= 1'b0;
+    end else if (dac_dds_data_enable == 1'b1) begin
+      dac_dds_data_load_toggle <= ~dac_dds_data_load_toggle;
+    end
+
     if (dac_dds_data_enable == 1'b1) begin
       if (dac_r1_mode == 1'b0) begin
         dac_dma_data_0 <= dac_dma_data[15: 0];
         dac_dma_data_1 <= dac_dma_data[31:16];
         dac_dma_data_2 <= dac_dma_data[47:32];
         dac_dma_data_3 <= dac_dma_data[63:48];
-      end else if (dac_dds_data_enable_toggle == 1'b1) begin
+      end else if (dac_dds_data_load_toggle == 1'b1) begin
         dac_dma_data_0 <= dac_dma_data[47:32];
         dac_dma_data_1 <= dac_dma_data[63:48];
         dac_dma_data_2 <= 16'd0;
