@@ -50,7 +50,9 @@
 *
 *****************************************************************************/
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 //typedef unsigned int  u32;
@@ -58,11 +60,11 @@
 
 /** do we need to make this name more unique ? **/
 //extern u32 ps7_init_data[];
-extern unsigned long ps7_ddr_init_data[];
-extern unsigned long ps7_mio_init_data[];
-extern unsigned long ps7_pll_init_data[];
-extern unsigned long ps7_clock_init_data[];
-extern unsigned long ps7_peripherals_init_data[];
+extern unsigned long  * ps7_ddr_init_data;
+extern unsigned long  * ps7_mio_init_data;
+extern unsigned long  * ps7_pll_init_data;
+extern unsigned long  * ps7_clock_init_data;
+extern unsigned long  * ps7_peripherals_init_data;
 
 
 
@@ -85,7 +87,19 @@ extern unsigned long ps7_peripherals_init_data[];
 /* Returns codes  of PS7_Init */
 #define PS7_INIT_SUCCESS   (0)    // 0 is success in good old C
 #define PS7_INIT_CORRUPT   (1)    // 1 the data is corrupted, and slcr reg are in corrupted state now
-#define PS7_INIT_TIMEOUT   (2)    // 1 when a poll operation timed out
+#define PS7_INIT_TIMEOUT   (2)    // 2 when a poll operation timed out
+#define PS7_POLL_FAILED_DDR_INIT (3)    // 3 when a poll operation timed out for ddr init
+#define PS7_POLL_FAILED_DMA      (4)    // 4 when a poll operation timed out for dma done bit
+#define PS7_POLL_FAILED_PLL      (5)    // 5 when a poll operation timed out for pll sequence init
+
+
+/* Silicon Versions */
+#define PCW_SILICON_VERSION_1 0
+#define PCW_SILICON_VERSION_2 1
+#define PCW_SILICON_VERSION_3 2
+
+/* This flag to be used by FSBL to check whether ps7_post_config() proc exixts */
+#define PS7_POST_CONFIG
 
 /* Freq of all peripherals */
 
@@ -108,11 +122,16 @@ extern unsigned long ps7_peripherals_init_data[];
 #define PCAP_FREQ  200000000
 #define TPIU_FREQ  0
 #define FPGA0_FREQ  100000000
-#define FPGA1_FREQ  150000000
-#define FPGA2_FREQ  200000000
+#define FPGA1_FREQ  200000000
+#define FPGA2_FREQ  125000000
 #define FPGA3_FREQ  30000000
 
 
 int ps7_config( unsigned long*);
 int ps7_init();
+int ps7_post_config();
+char* getPS7MessageInfo(unsigned key);
 
+#ifdef __cplusplus
+}
+#endif
