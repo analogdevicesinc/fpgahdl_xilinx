@@ -51,11 +51,6 @@
  PORT iic_scl = axi_iic_0_Scl, DIR = IO
  PORT iic_sda = axi_iic_0_Sda, DIR = IO
  PORT ps7_gpio = processing_system7_0_GPIO, DIR = IO, VEC = [32:0]
- PORT axi_dmac_0_fifo_rd_clk_pin = axi_dmac_0_fifo_rd_clk, DIR = I, SIGIS = CLK
- PORT axi_dmac_0_fifo_rd_en_pin = axi_dmac_0_fifo_rd_en, DIR = I
- PORT axi_dmac_0_fifo_rd_dout_pin = axi_dmac_0_fifo_rd_dout, DIR = O, VEC = [63:0]
- PORT axi_dmac_0_fifo_rd_valid_pin = axi_dmac_0_fifo_rd_valid, DIR = O
- PORT axi_dmac_0_fifo_rd_underflow_pin = axi_dmac_0_fifo_rd_underflow, DIR = O
 
 
 BEGIN processing_system7
@@ -412,11 +407,6 @@ BEGIN axi_dmac
  BUS_INTERFACE M_DEST_AXI = axi_interconnect_2
  PORT s_axi_aclk = processing_system7_0_FCLK_CLK0
  PORT m_src_axi_aclk = processing_system7_0_FCLK_CLK0
- PORT fifo_rd_clk = axi_dmac_0_fifo_rd_clk
- PORT fifo_rd_en = axi_dmac_0_fifo_rd_en
- PORT fifo_rd_dout = axi_dmac_0_fifo_rd_dout
- PORT fifo_rd_valid = axi_dmac_0_fifo_rd_valid
- PORT fifo_rd_underflow = axi_dmac_0_fifo_rd_underflow
  PORT m_dest_axi_aclk = processing_system7_0_FCLK_CLK2
  PORT fifo_wr_clk = clk
  PORT fifo_wr_en = axi_ad9361_0_adc_dvalid
