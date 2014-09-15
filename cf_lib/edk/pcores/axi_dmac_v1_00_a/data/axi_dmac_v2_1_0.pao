@@ -3,6 +3,7 @@ lib adi_common_v1_00_a sync_gray verilog
 lib adi_common_v1_00_a up_axi verilog
 lib axi_dmac_v1_00_a axi_dmac verilog
 lib axi_fifo_v1_00_a axi_fifo verilog
+lib axi_fifo_v1_00_a address_sync verilog
 lib axi_fifo_v1_00_a address_gray verilog
 lib axi_fifo_v1_00_a address_gray_pipelined verilog
 lib axi_dmac_v1_00_a address_generator verilog
